@@ -161,3 +161,102 @@ default:
  onkeyup="value=value.replace(/[^\d]/g,'')" 
 <input type="text" name="Money" id="Money" placeholder="输入整数提现金额" onkeyup="value=value.replace(/[^\d]/g,'')"  >
 ```
+***
+####jq xml解析并运用
+```
+
+    //经纬度转实际地址
+    function card_getGeoReverse(Lat,Lng,OrgiLat,OrgiLng,IsGps){
+      if (Lat!='' && Lng!='' && OrgiLat!='' && OrgiLng!='' && IsGps!='') {
+        $.ajax({
+          url:"/card_getGeoReverse?r="+Math.random()+'&orgiLat='+OrgiLat+'&orgiLng='+OrgiLng+'&lat='+Lat+'&lng='+Lng+'&isGps='+IsGps,
+          type:"get",
+          dataType: "xml",
+          success: function (data) {
+            if($(data).find('Code').text()=='200'){
+              var address=$(data).find('Address').text();
+              if (address!='') {
+                card_last_location=address;
+                $('#last_location').html(address);
+              }
+
+            }else{
+              A.showToast('错误码：'+$(data).find('Code').text()+" "+$(data).find('Info').text());
+            }
+          },
+          error: function (msg) {
+            A.showToast('网络错误');
+          }
+        });
+      }
+
+    }
+```
+
+***
+####百度地图相关
+```
+//当数组为空时定位到深圳
+function ShenZhen () {
+  map.centerAndZoom("深圳", 12);  
+}
+
+/*function refresh(){
+  $('#dingwei').click();
+}*/
+
+/*
+* @param GPS 中文地理位置
+*/
+function LocalMap (lng,lat,GPS) {
+  map.clearOverlays();
+    lng = parseFloat(lng) + 0.01185;//经度校正
+    lat = parseFloat(lat) + 0.00328;//纬度校正
+    map.setZoom(17);
+    map.panTo(new BMap.Point(parseFloat(lng),parseFloat(lat)), 17);
+    map.enableScrollWheelZoom(true);
+    var opts = {
+                width : 250,     // 信息窗口宽度
+                height: 80,     // 信息窗口高度
+                title : "所在位置" , // 信息窗口标题
+                enableMessage:true//设置允许信息窗发送短息
+              };
+    var point = new BMap.Point(parseFloat(lng),parseFloat(lat)); //创建一个坐标点
+    var marker = new BMap.Marker(point);  // 创建标注
+    var content = GPS;
+    map.addOverlay(marker);               // 将标注添加到地图中
+    marker.setAnimation(BMAP_ANIMATION_BOUNCE); //标记点跳动效果    
+    if(content ==""){
+
+      var geoc = new BMap.Geocoder();
+        // var point = new BMap.Point(parseFloat(lng),parseFloat(lat));
+        geoc.getLocation(point,function  (rs) {
+          var addComp = rs.addressComponents;
+          var content = addComp.province +
+          addComp.city +
+          addComp.district +
+          addComp.street +
+          addComp.streetNumber;
+          $("#weizhi").replaceWith('<li id="weizhi">所在位置：' + content + '附近</li>');
+          addClickHandler(content,marker);
+        })
+      } else {
+        addClickHandler(content,marker); //如果数据库存在位置信息则调用数据库的位置信息
+      }
+
+
+      function addClickHandler(content,marker){
+        marker.addEventListener("click",function(e){
+          openInfo(content,e)}
+          );
+      }
+      function openInfo(content,e){
+        var p = e.target;
+        var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+        var infoWindow = new BMap.InfoWindow(content+"附近",opts);  // 创建信息窗口对象 
+        map.openInfoWindow(infoWindow,point); //开启信息窗口
+      }
+    }
+ ```
+
+ 
