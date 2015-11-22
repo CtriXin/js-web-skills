@@ -5,6 +5,7 @@ js web 相关总结
 http://www.jb51.net/article/54247.htm
 ***
 ####验证码发送
+```
   var btn_sendSMS_obj=$('#btn_sendSMS');//发送验证码的对象
   var wait=0;//等待时间 
 
@@ -20,23 +21,31 @@ http://www.jb51.net/article/54247.htm
       setTimeout('count()',1000);
     }
   } 
+```
 ***
 
 ####弹出数字键盘
+
+```
 <input id="phone" type="tel" class="am-form-field" placeholder="手机号" >
+```
 ***
 jq
+```
 jQuery(document).ready(function($) {  
   });
+```
 
 ***
 jqm用
+```
 $(document).on("pageinit","#pagePhone",function(){
     $('#sendSMS').click(function(){
       sendSMS();
     });
 });
 
+```
 ***
 
 函数一定要加function 否则无法使用
@@ -44,11 +53,14 @@ $(document).on("pageinit","#pagePhone",function(){
 ####jQuery常用方法一览
 http://www.cnblogs.com/linzheng/archive/2010/10/14/1851816.html
 ***
+```
 checkCode.length
+```
 ***
 id绝对不能相同，不然很容易造成某些不易察觉的错误
 ***
 ####常见jq属性操作
+```
 $('#submitMyRec').attr("disabled", true);
 
 $('#divSubMyRec').hide();
@@ -60,8 +72,10 @@ $('#myRecNum').text(data.msg+'个');
 $('#recList').append(content);
 
 $('#bindPhone').removeAttr('href');
+```
 ***
 ####ajax 
+```
 $.ajax({
     url:"/wechat/queryMyRec",
     type:"get",
@@ -91,7 +105,9 @@ $.ajax({
         alert('服务器连接失败，请稍后重试');
       }
     });
+```
 ***
+```
 function time() {
   if (wait == 0) { 
     o.removeAttr("disabled"); 
@@ -103,21 +119,29 @@ function time() {
       setTimeout('time()',1000);
     }
   } 
+```
 ***
 ####时间格式化
+
+```
 var d=new Date(date); 
 var formatdate=d.getMonth()+"月"+d.getDay()+"日 "+d.getHours()+"时"+d.getMinutes()+"分"+d.getSeconds()+"秒";
 
+```
 ***
 ####jq ajax 解析json中的数组
 
+```
 $.each(data.data, function(i, item) {
             $("#withdrawList").append(
                     "<div>" + item.Account + "</div>" + 
                     "<div>" + item.State    + "</div>" +
                     "<div>" + item.Timestamp + "</div><hr/>");
         });
+```
 ***
+
+```
 switch(n)
 {
 case 1:
@@ -129,8 +153,11 @@ case 2:
 default:
   n 与 case 1 和 case 2 不同时执行的代码
 }
+```
+
 ***
 ####表单只能输入整数
+```
  onkeyup="value=value.replace(/[^\d]/g,'')" 
 <input type="text" name="Money" id="Money" placeholder="输入整数提现金额" onkeyup="value=value.replace(/[^\d]/g,'')"  >
-
+```
