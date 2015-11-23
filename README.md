@@ -7,6 +7,7 @@ js web 相关总结
 
 ```
 
+
 ***
 ####delete  js delete可以删除对象属性及变量
 http://www.jb51.net/article/54247.htm
@@ -366,4 +367,255 @@ https://github.com/jieyou/remote_inspect_web_on_real_device?utm_campaign=email_a
 
           return false;
         });
+```
+
+***
+####获得当前时间 格式06-26 20:23:50
+```
+
+         /**
+         * ts="new" 为当前时间
+         */
+ function curDateTime(ts) {
+  var d = new Date();
+  if (ts!='now') {
+    var t=parseInt(ts);
+    d.setTime(t*1000);
+  };
+  // var year = d.getFullYear();
+  var month = d.getMonth() + 1;
+  var date = d.getDate();
+  var day = d.getDay();
+  var Hours=d.getHours(); //获取当前小时数(0-23)
+  var Minutes=d.getMinutes(); //获取当前分钟数(0-59)
+  var Seconds=d.getSeconds(); //获取当前秒数(0-59)
+  var curDateTime = '';
+  if (month > 9)
+    curDateTime = curDateTime + month+'-';
+  else
+    curDateTime = curDateTime + "0" + month+'-';
+  if (date > 9)
+    curDateTime = curDateTime + date+' ';
+  else
+    curDateTime = curDateTime + "0" + date+' ';
+  if (Hours > 9)
+    curDateTime = curDateTime + Hours+':';
+  else
+    curDateTime = curDateTime + "0" + Hours+':';
+  if (Minutes > 9)
+    curDateTime = curDateTime + Minutes+':';
+  else
+    curDateTime = curDateTime + "0" + Minutes+':';
+  if (Seconds > 9)
+    curDateTime = curDateTime + Seconds;
+  else
+    curDateTime = curDateTime + "0" + Seconds;
+  return curDateTime;
+          }
+```
+
+***
+####返回当前十位时间戳
+```
+function getCurTs(){
+  var ts = (new Date()).valueOf()+"";
+  var my=ts.substr(0,ts.length-3);
+  return my;
+}
+```
+
+***
+####web 融云使用
+```
+//初始化，传入key
+RongIMClient.init(RongKey);
+//监听在线状态
+          RongIMClient.setConnectionStatusListener({
+            onChanged: function (status) {
+              // alert("status"+status);
+              if (status==RongIMClient.ConnectionStatus.CLOSURE) {
+                // myAlert('您已离线，请检查您的网络');
+                var showmsg=getShowCommand('<span class="am-icon-remove"> </span>&nbsp;您已离线，请检查您的网络并重新打开','danger');
+                    $('#picMsgContainer').html(showmsg);
+                    timeoutHandler=setTimeout("closeShowCommand()",SHOWMSG_TIME);
+                    myAlert('您已离线，请检查您的网络并重新打开');
+              }else if(status==RongIMClient.ConnectionStatus.OTHER_DEVICE_LOGIN){
+                myAlert('您的账号已在其他设备登录');
+                window.location="http://lamp.snewfly.com/hzsb_login_page?otherDevice=1";
+              };
+            }
+          });
+ //监听消息接收
+ RongIMClient.getInstance().setOnReceiveMessageListener({
+            //接收消息
+            onReceived: function (data) {
+
+                var con=eval('('+data.getContent()+')');
+                if (localStorage.getItem(LS_LastReceiveTime)>con.ts) {
+                  return;
+                };
+                localStorage.setItem(LS_LastReceiveTime,con.ts);
+
+                if (data.getContent()!='' && data.getExtra()=='img') {
+                    var obj=eval('('+data.getContent()+')');
+                    changeImg(obj.url,obj.username);
+                    if (PlayAudioTip=="1") {
+                      playAudioTip();
+                    };
+                  }else if(data.getContent()!='' && data.getExtra()=='audio'){
+                    //音频
+                    
+                      var obj=eval('('+data.getContent()+')');
+                      writeToChatLog (obj.url,'text-user',obj.username,obj.ts);
+                      if (PlayAudioTip=="1") {
+                        playAudioTip();
+                      };
+
+                      if (!isAudioLiveOpen) {//没打开
+                        notReadTimes++;
+                        $('#badge_not_read').html(notReadTimes);
+                        $('#badge_not_read').css('display','inline');
+                      }else{//打开着的（这里可不写）
+                        notReadTimes=0;
+                        $('#badge_not_read').html(notReadTimes);
+                        $('#badge_not_read').css('display','none');
+                      }
+
+                    }else if(data.getContent()!='' && data.getExtra()=='cancel'){
+                    //拒绝拍照
+
+                      var obj=eval('('+data.getContent()+')');
+                      var showmsg=getShowCommand(obj.username+'拒绝拍照','danger');
+                    $('#picMsgContainer').html(showmsg);
+                    timeoutHandler=setTimeout("closeShowCommand()",SHOWMSG_TIME);
+                      if (PlayAudioTip=="1") {
+                        playAudioTip();
+                      };
+                    }
+
+                  }
+                });
+//融云链接
+        RongIMClient.connect(RongToken, {
+          onSuccess: function (x) {
+
+              },
+              onError: function (x) {
+                console.log(x);
+
+              }
+            });
+//发送消息
+ins = RongIMClient.getInstance();
+        //定义 content等
+        var   s = document.getElementById("send"), t = document.getElementById("type");
+        s.onclick = function () {
+          if (DeviceId=="") {
+            myAlert(BindTips);
+            return;
+          }
+
+            var con = RongIMClient.ConversationType.setValue('4');//只使用私聊
+
+            var msg=toMsg('123');
+            var content=RongIMClient.TextMessage.obtain(msg || Date.now());
+            content.setExtra("smallpic");
+
+            //发送消息
+            ins.sendMessage(con, DeviceId, content, null, {
+              onSuccess: function () {
+                var showmsg=getShowCommand('<span class="am-icon-rocket"> </span>&nbsp;指令发送成功','success');
+                $('#picMsgContainer').html(showmsg);
+                timeoutHandler=setTimeout("closeShowCommand()",SHOWMSG_TIME);
+
+                  }, onError: function () {
+                    var showmsg=getShowCommand('<span class="am-icon-remove"> </span>&nbsp;指令发送失败','danger');
+                    $('#picMsgContainer').html(showmsg);
+                    timeoutHandler=setTimeout("closeShowCommand()",SHOWMSG_TIME);
+                  }
+                });
+          };
+
+
+```
+
+***
+####highchart使用
+```
+/**
+* @param data，欲处理原始数据
+**/
+function handlerChartData(myData,title){
+
+  var array = myData.split("T");
+      var x = array[1];
+      x = eval("("+x+")");
+      data = array[2];
+      data = eval("("+data+")");
+      drawChart(data,x,title);
+    }
+
+/**
+* @param data，数据 格式（）
+* @param x，日期 格式（）
+* @param title，标题栏
+**/
+function drawChart(data,x,title){
+  $('#drawDiv').css('display','inline');
+  var enmu='';//单位
+  if (QueryType==1) {
+    enmu='页';
+  }else if (QueryType==2) {
+    enmu='个';
+  }else if (QueryType==3) {
+    enmu='分钟';
+  }
+  //QueryType=1;//1=pages，2=words，3=learnts学习时间
+  chart = new Highcharts.Chart({
+    chart: {
+     renderTo: 'drawDiv',
+     defaultSeriesType: 'spline',
+     events: {
+             }
+           },
+           title: {
+             text: title,
+           x: -20 //center
+         },
+         subtitle: {
+           text: '',
+           x: -20
+         },
+         xAxis: {
+           categories: x,
+           gridLineWidth: 1, //设置网格宽度为1 
+           lineWidth: 1,  //基线宽度 
+           labels:{y:20}  //x轴标签位置：距X轴下方26像素
+         },
+         yAxis: {
+           title: {
+               text: '' //左侧边栏
+             },
+             min:0,
+           lineWidth: 1, //基线宽度 
+           plotLines: [{
+             value: 0,
+             width: 1,
+             color: '#808080'
+           }]
+         },
+         tooltip: {
+           valueSuffix: enmu
+         },
+       //设置图例
+       legend: {
+        enabled:false //去掉图例
+      },
+      //右下角不显示LOGO 
+      credits: { 
+       enabled: false   
+     },
+     series:data
+   });
+}
 ```
