@@ -1,5 +1,12 @@
 ### js-web-skills
 js web 相关总结
+
+***
+####
+```
+
+```
+
 ***
 ####delete  js delete可以删除对象属性及变量
 http://www.jb51.net/article/54247.htm
@@ -28,7 +35,17 @@ http://www.jb51.net/article/54247.htm
 
 ```
 <input id="phone" type="tel" class="am-form-field" placeholder="手机号" >
+或者
+<input id="user" type="text" placeholder="昵称" pattern="^[0-9]{20}$" title="昵称" value="bajian" required/>
+
 ```
+
+***
+####ul listview删除全部不需要遍历再remove，可以直接将整个ul内html只为空
+```
+var ul=$('#lv_device'); ul.html('');//先清空ul
+```
+
 ***
 jq
 ```
@@ -259,4 +276,94 @@ function LocalMap (lng,lat,GPS) {
     }
  ```
 
- 
+ ***
+####别人问我的正则问题
+```
+1、
+https://coding.net/u/LDCN/p/LD/git/tree/master/1C4088BA/trunk/DesomodGaren
+可能长这样
+https://coding.net/u/LDCN/p/LD/git/tree/master/DesomodGaren
+可能长这样
+
+LDCN，LD，DesomodGare是我要的
+LDCN，LD，DesomodGare，1C4088BA这几个位置的内容不是固定的
+#####解决：
+https://coding.net/u/(.*?)/p/(.*?)/git/tree/master/(.*/trunk/)?(.*)
+
+2、
+$str='每天在1：03发送消息：哈哈';
+$re='';
+preg_match('#(每天)?在([^时]*)(时)?发送(消息)?：(.*)#',$str,$re);
+print_r($re);
+
+$str='在1：03时发送：哈哈';
+$re='';
+preg_match('#(每天)?在([^时]*)(时)?发送(消息)?：(.*)#',$str,$re);
+print_r($re);
+
+$str='在1：03发送：哈哈';
+$re='';
+preg_match('#(每天)?在([^时]*)(时)?发送(消息)?：(.*)#',$str,$re);
+print_r($re);
+
+```
+
+***
+####AL框架中listview之类的DOM操作后要refresh下，否则scroller会出问题
+```
+//一般当Article为refresh组件的时候，都是通过监听refresh初始化事件（refreshInit）而不是监听articleload或者articleshow事件，因为前者通常比后者晚触发，所以如果需要异步加载数据可能会出现refresh组件尚未初始化的情况，所以一般建议在refreshInit中执行注入等操作。
+//当refresh初始化会进入此监听
+首先：设置 article的data-scroll="pullup"如：<article data-role="article" id="article_cardcenter" data-scroll="pullup" class="active" style="top:44px;bottom:50px;">
+其次：
+			$('#article_cardcenter').on('refreshInit', function(){
+				var refresh = A.Refresh(this);
+				//监听下拉刷新事件，可以做一些逻辑操作，当data-scroll="pullup"时无效
+				refresh.on('pulldown', function(){
+					$('#content').prepend('<li><div class="text">下拉刷新的内容</div></li>');
+					refresh.refresh();//当scroll区域有dom结构变化需刷新
+				});
+				//监听上拉刷新事件，可以做一些逻辑操作，当data-scroll="pulldown"时无效
+				refresh.on('pullup', function(){
+					$('#content').append('<li><div class="text">上拉刷新的内容</div></li>');
+					refresh.refresh();//当scroll区域有dom结构变化需刷新
+				});
+			});
+
+```
+
+
+***
+####AL:section间传参数
+```
+  var li='<li href="section_device_main.html?id=1" data-toggle="section"><div class="img appimg"><img class="am-circle" src="http://mhfm4.us.cdndm5.com/19/18034/20150409110918_180x240_10.jpg" width="60px" height="60px" /></div><i class="icon-color-blue ricon iconfont iconline-arrow-right"></i><div class="text">设备Aa<small>已关机<br/>电量 | 音量</small></div> </li>';
+
+
+$('#article_device_main').on('articleshow', function(){//设备详情每次展示调用
+          var params = A.Component.params('#section_device_main');//获取所有参数，这里必须是section和data-toggle类型一致。都是article的话就必须是article
+        A.showToast('参数id的值为：'+params.id);
+      });
+```
+
+
+***
+####真机web调试
+```
+https://github.com/jieyou/remote_inspect_web_on_real_device?utm_campaign=email_admin&utm_source=trigger-email&utm_medium=email#%E8%B0%83%E8%AF%95android-app%E9%87%8C%E7%9A%84webview
+```
+
+***
+####AL框架中点击事件不要使用JQ的，手机上会出先点击难以捕捉问题。使用框架自带的：
+```
+              //选择头像
+       $('.head-img').on(A.options.clickEvent, function(){
+        var t=$(this);
+        if(previewSelected){
+          previewSelected.css("border","0px");
+        }
+        t.css("border","solid 1px #3779D0");
+        previewSelected=t;
+        // document.getElementById("iconInfos").value=t.attr("src").substring(11);
+
+          return false;
+        });
+```
