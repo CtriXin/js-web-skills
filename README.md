@@ -619,3 +619,34 @@ function drawChart(data,x,title){
    });
 }
 ```
+
+
+***
+####jq <div> \span 赋值 input
+```
+$('#sp').val();//
+$('#sp').html();
+
+jQuery获取多种input值的方法
+http://blog.sina.com.cn/s/blog_70491fc60100t5kw.html
+
+```
+
+
+***
+####获取选中的单选按钮
+```
+<label class="label-right" id="radio_group_sex">
+					<a href="#" data-role="radio">
+						<input type="radio" checked="true" name="sex" id="male" style="left:0;right:auto;" value="男" />
+						<label for="male" class="black">男&nbsp;</label>
+					</a>
+					<a href="#" data-role="radio">
+						<input type="radio" name="sex" id="female" style="left:0;right:auto;" value="女" />
+						<label for="female" class="black">女&nbsp;</label>
+					</a>
+				</label>
+				
+$('#radio_group_sex input[name="sex"]:checked').val();
+
+```
