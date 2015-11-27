@@ -14,21 +14,21 @@ http://www.jb51.net/article/54247.htm
 ***
 ####验证码发送
 ```
-  var btn_sendSMS_obj=$('#btn_sendSMS');//发送验证码的对象
-  var wait=0;//等待时间 
+var btn_sendSMS_obj=$('#btn_sendSMS');//发送验证码的对象
+var wait=0;//等待时间 
 
-  //验证码计数君
-  function count() {
-  if (wait == 0) { 
-    btn_sendSMS_obj.removeAttr("disabled"); 
-    btn_sendSMS_obj.text("发送验证码");//改变按钮中value的值 
-  } else { 
-      btn_sendSMS_obj.attr("disabled", true);//倒计时过程中禁止点击按钮 
-      btn_sendSMS_obj.text(wait + "秒");//改变按钮中value的值 
-      wait--;
-      setTimeout('count()',1000);
-    }
-  } 
+//验证码计数君
+function count() {
+if (wait == 0) { 
+btn_sendSMS_obj.removeAttr("disabled"); 
+btn_sendSMS_obj.text("发送验证码");//改变按钮中value的值 
+} else { 
+btn_sendSMS_obj.attr("disabled", true);//倒计时过程中禁止点击按钮 
+btn_sendSMS_obj.text(wait + "秒");//改变按钮中value的值 
+wait--;
+setTimeout('count()',1000);
+}
+} 
 ```
 ***
 
@@ -51,16 +51,16 @@ var ul=$('#lv_device'); ul.html('');//先清空ul
 jq
 ```
 jQuery(document).ready(function($) {  
-  });
+});
 ```
 
 ***
 jqm用
 ```
 $(document).on("pageinit","#pagePhone",function(){
-    $('#sendSMS').click(function(){
-      sendSMS();
-    });
+$('#sendSMS').click(function(){
+sendSMS();
+});
 });
 
 ```
@@ -95,48 +95,48 @@ $('#bindPhone').removeAttr('href');
 ####ajax 
 ```
 $.ajax({
-    url:"/wechat/queryMyRec",
-    type:"get",
-    dataType: "json",
-    success: function (data) {
-        // alert(data.msg);
-        if (data.state=='1') {
-          if (data.msg!='0') {
-            var content='';
-            if (data.msg=='1') {
-              content='<br><li><a href="#" style="margin:10px">'+data.data+'</a></li>';
-            }else{
-              var array = data.data.split(",");
-              var length=array.length;
-              for (var i = 0; i <length; i++) {
-                content+='<br><li><a href="#" style="margin:10px">'+array[i]+'</a></li>';
-              };
-            }
-            $('#myRecNum').text(data.msg+'个'); 
-            $('#recList').append(content);
-          }
-        }else{
-          alert(data.msg);
-        }
-      },
-      error: function (msg) {
-        alert('服务器连接失败，请稍后重试');
-      }
-    });
+url:"/wechat/queryMyRec",
+type:"get",
+dataType: "json",
+success: function (data) {
+// alert(data.msg);
+if (data.state=='1') {
+if (data.msg!='0') {
+var content='';
+if (data.msg=='1') {
+content='<br><li><a href="#" style="margin:10px">'+data.data+'</a></li>';
+}else{
+var array = data.data.split(",");
+var length=array.length;
+for (var i = 0; i <length; i++) {
+content+='<br><li><a href="#" style="margin:10px">'+array[i]+'</a></li>';
+};
+}
+$('#myRecNum').text(data.msg+'个'); 
+$('#recList').append(content);
+}
+}else{
+alert(data.msg);
+}
+},
+error: function (msg) {
+alert('服务器连接失败，请稍后重试');
+}
+});
 ```
 ***
 ```
 function time() {
-  if (wait == 0) { 
-    o.removeAttr("disabled"); 
-    o.text("点击发送短信验证码");//改变按钮中value的值 
-  } else { 
-      o.attr("disabled", true);//倒计时过程中禁止点击按钮 
-      o.text(wait + "秒后重新获取验证码");//改变按钮中value的值 
-      wait--;
-      setTimeout('time()',1000);
-    }
-  } 
+if (wait == 0) { 
+o.removeAttr("disabled"); 
+o.text("点击发送短信验证码");//改变按钮中value的值 
+} else { 
+o.attr("disabled", true);//倒计时过程中禁止点击按钮 
+o.text(wait + "秒后重新获取验证码");//改变按钮中value的值 
+wait--;
+setTimeout('time()',1000);
+}
+} 
 ```
 ***
 ####时间格式化
@@ -151,64 +151,64 @@ var formatdate=d.getMonth()+"月"+d.getDay()+"日 "+d.getHours()+"时"+d.getMinu
 
 ```
 $.each(data.data, function(i, item) {
-            $("#withdrawList").append(
-                    "<div>" + item.Account + "</div>" + 
-                    "<div>" + item.State    + "</div>" +
-                    "<div>" + item.Timestamp + "</div><hr/>");
-        });
+$("#withdrawList").append(
+"<div>" + item.Account + "</div>" + 
+"<div>" + item.State    + "</div>" +
+"<div>" + item.Timestamp + "</div><hr/>");
+});
 ```
 ***
 
 ```
 switch(n)
 {
-case 1:
-  执行代码块 1
-  break;
-case 2:
-  执行代码块 2
-  break;
-default:
-  n 与 case 1 和 case 2 不同时执行的代码
+	case 1:
+	执行代码块 1
+	break;
+	case 2:
+	执行代码块 2
+	break;
+	default:
+	n 与 case 1 和 case 2 不同时执行的代码
 }
 ```
 
 ***
 ####表单只能输入整数
 ```
- onkeyup="value=value.replace(/[^\d]/g,'')" 
+onkeyup="value=value.replace(/[^\d]/g,'')" 
 <input type="text" name="Money" id="Money" placeholder="输入整数提现金额" onkeyup="value=value.replace(/[^\d]/g,'')"  >
 ```
 ***
 ####jq xml解析并运用
 ```
 
-    //经纬度转实际地址
-    function card_getGeoReverse(Lat,Lng,OrgiLat,OrgiLng,IsGps){
-      if (Lat!='' && Lng!='' && OrgiLat!='' && OrgiLng!='' && IsGps!='') {
-        $.ajax({
-          url:"/card_getGeoReverse?r="+Math.random()+'&orgiLat='+OrgiLat+'&orgiLng='+OrgiLng+'&lat='+Lat+'&lng='+Lng+'&isGps='+IsGps,
-          type:"get",
-          dataType: "xml",
-          success: function (data) {
-            if($(data).find('Code').text()=='200'){
-              var address=$(data).find('Address').text();
-              if (address!='') {
-                card_last_location=address;
-                $('#last_location').html(address);
-              }
+//经纬度转实际地址
+function card_getGeoReverse(Lat,Lng,OrgiLat,OrgiLng,IsGps){
+if (Lat!='' && Lng!='' && OrgiLat!='' && OrgiLng!='' && IsGps!='') {
+$.ajax({
+url:"/card_getGeoReverse?r="+Math.random()+'&orgiLat='+OrgiLat+'&orgiLng='+OrgiLng+'&lat='+Lat+'&lng='+Lng+'&isGps='+IsGps,
+type:"get",
+dataType: "xml",
+success: function (data) {
+if($(data).find('Code').text()=='200'){
+var address=$(data).find('Address').text();
+if (address!='') {
+card_last_location=address;
+$('#last_location').html(address);
+}
 
-            }else{
-              A.showToast('错误码：'+$(data).find('Code').text()+" "+$(data).find('Info').text());
-            }
-          },
-          error: function (msg) {
-            A.showToast('网络错误');
-          }
-        });
-      }
+}else{
+A.showToast('错误码：'+$(data).find('Code').text()+" "+$(data).find('Info').text());
+}
+},
+error: function (msg) {
+A.showToast('网络错误');
+}
+});
+}
 
-    }
+}
 ```
 
 ***
@@ -216,68 +216,68 @@ default:
 ```
 //当数组为空时定位到深圳
 function ShenZhen () {
-  map.centerAndZoom("深圳", 12);  
+map.centerAndZoom("深圳", 12);  
 }
 
 /*function refresh(){
-  $('#dingwei').click();
+$('#dingwei').click();
 }*/
 
 /*
 * @param GPS 中文地理位置
 */
 function LocalMap (lng,lat,GPS) {
-  map.clearOverlays();
-    lng = parseFloat(lng) + 0.01185;//经度校正
-    lat = parseFloat(lat) + 0.00328;//纬度校正
-    map.setZoom(17);
-    map.panTo(new BMap.Point(parseFloat(lng),parseFloat(lat)), 17);
-    map.enableScrollWheelZoom(true);
-    var opts = {
-                width : 250,     // 信息窗口宽度
-                height: 80,     // 信息窗口高度
-                title : "所在位置" , // 信息窗口标题
-                enableMessage:true//设置允许信息窗发送短息
-              };
-    var point = new BMap.Point(parseFloat(lng),parseFloat(lat)); //创建一个坐标点
-    var marker = new BMap.Marker(point);  // 创建标注
-    var content = GPS;
-    map.addOverlay(marker);               // 将标注添加到地图中
-    marker.setAnimation(BMAP_ANIMATION_BOUNCE); //标记点跳动效果    
-    if(content ==""){
+map.clearOverlays();
+lng = parseFloat(lng) + 0.01185;//经度校正
+lat = parseFloat(lat) + 0.00328;//纬度校正
+map.setZoom(17);
+map.panTo(new BMap.Point(parseFloat(lng),parseFloat(lat)), 17);
+map.enableScrollWheelZoom(true);
+var opts = {
+width : 250,     // 信息窗口宽度
+height: 80,     // 信息窗口高度
+title : "所在位置" , // 信息窗口标题
+enableMessage:true//设置允许信息窗发送短息
+};
+var point = new BMap.Point(parseFloat(lng),parseFloat(lat)); //创建一个坐标点
+var marker = new BMap.Marker(point);  // 创建标注
+var content = GPS;
+map.addOverlay(marker);               // 将标注添加到地图中
+marker.setAnimation(BMAP_ANIMATION_BOUNCE); //标记点跳动效果    
+if(content ==""){
 
-      var geoc = new BMap.Geocoder();
-        // var point = new BMap.Point(parseFloat(lng),parseFloat(lat));
-        geoc.getLocation(point,function  (rs) {
-          var addComp = rs.addressComponents;
-          var content = addComp.province +
-          addComp.city +
-          addComp.district +
-          addComp.street +
-          addComp.streetNumber;
-          $("#weizhi").replaceWith('<li id="weizhi">所在位置：' + content + '附近</li>');
-          addClickHandler(content,marker);
-        })
-      } else {
-        addClickHandler(content,marker); //如果数据库存在位置信息则调用数据库的位置信息
-      }
+var geoc = new BMap.Geocoder();
+// var point = new BMap.Point(parseFloat(lng),parseFloat(lat));
+geoc.getLocation(point,function  (rs) {
+var addComp = rs.addressComponents;
+var content = addComp.province +
+addComp.city +
+addComp.district +
+addComp.street +
+addComp.streetNumber;
+$("#weizhi").replaceWith('<li id="weizhi">所在位置：' + content + '附近</li>');
+addClickHandler(content,marker);
+})
+} else {
+addClickHandler(content,marker); //如果数据库存在位置信息则调用数据库的位置信息
+}
 
 
-      function addClickHandler(content,marker){
-        marker.addEventListener("click",function(e){
-          openInfo(content,e)}
-          );
-      }
-      function openInfo(content,e){
-        var p = e.target;
-        var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
-        var infoWindow = new BMap.InfoWindow(content+"附近",opts);  // 创建信息窗口对象 
-        map.openInfoWindow(infoWindow,point); //开启信息窗口
-      }
-    }
- ```
+function addClickHandler(content,marker){
+marker.addEventListener("click",function(e){
+openInfo(content,e)}
+);
+}
+function openInfo(content,e){
+var p = e.target;
+var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+var infoWindow = new BMap.InfoWindow(content+"附近",opts);  // 创建信息窗口对象 
+map.openInfoWindow(infoWindow,point); //开启信息窗口
+}
+}
+```
 
- ***
+***
 ####别人问我的正则问题
 ```
 1、
@@ -316,33 +316,33 @@ print_r($re);
 //当refresh初始化会进入此监听
 首先：设置 article的data-scroll="pullup"如：<article data-role="article" id="article_cardcenter" data-scroll="pullup" class="active" style="top:44px;bottom:50px;">
 其次：
-			$('#article_cardcenter').on('refreshInit', function(){
-				var refresh = A.Refresh(this);
-				//监听下拉刷新事件，可以做一些逻辑操作，当data-scroll="pullup"时无效
-				refresh.on('pulldown', function(){
-					$('#content').prepend('<li><div class="text">下拉刷新的内容</div></li>');
-					refresh.refresh();//当scroll区域有dom结构变化需刷新
-				});
-				//监听上拉刷新事件，可以做一些逻辑操作，当data-scroll="pulldown"时无效
-				refresh.on('pullup', function(){
-					$('#content').append('<li><div class="text">上拉刷新的内容</div></li>');
-					refresh.refresh();//当scroll区域有dom结构变化需刷新
-				});
-			});
+$('#article_cardcenter').on('refreshInit', function(){
+var refresh = A.Refresh(this);
+//监听下拉刷新事件，可以做一些逻辑操作，当data-scroll="pullup"时无效
+refresh.on('pulldown', function(){
+$('#content').prepend('<li><div class="text">下拉刷新的内容</div></li>');
+refresh.refresh();//当scroll区域有dom结构变化需刷新
+});
+//监听上拉刷新事件，可以做一些逻辑操作，当data-scroll="pulldown"时无效
+refresh.on('pullup', function(){
+$('#content').append('<li><div class="text">上拉刷新的内容</div></li>');
+refresh.refresh();//当scroll区域有dom结构变化需刷新
+});
+});
 
 ```
 
 
 ***
-####AL:section间传参数
+####AL:section间传参数,注意.html?，没有#
 ```
-  var li='<li href="section_device_main.html?id=1" data-toggle="section"><div class="img appimg"><img class="am-circle" src="http://mhfm4.us.cdndm5.com/19/18034/20150409110918_180x240_10.jpg" width="60px" height="60px" /></div><i class="icon-color-blue ricon iconfont iconline-arrow-right"></i><div class="text">设备Aa<small>已关机<br/>电量 | 音量</small></div> </li>';
+var li='<li href="section_device_main.html?id=1" data-toggle="section"><div class="img appimg"><img class="am-circle" src="http://mhfm4.us.cdndm5.com/19/18034/20150409110918_180x240_10.jpg" width="60px" height="60px" /></div><i class="icon-color-blue ricon iconfont iconline-arrow-right"></i><div class="text">设备Aa<small>已关机<br/>电量 | 音量</small></div> </li>';
 
 
 $('#article_device_main').on('articleshow', function(){//设备详情每次展示调用
-          var params = A.Component.params('#section_device_main');//获取所有参数，这里必须是section和data-toggle类型一致。都是article的话就必须是article
-        A.showToast('参数id的值为：'+params.id);
-      });
+var params = A.Component.params('#section_device_main');//获取所有参数，这里必须是section和data-toggle类型一致。都是article的话就必须是article
+A.showToast('参数id的值为：'+params.id);
+});
 ```
 
 
@@ -355,72 +355,72 @@ https://github.com/jieyou/remote_inspect_web_on_real_device?utm_campaign=email_a
 ***
 ####AL框架中点击事件不要使用JQ的，手机上会出先点击难以捕捉问题。使用框架自带的：
 ```
-              //选择头像
-       $('.head-img').on(A.options.clickEvent, function(){
-        var t=$(this);
-        if(previewSelected){
-          previewSelected.css("border","0px");
-        }
-        t.css("border","solid 1px #3779D0");
-        previewSelected=t;
-        // document.getElementById("iconInfos").value=t.attr("src").substring(11);
+//选择头像
+$('.head-img').on(A.options.clickEvent, function(){
+var t=$(this);
+if(previewSelected){
+previewSelected.css("border","0px");
+}
+t.css("border","solid 1px #3779D0");
+previewSelected=t;
+// document.getElementById("iconInfos").value=t.attr("src").substring(11);
 
-          return false;
-        });
+return false;
+});
 ```
 
 ***
 ####获得当前时间 格式06-26 20:23:50
 ```
 
-         /**
-         * ts="new" 为当前时间
-         */
- function curDateTime(ts) {
-  var d = new Date();
-  if (ts!='now') {
-    var t=parseInt(ts);
-    d.setTime(t*1000);
-  };
-  // var year = d.getFullYear();
-  var month = d.getMonth() + 1;
-  var date = d.getDate();
-  var day = d.getDay();
-  var Hours=d.getHours(); //获取当前小时数(0-23)
-  var Minutes=d.getMinutes(); //获取当前分钟数(0-59)
-  var Seconds=d.getSeconds(); //获取当前秒数(0-59)
-  var curDateTime = '';
-  if (month > 9)
-    curDateTime = curDateTime + month+'-';
-  else
-    curDateTime = curDateTime + "0" + month+'-';
-  if (date > 9)
-    curDateTime = curDateTime + date+' ';
-  else
-    curDateTime = curDateTime + "0" + date+' ';
-  if (Hours > 9)
-    curDateTime = curDateTime + Hours+':';
-  else
-    curDateTime = curDateTime + "0" + Hours+':';
-  if (Minutes > 9)
-    curDateTime = curDateTime + Minutes+':';
-  else
-    curDateTime = curDateTime + "0" + Minutes+':';
-  if (Seconds > 9)
-    curDateTime = curDateTime + Seconds;
-  else
-    curDateTime = curDateTime + "0" + Seconds;
-  return curDateTime;
-          }
+/**
+* ts="now" 为当前时间
+*/
+function curDateTime(ts) {
+var d = new Date();
+if (ts!='now') {
+var t=parseInt(ts);
+d.setTime(t*1000);
+};
+// var year = d.getFullYear();
+var month = d.getMonth() + 1;
+var date = d.getDate();
+var day = d.getDay();
+var Hours=d.getHours(); //获取当前小时数(0-23)
+var Minutes=d.getMinutes(); //获取当前分钟数(0-59)
+var Seconds=d.getSeconds(); //获取当前秒数(0-59)
+var curDateTime = '';
+if (month > 9)
+curDateTime = curDateTime + month+'-';
+else
+curDateTime = curDateTime + "0" + month+'-';
+if (date > 9)
+curDateTime = curDateTime + date+' ';
+else
+curDateTime = curDateTime + "0" + date+' ';
+if (Hours > 9)
+curDateTime = curDateTime + Hours+':';
+else
+curDateTime = curDateTime + "0" + Hours+':';
+if (Minutes > 9)
+curDateTime = curDateTime + Minutes+':';
+else
+curDateTime = curDateTime + "0" + Minutes+':';
+if (Seconds > 9)
+curDateTime = curDateTime + Seconds;
+else
+curDateTime = curDateTime + "0" + Seconds;
+return curDateTime;
+}
 ```
 
 ***
 ####返回当前十位时间戳
 ```
 function getCurTs(){
-  var ts = (new Date()).valueOf()+"";
-  var my=ts.substr(0,ts.length-3);
-  return my;
+var ts = (new Date()).valueOf()+"";
+var my=ts.substr(0,ts.length-3);
+return my;
 }
 ```
 
@@ -430,111 +430,111 @@ function getCurTs(){
 //初始化，传入key
 RongIMClient.init(RongKey);
 //监听在线状态
-          RongIMClient.setConnectionStatusListener({
-            onChanged: function (status) {
-              // alert("status"+status);
-              if (status==RongIMClient.ConnectionStatus.CLOSURE) {
-                // myAlert('您已离线，请检查您的网络');
-                var showmsg=getShowCommand('<span class="am-icon-remove"> </span>&nbsp;您已离线，请检查您的网络并重新打开','danger');
-                    $('#picMsgContainer').html(showmsg);
-                    timeoutHandler=setTimeout("closeShowCommand()",SHOWMSG_TIME);
-                    myAlert('您已离线，请检查您的网络并重新打开');
-              }else if(status==RongIMClient.ConnectionStatus.OTHER_DEVICE_LOGIN){
-                myAlert('您的账号已在其他设备登录');
-                window.location="http://lamp.snewfly.com/hzsb_login_page?otherDevice=1";
-              };
-            }
-          });
- //监听消息接收
- RongIMClient.getInstance().setOnReceiveMessageListener({
-            //接收消息
-            onReceived: function (data) {
+RongIMClient.setConnectionStatusListener({
+onChanged: function (status) {
+// alert("status"+status);
+if (status==RongIMClient.ConnectionStatus.CLOSURE) {
+// myAlert('您已离线，请检查您的网络');
+var showmsg=getShowCommand('<span class="am-icon-remove"> </span>&nbsp;您已离线，请检查您的网络并重新打开','danger');
+$('#picMsgContainer').html(showmsg);
+timeoutHandler=setTimeout("closeShowCommand()",SHOWMSG_TIME);
+myAlert('您已离线，请检查您的网络并重新打开');
+}else if(status==RongIMClient.ConnectionStatus.OTHER_DEVICE_LOGIN){
+myAlert('您的账号已在其他设备登录');
+window.location="http://lamp.snewfly.com/hzsb_login_page?otherDevice=1";
+};
+}
+});
+//监听消息接收
+RongIMClient.getInstance().setOnReceiveMessageListener({
+//接收消息
+onReceived: function (data) {
 
-                var con=eval('('+data.getContent()+')');
-                if (localStorage.getItem(LS_LastReceiveTime)>con.ts) {
-                  return;
-                };
-                localStorage.setItem(LS_LastReceiveTime,con.ts);
+var con=eval('('+data.getContent()+')');
+if (localStorage.getItem(LS_LastReceiveTime)>con.ts) {
+return;
+};
+localStorage.setItem(LS_LastReceiveTime,con.ts);
 
-                if (data.getContent()!='' && data.getExtra()=='img') {
-                    var obj=eval('('+data.getContent()+')');
-                    changeImg(obj.url,obj.username);
-                    if (PlayAudioTip=="1") {
-                      playAudioTip();
-                    };
-                  }else if(data.getContent()!='' && data.getExtra()=='audio'){
-                    //音频
-                    
-                      var obj=eval('('+data.getContent()+')');
-                      writeToChatLog (obj.url,'text-user',obj.username,obj.ts);
-                      if (PlayAudioTip=="1") {
-                        playAudioTip();
-                      };
+if (data.getContent()!='' && data.getExtra()=='img') {
+var obj=eval('('+data.getContent()+')');
+changeImg(obj.url,obj.username);
+if (PlayAudioTip=="1") {
+playAudioTip();
+};
+}else if(data.getContent()!='' && data.getExtra()=='audio'){
+//音频
 
-                      if (!isAudioLiveOpen) {//没打开
-                        notReadTimes++;
-                        $('#badge_not_read').html(notReadTimes);
-                        $('#badge_not_read').css('display','inline');
-                      }else{//打开着的（这里可不写）
-                        notReadTimes=0;
-                        $('#badge_not_read').html(notReadTimes);
-                        $('#badge_not_read').css('display','none');
-                      }
+var obj=eval('('+data.getContent()+')');
+writeToChatLog (obj.url,'text-user',obj.username,obj.ts);
+if (PlayAudioTip=="1") {
+playAudioTip();
+};
 
-                    }else if(data.getContent()!='' && data.getExtra()=='cancel'){
-                    //拒绝拍照
+if (!isAudioLiveOpen) {//没打开
+notReadTimes++;
+$('#badge_not_read').html(notReadTimes);
+$('#badge_not_read').css('display','inline');
+}else{//打开着的（这里可不写）
+notReadTimes=0;
+$('#badge_not_read').html(notReadTimes);
+$('#badge_not_read').css('display','none');
+}
 
-                      var obj=eval('('+data.getContent()+')');
-                      var showmsg=getShowCommand(obj.username+'拒绝拍照','danger');
-                    $('#picMsgContainer').html(showmsg);
-                    timeoutHandler=setTimeout("closeShowCommand()",SHOWMSG_TIME);
-                      if (PlayAudioTip=="1") {
-                        playAudioTip();
-                      };
-                    }
+}else if(data.getContent()!='' && data.getExtra()=='cancel'){
+//拒绝拍照
 
-                  }
-                });
+var obj=eval('('+data.getContent()+')');
+var showmsg=getShowCommand(obj.username+'拒绝拍照','danger');
+$('#picMsgContainer').html(showmsg);
+timeoutHandler=setTimeout("closeShowCommand()",SHOWMSG_TIME);
+if (PlayAudioTip=="1") {
+playAudioTip();
+};
+}
+
+}
+});
 //融云链接
-        RongIMClient.connect(RongToken, {
-          onSuccess: function (x) {
+RongIMClient.connect(RongToken, {
+onSuccess: function (x) {
 
-              },
-              onError: function (x) {
-                console.log(x);
+},
+onError: function (x) {
+console.log(x);
 
-              }
-            });
+}
+});
 //发送消息
 ins = RongIMClient.getInstance();
-        //定义 content等
-        var   s = document.getElementById("send"), t = document.getElementById("type");
-        s.onclick = function () {
-          if (DeviceId=="") {
-            myAlert(BindTips);
-            return;
-          }
+//定义 content等
+var   s = document.getElementById("send"), t = document.getElementById("type");
+s.onclick = function () {
+if (DeviceId=="") {
+myAlert(BindTips);
+return;
+}
 
-            var con = RongIMClient.ConversationType.setValue('4');//只使用私聊
+var con = RongIMClient.ConversationType.setValue('4');//只使用私聊
 
-            var msg=toMsg('123');
-            var content=RongIMClient.TextMessage.obtain(msg || Date.now());
-            content.setExtra("smallpic");
+var msg=toMsg('123');
+var content=RongIMClient.TextMessage.obtain(msg || Date.now());
+content.setExtra("smallpic");
 
-            //发送消息
-            ins.sendMessage(con, DeviceId, content, null, {
-              onSuccess: function () {
-                var showmsg=getShowCommand('<span class="am-icon-rocket"> </span>&nbsp;指令发送成功','success');
-                $('#picMsgContainer').html(showmsg);
-                timeoutHandler=setTimeout("closeShowCommand()",SHOWMSG_TIME);
+//发送消息
+ins.sendMessage(con, DeviceId, content, null, {
+onSuccess: function () {
+var showmsg=getShowCommand('<span class="am-icon-rocket"> </span>&nbsp;指令发送成功','success');
+$('#picMsgContainer').html(showmsg);
+timeoutHandler=setTimeout("closeShowCommand()",SHOWMSG_TIME);
 
-                  }, onError: function () {
-                    var showmsg=getShowCommand('<span class="am-icon-remove"> </span>&nbsp;指令发送失败','danger');
-                    $('#picMsgContainer').html(showmsg);
-                    timeoutHandler=setTimeout("closeShowCommand()",SHOWMSG_TIME);
-                  }
-                });
-          };
+}, onError: function () {
+var showmsg=getShowCommand('<span class="am-icon-remove"> </span>&nbsp;指令发送失败','danger');
+$('#picMsgContainer').html(showmsg);
+timeoutHandler=setTimeout("closeShowCommand()",SHOWMSG_TIME);
+}
+});
+};
 
 
 ```
@@ -547,13 +547,13 @@ ins = RongIMClient.getInstance();
 **/
 function handlerChartData(myData,title){
 
-  var array = myData.split("T");
-      var x = array[1];
-      x = eval("("+x+")");
-      data = array[2];
-      data = eval("("+data+")");
-      drawChart(data,x,title);
-    }
+var array = myData.split("T");
+var x = array[1];
+x = eval("("+x+")");
+data = array[2];
+data = eval("("+data+")");
+drawChart(data,x,title);
+}
 
 /**
 * @param data，数据 格式（）
@@ -561,62 +561,62 @@ function handlerChartData(myData,title){
 * @param title，标题栏
 **/
 function drawChart(data,x,title){
-  $('#drawDiv').css('display','inline');
-  var enmu='';//单位
-  if (QueryType==1) {
-    enmu='页';
-  }else if (QueryType==2) {
-    enmu='个';
-  }else if (QueryType==3) {
-    enmu='分钟';
-  }
-  //QueryType=1;//1=pages，2=words，3=learnts学习时间
-  chart = new Highcharts.Chart({
-    chart: {
-     renderTo: 'drawDiv',
-     defaultSeriesType: 'spline',
-     events: {
-             }
-           },
-           title: {
-             text: title,
-           x: -20 //center
-         },
-         subtitle: {
-           text: '',
-           x: -20
-         },
-         xAxis: {
-           categories: x,
-           gridLineWidth: 1, //设置网格宽度为1 
-           lineWidth: 1,  //基线宽度 
-           labels:{y:20}  //x轴标签位置：距X轴下方26像素
-         },
-         yAxis: {
-           title: {
-               text: '' //左侧边栏
-             },
-             min:0,
-           lineWidth: 1, //基线宽度 
-           plotLines: [{
-             value: 0,
-             width: 1,
-             color: '#808080'
-           }]
-         },
-         tooltip: {
-           valueSuffix: enmu
-         },
-       //设置图例
-       legend: {
-        enabled:false //去掉图例
-      },
-      //右下角不显示LOGO 
-      credits: { 
-       enabled: false   
-     },
-     series:data
-   });
+$('#drawDiv').css('display','inline');
+var enmu='';//单位
+if (QueryType==1) {
+enmu='页';
+}else if (QueryType==2) {
+enmu='个';
+}else if (QueryType==3) {
+enmu='分钟';
+}
+//QueryType=1;//1=pages，2=words，3=learnts学习时间
+chart = new Highcharts.Chart({
+chart: {
+renderTo: 'drawDiv',
+defaultSeriesType: 'spline',
+events: {
+}
+},
+title: {
+text: title,
+x: -20 //center
+},
+subtitle: {
+text: '',
+x: -20
+},
+xAxis: {
+categories: x,
+gridLineWidth: 1, //设置网格宽度为1 
+lineWidth: 1,  //基线宽度 
+labels:{y:20}  //x轴标签位置：距X轴下方26像素
+},
+yAxis: {
+title: {
+text: '' //左侧边栏
+},
+min:0,
+lineWidth: 1, //基线宽度 
+plotLines: [{
+value: 0,
+width: 1,
+color: '#808080'
+}]
+},
+tooltip: {
+valueSuffix: enmu
+},
+//设置图例
+legend: {
+enabled:false //去掉图例
+},
+//右下角不显示LOGO 
+credits: { 
+enabled: false   
+},
+series:data
+});
 }
 ```
 
@@ -637,16 +637,233 @@ http://blog.sina.com.cn/s/blog_70491fc60100t5kw.html
 ####获取选中的单选按钮
 ```
 <label class="label-right" id="radio_group_sex">
-					<a href="#" data-role="radio">
-						<input type="radio" checked="true" name="sex" id="male" style="left:0;right:auto;" value="男" />
-						<label for="male" class="black">男&nbsp;</label>
-					</a>
-					<a href="#" data-role="radio">
-						<input type="radio" name="sex" id="female" style="left:0;right:auto;" value="女" />
-						<label for="female" class="black">女&nbsp;</label>
-					</a>
-				</label>
-				
+	<a href="#" data-role="radio">
+		<input type="radio" checked="true" name="sex" id="male" style="left:0;right:auto;" value="男" />
+		<label for="male" class="black">男&nbsp;</label>
+	</a>
+	<a href="#" data-role="radio">
+		<input type="radio" name="sex" id="female" style="left:0;right:auto;" value="女" />
+		<label for="female" class="black">女&nbsp;</label>
+	</a>
+</label>
+
 $('#radio_group_sex input[name="sex"]:checked').val();
+
+```
+
+***
+####select 默认提示设置&禁止选择
+```
+<div data-role="select" class="card noborder nopadding">
+	<select placeholder="选择按键3号码">
+		<option value="" selected="true" disabled="true">选择按键3号码</option>
+		<option>15814776561</option>
+		<option>13714876874</option>
+	</select>
+</div>
+
+
+```
+
+***
+####al中不要出现href="#",这会变成返回上一页的
+```
+直接不要写href
+<a data-role="radio">
+	<input type="radio" name="sex" id="female" value="女" />
+	<label for="female" class="black">女&nbsp;&nbsp;</label>
+</a>
+
+
+```
+
+***
+####自定义一个select添加器
+```
+var select=$('#mySelect') ;//选择框对象jq
+var select=document.getElementById('select_1');/;//选择框对象js
+
+/*
+* 自定义一个select添加器 jq版
+* @param select 选择器对象
+* @param value 值
+* @param name 展示的名字
+*/
+function addSelect(select,value,name){
+select.append('<option value="' + value +'"> ' + name + '</option>');
+}
+
+/*
+* 自定义一个select添加器 js版
+* @param select 选择器对象
+* @param value 值
+* @param text 展示的名字
+*/
+function addSelect(select,value,text){
+var varItem = new Option(text, value);      
+select.options.add(varItem);   
+}
+
+```
+
+***
+####select操作大全
+```
+http://www.cnblogs.com/Herist/archive/2007/09/24/903890.html
+
+```
+
+***
+####js支持类似重载的调用方法
+```
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	function myfun(arg1,arg2,arg3){
+		alert("in");
+		alert(arg3);
+	}
+myfun();
+myfun("arg1");
+myfun("arg1","arg2");
+myfun("arg1","arg2","arg2");
+myfun("arg2","arg2","arg2","arg2");
+</script>
+</html>
+
+```
+
+***
+####ajax 封装终极版，统一，解耦（观察者模式、js回调）
+```
+      /*
+        * 统一处理ajax get 请求（返回json格式），成功分发回调函数处理,失败统一提示
+        * @param url 完成get 请求url,可不带上host
+        * @param callback succ 
+        * @param dataType 返回值类型 可空 默认json
+        */
+        function ajax_get(url,callback,dataType){
+
+          dataType=dataType==undefined?"json":dataType;
+          if (url=="") {return;}
+
+          $.ajax({
+            url:url,
+            type:"get",
+            dataType: dataType,
+            success: function (data) {
+              callback(data);
+            },
+            error: function (msg) {
+              A.showToast('网络错误');
+            }
+          });
+        }
+
+        ajax_get("/queryDevice",handleQueryDevice);
+
+        function handleQueryDevice(data) {
+          if (data.errcode!=null) {
+            user_bind_deivce_obj=data;
+            if (user_bind_deivce_obj.data.devices.length!=0) {
+              //添加设备到列表
+              ulAddLi();
+            };
+          }
+        }
+
+```
+***
+####js 回调函数
+```
+http://blog.csdn.net/lulei9876/article/details/8494337
+
+<html>   
+<head>   
+<title>回调函数(callback)</title>   
+<script language="javascript" type="text/javascript">   
+function a(callback)   
+{      
+   alert("我是parent函数a！，准备调用回调函数");   
+     
+    if (callback==d) {//判断有无参数
+    	callback('{"a":"b"}');   
+    }else{
+    	callback();  
+    }
+}   
+function b(){   
+alert("我是回调函数b");   
+  
+}   
+function c(){   
+alert("我是回调函数c");   
+  
+}
+
+function d(params){
+	alert("回调函数，带参数："+params);
+}   
+  
+function test()   
+{   
+    a(b);   
+   a(c);  
+   a(d);
+}   
+  
+</script>   
+</head>   
+<body>   
+<h1>学习js回调函数</h1>   
+<button onClick=test()>click me</button>   
+<p>应该能看到调用了两个回调函数</p>   
+</body>   
+</html>  
+
+```
+
+***
+####php 保存同时上传多个文件
+```
+// print_r($_FILES);
+// exit();Array
+/*(
+[mFile] => Array
+(
+[name] => face_cache.png
+[type] => image/png
+[tmp_name] => /tmp/phpfZM1gc
+[error] => 0
+[size] => 949898
+)
+
+[mFile1] => Array
+(
+[name] => 123.png
+[type] => image/png
+[tmp_name] => /tmp/phpcAkfjB
+[error] => 0
+[size] => 2886
+)
+
+)*/
+$host='http://guixuan.snewfly.com/';
+$return='';
+foreach ($_FILES as $key => $value) {
+if ($value["size"]<1000000) {//1MB
+$name=$value["name"];
+// 将文件移动到新的文件路径
+move_uploaded_file($value['tmp_name'], $name);
+$return.=$host.$name.';';
+}
+}
+return $this->get_json(1,'成功','',$return);
 
 ```
