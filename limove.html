@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>两个ul标签中的li互相移动</title>
+<style type="text/css">
+ul{
+ list-style-type:none;
+ float:left;
+ margin-right:30px;
+ background-color:Green;
+ width:100px;
+ height:100px;
+ padding:0px;
+}
+li{
+ margin-bottom:5px;
+ background-color:Red;
+}
+</style>
+<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+var myJson = [{ "id": "1", "Name": "刘德华", "Age": "52" },
+{ "id": "2", "Name": "文章", "Age": "26" },
+{"id":"3","Name":"孙红雷","Age":"40"},
+{ "id": "4", "Name": "葛优", "Age": "58"}];
+$(function () {
+  //动态添加Json数据到leftUL中
+  var $leftUL = $("#leftUL");
+  var $rightUL = $("#rightUL");
+
+  for (var i = 0; i < myJson.length; i++) {
+   var $myLi = $("<li id='" + myJson[i].id + "'>" + myJson[i].Name + "," + myJson[i].Age + "岁 <img src=\"http://img.alicdn.com/bao/uploaded/i1/TB17ppKHVXXXXb9XXXXXXXXXXXX_!!0-item_pic.jpg_240x240.jpg\"> </li>");
+   $myLi.click(function () {
+    if ($(this).parent().attr("id") == "leftUL") {
+     //通过判断父元素的ID来控制往哪个UL添加
+     //$rightUL.append($(this)); //第一种方法
+     $(this).appendTo($rightUL); //第二种方法
+    }
+    else {
+     $(this).appendTo($leftUL); //第二种方法
+    }
+   });
+   $leftUL.append($myLi);
+  }
+});
+</script>
+</head>
+<body>
+  <ul id="leftUL">
+  </ul>
+  <ul id="rightUL">
+  </ul>
+</body>
+</html>

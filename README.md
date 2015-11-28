@@ -124,6 +124,108 @@ alert('服务器连接失败，请稍后重试');
 }
 });
 ```
+
+
+***
+####ajax_get 封装终极版，统一请求，解耦处理数据（订阅者模式，模板方法、js回调）
+```
+      /*
+        * by hgxbajian 15-11-28
+        * 统一处理ajax get 请求（返回json格式），成功分发回调函数处理,失败统一提示
+        * @param url 完成get 请求url,可不带上host
+        * @param succCallback succ 回调
+        * @param dataType 返回值类型 可空 默认json
+        * @param failCallback fail 回调 可空 defaultFailCallback
+        */
+        function ajax_get(url,succCallback,dataType,failCallback){
+
+          if (url=="") {return;}
+          dataType=(dataType==undefined||dataType=="")?"json":dataType;
+          failCallback=failCallback==undefined?defaultFailCallback:failCallback;
+
+          $.ajax({
+            url:url,
+            type:"get",
+            dataType: dataType,
+            success: function (data) {
+              succCallback(data);
+            },
+            error: function (msg) {
+            failCallback(msg);
+            }
+          });
+        }
+
+
+        ajax_get("/queryDevice",handleQueryDevice);
+
+        function handleQueryDevice(data) {
+          if (data.errcode!=null) {
+            user_bind_deivce_obj=data;
+            if (user_bind_deivce_obj.data.devices.length!=0) {
+              //添加设备到列表
+              ulAddLi();
+            };
+          }
+        }
+
+```
+
+***
+####ajax_post 封装终极版，统一请求，解耦处理数据（订阅者模式，模板方法、js回调）
+```
+
+      /*
+        * by hgxbajian 15-11-28(此方法写了暂未使用测试)
+        * 统一处理ajax post 请求（返回json格式），成功分发回调函数处理,失败统一提示
+        * @param url 请求url,可不带上host
+        * @param data post data 如{Content: content,To:to}表示 Content=content&To=to
+        * @param succCallback succ 回调
+        * @param dataType 返回值类型 可空 默认json
+        * @param failCallback fail 回调 可空 defaultFailCallback
+        */
+        function ajax_post(url,data,succCallback,dataType,failCallback){
+
+          if (url=="") {return;}
+          data=data==undefined?"":data;
+          dataType=(dataType==undefined||dataType=="")?"json":dataType;
+          failCallback=failCallback==undefined?defaultFailCallback:failCallback;
+
+          $.ajax({
+    url: url,
+    type: 'POST',
+    dataType: dataType,
+    data: data,
+  })
+  .done(function(data) {
+        succCallback(data);
+      })
+  .fail(function() {
+    failCallback();
+  })
+
+        }
+
+        function defaultFailCallback(){
+          A.showToast('网络错误');// AL框架中的方法，类似alert
+        }
+
+        ajax_post("/queryDevice","{Content: content,To:to}",handleQueryDevice);
+
+        function handleQueryDevice(data) {
+          if (data.errcode!=null) {
+            user_bind_deivce_obj=data;
+            if (user_bind_deivce_obj.data.devices.length!=0) {
+              //添加设备到列表
+              ulAddLi();
+            };
+          }
+        }
+
+```
+
+
+
 ***
 ```
 function time() {
@@ -739,46 +841,6 @@ myfun("arg2","arg2","arg2","arg2");
 
 ```
 
-***
-####ajax 封装终极版，统一，解耦（观察者模式、js回调）
-```
-      /*
-        * 统一处理ajax get 请求（返回json格式），成功分发回调函数处理,失败统一提示
-        * @param url 完成get 请求url,可不带上host
-        * @param callback succ 
-        * @param dataType 返回值类型 可空 默认json
-        */
-        function ajax_get(url,callback,dataType){
-
-          dataType=dataType==undefined?"json":dataType;
-          if (url=="") {return;}
-
-          $.ajax({
-            url:url,
-            type:"get",
-            dataType: dataType,
-            success: function (data) {
-              callback(data);
-            },
-            error: function (msg) {
-              A.showToast('网络错误');
-            }
-          });
-        }
-
-        ajax_get("/queryDevice",handleQueryDevice);
-
-        function handleQueryDevice(data) {
-          if (data.errcode!=null) {
-            user_bind_deivce_obj=data;
-            if (user_bind_deivce_obj.data.devices.length!=0) {
-              //添加设备到列表
-              ulAddLi();
-            };
-          }
-        }
-
-```
 ***
 ####js 回调函数
 ```

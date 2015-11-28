@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+	<title></title>
+</head>
+<style type="text/css">
+
+		.track-top-nav{ display:-webkit-box; height:44px; background-color:#ffffff; border-bottom:1px solid #d8d8d8;}
+		.track-top-nav a{ display:block; -webkit-box-flex:1; text-align:center; line-height:44px;}
+		.track-top-nav a div{display:-webkit-box; -webkit-box-orient:vertical; padding-left:10px;}
+		.track-top-nav a.pull-play{ display:none;}
+		.track-top-nav a.edit-over{ display:none;}
+</style>
+<body>
+<div class="m-box trac-history" style="background-color: #FFF;overflow: hidden;" >
+       		<label style="font-size: 14px;padding-left: 20px;background-color: #FFF;line-height: 44px;">选择头像：</label>
+            <nav class="track-top-nav" style="height:80px;!important">
+            <a id="cg-t-bt" class="gray-col "  style="display: block;height: 60px;margin-top: 10px;">
+        	<img src="http://weixin.abdjy.com/icon/baby_boy.png" alt="" style="max-width:60px;height:60px;">
+           </a>
+           <a id="cg-t-bt" class="gray-col "  style="display: block;height: 60px;margin-top: 10px;">
+        	<img src="http://weixin.abdjy.com/icon/baby_boy1.png" alt="" style="max-width:60px;height:60px;" >
+           </a>
+           <a id="cg-t-bt" class="gray-col"  style="display: block;height: 60px;margin-top: 10px;">
+        	<img src="http://weixin.abdjy.com/icon/baby_girl.png" alt="" style="max-width:60px;height:60px;" >
+           </a>
+           <a id="cg-t-bt" class="gray-col"  style="display: block;height: 60px;margin-top: 10px;">
+        	<img src="http://weixin.abdjy.com/icon/baby_girl1.png" alt="" style="max-width:60px;height:60px;">
+           </a>
+         </nav>
+         <!--选中的头像值--> 
+         <input type="hidden" name="iconInfos" id="iconInfos" value=""/>
+       </div>
+
+</body>
+<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
+
+<script type="text/javascript">
+	 //选择头像
+        var previewSelected=null;
+        function getIcon(){
+		$("img").click(
+		function(){
+			var t=$(this);
+			if(previewSelected){
+				previewSelected.css("border","0px");
+			}
+			t.css("border","solid 1px #ff0000");
+			previewSelected=t;
+	   		document.getElementById("iconInfos").value=t.attr("src").substring(11);
+			}
+	  	 );
+        }
+
+
+          getIcon();
+
+</script>
+</html>

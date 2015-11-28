@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
+<title>动态控制li球队列表</title>
+<script type="text/javascript">
+function iniEvent() {
+ var ul = document.getElementById("football");
+ var lis = ul.getElementsByTagName("li");
+ for (var i = 0; i < lis.length; i++) {
+  //鼠标经过事件
+  lis[i].onmouseover = function () {
+   var ul = document.getElementById("football");
+   var lis = ul.getElementsByTagName("li");
+   for (var i = 0; i < lis.length; i++) {
+    var li = lis[i];
+    if (li == this) {
+     li.style.background = "red";
+    }
+    else {
+     li.style.background = "gray";
+    }
+   }
+  }
+  //鼠标单击事件
+  lis[i].onclick = function () {
+  	alert(this.value);
+
+   var ul = document.getElementById("football");
+   var lis = ul.getElementsByTagName("li");
+   for (var i = 0; i < lis.length; i++) {
+    var li = lis[i];
+    if (li == this) {
+     li.style.fontSize = 30;
+    }
+    else {
+     li.style.fontSize = 16;
+    }
+   }
+  }
+ }
+}
+</script>
+</head>
+<body onload="iniEvent()">
+<!--功能说明
+1.鼠标滑过的行变为红色
+2.点击行字体变大
+-->
+<ul style="width:200px" id="football">
+<li>皇马</li>
+<li>曼联</li>
+<li>切尔西</li>
+<li>巴萨</li>
+<li>Ac米兰</li>
+<li>国际米兰</li>
+</ul>
+</body>
+</html>
