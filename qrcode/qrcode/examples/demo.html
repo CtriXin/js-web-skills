@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Demo page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+	<div style="text-align: center" id="output"></div>
+
+	<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="../jquery.qrcode.min.js"></script>
+	<script>
+	//进行url编码-》客户端解码
+	// encodeURI和encodeURIComponent的区别
+// ;/?:@&=+$,#对于这些字符，encodeURI不对他们进行编码，而encodeURIComponent方法则对他们进行编码。
+//上述方法已舍弃
+
+
+function utf16to8(str) {  
+            var out, i, len, c;  
+            out = "";  
+            len = str.length;  
+            for (i = 0; i < len; i++) {  
+                c = str.charCodeAt(i);  
+                if ((c >= 0x0001) && (c <= 0x007F)) {  
+                    out += str.charAt(i);  
+                } else if (c > 0x07FF) {  
+                    out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));  
+                    out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));  
+                    out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));  
+                } else {  
+                    out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));  
+                    out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));  
+                }  
+            }  
+            return out;  
+        }  
+
+		// var str=utf16to8('aaa爱爱爱');
+		var str=utf16to8('WIFI:S:snewfly;T:WPA;P:newriver505;');
+		// str=encodeURIComponent(str);
+		// alert(str);
+		jQuery(function(){
+			jQuery('#output').qrcode(str);
+			// jQuery('#output').qrcode({width: 1000,height: 1000,text: "https://www.baidu.com/"});
+
+			var h = $(window).width();
+            $("#output>canvas").css("width", h-50);
+            $("#output>canvas").css("height", h-50);
+		})
+	</script>
+
+</body>
+</html>

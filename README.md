@@ -7,6 +7,86 @@ js web 相关总结
 
 ```
 
+***
+####js 反射
+```
+http://blog.csdn.net/liuzizi888/article/details/6632434
+
+```
+
+***
+####jq判断元素是否存在某类
+```
+$(selector).hasClass(class);
+$('#toggle_attendance').addClass('active');
+$('#toggle_attendance').removeClass('active');
+
+```
+
+***
+####php回调函数
+```
+http://www.nowamagic.net/librarys/veda/detail/1509
+http://myceo.blog.51cto.com/2340655/725411/
+```
+
+***
+####AL框架中radio
+```
+
+      <form class="form-group">
+        <div class="card">
+          <ul class="listitem" id="select_switch">
+            <li >可否关机</li>
+            <li class="nopadding ">
+              <a data-role="radio">
+                <label width="100%" for="closerdo1" class="black" >可关</label>
+                <input checked="true" type="radio" name="switch" id="closerdo1" value="1">
+              </a>
+            </li>
+            <li class="nopadding noborder">
+              <a data-role="radio">
+                <label width="100%" for="closerdo2" class="black" >不可关</label>
+                <input type="radio" name="switch" id="closerdo2" value="0">
+              </a>
+            </li>
+          </ul>
+        </div> 
+      </form>
+```
+
+
+***
+####table遍历和删除
+```
+//遍历 整个table每行没咧
+function GetInfoFromTable(tableid) {
+    var tableInfo = "";
+    var tableObj = document.getElementById(tableid);
+    for (var i = 0; i < tableObj.rows.length; i++) {    //遍历Table的所有Row
+        for (var j = 0; j < tableObj.rows[i].cells.length; j++) {   //遍历Row中的每一列
+            tableInfo += tableObj.rows[i].cells[j].innerText;   //获取Table中单元格的内容
+            tableInfo += "   ";
+        }
+        tableInfo += "\n";
+    }
+    return tableInfo;
+} GetInfoFromTable("tb_re");
+
+//删除某一行
+ function deleteRow(tableid) {
+    var tableInfo = "";
+    var tableObj = document.getElementById(tableid);
+    for (var i = 0; i < tableObj.rows.length; i++) {    //遍历Table的所有Row
+        
+            tableInfo= tableObj.rows[i].cells[3].innerText;   //获取Table中单元格的内容
+            if(tableInfo=="0"){ tableObj.deleteRow(i);i--;}
+    }
+    return tableInfo;
+} 
+
+```
+
 
 ***
 ####delete  js delete可以删除对象属性及变量
@@ -750,6 +830,13 @@ http://blog.sina.com.cn/s/blog_70491fc60100t5kw.html
 </label>
 
 $('#radio_group_sex input[name="sex"]:checked').val();
+
+```
+
+***
+####radio 设置选中
+```
+$('#male').attr("checked",true);
 
 ```
 
