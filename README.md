@@ -15,6 +15,111 @@ http://blog.csdn.net/liuzizi888/article/details/6632434
 ```
 
 ***
+####封装AM Alert框
+```
+HTML:
+
+  <button
+  id="btn_myAlert"
+  style="display: none;"
+  type="button"
+  class="am-btn am-btn-primary"
+  data-am-modal="{target: '#my-alert',closeViaDimmer: 0}">
+  Alert
+</button>
+
+<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">温馨提示</div>
+    <div class="am-modal-bd" id="myAlert_value">
+
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn">确定</span>
+    </div>
+  </div>
+</div>
+
+JS:
+function myAlert(value){
+
+  $("#myAlert_value").html(value);
+  $('#btn_myAlert').click();
+}
+
+```
+
+
+
+***
+####封装AM confirm框
+```
+HTML:
+
+  <div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+    <div class="am-modal-dialog">
+      <div id="myConfirm_title" class="am-modal-hd">标题</div>
+      <div id="myConfirm_content" class="am-modal-bd">
+        内容
+      </div>
+      <div class="am-modal-footer">
+        <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+        <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+      </div>
+    </div>
+  </div>
+
+JS:
+    $('#btn_login').click(function(){
+      myConfirm('这是标题','内容。。。。',myconfirmCallback);
+    });
+
+      /*
+        * 
+        * 封装一个AM框架的confirm窗口
+        * @param title 标题
+        * @param content 内容
+        * @param confirmCallback 确认回调 不可空
+        * @param cancelCallback 取消回调 可空
+        * @param closeViaDimmer 0不可，1可。默认0
+        */
+        function myConfirm(title,content,confirmCallback,cancelCallback,closeViaDimmer){
+          $("#myConfirm_title").html(title);
+          $("#myConfirm_content").html(content);
+          if (closeViaDimmer==undefined||closeViaDimmer==0) {
+            closeViaDimmer=0;
+          }else{
+            closeViaDimmer=1;
+          }
+          if (confirmCallback==undefined) {
+            return;
+          }
+
+          $('#my-confirm').modal({
+            relatedTarget: this,
+            closeViaDimmer: closeViaDimmer,
+            onConfirm: function(options) {
+              confirmCallback(options);
+            },
+            onCancel: function(){
+              if (cancelCallback!=undefined) {
+                cancelCallback();
+              }
+            }
+          });
+        }
+
+        function myconfirmCallback(){
+          var $link = $(this.relatedTarget).prev('a');
+          var msg = $link.length ? '1你要删除的链接 ID 为 ' + $link.data('id') :
+          '1确定了，但不知道要整哪样';
+          alert(msg);
+        }
+
+
+```
+
+***
 ####jq判断元素是否存在某类
 ```
 $(selector).hasClass(class);

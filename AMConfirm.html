@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="utf-8">
+  <title>孩在身边-登录</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.1.0/css/amazeui.min.css"/> -->
+  <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.4.2/css/amazeui.min.css"/>
+
+</head>
+<body>
+  <div data-role="page" id="pageLogin" >
+    <div  style="height:44px; background-color:#E6E6E6 ; display:-webkit-box; -webkit-box-align:center; -webkit-box-pack:center; color:#5EB95E; font-size:16px; font-weight:bold;" >
+      <span style="font-size: 22px;font-family:宋体,Georgia,Serif" >用户登录</span>
+    </div>
+  </div> 
+  <br>
+  <div style="margin-top: 150px;margin: 10px;">
+
+    <div class="am-input-group">
+      <span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
+      <input id="phone" type="tel" class="am-form-field" placeholder="手机号"  data-am-popover="{content: '没有账号？请点免费注册', trigger: 'hover focus'}">
+    </div>
+
+    <div class="am-input-group">
+      <span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
+      <input id="password" type="password" class="am-form-field" placeholder="密码">
+    </div>
+    <div><a href="http://lamp.snewfly.com/hzsb_register_page?qr=1" style="float: right;margin: 8px">免费注册</a></div>
+    <button id="btn_login" type="button" style=" -webkit-border-radius:7px;" class="am-btn am-btn-success am-btn-block doc-animations am-animation-shake" data-doc-animation="shake">登&nbsp;&nbsp;录</button>
+
+  </div>
+
+  <div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+    <div class="am-modal-dialog">
+      <div id="myConfirm_title" class="am-modal-hd">标题</div>
+      <div id="myConfirm_content" class="am-modal-bd">
+        内容
+      </div>
+      <div class="am-modal-footer">
+        <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+        <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
+<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/amazeui2.x.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    function myAlert(value){
+
+      $("#myAlert_value").html(value);
+      $('#btn_myAlert').click();
+    }
+
+    $('#btn_login').click(function(){
+      myConfirm('这是标题','内容。。。。',myconfirmCallback);
+    });
+
+      /*
+        * 
+        * 封装一个AM框架的confirm窗口
+        * @param title 标题
+        * @param content 内容
+        * @param confirmCallback 确认回调 不可空
+        * @param cancelCallback 取消回调 可空
+        * @param closeViaDimmer 0不可，1可。默认0
+        */
+        function myConfirm(title,content,confirmCallback,cancelCallback,closeViaDimmer){
+          $("#myConfirm_title").html(title);
+          $("#myConfirm_content").html(content);
+          if (closeViaDimmer==undefined||closeViaDimmer==0) {
+            closeViaDimmer=0;
+          }else{
+            closeViaDimmer=1;
+          }
+          if (confirmCallback==undefined) {
+            return;
+          }
+
+          $('#my-confirm').modal({
+            relatedTarget: this,
+            closeViaDimmer: closeViaDimmer,
+            onConfirm: function(options) {
+              confirmCallback(options);
+            },
+            onCancel: function(){
+              if (cancelCallback!=undefined) {
+                cancelCallback();
+              }
+            }
+          });
+        }
+
+        function myconfirmCallback(){
+          var $link = $(this.relatedTarget).prev('a');
+          var msg = $link.length ? '1你要删除的链接 ID 为 ' + $link.data('id') :
+          '1确定了，但不知道要整哪样';
+          alert(msg);
+        }
+
+
+
+      });
+</script>
+
+</html>
