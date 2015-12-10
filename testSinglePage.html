@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="utf-8">
+  <title>孩在身边-登录</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.1.0/css/amazeui.min.css"/> -->
+  <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.4.2/css/amazeui.min.css"/>
+<link rel="stylesheet" href="http://rawgit.com/zhangxinxu/mobilebone/develop/src/mobilebone.css">
+</head>
+<body>
+<div  id="pageHome" class="page out" >
+  
+   <div data-role="page" id="pageLogin" >
+    <div  style="height:44px; background-color:#E6E6E6 ; display:-webkit-box; -webkit-box-align:center; -webkit-box-pack:center; color:#5EB95E; font-size:16px; font-weight:bold;" >
+      <span style="font-size: 22px;font-family:宋体,Georgia,Serif" >用户登录</span>
+    </div>
+  </div> 
+  <br>
+  <div style="margin-top: 150px;margin: 10px;">
+
+    <div class="am-input-group">
+      <span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
+      <input id="phone" type="tel" class="am-form-field" placeholder="手机号"  data-am-popover="{content: '没有账号？请点免费注册', trigger: 'hover focus'}">
+    </div>
+
+    <div class="am-input-group">
+      <span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
+      <input id="password" type="password" class="am-form-field" placeholder="密码">
+    </div>
+    <div><a href="http://lamp.snewfly.com/hzsb_register_page" style="float: right;margin: 8px">免费注册</a></div>
+    <button id="btn_login" type="button" style=" -webkit-border-radius:7px;" class="am-btn am-btn-success am-btn-block doc-animations am-animation-shake" data-doc-animation="shake">登&nbsp;&nbsp;录</button>
+        <a id="go" href="#&page1" data-reload type="button" style=" -webkit-border-radius:7px;" class="am-btn am-btn-success am-btn-block doc-animations am-animation-shake" data-doc-animation="shake">go</a>
+
+  </div>
+
+</div>
+ 
+  <button
+  id="btn_myAlert"
+  style="display: none;"
+  type="button"
+  class="am-btn am-btn-primary"
+  data-am-modal="{target: '#my-alert',closeViaDimmer: 0}">
+  Alert
+</button>
+
+<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">温馨提示</div>
+    <div class="am-modal-bd" id="myAlert_value">
+
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn">确定</span>
+    </div>
+  </div>
+</div>
+
+<div id="page1" class="page out" style="background-color:#424242;">
+
+ <a  type="button" href="#pageHome" data-rel="back">返回</a>
+ <br/>
+ <img src="https://avatars2.githubusercontent.com/u/10176364?v=3&s=460">
+
+        <a id="go" href="#page2" data-reload type="button" style=" -webkit-border-radius:7px;" class="am-btn am-btn-success am-btn-block doc-animations am-animation-shake" data-doc-animation="shake">go</a>
+    
+</div>
+
+<div id="page2" class="page out" style="background-color:#404040;">
+
+ <a  type="button" href="#page1" data-rel="back">返回</a>
+ <br/>
+
+     <a id="go" href="#pageHome" data-reload type="button" style=" -webkit-border-radius:7px;" class="am-btn am-btn-success am-btn-block doc-animations am-animation-shake" data-doc-animation="shake">回主界面</a>
+
+</div>
+
+</body>
+<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
+<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/amazeui2.x.min.js"></script>
+<script src="http://rawgit.com/zhangxinxu/mobilebone/develop/src/mobilebone.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    var progress = $.AMUI.progress;
+    function startProgress(){
+      progress.start();
+    }
+    function stopProgress(){
+      progress.done();
+    }
+
+function myAlert(value){
+
+  $("#myAlert_value").html(value);
+  $('#btn_myAlert').click();
+}
+
+$('#btn_login').click(function(){
+  login();
+});
+
+function login(){
+  var phone=$('#phone').val();
+  var password=$('#password').val();
+  if (phone.length!=11) {
+    myAlert('手机号格式错误');
+    return ;
+  }
+  if (phone!='' && password!='') {
+    startProgress();
+    $("#btn_login").attr("disabled", true);
+    ajax_login(phone,password);
+  }else{
+    myAlert('账号或密码为空');
+  }
+}
+
+function ajax_login(phone,password){
+  $.ajax({
+    url:'hzsb_login?phone='+phone+'&password='+password+"&r="+Math.random(),
+    type:"get",
+    dataType: "json",
+    success: function (data) {
+        // alert(data);
+        $("#btn_login").attr("disabled", false);
+        progress.done();
+        if (data.msg!='') {
+          myAlert(data.msg);
+        }else{
+          window.location.href='http://lamp.snewfly.com/wxdemo?r='+Math.random();
+        }
+      },
+      error: function (msg) {
+        progress.done();
+        $("#btn_login").attr("disabled", false);
+        myAlert("网络错误，请稍后重试");
+      }
+    });
+}
+
+$(':button').click(function(){
+  var a=$(this),i="am-animation-"+a.data("docAnimation");a.data("animation-idle")&&clearTimeout(a.data("animation-idle")),a.removeClass(i),setTimeout(function(){a.addClass(i),a.data("animation-idle",setTimeout(function(){a.removeClass(i),a.data("animation-idle",!1)},500))},50);
+});
+
+otherDevice();
+function otherDevice(){
+  var Request = new Object(); 
+  Request = GetRequest(); 
+  if (Request['otherDevice']=='1') {
+    myAlert('您的账号已在其他设备登录,如果不是本人登录，请使用App修改密码');
+  };
+}
+
+function GetRequest() { 
+var url = location.search; //获取url中"?"符后的字串 
+var theRequest = new Object(); 
+if (url.indexOf("?") != -1) { 
+  var str = url.substr(1); 
+  strs = str.split("&"); 
+  for(var i = 0; i < strs.length; i ++) { 
+    theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]); 
+  } 
+} 
+return theRequest; 
+} 
+});
+</script>
+
+</html>
