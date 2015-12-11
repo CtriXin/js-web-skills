@@ -31,7 +31,7 @@
     </div>
     <div><a href="http://lamp.snewfly.com/hzsb_register_page" style="float: right;margin: 8px">免费注册</a></div>
     <button id="btn_login" type="button" style=" -webkit-border-radius:7px;" class="am-btn am-btn-success am-btn-block doc-animations am-animation-shake" data-doc-animation="shake">登&nbsp;&nbsp;录</button>
-        <a id="go" href="#&page1" data-reload type="button" style=" -webkit-border-radius:7px;" class="am-btn am-btn-success am-btn-block doc-animations am-animation-shake" data-doc-animation="shake">go</a>
+        <a id="go" href="#page1" data-reload type="button" style=" -webkit-border-radius:7px;" class="am-btn am-btn-success am-btn-block doc-animations am-animation-shake" data-doc-animation="shake">go</a>
 
   </div>
 
@@ -70,10 +70,10 @@
 
 <div id="page2" class="page out" style="background-color:#404040;">
 
- <a  type="button" href="#page1" data-rel="back">返回</a>
+ <a  type="button" href="#page1" data-rel="back">&laquo;返回</a>
  <br/>
 
-     <a id="go" href="#pageHome" data-reload type="button" style=" -webkit-border-radius:7px;" class="am-btn am-btn-success am-btn-block doc-animations am-animation-shake" data-doc-animation="shake">回主界面</a>
+     <a id="go123" href="#pageHome" data-reload type="button" style=" -webkit-border-radius:7px;" class="am-btn am-btn-success am-btn-block doc-animations am-animation-shake" data-doc-animation="shake">回主界面</a>
 
 </div>
 
@@ -165,6 +165,26 @@ if (url.indexOf("?") != -1) {
 } 
 return theRequest; 
 } 
+
+//首次进去调用
+Mobilebone.onpagefirstinto = function(pageinto) {
+  console.log(pageinto.id);//如pagehome
+};
+
+
+Mobilebone.callback = function(pageinto, pageout,options) {
+  console.log(pageinto.id);//如pagehome
+  if (pageout!=null) {
+    console.log(pageout.id);//如pagehome
+  }
+  
+console.log(options.response);// 返回的数据。这个参数多半应用在Ajax请求时候。
+console.log(options.target); //（触发过场）点击的页面元素。
+console.log(options.id); //页面标示id, 一般仅在url请求时候存在。
+console.log(options.history); //是否在浏览历史中添加一条记录。此属性大可不必关心。
+console.log(options.remove); //是否删除同id的页面。此属性大可不必关心。
+};
+
 });
 </script>
 

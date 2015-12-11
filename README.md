@@ -6,10 +6,56 @@ js web 相关总结
 ```
 
 ```
+
 ***
 ####把github 当服务器使用
 ```
 http://rawgit.com/
+```
+
+***
+####
+```
+http://www.ituring.com.cn/article/48461
+
+单页应用程序（SPA）一般比较复杂，往往包含数以万计行数的js代码，这些代码至少分布在几十个甚至成百上千的模块中，如果我们也在主界面就加载它们，载入时间会非常难以接受。
+算了，我们还是用最简单的方式了，就是动态创建script标签，然后设置src，添加到document.head里，然后监听它们的完成事件，做后续操作。真的很简单，因为我们的框架不需要考虑那么多种情况，不需要AMD，不需要require那么麻烦，用这框架的人必须按照这里的原则写。
+
+Javascript 装载和执行
+http://coolshell.cn/articles/9749.html#jtss-tsina
+
+function loadjs(script_filename) {
+    var script = document.createElement('script');
+    script.setAttribute('type', 'text/javascript');
+    script.setAttribute('src', script_filename);
+    script.setAttribute('id', 'coolshell_script_id');
+ 
+    script_id = document.getElementById('coolshell_script_id');
+    if(script_id){
+        document.getElementsByTagName('head')[0].removeChild(script_id);
+    }
+    document.getElementsByTagName('head')[0].appendChild(script);
+}
+ 
+var script = 'http://coolshell.cn/asyncjs/alert.js';
+loadjs(script);
+
+
+```
+
+***
+####mobilebone.js-mobile移动web APP单页切换骨架
+```
+http://www.zhangxinxu.com/wordpress/2014/10/mobilebone-js-mobile-web-app-core/
+```
+
+***
+####jq模拟链接被点击（或者按钮）
+```
+链接只能用：$('#go123').get(0).click();
+
+按钮可以：$('#btn_login').get(0).click();或者$('#btn_login').click();
+
 ```
 
 ***
