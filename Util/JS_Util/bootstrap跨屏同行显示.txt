@@ -1,0 +1,24 @@
+http://v3.bootcss.com/css/
+http://yizhu.snewfly.com/entry
+
+超小屏幕 手机 (<768px)	小屏幕 平板 (≥768px)	中等屏幕 桌面显示器 (≥992px)	大屏幕 大桌面显示器 (≥1200px)
+栅格系统行为	总是水平排列	开始是堆叠在一起的，当大于这些阈值时将变为水平排列C
+.container 最大宽度	None （自动）	750px	970px	1170px
+类前缀	.col-xs-	.col-sm-	.col-md-	.col-lg-
+
+
+
+<div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-4">
+                        <select class="form-control"  id="action_type" >
+                            <option value="1">代购</option>
+                            <option value="2">理发</option>
+                            <option value="3">陪护</option>
+                            <option value="4">清洁</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-8 col-md-6 col-sm-8">
+                          <input type="text" class="form-control floating-label" placeholder="简略内容" id="simply_con"> 
+
+                        </div>
+                      </div>

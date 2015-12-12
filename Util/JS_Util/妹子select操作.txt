@@ -1,0 +1,39 @@
+  <select id="mySelect" data-am-selected="{btnWidth: '40%', btnSize: 'sm', btnStyle: 'default'}">
+<!--     <option value="rongyunid">学伴机一号</option>
+    <option value="b">学伴机二号</option>
+    <option value="o">学伴机三号</option>
+    <option value="m">学伴机四号</option> -->
+  </select>
+
+
+
+var myselect=$('#mySelect') ;//一体机选择框对象
+
+        addSelect(myselect,"1234","一体机一号");
+
+
+        /*
+        * 妹子ui自定义一个select添加器
+        * @param select 选择器对象
+        * @param value 值
+        * @param name 展示的名字
+        */
+        function addSelect(select,value,name){
+          select.append('<option value="' + value +'"> ' + name + '</option>');
+        }
+
+
+操作指定select选项
+var o = myselect.find('option[value="o"]');
+o.attr('selected', true);
+$o[0].disabled = !$o[0].disabled;
+
+监听选中事件
+        myselect.change(function(){ 
+      // alert($(this).children('option:selected').val()); 
+      DeviceId=$(this).children('option:selected').val();//这就是selected的值 
+      myAlert()
+      // var p2=$('#param2').val();//获取本页面其他标签的值 
+      }) ;
+x=["1号","2号","3号","4号","5号","6号","7号","8号","9号","10号","11号","12号","13号","14号","15号","16号","17号","18号"];
+alert(x);

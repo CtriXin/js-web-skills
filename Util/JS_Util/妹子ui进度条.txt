@@ -1,0 +1,7 @@
+  var progress = $.AMUI.progress;
+  function startProgress(){
+    progress.start();
+  }
+  function stopProgress(){
+    progress.done();
+  }

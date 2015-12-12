@@ -1,0 +1,44 @@
+http://v3.bootcss.com/javascript/#modals
+
+      /*
+      * 封装一个bootstrap模态窗口 
+      *backdrop 为 static 时，点击模态对话框的外部区域不会将其关闭。  keyboard 为 false 时，按下 Esc 键不会关闭 Modal。
+      */
+      function myAlert(val){
+        $('#alertValue').html(val);
+        $('#myModal').modal({backdrop: 'static', keyboard: false});
+
+      }
+//调整高度
+<style>
+    #myModal
+    {
+        top:35%;
+    }
+</style>
+用法例如：
+$('#testModel').click(function(){
+        myAlert('我要做测试'+Math.random());
+      });
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h5 class="modal-title" id="myModalLabel" style="text-align: center;color: #000000"><strong>温馨提示</strong></h5>
+      <hr style="margin-bottom: 0px;margin-top: 6px" />
+      </div>
+      <div class="modal-body"  style="text-align: center" id="alertValue">
+        ...
+      </div>
+      <hr style="margin-bottom: 0px;margin-top: 2px" />
+      <!-- <div style="border: 0.5 solid #D2D2D2;width: 100%"></div> -->
+      <div class="modal-footer"  style="text-align: center">
+        <button style="width: 100%;color: #007aff" type="button" class="btn btn-default" data-dismiss="modal"><strong>&nbsp;确&nbsp;&nbsp;定&nbsp;</strong></button>
+      </div>
+    </div>
+  </div>
+</div>

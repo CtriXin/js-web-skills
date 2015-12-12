@@ -1,0 +1,447 @@
+数组<;=>;xml 相互转换http://hudeyong926.iteye.com/blog/836048  
+   
+<;?php
+/**
+ * 从数组中删除空白的元素（包括只有空白字符的元素）
+ *
+ * @param array $arr
+ * @param boolean $trim
+ */
+function array_remove_empty(&; $arr, $trim = true)
+{
+    foreach ($arr as $key =>; $value) {
+        if (is_array($value)) {
+            array_remove_empty($arr[$key]);
+        } else {
+            $value = trim($value);
+            if ($value == '') {
+                unset($arr[$key]);
+            } elseif ($trim) {
+                $arr[$key] = $value;
+            }
+        }
+    }
+}
+
+/**
+ * 从一个二维数组中返回指定键的所有值
+ *
+ * @param array $arr
+ * @param string $col
+ *
+ * @return array
+ */
+function array_col_values(&; $arr, $col)
+{
+    $ret = array();
+    foreach ($arr as $row) {
+        if (isset($row[$col])) { $ret[] = $row[$col]; }
+    }
+    return $ret;
+}
+
+/**
+ * 将一个二维数组转换为 hashmap
+ *
+ * 如果省略 $valueField 参数，则转换结果每一项为包含该项所有数据的数组。
+ *
+ * @param array $arr
+ * @param string $keyField
+ * @param string $valueField
+ *
+ * @return array
+ */
+function array_to_hashmap(&; $arr, $keyField, $valueField = null)
+{
+    $ret = array();
+    if ($valueField) {
+        foreach ($arr as $row) {
+            $ret[$row[$keyField]] = $row[$valueField];
+        }
+    } else {
+        foreach ($arr as $row) {
+            $ret[$row[$keyField]] = $row;
+        }
+    }
+    return $ret;
+}
+
+/**
+ * 将一个二维数组按照指定字段的值分组
+ *
+ * @param array $arr
+ * @param string $keyField
+ *
+ * @return array
+ */
+function array_group_by(&; $arr, $keyField)
+{
+    $ret = array();
+    foreach ($arr as $row) {
+        $key = $row[$keyField];
+        $ret[$key][] = $row;
+    }
+    return $ret;
+}
+
+/**
+ * 将一个平面的二维数组按照指定的字段转换为树状结构
+ *
+ * 当 $returnReferences 参数为 true 时，返回结果的 tree 字段为树，refs 字段则为节点引用。
+ * 利用返回的节点引用，可以很方便的获取包含以任意节点为根的子树。
+ *
+ * @param array $arr 原始数据
+ * @param string $fid 节点ID字段名
+ * @param string $fparent 节点父ID字段名
+ * @param string $fchildrens 保存子节点的字段名
+ * @param boolean $returnReferences 是否在返回结果中包含节点引用
+ *
+ * return array
+ */
+function array_to_tree($arr, $fid, $fparent = 'parent_id',
+    $fchildrens = 'childrens', $returnReferences = false)
+{
+    $pkvRefs = array();
+    foreach ($arr as $offset =>; $row) {
+        $pkvRefs[$row[$fid]] =&; $arr[$offset];
+    }
+
+    $tree = array();
+    foreach ($arr as $offset =>; $row) {
+        $parentId = $row[$fparent];
+        if ($parentId) {
+            if (!isset($pkvRefs[$parentId])) { continue; }
+            $parent =&; $pkvRefs[$parentId];
+            $parent[$fchildrens][] =&; $arr[$offset];
+        } else {
+            $tree[] =&; $arr[$offset];
+        }
+    }
+    if ($returnReferences) {
+        return array('tree' =>; $tree, 'refs' =>; $pkvRefs);
+    } else {
+        return $tree;
+    }
+}
+
+/**
+ * 将树转换为平面的数组
+ *
+ * @param array $node
+ * @param string $fchildrens
+ *
+ * @return array
+ */
+function tree_to_array(&; $node, $fchildrens = 'childrens')
+{
+    $ret = array();
+    if (isset($node[$fchildrens]) &;&; is_array($node[$fchildrens])) {
+        foreach ($node[$fchildrens] as $child) {
+            $ret = array_merge($ret, tree_to_array($child, $fchildrens));
+        }
+        unset($node[$fchildrens]);
+        $ret[] = $node;
+    } else {
+        $ret[] = $node;
+    }
+    return $ret;
+}
+
+/**
+ * 根据指定的键值对数组排序
+ *
+ * @param array $array 要排序的数组
+ * @param string $keyname 键值名称
+ * @param int $sortDirection 排序方向
+ *
+ * @return array
+ */
+function array_column_sort($array, $keyname, $sortDirection = SORT_ASC)
+{
+    return array_sortby_multifields($array, array($keyname =>; $sortDirection));
+}
+
+/**
+ * 将一个二维数组按照指定列进行排序，类似 SQL 语句中的 ORDER BY
+ *
+ * @param array $rowset
+ * @param array $args
+ */
+function array_sortby_multifields($rowset, $args)
+{
+    $sortArray = array();
+    $sortRule = '';
+    foreach ($args as $sortField =>; $sortDir) {
+        foreach ($rowset as $offset =>; $row) {
+            $sortArray[$sortField][$offset] = $row[$sortField];
+        }
+        $sortRule .= '$sortArray[\'' . $sortField . '\'], ' . $sortDir . ', ';
+    }
+    if (empty($sortArray) || empty($sortRule)) { return $rowset; }
+    eval('array_multisort(' . $sortRule . '$rowset);');
+    return $rowset;
+}
+
+/*
+description: 交换数组中两个元素的位置，元素包括key和value，具体用法见下面的例子
+$arr = array (11 =>; 'a', 22 =>; 'b', 33 =>; 'c', 44 =>; 'd' );
+$res = array_exchange ( $arr, 11, 33 );
+*/
+function array_exchange($arr, $arg1, $arg2) {
+	$r = range ( 0, count ( $arr ) - 1 );
+	$res = $res_bak = array_combine ( $r, array_keys ( $arr ) );
+	$change = array ($arg1, $arg2 );
+	list ( $res [array_search ( $change [0], $res_bak )], $res [array_search ( $change [1], $res_bak )] ) = array ($change [1], $change [0] );
+	foreach ( $res as $v ) {
+		$array [$v] = $arr [$v];
+	}
+	return $array;
+} 
+/*
+假设：给定一个大数组和一个字符串，要求在这个大数组中查找出比这个字符串大的5个元素。
+对于一个小数组（如：几十个元素以下的数组），可以采用循环的办法来一个一个进行比较，但是对于大数组来说，这个方法显然是不行，这需要找一个快速查找定位的解决办法。
+$search = 'arr';
+$array = array (
+	'abs',	
+	'acos',
+	'acosh',
+	'addcslashes',
+	'addslashes',
+	'aggregate_info',
+	'array_diff',
+	'array_fill_keys',
+	'array_fill',
+	'array_filter',
+	'base64_encode',
+	'basename',
+	'bcadd',
+	'bccomp',
+	'bcdiv',
+	'bcmod',
+	'bcmul',
+	'copy',
+);
+$arrpos = array_pos($array,$search);   //定位
+$arr = array_slice($array,$arrpos,5);  //取出数组
+print_r($arr);
+
+快速查找的结果：
+Array
+(
+    [0] =>; array_diff
+    [1] =>; array_fill_keys
+    [2] =>; array_fill
+    [3] =>; array_filter
+    [4] =>; base64_encode
+)
+*/
+function array_pos($array,$search)
+{
+	if(empty($array)) return false;
+	if(!$search) return 0;
+	sort($array);
+	$array_turn = array_flip($array);
+	if(isset($array_turn[$search]))
+	{
+		$arrpos = $array_turn[$search];
+	}
+	else 
+	{
+		$tmp_arr = $array;
+		$tmp_arr[] = $search;
+		sort($tmp_arr);
+		$tmp_arr_turn = array_flip($tmp_arr);
+		$arrpos = $tmp_arr_turn[$search];
+	}
+	return $arrpos;
+}
+
+/**
+ * 对数据进行编码转换
+ * @param array/string $data       数组
+ * @param string $input     需要转换的编码
+ * @param string $output    转换后的编码
+ */
+function array_iconv($data, $input = 'gbk', $output = 'utf-8') {
+	if (!is_array($data)) {
+		return iconv($input, $output, $data);
+	} else {
+		foreach ($data as $key=>;$val) {
+			if(is_array($val)) {
+				$data[$key] = array_iconv($val, $input, $output);
+			} else {
+				$data[$key] = iconv($input, $output, $val);
+			}
+		}
+		return $data;
+	}
+}
+
+/**
+$str =";array (
+  'workflowid' =>; '',
+  'ishtml' =>; '0',
+  'content_ishtml' =>; '0',
+  'create_to_html_root' =>; '0',
+  'template_list' =>; 'default',
+  'category_template' =>; 'category',
+  'list_template' =>; 'list',
+  'show_template' =>; 'show',
+  'meta_title' =>; '',
+  'meta_keywords' =>; '',
+  'meta_description' =>; '',
+  'presentpoint' =>; '1',
+  'defaultchargepoint' =>; '0',
+  'paytype' =>; '0',
+  'repeatchargedays' =>; '1',
+  'category_ruleid' =>; '6',
+  'show_ruleid' =>; '16',
+)";;
+$setting = string2array($str);
+$setting:
+Array
+(
+    [workflowid] =>; 
+    [ishtml] =>; 0
+    [content_ishtml] =>; 0
+    [create_to_html_root] =>; 0
+    [template_list] =>; default
+    [category_template] =>; category
+    [list_template] =>; list
+    [show_template] =>; show
+    [meta_title] =>; 
+    [meta_keywords] =>; 
+    [meta_description] =>; 
+    [presentpoint] =>; 1
+    [defaultchargepoint] =>; 0
+    [paytype] =>; 0
+    [repeatchargedays] =>; 1
+    [category_ruleid] =>; 6
+    [show_ruleid] =>; 16
+)
+**/
+
+/**
+ * 将字符串转换为数组
+ *
+ * @param	string	$data	字符串
+ * @return	array	返回数组格式，如果，data为空，则返回空数组
+ */
+function string2array($data) {
+	if($data == '') return array();
+	eval(";\$array = $data;";);
+	return $array;
+}
+
+/**
+ * 返回经stripslashes处理过的字符串或数组
+ * @param $string 需要处理的字符串或数组
+ * @return mixed
+ */
+function new_stripslashes($string) {
+	if(!is_array($string)) return stripslashes($string);
+	foreach($string as $key =>; $val) $string[$key] = new_stripslashes($val);
+	return $string;
+}
+
+/**
+* 将数组转换为字符串
+*
+* @param	array	$data		数组
+* @param	bool	$isformdata	如果为0，则不使用new_stripslashes处理，可选参数，默认为1
+* @return	string	返回字符串，如果，data为空，则返回空
+*/
+function array2string($data, $isformdata = 1) {
+	if($data == '') return '';
+	if($isformdata) $data = new_stripslashes($data);
+	return addslashes(var_export($data, TRUE));
+}
+
+/* 
+ * 数组转换成post字符串
+ * $array = array ('fruit1' =>; 'apple', 'fruit2' =>; 'orange' ); =>;fruit1=apple&;fruit2=orange 
+ */
+function arr2UrlParam($arrInfo) {
+	if (is_array ( $arrInfo )) {
+		foreach ( $arrInfo as $key =>; $value ) {
+			if (is_array ( $value )) {
+				foreach ( $value as $sub_key =>; $sub_value ) {
+					$str_post .= $key . '[]=' . $sub_value . '&;';
+				}
+			} else {
+				$str_post .= $key . '=' . $value . '&;';
+			}
+		}
+	}
+	$str_post = substr ( $str_post, 0, strlen ( $str_post ) - 1 );
+	return $str_post;
+}
+
+/* 
+ * 数组转换成对象
+$array = array('name' =>; 'one',
+               'sex' =>; 'two',
+			   'test'=>;array('a'=>;'ss','dd'),
+               'old' =>; 'three'
+			  );
+$arrayobject = array2Object($array);
+echo $arrayobject->;name;  // one
+print_r(object2Array($arrayobject));  
+ */
+function array2Object($array)
+{
+	if(!is_array($array)) return $array;
+
+	$object = new stdClass();
+	if(is_array($array) &;&; count($array) >; 0)
+	{
+		foreach($array as $name=>;$value)
+		{
+			$name = strtolower(trim($name));
+			if($name) $object->;$name = array2Object($value);
+		}
+
+		return $object;
+	}
+	else return FALSE;
+} 
+
+/* 
+ * 对象转换成数组 
+ */
+function object2Array($objParam) {
+	$obj_param = ( array ) $objParam;
+	foreach ( $obj_param as $key =>; $value ) {
+		if (is_object ( $value )) {
+			object2Array ( $value );
+			$obj_param [$key] = ( array ) $value;
+		}
+	}
+	return $obj_param;
+}
+
+//数组开头添加元素 保持原始key不变 arrayUnshift($arr, array('test'=>;'4'))
+function arrayUnshift($arrParams, $arrAdd) {
+	$arr_keys = array ();
+	$arr_values = array ();
+	$arr_add_keys = array_keys ( $arrAdd );
+	$arr_keys = array ($arr_add_keys [0] );
+	$arr_values = array ($arrAdd [$arr_add_keys [0]] );
+	foreach ( $arrParams as $key =>; $value ) {
+		array_push ( $arr_keys, $key );
+		array_push ( $arr_values, $value );
+	}
+	$arr_result = array_combine ( $arr_keys, $arr_values );
+	return $arr_result;
+} 
+
+//数组转换成关联数组 key=>;value 
+function toKeyArray($arrParams, $strKey = 'id', $strValue = 'name') {
+	if (! is_array ( $arrParams )) {
+		return false;
+	}
+	foreach ( $arrParams as $sub ) {
+		$arr_result [$sub [$strKey]] = $sub [$strValue];
+	}
+	return $arr_result;
+} 

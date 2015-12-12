@@ -1,0 +1,8 @@
+          <button id="send" type="button" class="am-btn am-btn-secondary doc-animations am-animation-shake"  data-doc-animation="shake"><span class="am-icon-camera"></span>&nbsp;截小图</button>&nbsp;
+  <button id="sendbig" type="button" class="am-btn am-btn-success  doc-animations"  data-doc-animation="shake"><span class="am-icon-camera"></span>&nbsp;截大图</button>
+
+
+//点击的动画
+        $(':button').click(function(){
+          var a=$(this),i="am-animation-"+a.data("docAnimation");a.data("animation-idle")&&clearTimeout(a.data("animation-idle")),a.removeClass(i),setTimeout(function(){a.addClass(i),a.data("animation-idle",setTimeout(function(){a.removeClass(i),a.data("animation-idle",!1)},500))},50);
+        });

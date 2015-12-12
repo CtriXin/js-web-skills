@@ -1,0 +1,14 @@
+
+//color=success,warning,danger,secondary,primary
+function getShowMsg(value,color){
+  var msg='<div id="showmsg" class="am-alert am-alert-'+color+' am-animation-slide-left" data-am-alert><button type="button" class="am-close">&times;</button><p>'+value+'</p></div>';
+  return msg;
+}
+function closeShowMsg(){
+  $('#showmsg').alert('close');
+}
+用法
+var showmsg=getShowMsg('测试一下','success');
+        $('#msgContainer').html(showmsg);
+        // $('#msgContainer').append(showmsg);
+setTimeout("closeShowMsg()",5000);
