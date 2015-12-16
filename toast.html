@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="apple-touch-fullscreen" content="YES" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="author" content="webkfa.com"/> 
+	<title>html5+css3实现手机toast提示</title>
+	<style>
+		*{
+			
+			margin:0;padding:0;
+			-webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+			-webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+			-webkit-tap-highlight-color: rgba(210,210,210,0.35); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+			-webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+		}
+		body{font-family:"微软雅黑";font-size:12px;}
+		ul,li{list-style:none;}
+
+		.toasttj{z-index:1003;font-size: 1.37em;position: fixed;bottom:25%;width: 100%;opacity:0;height: 24px;display: none;
+			transition: opacity 1s ease-out;
+		}
+		.huati_btn{width:175px;height:32px;background:#34a0f0;border-radius:3px;font:14px/32px "微软雅黑";display:block;overflow:hidden;margin:0 auto;text-align:center;color:#fff;text-decoration:none;}
+		.huati{height:40px;padding-top:9px;border-bottom:1px dashed #cecece}
+	</style>
+</head>
+<body>
+	<p class="huati"><a href="javascript:test();" class="huati_btn">测试一下</a></p>
+	<p class="huati"><a href="javascript:test2();" class="huati_btn">测试二下</a></p>
+
+	<script type="text/javascript">
+		function $S(s){return document.getElementById(s);}
+		function $html(s,html){$S(s).innerHTML=html;}
+		function checkIsElecmentExist(){
+			if($S('toast_id')==null){
+				var createDiv=document.createElement("div");  
+				createDiv.innerHTML='<div id="toast_id" class="toasttj" style="display: none; opacity: 0;z-index:1003;font-size: 1.37em;position: fixed;bottom:25%;width: 100%;opacity:0;height: 24px;display: none;-webkit-transition: opacity .5s ease-out .5s;text-align: center;"><a id="toast_value" style="color:#fff;background-color:#34a0f0 ;border-radius: 20px;padding: 10px;text-align: center;margin: 0 auto;display: inline-block;box-shadow: 3px 3px 3px #888888;"></a></div>';  
+				document.body.appendChild(createDiv);  
+			}
+		}
+		var toastTimeout=null;
+		var displayTimeout=null;
+		function Toast(html){
+			if(toastTimeout!=null ||displayTimeout!=null){
+				clearTimeout(toastTimeout);
+				clearTimeout(displayTimeout);
+			}
+			checkIsElecmentExist();
+
+			$S('toast_id').style.display='block';
+			$S('toast_id').style.opacity=1;
+			$S('toast_value').innerHTML=html;
+			toastTimeout=setTimeout(function(){
+				$S('toast_id').style.opacity=0;
+				displayTimeout=setTimeout(function(){$S('toast_id').style.display='none';},1500);
+			},1500);
+		}
+		function test(){
+			Toast('话题征集内容不能为空');
+		}
+		function test2(){
+			Toast('123456789asds22正在做←123456');
+		}
+	</script>
+</body>
+</html>

@@ -14,6 +14,21 @@ http://rawgit.com/
 ```
 
 ***
+####mysql in 和not in
+```
+SELECT * FROM t_userinfo WHERE userphone IN ('13714876874','18609944488') ORDER BY FIELD(userphone ,'13714876874','18609944488')
+出来的顺序就是指定的顺序了
+
+http://www.jb51.net/article/25639.htm
+```
+
+***
+####CSS3 transition 属性
+```
+http://www.w3chtml.com/css3/properties/transition/transition.html
+```
+
+***
 ####
 ```
 http://www.ituring.com.cn/article/48461
@@ -24,18 +39,22 @@ http://www.ituring.com.cn/article/48461
 Javascript 装载和执行
 http://coolshell.cn/articles/9749.html#jtss-tsina
 
-function loadjs(script_filename) {
+function loadjs(script_filename,scriptId) {
     var script = document.createElement('script');
     script.setAttribute('type', 'text/javascript');
     script.setAttribute('src', script_filename);
-    script.setAttribute('id', 'coolshell_script_id');
+    script.setAttribute('id', scriptId);
  
-    script_id = document.getElementById('coolshell_script_id');
-    if(script_id){
-        document.getElementsByTagName('head')[0].removeChild(script_id);
+    script_id = document.getElementById(scriptId);
+    if(script_id){//删除重复id的
+        document.getElementsByTagName('head')[0].removeChild(scriptId);
     }
     document.getElementsByTagName('head')[0].appendChild(script);
 }
+
+//压缩版
+function loadjs(a){var b=document.createElement("script");b.setAttribute("type","text/javascript"),b.setAttribute("src",a),b.setAttribute("id","coolshell_script_id"),script_id=document.getElementById("coolshell_script_id"),script_id&&document.getElementsByTagName("head")[0].removeChild(script_id),document.getElementsByTagName("head")[0].appendChild(b)}
+
  
 var script = 'http://coolshell.cn/asyncjs/alert.js';
 loadjs(script);
@@ -1059,10 +1078,58 @@ select.options.add(varItem);
 ```
 
 ***
+####如果select选项中存在指定text，将其设置为选中
+```
+
+        /*
+        * 如果select选项中存在指定text，将其设置为选中 js版
+        * @return boolean true 设置成功，false 不存在
+        */
+        function setSelectedItem(objSelect,objItemText){
+          for (var i = 0; i < objSelect.options.length; i++) {
+            if (objSelect.options[i].text == objItemText) {
+              objSelect.options[i].selected = true;
+              return true;
+            }
+          }
+          return false;
+        }
+
+```
+
+***
+####判断select选项中 是否存在Value="paraValue"的Item
+```
+
+        /*
+        * 判断select选项中 是否存在Value="paraValue"的Item js版
+        * @return boolean true 存在，false 不存在
+        */
+        function jsSelectIsExitItem(objSelect, objItemValue) {
+          var isExit = false;
+          for (var i = 0; i < objSelect.options.length; i++) {
+            if (objSelect.options[i].value == objItemValue) {
+              isExit = true; 
+              break; 
+            }
+          }
+          return isExit;  
+        } 
+
+```
+
+
+***
 ####select操作大全
 ```
 http://www.cnblogs.com/Herist/archive/2007/09/24/903890.html
 
+```
+
+***
+####删除指定index的数组元素
+```
+arr.splice(1);//删除指定index的数组元素
 ```
 
 ***
