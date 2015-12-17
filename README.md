@@ -6,11 +6,46 @@ js web 相关总结
 ```
 
 ```
+***
+####字符串转json对象
+```
+var json='{"code":"S000000","data":[{"deviceId":"ss333322$$222","pages":500,"timecost":3600,"ts":"2015-12-01","warning":50,"words":30000},{"deviceId":"ss333322$$222","pages":500,"timecost":3600,"ts":"2015-12-02","warning":50,"words":30000}],"msg":""}';
+var obj = eval("("+json+")");
+obj.code;
+
+json转string：json2
+http://www.json.org/js.html
+
+jq版互转（推荐）
+http://blog.sina.com.cn/s/blog_667ac0360102ecem.html
+json字符串转json对象：jQuery.parseJSON(jsonStr);
+json对象转json字符串：JSON.stringify(jsonObj);
+```
 
 ***
 ####把github 当服务器使用
 ```
 http://rawgit.com/
+```
+
+***
+####js 和php版正则匹配替换
+```
+js:
+var string = '{"code":"S000000","data":[{"deviceId":"ss333322$$222","pages":500,"timecost":3600,"ts":"2015-12-01","warning":50,"words":30000},{"deviceId":"ss333322$$222","pages":500,"timecost":3600,"ts":"2015-12-02","warning":50,"words":30000}],"msg":""}'; string.replace(/(\d+-\d+)-/g,'');
+string.replace(/(\d+-\d+)-/g,'');//匹配全部，string.replace(/(\d+-\d+)-/,'');//匹配第一个就结束
+php:
+$string = '{"code":"S000000","data":[{"deviceId":"ss333322$$222","pages":500,"timecost":3600,"ts":"2015-12-01","warning":50,"words":30000},{"deviceId":"ss333322$$222","pages":500,"timecost":3600,"ts":"2015-12-02","warning":50,"words":30000}],"msg":""}';
+$pattern = '/(\d+-\d+)-/i';
+$replacement = '';
+echo preg_replace($pattern, $replacement, $string);
+
+```
+
+***
+####并发编程（四）：也谈谈数据库的锁机制
+```
+http://www.2cto.com/database/201403/286730.html
 ```
 
 ***
@@ -1082,7 +1117,7 @@ select.options.add(varItem);
 ```
 
         /*
-        * 如果select选项中存在指定text，将其设置为选中 js版
+        * 如果select选项中存在指定text，将其设置为选中 js版//也可以改成指定value
         * @return boolean true 设置成功，false 不存在
         */
         function setSelectedItem(objSelect,objItemText){
@@ -1094,6 +1129,23 @@ select.options.add(varItem);
           }
           return false;
         }
+
+
+      /*
+        * 如果select选项中存在指定text，将其设置为选中 AM版
+        * @return boolean true 设置成功，false 不存在
+        */
+        function setSelectedItem(id,objItemText){
+          var objSelect=document.getElementById(id);
+          for (var i = 0; i < objSelect.options.length; i++) {
+            if (objSelect.options[i].text == objItemText) {
+              $('#'+id).find('option').eq(i).attr('selected', true);
+              return true;
+            }
+          }
+          return false;
+        }
+
 
 ```
 
@@ -1115,6 +1167,47 @@ select.options.add(varItem);
           }
           return isExit;  
         } 
+
+```
+
+***
+####判断select选项中 是否存在Value="paraValue"的Item
+```
+
+        /*
+        * 获得选中的index
+        * @param id select的id
+        */
+        function getCurrentSelectedIndex(id){
+          if (id==undefined) {
+            id='mySelect';
+          }
+          return document.getElementById(id).selectedIndex;
+        }
+
+        /*
+        * 获得选中的value
+        * @param id select的id
+        */
+        function getCurrentSelectedValue(id){
+          if (id==undefined) {
+            id='mySelect';
+          }
+          return document.getElementById(id).value;
+        }
+
+        /*
+        * 获得选中的text weiceshi
+        * @param id select的id
+        */
+        function getCurrentSelectedValue(id){
+          if (id==undefined) {
+            id='mySelect';
+          }
+          return document.getElementById(id).options[getCurrentSelectedIndex(id)].text;
+        }
+
+
 
 ```
 
