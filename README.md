@@ -29,11 +29,50 @@ http://rawgit.com/
 ```
 
 ***
+####js刷新当前页面
+```
+location.reload() 
+```
+
+
+***
+####不允许bone ajax加载bug data-ajax="false" 
+```
+<a style="float: right;margin: 1px" class="am-btn-sm am-btn-danger" data-ajax="false" href="http://lamp.snewfly.com/hzsb_login_page_zhihui">
+        <i class="am-icon-exchange am-text-default"></i>
+        切换账号
+      </a>
+
+```
+
+***
 ####js 和php版正则匹配替换
 ```
 js:
 var string = '{"code":"S000000","data":[{"deviceId":"ss333322$$222","pages":500,"timecost":3600,"ts":"2015-12-01","warning":50,"words":30000},{"deviceId":"ss333322$$222","pages":500,"timecost":3600,"ts":"2015-12-02","warning":50,"words":30000}],"msg":""}'; string.replace(/(\d+-\d+)-/g,'');
 string.replace(/(\d+-\d+)-/g,'');//匹配全部，string.replace(/(\d+-\d+)-/,'');//匹配第一个就结束
+
+---------------------------------------------
+name = '{"code":"S000000","msg":"操作成功","data":[{"deviceId":"5142521630344243c400003222840507","words":800,"pages":2,"timecost":120,"warning":2,"ts":"2015-12-19 14:40:52"},{"deviceId":"5142521630344243c400003222840507","words":1200,"pages":3,"timecost":120,"warning":3,"ts":"2015-12-20 10:32:01"}],"extra":""}';
+
+uw=name.replace(/\d+-\d+-(\d\d) \d\d:\d\d:\d\d/g, function(word){
+  return word[8]+word[9];}
+  );document.write (uw);
+-------------------------------------------
+  改进
+  name = '{"code":"S000000","msg":"操作成功","data":[{"deviceId":"5142521630344243c400003222840507","words":800,"pages":2,"timecost":120,"warning":2,"ts":"2015-12-19 14:40:52"},{"deviceId":"5142521630344243c400003222840507","words":1200,"pages":3,"timecost":120,"warning":3,"ts":"2015-12-20 10:32:01"}],"extra":""}';
+
+uw=name.replace(/\d+-\d+-(\d\d) \d\d:\d\d:\d\d/g, "$1");
+
+document.write (uw);
+---------------------------------------------
+    var str="中华人民共和国，中华人民共和国";   
+
+ var newstr=str.replace(/(人)民(共)/g,"<font color=red>$1</font>aa<font color=red>$2</font>");   
+
+document.write(newstr);   
+-----------------------------------------
+
 php:
 $string = '{"code":"S000000","data":[{"deviceId":"ss333322$$222","pages":500,"timecost":3600,"ts":"2015-12-01","warning":50,"words":30000},{"deviceId":"ss333322$$222","pages":500,"timecost":3600,"ts":"2015-12-02","warning":50,"words":30000}],"msg":""}';
 $pattern = '/(\d+-\d+)-/i';
@@ -88,11 +127,9 @@ function loadjs(script_filename,scriptId) {
 }
 
 //压缩版
-function loadjs(a){var b=document.createElement("script");b.setAttribute("type","text/javascript"),b.setAttribute("src",a),b.setAttribute("id","coolshell_script_id"),script_id=document.getElementById("coolshell_script_id"),script_id&&document.getElementsByTagName("head")[0].removeChild(script_id),document.getElementsByTagName("head")[0].appendChild(b)}
-
- 
-var script = 'http://coolshell.cn/asyncjs/alert.js';
-loadjs(script);
+  function loadjs(a,b){var c=document.createElement("script");c.setAttribute("type","text/javascript"),c.setAttribute("src",a),c.setAttribute("id",b),script_id=document.getElementById(b),script_id&&document.getElementsByTagName("head")[0].removeChild(b),document.getElementsByTagName("head")[0].appendChild(c)}
+  
+  loadjs('http://lamp.snewfly.com/static/js/bonezhihui.js','bonezhihui');
 
 
 ```
