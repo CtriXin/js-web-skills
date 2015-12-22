@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>qrcode</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.4.2/css/amazeui.min.css"/>
+</head>
+<body style="margin: 3px">
+
+	<div style="text-align: center" id="output"></div>
+    <div style="margin: 10px 10px">
+        <div class="am-input-group">
+          <span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
+          <input id="wifi" type="tel" class="am-form-field" placeholder="WLAN SSID"  data-am-popover="{content: '无线网络wifi名称', trigger: 'hover focus'}">
+      </div>
+
+      <div class="am-input-group">
+          <span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
+          <input id="pwd" type="password" class="am-form-field" placeholder="密码">
+      </div>
+      <select id="mySelect" data-am-selected="{btnWidth: '100%', btnSize: 'sm', btnStyle: 'default'}">
+        <option selected="true" value="WPA2-PSK">WPA2-PSK</option>
+        <option value="WPA-PSK">WPA-PSK</option>
+        <option value="WEP">WEP</option>
+    </select>
+    <br/> <br/>
+    <button id="btn_generate" type="button" style=" -webkit-border-radius:7px;" class="am-btn am-btn-success am-btn-block doc-animations am-animation-shake" data-doc-animation="shake">生成二维码</button>
+
+</div>
+<button
+id="btn_myAlert"
+style="display: none;"
+type="button"
+class="am-btn am-btn-primary"
+data-am-modal="{target: '#my-alert',closeViaDimmer: 0}">
+Alert
+</button>
+
+<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">温馨提示</div>
+    <div class="am-modal-bd" id="myAlert_value">
+
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn">确定</span>
+  </div>
+</div>
+</div>
+<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
+<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/amazeui2.x.min.js"></script>
+<script type="text/javascript" src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery.qrcode.min.js"></script>
+<script>
+
+
+var myselect=$('#mySelect') ;//加密类型选择框对象
+var type="WPA2-PSK";
+
+myselect.change(function(){ 
+      type=$(this).children('option:selected').val();//这就是selected的值
+      alert(type);
+  }) ;
+
+
+     $("#btn_generate").click(function  (event) {
+        var wifi=$('#wifi').val();
+        var pwd=$('#pwd').val();
+
+        if (wifi!="" && pwd!="" && type!="") {
+
+                    var str=utf16to8('WIFI:S:'+wifi+';T:'+type+';P:'+pwd+';');//转支持中文编码
+                    $('#output').html("");
+                    setTimeout(function (){
+                        generate(str);
+                    },100);
+                }else{
+                    myAlert("名称或密码为空");
+                }
+                
+                
+            });
+
+     function generate(str){
+        jQuery('#output').qrcode(str);
+        var h = $(window).width();
+        $("#output>canvas").css("width", h-50);
+        $("#output>canvas").css("height", h-50);
+    }
+
+
+
+function utf16to8(str) {  
+    var out, i, len, c;  
+    out = "";  
+    len = str.length;  
+    for (i = 0; i < len; i++) {  
+        c = str.charCodeAt(i);  
+        if ((c >= 0x0001) && (c <= 0x007F)) {  
+            out += str.charAt(i);  
+        } else if (c > 0x07FF) {  
+            out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));  
+            out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));  
+            out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));  
+        } else {  
+            out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));  
+            out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));  
+        }  
+    }  
+    return out;  
+}  
+
+    function myAlert(value){
+
+      $("#myAlert_value").html(value);
+      $('#btn_myAlert').click();
+  }
+
+  $(':button').click(function(){
+      var a=$(this),i="am-animation-"+a.data("docAnimation");a.data("animation-idle")&&clearTimeout(a.data("animation-idle")),a.removeClass(i),setTimeout(function(){a.addClass(i),a.data("animation-idle",setTimeout(function(){a.removeClass(i),a.data("animation-idle",!1)},500))},50);
+  });
+
+</script>
+
+
+
+</body>
+</html>

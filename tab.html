@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+
+<style type="text/css">
+	* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+}
+
+body {
+  padding: 20px;
+  text-align: left;
+  font-family: Lato;
+}
+
+.tabs {
+  width: 100%;
+  float: none;
+  list-style: none;
+  position: relative;
+  margin: 80px 0 0 10px;
+  text-align: left;
+}
+.tabs li {
+  float: left;
+  display: block;
+}
+.tabs input[type="radio"] {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+.tabs label {
+  display: block;
+  padding: 14px 21px;
+  border-radius: 2px 2px 0 0;
+  font-size: 20px;
+  font-weight: normal;
+  text-transform: uppercase;
+  background: #8e44ad;
+  cursor: pointer;
+  position: relative;
+  top: 4px;
+  -webkit-transition: all 0.2s ease-in-out;
+}
+.tabs label:hover {
+  background: #703688;
+}
+.tabs .tab-content {
+  z-index: 2;
+  display: none;
+  overflow: hidden;
+  width: 100%;
+  font-size: 17px;
+  line-height: 25px;
+  padding: 25px;
+  position: absolute;
+  top: 53px;
+  left: 0;
+  background: #612e76;
+}
+.tabs [id^="tab"]:checked + label {
+  top: 0;
+  padding-top: 17px;
+  background: #612e76;
+}
+.tabs [id^="tab"]:checked ~ [id^="tab-content"] {
+  display: block;
+}
+</style>
+<body>
+<ul class="tabs">
+<li>
+<input type="radio" name="tabs" id="tab1" checked />
+<label for="tab1">选项卡 1</label>
+<div id="tab-content1" class="tab-content">
+<p>选项卡内容 1</p>
+</div>
+</li>
+
+<li>
+<input type="radio" name="tabs" id="tab2" />
+<label for="tab2">选项卡 2</label>
+<div id="tab-content2" class="tab-content">
+<p>选项卡内容 2</p>
+<p>选项卡内容 2</p>
+<p>选项卡内容 2</p>
+<p>选项卡内容 2</p>
+<p>选项卡内容 2</p>
+<p>选项卡内容 2</p>
+<p>选项卡内容 2</p>
+<p>选项卡内容 2</p>
+<p>选项卡内容 2</p>
+<p>选项卡内容 2</p>
+<p>选项卡内容 2</p>
+<p>选项卡内容 2</p>
+</div>
+</li>
+</ul>
+
+
+</body>
+</html>

@@ -6,6 +6,21 @@ js web 相关总结
 ```
 
 ```
+
+***
+####bone首页也要带上page out 的class，否则返回会错版
+```
+  <div  id="pageHome" class="page out" >
+```
+
+***
+####bone ajax加载 需要 data-ajax="false"  且href="qrcode/wifisettings.html" 为相对同域名路径
+```
+        <div style="margin: 8px"><a href="qrcode/wifisettings.html" data-ajax="false"  type="button" style=" -webkit-border-radius:7px;" class="am-btn am-btn-secondary am-btn-block ">伴学机配置wifi</a></div>
+     
+```
+
+
 ***
 ####字符串转json对象
 ```
@@ -1156,6 +1171,8 @@ select.options.add(varItem);
         /*
         * 如果select选项中存在指定text，将其设置为选中 js版//也可以改成指定value
         * @return boolean true 设置成功，false 不存在
+        *简便方法：var objSelect=document.getElementById(id);
+        *           objSelect.value = objItemText;
         */
         function setSelectedItem(objSelect,objItemText){
           for (var i = 0; i < objSelect.options.length; i++) {
@@ -1165,6 +1182,15 @@ select.options.add(varItem);
             }
           }
           return false;
+        }
+
+        /*
+        * AM框架版（需刷新）
+        */
+         function setSelectedItem(id,objItemText){
+                    var objSelect=document.getElementById(id);
+                    objSelect.value = objItemText;
+                    $('#'+id).trigger('changed.selected.amui');
         }
 
 
