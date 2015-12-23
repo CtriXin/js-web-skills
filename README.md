@@ -7,6 +7,28 @@ js web 相关总结
 
 ```
 
+
+***
+####有空可以瞧瞧的前端资源教程
+```
+http://www.shejidaren.com/category/css/css-learn
+```
+
+
+***
+####有空可以瞧瞧的前端资源教程
+```
+
+html5 audio音频播放全解析
+http://www.open-open.com/lib/view/open1407401112973.html
+
+html5 touch事件实现触屏页面上下滑动(一)
+http://www.cnblogs.com/leinov/p/3701951.html
+
+
+```
+
+
 ***
 ####bone首页也要带上page out 的class，否则返回会错版
 ```

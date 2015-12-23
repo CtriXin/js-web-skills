@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1 user-scalable=0"/>
+    <link rel="shortcut icon" href="img/logo.png">
+    <title>html5 audio音频播放</title>
+
+    <script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
+    <style>
+        *{ margin: 0; padding:0;}
+        .control{ width: 30px; height: 30px;border-radius: 30px; border:none; color:#fff; box-shadow: #888 0 0 8px;}
+        .color_gray{ background: #e4e4e4}
+        .play{ background:skyblue;}
+        .pause{ background:  #f06060;}
+
+        /*时间样式*/
+        .time_block{ width: 100px; height: 20px;color:#888;margin: 10px;margin-right: 30px;}
+        .tiemDetail{ right:10px;}
+        .div_audio{ margin: 8px;}
+    </style>
+</head>
+
+<body>
+    <!--audiostart-->
+    <div class="div_audio">
+        <button id="control1" class="control play" onclick="prepareSong('audio_00','control1','allTime','currentTime');">播放</button><audio id="audio_00" preload="true"><source src="http://lamp.snewfly.com/upload/wechat/voice/15-12-18/0.77176800145040989445.mp3">浏览器不支持音频</audio>
+
+        <spam class="time_block"><span id="time"><span class="tiemDetail"><span class="currentTime" id="currentTime">00:00</span>/<span class="allTime" id="allTime">00:00</span></span></span></spam>
+    </div>
+
+    <div class="div_audio">
+        <button id="control2" class="control play" onclick="prepareSong('audio_02','control2','allTime2','currentTime2');">播放</button><audio id="audio_02" preload="true"><source src="http://lamp.snewfly.com/upload/wechat/voice/15-12-18/0.77176800145040989445.mp3">浏览器不支持音频</audio>
+
+        <spam class="time_block"><span id="time"><span class="tiemDetail"><span class="currentTime" id="currentTime2">00:00</span>/<span class="allTime" id="allTime2">00:00</span></span></span></spam>
+    </div>
+
+
+    <script>
+    
+var timeIntervalId; 
+var currentAudio=null; //当前播放音频对象
+var currentAudioId=""; //当前播放音频id
+
+//播放/暂停
+function clicks(audioId,controlId) {
+
+    var audio = document.getElementById(audioId);
+
+    var controlObj=$("#"+controlId);
+    if (controlObj.hasClass("play")) {
+        controlObj.addClass("pause").removeClass("play");
+            audio.play();//开始播放
+            controlObj.html("暂停");
+        }else {
+            controlObj.addClass("play").removeClass("pause");
+            controlObj.html("播放");
+            audio.pause();
+        }
+    }
+
+//播放时间
+function timeChange(time, timePlaceId) {//默认获取的时间是时间戳改成我们常见的时间格式
+    var timePlace = document.getElementById(timePlaceId);
+    //分钟
+    var minute = time / 60;
+    var minutes = parseInt(minute);
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+    //秒
+    var second = time % 60;
+    seconds = parseInt(second);
+    if (seconds < 10) {
+        seconds = "0" + seconds;
+    }
+    var allTime =  minutes  + ":" + seconds ;
+    timePlace.innerHTML = allTime;
+}
+
+
+//播放事件监听
+function prepareSong(audioId,controlId,TimePlaceId,currentTimeId){
+    clearInterval(timeIntervalId);
+    console.log("prepareSong");
+    if (currentAudio!=null) {
+        if (currentAudioId!=audioId) {
+            currentAudio.currentTime=0;
+        }
+        currentAudio.pause();
+        clearInterval(timeIntervalId);
+    }
+
+    var audio = document.getElementById(audioId);
+    currentAudio=audio;
+    currentAudioId=audioId;
+    var controlObj=$("#"+controlId);
+    timeChange(audio.duration, TimePlaceId);//设置全长时间
+    
+
+    if ($("#"+controlId).hasClass('play')) {
+        setTimeout(function(){
+            timeIntervalId =setInterval(function() {
+        timeChange(audio.currentTime, currentTimeId);//刷新播放进度时间
+        console.log("time.currentTime");
+
+    }, 400);
+        },100);
+    }
+
+
+    clicks(audioId,controlId);
+
+    audio.addEventListener("pause",
+        function() { //监听暂停
+            console.log("pause");
+            controlObj.addClass("play").removeClass("pause");
+            controlObj.html("播放");
+            clearInterval(timeIntervalId);
+            if (audio.currentTime == audio.duration) {
+                audio.currentTime = 0;
+                // audio.stop();
+            }
+        }, false);
+    audio.addEventListener("play",
+        function() { //播放暂停
+            console.log("play");
+            controlObj.addClass("pause").removeClass("play");
+            controlObj.html("暂停");
+        }, false);
+
+    audio.addEventListener("ended", function() {
+        console.log("ended");
+        clearInterval(timeIntervalId);
+        currentAudio=null;
+    }, false);
+}
+
+
+
+</script>
+</body>
+</html>

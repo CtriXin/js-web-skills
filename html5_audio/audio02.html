@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1 user-scalable=0"/>
+    <link rel="shortcut icon" href="img/logo.png">
+    <title>html5 audio音频播放</title>
+
+    <script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
+    <style>
+        *{ margin: 0; padding:0;}
+        body{-webkit-tap-highlight-color: rgba(0,0,0,0); font-family: "微软雅黑"}
+        h1{ width: 100%; font-size: 1.5em; text-align: center; line-height: 3em; color:#47c9af; }
+        .control{ width: 30px; height: 30px;  text-align: center; border-radius: 30px; border:none; color:#fff; box-shadow: #888 0 0 8px;float: left}
+        .color_gray{ background: #e4e4e4}
+        .play{ background:skyblue;}
+        .pause{ background:  #f06060;}
+        /*进度条样式*/
+        .progressBar{ width: 90px;margin-left: 40px;margin-top: 15px; position:absolute; float: left}
+        .progressBar div{ position: absolute;}
+        .progressBar .progressBac{ width: 90px; height: 8px;top:0; background: #e4e4e4;position:absolute; }
+        .progressBar .speed{width: 0px; height: 10px; background: #f06060;position:absolute; }
+        .progressBar .drag{ width: 20px; height: 20px; top:-10px;  background: skyblue; opacity: 0.8; border-radius: 50px; box-shadow: #fff 0 0 5px;position:absolute; }
+        /*时间样式*/
+        #time{ width: 100px; height: 20px; float: right;  color:#888;margin-right: 30px;}
+        .tiemDetail{ right:10px; top:0;}
+        .div_audio{ margin: 3px;}
+    </style>
+</head>
+
+<body>
+    <!--audiostart-->
+    <div class="div_audio">
+        <button id="control" class="control play" onclick="prepareSong('audio_00','control','allTime','currentTime');">播放</button><audio id="audio_00" preload="true"><source src="http://lamp.snewfly.com/upload/wechat/voice/15-12-18/0.77176800145040989445.mp3">浏览器不支持音频</audio>
+    <!--时间进度条块儿start-->
+    <div class="progressBar">
+        <div class="progressBac"></div>
+        <div class="speed" id="speed"></div>
+        <div class="drag" id="drag"></div>
+    </div>
+    <div id="id_time"><span id="time"><span class="tiemDetail"><span class="currentTime" id="currentTime">00:00</span>/<span class="allTime" id="allTime">00:00</span></span></span></div>
+    </div>
+<!-- 
+    <div class="div_audio">
+        <button id="control2" class="control play" onclick="prepareSong('audio_01','control2','allTime2','currentTime2');">播放</button><audio id="audio_01" preload="true"><source src="http://lamp.snewfly.com/upload/wechat/voice/15-12-18/0.77176800145040989445.mp3">浏览器不支持音频</audio>
+    <div class="progressBar">
+        <div class="progressBac"></div>
+        <div class="speed" id="speed"></div>
+        <div class="drag" id="drag"></div>
+    </div>
+    <div id="id_time"><span id="time"><span class="tiemDetail"><span class="currentTime" id="currentTime2">00:00</span>/<span class="allTime" id="allTime2">00:00</span></span></span></div>
+    </div> -->
+
+    <script>
+     var dragWith=20;
+//获取歌曲链接并插入dom中
+var dragMoveIntervalId; 
+var timeIntervalId; 
+
+//播放/暂停
+function clicks(audioId,controlId) {
+    var audio = document.getElementById(audioId);
+    var controlObj=$("#"+controlId);
+        if (controlObj.hasClass("play")) {
+            console.log('controlObj.hasClass("play")');
+            controlObj.addClass("pause").removeClass("play");
+            audio.play();//开始播放
+            dragMove(audioId);//并且滚动条开始滑动
+            controlObj.html("暂停");
+        }else {
+            console.log('!!!controlObj.hasClass("play")');
+            controlObj.addClass("play").removeClass("pause");
+            controlObj.html("播放");
+            audio.pause();
+        }
+}
+
+//播放时间
+function timeChange(time, timePlaceId) {//默认获取的时间是时间戳改成我们常见的时间格式
+    var timePlace = document.getElementById(timePlaceId);
+    //分钟
+    var minute = time / 60;
+    var minutes = parseInt(minute);
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+    //秒
+    var second = time % 60;
+    seconds = parseInt(second);
+    if (seconds < 10) {
+        seconds = "0" + seconds;
+    }
+    var allTime = "" + minutes + "" + ":" + "" + seconds + "";
+    timePlace.innerHTML = allTime;
+}
+
+//播放事件监听
+function prepareSong(audioId,controlId,TimePlaceId,currentTimeId){
+    console.log("prepareSong");
+    clearInterval(dragMoveIntervalId);
+    clearInterval(timeIntervalId);
+    var audio = document.getElementById(audioId);
+    var controlObj=$("#"+controlId);
+    timeChange(audio.duration, TimePlaceId);//设置时间
+
+    timeIntervalId =setInterval(function() {
+        $("#time.currentTime").html(timeChange(audio.currentTime, currentTimeId));
+        console.log("time.currentTime");
+    }, 500);
+
+    clicks(audioId,controlId);
+
+    audio.addEventListener("pause",
+        function() { //监听暂停
+            console.log("pause");
+            controlObj.addClass("play").removeClass("pause");
+            controlObj.html("播放");
+            clearInterval(dragMoveIntervalId);
+            clearInterval(timeIntervalId);
+            if (audio.currentTime == audio.duration) {
+
+                audio.currentTime = 0;
+                audio.stop();
+            }
+        }, false);
+    audio.addEventListener("play",
+        function() { //播放暂停
+            console.log("play");
+            controlObj.addClass("pause").removeClass("play");
+            controlObj.html("暂停");
+            // dragMove();
+        }, false);
+
+    audio.addEventListener("ended", function() {
+        console.log("ended");
+        clearInterval(dragMoveIntervalId);
+        clearInterval(timeIntervalId);
+    }, false);
+}
+
+
+
+//3拖动的滑动条前进
+function dragMove(audioId) {
+    var audio = document.getElementById(audioId);
+    dragMoveIntervalId=setInterval(function() {
+        drag.style.left = (audio.currentTime / audio.duration) * (100 - dragWith) + "px";
+        speed.style.width = ((audio.currentTime / audio.duration) * (100 - dragWith)) + "px";
+        console.log("dragMove");
+    }, 500);
+}
+</script>
+</body>
+</html>
