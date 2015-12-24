@@ -1,0 +1,8 @@
+5. 避免Ajax加载，使用传统刷新
+Mobilebone默认会对同域的地址做Ajax请求无刷新加载。但是，万一人家就是希望要请求呢？以及，虽然跨域，但是人家依然希望使用Ajax请求了（如跨子域而已）。
+轮到data-ajax属性出场了。如下代码：
+<a href="ajax.html" data-ajax="false">  // 此情况下也可使用data-rel="external"
+于是，点击上面<a>元素时候，就会是浏览器的刷新跳转。
+如果人家要页面上所有的链接，或者大部分都是跳转，总不能一个一个设置data-ajax="false"吧，哈，Mobilebone提供了一个全局参数，Mobilebone.captureLink，只要设置成false布尔值，页面所有链接诶都是传统可刷新跳转链接。
+Mobilebone.captureLink = false;
+例如，测试引导首页就是这么设置的。

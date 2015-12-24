@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta http-equiv="cache-control" content="private" />
+  <meta http-equiv="expires" content="0" />
+	<title>伴学机配置wifi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.5.0/css/amazeui.min.css"/>
+</head>
+<body style="margin: 3px">
+<div id="pageWifi" class="page out" style="">
+	<div style="text-align: center" id="output"></div>
+    <div style="margin: 10px 10px">
+        <div class="am-input-group">
+          <span class="am-input-group-label"><i class="am-icon-wifi am-icon-fw"></i></span>
+          <input id="wifi" type="text" class="am-form-field" placeholder="WLAN SSID"  data-am-popover="{content: '无线网络wifi名称', trigger: 'hover focus'}">
+      </div>
+
+      <div class="am-input-group">
+          <span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
+          <input id="pwd" type="password" class="am-form-field" placeholder="密码">
+      </div>
+      <select id="mySelect" data-am-selected="{btnWidth: '100%', btnSize: 'sm', btnStyle: 'default'}">
+        <option selected="true" value="WPA2-PSK">WPA2-PSK</option>
+        <option value="WPA-PSK">WPA-PSK</option>
+        <option value="WEP">WEP</option>
+    </select>
+    <br/> <br/>
+    <button id="btn_generate" type="button" style=" -webkit-border-radius:7px;" class="am-btn am-btn-success am-btn-block doc-animations am-animation-shake" data-doc-animation="shake">生成二维码</button>
+
+</div>
+</div>
+<button
+id="btn_myAlert"
+style="display: none;"
+type="button"
+class="am-btn am-btn-primary"
+data-am-modal="{target: '#my-alert',closeViaDimmer: 0}">
+Alert
+</button>
+
+<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">温馨提示</div>
+    <div class="am-modal-bd" id="myAlert_value">
+
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn">确定</span>
+  </div>
+</div>
+</div>
+<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
+ <script src="http://7xkaou.com2.z0.glb.qiniucdn.com/amazeui-2.5.0.min.js"></script>
+<script type="text/javascript" src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery.qrcode.min.js"></script>
+<script>
+function generate(a){jQuery("#output").qrcode(a);var b=$(window).width();$("#output>canvas").css("width",b-50),$("#output>canvas").css("height",b-50)}function utf16to8(a){var b,c,d,e;for(b="",d=a.length,c=0;d>c;c++)e=a.charCodeAt(c),e>=1&&127>=e?b+=a.charAt(c):e>2047?(b+=String.fromCharCode(224|15&e>>12),b+=String.fromCharCode(128|63&e>>6),b+=String.fromCharCode(128|63&e>>0)):(b+=String.fromCharCode(192|31&e>>6),b+=String.fromCharCode(128|63&e>>0));return b}function myAlert(a){$("#myAlert_value").html(a),$("#btn_myAlert").click()}var myselect=$("#mySelect"),type="WPA2-PSK";myselect.change(function(){type=$(this).children("option:selected").val()}),$("#btn_generate").click(function(){var d,b=$("#wifi").val(),c=$("#pwd").val();""!=b&&""!=c&&""!=type?(d=utf16to8("WIFI:S:"+b+";T:"+type+";P:"+c+";"),$("#output").html(""),setTimeout(function(){generate(d)},100)):myAlert("名称或密码为空")}),$(":button").click(function(){var a=$(this),b="am-animation-"+a.data("docAnimation");a.data("animation-idle")&&clearTimeout(a.data("animation-idle")),a.removeClass(b),setTimeout(function(){a.addClass(b),a.data("animation-idle",setTimeout(function(){a.removeClass(b),a.data("animation-idle",!1)},500))},50)});
+
+</script>
+
+
+
+</body>
+</html>

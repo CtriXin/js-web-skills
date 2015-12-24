@@ -1,0 +1,37 @@
+	var _checkLogin = function(opt){
+		loginHandler.do(false,function(){
+			var userinfo = $native.session('edn.userinfo');
+			if(!userinfo){
+				//var itemsdata = $native.cache('edn.itemsdata');
+				//var version = ClientUtil.getVersion();
+				A.Controller.section('#login_section');
+				/*
+				if(itemsdata!=version){
+					A.Controller.section('#items_section');
+				}else{
+					A.Controller.section('#login_section');
+				}
+				*/
+				opt.fail&&opt.fail();
+				return;
+			}
+			opt.success&&opt.success();
+			return;
+		});
+
+	};
+	
+	
+	$('#auction,#newpost,#chat').tap(function(){
+		A.showMask();
+		var thisId=this.id;
+		_checkLogin({
+			success:function(){
+				A.hideMask();
+				A.Controller.section('#'+thisId+"_section");
+			},
+			fail:function(){
+				A.hideMask();
+			}
+		});
+	});
