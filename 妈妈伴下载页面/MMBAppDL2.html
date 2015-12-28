@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta charset="utf-8">
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<meta http-equiv="cache-control" content="private" />
+	<meta http-equiv="expires" content="0" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<meta name="keywords" content="妈妈伴 APP" />
+	<meta name="description" content="mamaban" />
+	<title>妈妈伴</title>
+	<style type="text/css">
+		* { margin: 0; padding: 0; }
+		body { color: #5c5c5c; font-size: 12px; font-family: "微软雅黑","黑体","Lucida Grande",Verdana,sans-serif;  }
+		img { border: none; }
+		ul, li, dl, dt, dd { list-style: none; margin: 0; padding: 0; }
+		a { color: #FFFFFF; text-decoration: none; }
+		a: hover { text-decoration: none; }
+		/*.top { background:url(http://115.29.206.212/m.vhua.com/images/20140414bg.jpg) 	repeat-x }*/
+		/*.top p { margin:0; padding:0 }*/
+		.bar{height: 120px;}
+		.bar img{height: 120px;width: auto;margin-right: 20px;}
+		/*.top{margin-top: 50px;}*/
+
+		.logo { width: 100% }
+		.lcenter{text-align: center;color: #33B038 ;margin: 10px}
+		.main-size{font-size: 40px;}
+		.sub-size{font-size: 25px;}
+		.kuang-bian { width: 290px; padding: 0px 10px; text-align: left; margin: 0 auto;font-size: 20px; font-family:"微软雅黑","黑体","Lucida Grande",Verdana,sans-serif; color:#000000}
+		.download{margin-top: 20px;}
+	</style>
+	<script type="text/javascript" src="http://babyfeet.aliguli.com/include/js/zepto.min.js"></script>
+</head>
+<script type="text/javascript">
+	<!--
+	var isMobile = {
+		All: function () {
+			return navigator.userAgent.match(/ipad|iphone os|android|windows mobile|windows phone|symbian|hpwos|blackberry|nokiabrowser|nokia|mqqbrowser|htc_sensation|K-Touch|AliyunOs|bingbot|Googlebot|EtaoSpider|YoudaoBot|spider|Baiduspider|360Spider/i) ? true : false;
+		},
+		any: function () {
+			return (isMobile.All());
+		}
+	};
+	if (!isMobile.any()) {
+//		window.location.href = 'http://www.vhua.com/';
+}
+	//-->
+</script>
+<body>
+<!-- 	<div class="bar">
+		<img src="http://7xkaou.com2.z0.glb.qiniucdn.com/mmbbrower.png" alt="浏览器打开" style="float: right;"/>
+	</div> -->
+	<div class="top" align="center">
+		<P>
+			<!--		<img width="120" height="150" src="../include/images/logo.png">-->
+			<!--		<span style="position:relative;top:-58px;">啊哩咕哩</span>-->
+			<br/>
+			<br/>
+		</P>
+		<div class="lcenter main-size"><span>妈妈伴</span></div>
+		<div class="lcenter sub-size"><span>宝宝温度 妈妈放心</span></div>
+		<img alt="logo" style="width: 200px;" src="http://7xkaou.com2.z0.glb.qiniucdn.com/MUMLOGO.png">
+	</div>
+
+	<div class="download" align="center">
+		<p class="an_download">
+			<a href="http://www.mumwith.com/app/mw_themometer.apk">
+				<img id="android" src="http://7xkaou.com2.z0.glb.qiniucdn.com/android4.png" width="250" height="38" />
+
+			</a>
+		</p>
+		<br/>
+		<div>IOS版 敬请期待</div>
+<!-- 	<p class="ios_download">
+		<a href="https://appsto.re/cn/nEF5-.i">
+			<img id="ios" src="http://121.40.144.58/api/include/images/download_icon/iphone.png" width="187" height="59" />
+			
+		</a>
+        <br/><br/>
+        <a style="font-size: small;color: blue;" href="http://api.uwhom.cn/ios/instruction.html">《IOS9用户安装必看》</a>
+    </p> -->
+</div>
+</body>
+<script type="text/javascript">
+	var browser={
+		versions:function(){
+			var u = navigator.userAgent, app = navigator.appVersion;
+			return {
+				trident: u.indexOf('Trident') > -1,
+				presto: u.indexOf('Presto') > -1,
+				webKit: u.indexOf('AppleWebKit') > -1,
+				gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,
+				mobile: !!u.match(/AppleWebKit.*Mobile.*/),
+				ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+					android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1,
+					iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1,
+					iPad: u.indexOf('iPad') > -1,
+					webApp: u.indexOf('Safari') == -1,
+					weiXin: u.indexOf('MicroMessenger') > -1
+				};
+			}(),
+			language:(navigator.browserLanguage || navigator.language).toLowerCase()
+		};
+		if(browser.versions.ios) {
+			$(".an_download").hide();
+		}else if(browser.versions.android) {
+			$(".ios_download").hide();
+		}
+
+		if(!browser.versions.weiXin){
+			$(".bar").hide();
+		}
+
+		function show_m(){
+			$("#android").show();$("#android_click").hide();
+			$("#ios").show();$("#ios_click").hide();
+		}
+		function show_c(){
+			$("#android").hide();$("#android_click").show();
+			$("#ios").hide();$("#ios_click").show();
+		}
+	</script>
+
+	<script type="text/javascript">
+		function is_weixin() {
+		    var ua = navigator.userAgent.toLowerCase();
+		    if (ua.match(/MicroMessenger/i) == "micromessenger") {
+		        return true;
+		    } else {
+		        return false;
+		    }
+		}
+		var isWeixin = is_weixin();
+		var winHeight = typeof window.innerHeight != 'undefined' ? window.innerHeight : document.documentElement.clientHeight;
+		console.log(winHeight);
+		function loadHtml(){
+			var div = document.createElement('div');
+			div.id = 'weixin-tip';
+			div.innerHTML = '<p><img style="max-width: 100%; height: auto;" src="http://caibaojian.com/demo/2014/12/live_weixin.png" alt="浏览器打开"/></p>';
+			document.body.appendChild(div);
+		}
+		
+		function loadStyleText(cssText) {
+	        var style = document.createElement('style');
+	        style.rel = 'stylesheet';
+	        style.type = 'text/css';
+	        try {
+	            style.appendChild(document.createTextNode(cssText));
+	        } catch (e) {
+	            style.styleSheet.cssText = cssText; //ie9ÒÔÏÂ
+	        }
+            var head=document.getElementsByTagName("head")[0]; //head±êÇ©Ö®¼ä¼ÓÉÏstyleÑùÊ½
+            head.appendChild(style); 
+	    }
+	    var cssText = "#weixin-tip{position: fixed; left:0; top:0; background: rgba(0,0,0,0.8); filter:alpha(opacity=80); width: 100%; height:100%; z-index: 100;} #weixin-tip p{text-align: center; margin-top: 10%; padding:0 5%;}";
+		if(isWeixin){
+			loadHtml();
+			loadStyleText(cssText);
+		}
+	</script>
+	</html>

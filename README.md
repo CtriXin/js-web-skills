@@ -7,6 +7,39 @@ js web 相关总结
 
 ```
 
+***
+####微信内下载app提示在其他浏览器打开
+```
+
+http://caibaojian.com/weixin-tip.html
+
+Demo
+http://7xkaou.com2.z0.glb.qiniucdn.com/MMBAppDL3.html
+```
+
+
+***
+####data-scroll="verticle|horizontal|scroll":刷新
+```
+      //当scroll初始化会进入此监听
+$('#index_article').on('scrollInit', function(){
+    var scroll = A.Scroll(this);//已经初始化后不会重新初始化，但是可以得到滚动对象
+    //监听滚动到顶部事件，可以做一些逻辑操作
+    scroll.on('scrollTop', function(){
+        A.showToast('滚动到顶部');
+        scroll.refresh(); //如果scroll区域dom有改变，需要刷新一下此区域
+    });
+    //监听滚动到底部事件，可以做一些逻辑操作
+    scroll.on('scrollBottom', function(){
+        A.showToast('滚动到底部');
+        scroll.refresh(); //如果scroll区域dom有改变，需要刷新一下此区域，
+    });
+});
+     
+
+```
+
+
 
 ***
 ####有空可以瞧瞧的前端资源教程
