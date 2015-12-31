@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<div id="qrcodeDefault"></div>
+
+</body>
+<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/arale-qr.js"></script>
+<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+// var qrnode = new AraleQRCode({
+// 	correctLevel: 0,
+//     text: '{"cmd":"100300","data":{"btn":"M","nick":"不不不","uId":"S002_3GRGRgQ34jk8HbCQjf7kfe","name":"啊啊啊"}}'
+// });
+// var obj=document.getElementById('qrcodeDefault');
+// obj.appendChild(qrnode);
+
+var h = $(window).width()-10;
+
+        // $("#qrcodeDefault").css("width", h-30);
+        // $("#qrcodeDefault").css("height", h-30);
+var qrnode = new AraleQRCode({
+    render: 'carvas',
+    correctLevel: 0,
+    text: '{"cmd":"100300","data":{"btn":"M","nick":"不不不","uId":"S002_3GRGRgQ34jk8HbCQjf7kfe","name":"啊啊啊"}}',
+    size: h,
+});
+document.getElementById('qrcodeDefault').appendChild(qrnode);
+</script>
+</html>
