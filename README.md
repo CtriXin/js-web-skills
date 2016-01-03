@@ -17,7 +17,6 @@ Demo
 http://7xkaou.com2.z0.glb.qiniucdn.com/MMBAppDL3.html
 ```
 
-
 ***
 ####data-scroll="verticle|horizontal|scroll":刷新
 ```
