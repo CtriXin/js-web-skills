@@ -8,6 +8,23 @@ js web 相关总结
 ```
 
 ***
+####AL Toggle获取状态
+```
+
+//@return 1=true,0=false
+function getIsToggleActive(toggleId){
+  if ($('#'+toggleId).hasClass('active')) {
+    return 1;
+  }
+  return 0;
+}
+
+```
+
+[GPS转百度坐标](http://developer.baidu.com/map/index.php?title=webapi/guide/changeposition)
+
+
+***
 ####微信内下载app提示在其他浏览器打开
 ```
 
@@ -15,6 +32,33 @@ http://caibaojian.com/weixin-tip.html
 
 Demo
 http://7xkaou.com2.z0.glb.qiniucdn.com/MMBAppDL3.html
+```
+
+***
+####php插入数组的简便方法
+```
+$arr=[];
+for ($i=0; $i <5 ; $i++) { 
+    $arr[]=$i;
+}
+print_r($arr);
+
+```
+
+***
+####nginx负载均衡
+```
+http://www.cnblogs.com/liping13599168/archive/2011/04/15/2017369.html
+
+远程地址带上密码
+http://yourname:password@git.oschina.net/name/project.git
+
+```
+
+***
+####git push 免输入密码
+```
+http://my.oschina.net/silentboy/blog/217766
 ```
 
 
