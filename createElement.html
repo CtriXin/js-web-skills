@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<style type="text/css">
+	.bajian{ color: #ff0000}
+</style>
+<body>
+	<div id="board">
+		board
+	</div>
+</body>
+
+<script type="text/javascript">
+	
+			var board = document.getElementById("board");
+			var e =document.createElement("input");
+			e.type = "button";
+			e.id="1234";
+           // e.class="asd";//错误，正确见e4
+           e.value = "这是测试加载的小例子";
+           var object = board.appendChild(e);
+
+           var e2 = document.createElement("select");
+           e2.options[0] = new Option("加载项1", "");
+           e2.options[1] = new Option("加载项2", "");
+           e2.size = "2";
+           var object = board.appendChild(e2);
+
+           var e4 = document.createElement("input");
+           e4.setAttribute("type", "text");//参数是相同的。使用e.type="text" 和 e.setAttribute("type","text")效果是一致的。
+           e4.setAttribute("class", "bajian");//重要
+           e4.setAttribute("name", "q");
+           e4.setAttribute("value", "使用setAttribute");
+           e4.setAttribute("onclick", "javascript:alert('This is a test!');");           
+           var object = board.appendChild(e4);
+
+       </script>
+       </html>

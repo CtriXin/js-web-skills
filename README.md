@@ -6,6 +6,8 @@ js web 相关总结
 ```
 
 ```
+[输入链接说明](http://)
+
 
 ***
 ####AL Toggle获取状态
@@ -20,6 +22,11 @@ function getIsToggleActive(toggleId){
 }
 
 ```
+
+***
+####document.createElement()用法
+见createElement.html
+[document.createElement()用法](http://www.jb51.net/article/34740.htm)
 
 [GPS转百度坐标](http://developer.baidu.com/map/index.php?title=webapi/guide/changeposition)
 
