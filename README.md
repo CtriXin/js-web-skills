@@ -9,8 +9,22 @@ js web 相关总结
 [输入链接说明](http://)
 
 
+
 ***
-####AL Toggle获取状态
+####jquery 获取元素id（任何属性）和AL获取当前section和article
+```
+$('section.active').attr("id")
+
+$('#section_cardcenter article.active').attr("id")
+```
+
+
+[JS 进阶 闭包，作用域链，垃圾回收，内存泄露](http://segmentfault.com/a/1190000002778015)
+[Javascript 面向对象编程（一）：封装](http://www.ruanyifeng.com/blog/2010/05/object-oriented_javascript_encapsulation.html)
+
+
+***
+####AL Toggle获取状态 和设置
 ```
 
 //@return 1=true,0=false
@@ -20,6 +34,34 @@ function getIsToggleActive(toggleId){
   }
   return 0;
 }
+
+setToggleState('toggle_school_manage',flag);
+
+/*
+* @param toggleId 元素id
+* @param state 是否需要选中 0/1
+* 设置toggle state
+*/
+function setToggleState(toggleId,state){
+  var isToggleActive=getIsToggleActive(toggleId);
+  if (state==0) {
+    if (isToggleActive==1) {
+      $('#'+toggleId).removeClass('active');
+    }
+  }else{
+    if (!isToggleActive) {
+      $('#'+toggleId).addClass('active');
+    }
+  }
+}
+
+```
+
+***
+####AL <select>选择问题
+```
+基本都是没法100%宽度导致点不到
+select {width: 100%}
 
 ```
 
