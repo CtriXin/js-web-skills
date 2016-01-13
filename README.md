@@ -59,7 +59,7 @@ function setToggleState(toggleId,state){
 ```
 
 ***
-####AL <select>选择问题
+####AL select选择问题
 ```
 基本都是没法100%宽度导致点不到
 select {width: 100%}
