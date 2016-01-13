@@ -19,8 +19,9 @@ $('#section_cardcenter article.active').attr("id")
 ```
 
 
-[JS 进阶 闭包，作用域链，垃圾回收，内存泄露](http://segmentfault.com/a/1190000002778015)
-[Javascript 面向对象编程（一）：封装](http://www.ruanyifeng.com/blog/2010/05/object-oriented_javascript_encapsulation.html)
+* [高性能JavaScript：加载和运行](http://ilanever.com/article/detail.do?id=264#page-catalog-4)
+* [JS 进阶 闭包，作用域链，垃圾回收，内存泄露](http://segmentfault.com/a/1190000002778015)
+* [Javascript 面向对象编程（一）：封装](http://www.ruanyifeng.com/blog/2010/05/object-oriented_javascript_encapsulation.html)
 
 
 ***

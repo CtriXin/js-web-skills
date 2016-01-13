@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+子方法 避免全局污染
+</body>
+
+<script type="text/javascript">
+function showToast(){
+  var a=123;
+
+  toast(a);
+
+
+  function toast(str){
+    console.log(str);
+  }
+}
+
+showToast();
+toast('1');//uncaught ReferenceError: toast is not defined
+
+</script>
+</html>

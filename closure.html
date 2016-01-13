@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<a href="http://segmentfault.com/a/1190000002778015">
+	[ JS 进阶 ] 闭包，作用域链，垃圾回收，内存泄露
+</a>
+</body>
+
+<script type="text/javascript">
+	var sayName = function(){
+    var name = 'jozo';
+    return function(){
+    	name =name +"a";
+        console.log(name);
+    }
+};
+var say = sayName(); 
+say();say();
+//var say = sayName() ：返回了一个匿名的内部函数保存在变量say中，并且引用了外部函数的变量name，由于垃圾回收机制，sayName函数执行完毕后
+// ，[变量name并没有被销毁。!]
+// say() ：执行返回的内部函数，依然能访问变量name,输出 'jozo' .
+
+
+
+//类似面向对象：
+
+function Person(){    
+    var name = "default";       
+
+    return {    
+       getName : function(){    
+           return name;    
+       },    
+       setName : function(newName){    
+           name = newName;    
+       }    
+    }    
+};    
+
+
+var person1= Person();    
+console.log(person1.getName());    
+person1.setName("person1");    
+console.log(person1.getName());  // person1  
+
+var person2= Person();    
+console.log(person2.getName());    
+person2.setName("erson2");    
+console.log(person2.getName());  //person2
+console.log(person1.getName());  // person1  
+
+
+</script>
+</html>

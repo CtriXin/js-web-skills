@@ -2,9 +2,28 @@
 <html>
 <head>
 	<title></title>
+	<style type="text/css">
+		.unread{
+			display:block;
+			background:#f00;
+			border-radius:50%;
+			width:5px;
+			height:5px;
+			top:0px;
+			right:0px;
+			position:absolute;
+		}
+	</style>
 </head>
 <body>
-<div style="color: red;">●</div>
+	<span style="position:relative;">
+		提示图标
+		<i class="unread"></i>
+	</span>
 
+	<button style="position:relative;">
+		提交
+		<i class="unread"></i>
+	</button>
 </body>
 </html>

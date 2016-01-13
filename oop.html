@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+  <a href="http://www.ruanyifeng.com/blog/2010/05/object-oriented_javascript_encapsulation.html">
+   OOP
+ </a>
+</body>
+
+<script type="text/javascript">
+	function Cat(name){
+    this.nick=name;
+  }
+  var arr=new Array();
+  for(var i=0;i<5;i++){
+    arr[i+'name'] =new Cat(i);
+    console.log(arr[i+'name'].nick);
+  }
+  arr['0name'].nick='123'
+  console.log(arr['0name'].nick);
+  console.log(arr['1name'].nick);
+  // arr['aaa'] =new Cat(1);
+  // arr['bbb'] =new Cat(2);
+  // console.log(arr['bbb'].nick);
+  // console.log(arr['aaa'].nick);
+
+  varParam('nick');
+  varParam('nick2');
+  function varParam(param){
+    console.log(arr['0name'].param);
+  }
+
+  getValue('a');
+  getValue('b');
+  function getValue(param){
+    var obj={};
+    obj.a=1;
+    obj.b=2;
+    return obj[param];
+  }
+</script>
+</html>

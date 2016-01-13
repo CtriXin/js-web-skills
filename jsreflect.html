@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+突然想到的一个方法..通过反射设置或者取得对象的变量或者方法
+参考：http://blog.csdn.net/liuzizi888/article/details/6632434
+</body>
+
+<script type="text/javascript">
+	
+    getValue('a');
+	  getValue('c');
+  setValue('b',123);
+  function getValue(param){
+    var obj={};
+    obj.a=1;
+    obj.b=2;
+    return obj[param];
+  }
+    function setValue(param,value){
+    var obj={};
+    obj.a=1;
+    obj.b=2;
+    obj[param]=value;
+    return obj[param];
+  }
+</script>
+</html>

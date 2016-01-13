@@ -5,6 +5,7 @@
 </head>
 <style type="text/css">
 	.bajian{ color: #ff0000}
+  .hide{display: none;}
 </style>
 <body>
 	<div id="board">
@@ -31,7 +32,11 @@
            var e4 = document.createElement("input");
            e4.setAttribute("type", "text");//参数是相同的。使用e.type="text" 和 e.setAttribute("type","text")效果是一致的。
            e4.setAttribute("class", "bajian");//重要
+           //或者：
+           e4.style.display='none';
            e4.setAttribute("name", "q");
+           // e4.setAttribute("display", "block");//错误
+           e4.display="block";
            e4.setAttribute("value", "使用setAttribute");
            e4.setAttribute("onclick", "javascript:alert('This is a test!');");           
            var object = board.appendChild(e4);
