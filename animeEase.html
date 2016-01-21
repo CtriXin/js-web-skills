@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<style type="text/css">
+	body > div {
+		opacity: 0.1;
+		margin: 50px auto;
+		width: 10px;
+		height: 18px;
+		background: #676470;
+		color: #fff;
+		font-family: Lato;
+		font-weight: 900;
+		font-size: 3.4em;
+		text-align: center;
+		line-height: 298px;
+		transition: all 0.5s ease;
+	}
+
+	#circle:hover {
+		border-radius: 50%;
+		width: 200px;
+	}
+
+</style>
+<body>
+	<div id="circle" onmousedown="down(this)" onmouseup="up(this)">把鼠标放上去，按下，松开</div>
+
+	<script type="text/javascript">
+		setTimeout('test()',100);
+
+		function down(obj){
+			obj.style.width='500px';
+		}
+
+		function up(obj){
+			obj.style.width='1200px';
+		}
+
+		function test(){
+			var obj=document.getElementById('circle');
+			obj.style.width="800px";
+			obj.style.opacity="1";
+			obj.style.height="500px";
+			obj.style.backgroundColor='#003366'; 
+			// obj.css
+			// document.getElementById('circle').style.backgroundColor='#003366'; 
+			console.log("click");
+
+		}
+	</script>
+</body>
+</html>
