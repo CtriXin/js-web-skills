@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+var indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.msIndexedDB;
+
+	if (!indexedDB) {
+		window.alert("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
+	}else{
+		alert('支持indexedDB');
+	//打开数据库
+	// The version number is an unsigned long long number, which means that it can be a very big integer. It also means that you can't use a float, otherwise it will be converted to the closest lower integer and the transaction may not start, nor the upgradeneeded event trigger. So for example, don't use 2.4 as a version number
+	var openRequest = indexedDB.open("test2",1);
+	// success：打开成功。
+	// error：打开失败。
+	// upgradeneeded：第一次打开该数据库，或者数据库版本发生变化。
+	// blocked：上一次的数据库连接还未关闭。
+	var db;
+
+	openRequest.onupgradeneeded = function(e) {
+		alert("Upgrading...");
+	}
+
+	openRequest.onsuccess = function(e) {
+		alert("Success!");
+		db = e.target.result;
+	}
+
+	openRequest.onerror = function(e) {
+		alert("Error"+e);
+	}
+
+}
+
+
+
+</script>
+</html>

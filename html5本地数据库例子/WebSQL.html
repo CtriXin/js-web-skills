@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Web SQL Database</title>
+</head>
+<body>
+    <script type="text/javascript">
+    //http://www.cnblogs.com/chuncn/archive/2010/11/22/1884783.html
+    //http://www.cnblogs.com/wshiqtb/archive/2013/04/07/3003698.html
+    //http://dev.w3.org/html5/webdatabase/
+    //http://www.jb51.net/html5/65058.html
+        var db = openDatabase('testDB', '1.0', 'Test DB', 2 * 1024 * 1024,function(){
+          console.log('创建回调');
+        });
+        var msg;
+        db.transaction(function (context) {
+          /*CREATE TABLE `log` (`id` int(11) NOT NULL AUTO_INCREMENT,`audio_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,`message_type` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,`from_nick` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,`tm` int(11) DEFAULT NULL,PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci*/
+
+           context.executeSql('CREATE TABLE IF NOT EXISTS testTable (id unique, name)');
+           // context.executeSql('INSERT INTO testTable (id, name) VALUES (0, "Byron")');
+           // context.executeSql('INSERT INTO testTable (id, name) VALUES (1, "Casper")');
+           // context.executeSql('INSERT INTO testTable (id, name) VALUES (2, "Frank")');
+          // context.executeSql('INSERT INTO t1 (id,log) VALUES (?, ?'), [e_id, e_log];  //另一种写法e_id和e_log是外部变量
+         });
+
+        db.transaction(function (context) {
+           context.executeSql('SELECT * FROM testTable', [], function (context, results) {
+            var len = results.rows.length, i;
+            alert('Got '+len+' rows.');
+               for (i = 0; i < len; i++){
+              alert('id: '+results.rows.item(i).id+' name: '+results.rows.item(i).name);
+            }
+         });
+        });
+    </script>
+</body>
+</html>

@@ -1,3 +1,7 @@
 http://7xkaou.com2.z0.glb.qiniucdn.com/myajax-min.js
 
 http://7xkaou.com2.z0.glb.qiniucdn.com/mytoast-min.js
+
+http://7xkaou.com2.z0.glb.qiniucdn.com/mytoast-black-min.js
+
+http://7xkaou.com2.z0.glb.qiniucdn.com/mytoast-bl.min2.js

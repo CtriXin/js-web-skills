@@ -6,9 +6,56 @@ js web 相关总结
 ```
 
 ```
+
+***AL 动态添加的也可以绑定
+####
+```
+//动态添加的也可以绑定
+    $(document).on(A.options.clickEvent, '.control', function(){
+      console.log('click');
+    });
+```
 [输入链接说明](http://)
+[替换webview中js资源本地加载，提高速度](http://xunhou.me/webview-2/)
 
+[js判断移动端是否安装某款app的多种方法](http://www.jb51.net/article/76585.htm)
+但是，但是....还是有奇思淫巧滴，启动app需要的时间较长，js中断时间长，如果没安装，js瞬间就执行完毕。直接上代码吧！
+***
+####获取url参数
+```
+function GetRequest() {
+var url = location.search; //获取url中"?"符后的字串 
+var theRequest = new Object();
+if (url.indexOf("?") != -1) {
+  var str = url.substr(1);
+  strs = str.split("&");
+  for(var i = 0; i < strs.length; i ++) {
+    theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+  }
+}
+return theRequest;
+}
 
+压缩后
+function GetRequest(){var a,b,c=location.search,d=new Object;if(-1!=c.indexOf("?"))for(a=c.substr(1),strs=a.split("&"),b=0;b<strs.length;b++)d[strs[b].split("=")[0]]=unescape(strs[b].split("=")[1]);return d}
+
+用法
+otherDevice();
+function otherDevice(){
+  if (GetRequest()['otherDevice']=='1') {
+    myAlert('您的账号已在其他设备登录,如果不是本人登录，请使用App修改密码');
+  };
+}
+```
+
+***
+####float元素 toggle 平齐
+```
+<div style="vertical-align: baseline;height:30px;line-height: 30px;"> <strong style="float: left;">上课禁用</strong><span id="toggle_school_manage" style="float: right;" class="toggle classic" data-role="toggle" data-on="开" data-on-value="1" data-off="关" data-off-value="0"></span><br/>
+      </div><hr style="height:1px;border:none;border-top:1px dashed #0066CC;margin-top: 3px;" />
+```
+
+[html中hr的各种样式使用](http://jingyan.baidu.com/article/af9f5a2d37342c43140a4500.html)
 
 ***
 ####jquery 获取元素id（任何属性）和AL获取当前section和article
@@ -324,6 +371,7 @@ http://www.zhangxinxu.com/wordpress/2014/10/mobilebone-js-mobile-web-app-core/
 ***
 ####js 反射
 ```
+见jsreflect.html
 http://blog.csdn.net/liuzizi888/article/details/6632434
 
 ```
@@ -975,14 +1023,18 @@ return false;
 ```
 
 /**
-* ts="now" 为当前时间
+* ts="now" 为当前时间 10/13位时间戳（必须String类型）
 */
 function curDateTime(ts) {
 var d = new Date();
 if (ts!='now') {
-var t=parseInt(ts);
-d.setTime(t*1000);
-};
+if(ts.length==10){
+  var t=parseInt(ts);
+  d.setTime(t*1000);
+}else{
+  d.setTime(t);
+}
+}
 // var year = d.getFullYear();
 var month = d.getMonth() + 1;
 var date = d.getDate();

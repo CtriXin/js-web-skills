@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Web SQL Database</title>
+</head>
+<body>
+<div style="padding: 5px;background-color: #ff0000"><audio style="width: 60%" id="audio_" preload="true" controls="controls"><source src="" >浏览器不支持音频</audio></div>
+    <script type="text/javascript">
+    //http://www.cnblogs.com/chuncn/archive/2010/11/22/1884783.html
+    //http://www.cnblogs.com/wshiqtb/archive/2013/04/07/3003698.html
+    //http://dev.w3.org/html5/webdatabase/
+    //http://www.jb51.net/html5/65058.html
+    //切记微信里面只能创建一个，，不然有很大概率会报exception18（Android webview对于存储量的限制。。微信比较垃圾，没做优化http://blog.sina.com.cn/s/blog_c318af0b0102v8oa.html）
+        var db = openDatabase('bxj', '1.0', 'bxj DB', 2 * 1024 * 1024,function(){
+          console.log('创建回调');
+        });
+        db.transaction(function (context) {
+          console.log('CREATE begin');
+          var sql='CREATE TABLE if not exists chat_log2(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,audio_url TEXT  NOT NULL,message_type TEXT NOT NULL,from_nick TEXT NOT NULL,phone TEXT NOT NULL,deviceId TEXT NOT NULL,tm INTEGER)';
+           context.executeSql(sql,[],
+            function(tx,result){ console.log('创建chat_log表成功'); }, 
+            function(tx, error){ console.log('创建chat_log表失败:' + error.message);});
+         });
+
+        // saveChatToDb('http','text-user','shabi','13714876874','1371487687411111',1234567893);
+        // saveChatToDb('http','text-user','shabi','13714876874','1371487687411111',1234567896);
+        // saveChatToDb('http2','text-user','shabi2','15814776561','137148768741111',1234567895);
+        function saveChatToDb(audio_url,message_type,from_nick,phone,deviceId,tm){
+          if (db!=null) {
+            console.log('insert begin');
+            db.transaction(function(context){
+              context.executeSql('INSERT INTO chat_log2(audio_url, message_type, from_nick, phone, deviceId, tm) VALUES (?,?,?,?,?,?)',[audio_url,message_type,from_nick,phone,deviceId,tm]);
+            });
+          }
+        }
+        getChatFromDb('13714876874',15);
+        function getChatFromDb(phone,num){
+          if (num==undefined) {
+            num=15;
+          }
+          db.transaction(function (context) {
+           context.executeSql('SELECT * FROM chat_log2 where phone=? ORDER BY 1 DESC LIMIT 0, '+num, [phone], function (context, results) {
+            console.log('SELECT begin');
+            var len = results.rows.length, i;
+            console.log('Got '+len+' rows.');
+               for (i = 0; i < len; i++){
+              console.log('id: '+results.rows.item(i).id+' phone: '+results.rows.item(i).phone);
+            }
+         });
+        });
+        }
+        
+    </script>
+</body>
+</html>
