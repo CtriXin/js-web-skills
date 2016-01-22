@@ -4,10 +4,10 @@
 	<title></title>
 </head>
 <style type="text/css">
-	body > div {
+	body > img {
 		opacity: 0.1;
 		margin: 50px auto;
-		width: 10px;
+		width: 0px;
 		height: 18px;
 		background: #676470;
 		color: #fff;
@@ -19,6 +19,10 @@
 		transition: all 0.5s ease;
 	}
 
+	img{
+		transition: all 0.5s ease;
+	}
+
 	#circle:hover {
 		border-radius: 50%;
 		width: 200px;
@@ -26,7 +30,8 @@
 
 </style>
 <body>
-	<div id="circle" onmousedown="down(this)" onmouseup="up(this)">把鼠标放上去，按下，松开</div>
+<img id="circle" onmousedown="down(this)" onmouseup="up(this)" src="http://7xkaou.com2.z0.glb.qiniucdn.com/default_avatar.png">
+	<!-- <div id="circle" onmousedown="down(this)" onmouseup="up(this)">把鼠标放上去，按下，松开</div> -->
 
 	<script type="text/javascript">
 		setTimeout('test()',100);
