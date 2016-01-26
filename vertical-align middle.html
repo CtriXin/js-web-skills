@@ -1,0 +1,32 @@
+<html>
+ <title>图片居中</title>
+ <style>
+/*定义垂直居中*/
+#test * {
+ margin: 0px;
+ padding: 0px;
+  vertical-align: middle;
+}
+/*定义div大小，以及水平居中*/
+#test {
+ background: #fff000;
+ width: 500px;
+ height: 500px;
+ text-align: center;
+}
+/*辅助图片高度填满div，宽度为0，所以看不到这个图片*/
+img {
+ width: 0px;
+ height: 100%;
+
+}
+</style>
+ <body>
+  <div id="test">
+　　<!--辅助图片 -->
+   <img width="0px" alt="" src="" id="img">
+ 　　<!--要居中的图片 -->
+    <img alt="" src='http://7xkaou.com2.z0.glb.qiniucdn.com/default_avatar.png'>
+   </div>
+ </body>
+</html>

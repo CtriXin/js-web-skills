@@ -6,6 +6,17 @@ js web 相关总结
 ```
 
 ```
+[输入链接说明](http://)
+[网页特效库](http://www.5iweb.com.cn/)
+
+
+***
+####属性变化的动画效果
+[属性变化的动画效果](http://www.dglives.com/effect/9%E7%A7%8D%E7%AE%80%E5%8D%95%E6%98%93%E7%94%A8%E7%9A%84css3%E8%BF%87%E6%B8%A1%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C)
+```
+参考anime.html
+.anime{transition: all 1s ease;}
+```
 
 ***AL 动态添加的也可以绑定
 ####
@@ -15,7 +26,9 @@ js web 相关总结
       console.log('click');
     });
 ```
-[输入链接说明](http://)
+
+[酷炫的FAB](http://materialdesignblog.com/awesome-css-codepen-to-enhance-material-design-fab-button/)
+
 [替换webview中js资源本地加载，提高速度](http://xunhou.me/webview-2/)
 
 [js判断移动端是否安装某款app的多种方法](http://www.jb51.net/article/76585.htm)
@@ -1330,9 +1343,19 @@ $('#male').attr("checked",true);
 ```
 直接不要写href
 <a data-role="radio">
-	<input type="radio" name="sex" id="female" value="女" />
-	<label for="female" class="black">女&nbsp;&nbsp;</label>
+  <input type="radio" name="sex" id="female" value="女" />
+  <label for="female" class="black">女&nbsp;&nbsp;</label>
 </a>
+
+
+```
+
+***
+####jq设置radio选中，
+```
+$('#male').prop("checked",true);
+不要用下面的，会出毛病的
+$('#male').attr("checked",true);
 
 
 ```
