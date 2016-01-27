@@ -6,8 +6,18 @@ js web 相关总结
 ```
 
 ```
+
 [输入链接说明](http://)
 [网页特效库](http://www.5iweb.com.cn/)
+
+***
+####StrokeDashArray/
+```
+StrokeDashArray 描述Shape类型轮廓的虚线和间隔的样式，写法为StrokeDashArray="str"。str是虚线和间隙的值的集合，奇数项为虚线长度；偶数项为间隙长度。例如：StrokeDashArray="2,1",则表示虚线长度为2，间隔为1. StrokeDashArray="2" 则表示虚线和间隔都是2
+
+```
+[纯CSS实现帅气的SVG路径描边动画效果](http://www.zhangxinxu.com/wordpress/2014/04/animateion-line-drawing-svg-path-%E5%8A%A8%E7%94%BB-%E8%B7%AF%E5%BE%84/)
+[超级强大的SVG SMIL animation动画详解](http://www.zhangxinxu.com/wordpress/2014/08/so-powerful-svg-smil-animation/)
 
 
 ***

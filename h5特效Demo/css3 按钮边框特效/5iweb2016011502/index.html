@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html >
+  <head>
+        <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>css3 按钮边框特效 | 手机微信网站特效| 网页特效库</title>
+		<meta name="keywords" content="SVG特效, 手机微信网站特效, css3动画, html5特效, 网页特效" />
+    
+    
+    
+<!--         <link rel="stylesheet" href="css/style.css"> -->
+<style type="text/css">
+
+
+.svg-wrapper {
+  height: 60px;
+  margin: 0 auto;
+  width: 320px;
+}
+
+
+.text {
+  text-align: center;
+  color: #ff0000;
+  font-size: 22px;
+  /*line-height: 32px;*/
+  position: relative;
+  top: -48px;
+}
+
+.rect-shape {
+  stroke-dasharray: 140 540;
+  stroke-dashoffset: -474;
+  stroke: #000000;
+  -webkit-animation: 1s draw-rect ease forwards;
+}
+/*stroke-dasharray 奇数是虚线长度，偶数位是间隔*/
+@-webkit-keyframes draw-rect {
+  0% {
+    stroke-dasharray: 140 540;
+    stroke-dashoffset: -474;
+  }
+  100% {
+    stroke-dasharray: 760;
+    stroke-dashoffset: 0;
+  }
+}
+
+</style>
+    
+    
+    
+  </head>
+
+  <body>
+<!-- 兼容webkit -->
+    <div class="svg-wrapper">
+  <svg height="60" width="320" xmlns="http://www.w3.org/2000/svg">
+    <rect id="rect" style="fill: transparent;" height="60" width="320" /><div class="text">bajian</div>
+  </svg>
+   
+</div>
+      
+<script type="text/javascript">
+  setTimeout('showRect()',2000);
+
+ function showRect(){
+        var rect= document.getElementById('rect');
+    rect.setAttribute("class", 'rect-shape');//重要，用于消息分组
+  }
+</script>
+    
+  </body>
+</html>
