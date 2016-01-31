@@ -7,8 +7,26 @@ js web 相关总结
 
 ```
 
+***
+####PHP 获取post和get的全部参数
+```
+echo $_SERVER["QUERY_STRING"];//get
+
+$data=file_get_contents('php://input');//post
+
+```
+
+***
+####post和get的参数最好加上urlencode
+```
+http://binma85.iteye.com/blog/850042
+echo urlencode('&');
+
+```
+
 [输入链接说明](http://)
 [网页特效库](http://www.5iweb.com.cn/)
+[百度地图圆形区域类](http://developer.baidu.com/map/reference/index.php?title=Class:%E8%A6%86%E7%9B%96%E7%89%A9%E7%B1%BB/Circle)
 
 ***
 ####StrokeDashArray/

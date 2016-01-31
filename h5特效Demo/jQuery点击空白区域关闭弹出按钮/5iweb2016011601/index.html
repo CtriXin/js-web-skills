@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>jQuery点击空白区域关闭弹出按钮 | 手机微信网站特效| 网页特效库</title>
+		<meta name="keywords" content="SVG特效, 手机微信网站特效, css3动画, html5特效, 网页特效" />
+	</head>
+	<style>
+	body,html{ margin: 0px; padding: 0px; background: #0090FF; font-family: "微软雅黑";}
+	.box{ width: 120px; height: 40px; background: #FFFFFF; border-radius: 40px; position: absolute; left: 50%; margin-left: -60px; top: 50%; margin-top: -20px; color: #FFFFFF; text-align: center; line-height: 40px; color: #0090FF; cursor: pointer;}
+	.des{ width: 200px; height: 30px; position: absolute; left: 50%; margin-left: -100px; top: 50%; margin-top: -65px; background: #FFFFFF; color: #0090FF; border-radius: 30px; font-size: 12px; text-align: center; line-height: 30px; display: none;}
+	.des span{ display: block; width: 0px; height: 0px; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 5px solid #FFFFFF; position: absolute; left: 50%; bottom: -5px; margin-left: -2.5px;}
+	#s{ display: block; width: 0px; height: 0px; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 5px solid #FFFFFF; position: absolute; left: 50%;  margin-left: -2.5px;}
+	</style>
+	<body>
+		<div class="box">5iweb</div>
+		<div class="des">点击空白区域，关闭信息！<span></span></div>
+
+		<span id="s"></span>
+	</body>
+</html>
+<script type="text/javascript" src="http://www.5iweb.com.cn/statics/js/jquery.1.7.1.min.js"></script>
+<script type='text/javascript'>
+   $(".box").click(function(){
+   		$(".des").fadeIn();
+   })
+   
+   $(".box").click(function(event){
+		var e=window.event || event;
+		if(e.stopPropagation){
+			e.stopPropagation();//终止事件在传播过程的捕获、目标处理或起泡阶段进一步传播。调用该方法后，该节点上处理该事件的处理程序将被调用，事件不再被分派到其他节点。
+	  	}else{
+	    	e.cancelBubble = true;
+/*	    	stopPropagation的作用跟cancelBubble是一样的．都是用来阻止浏览器默认的事件冒泡行为．<br>他们的不同之处是:stopPropagation符合W3C标准．适用于FireFox等浏览器，不支持IE.而cancelBubble方法不符合W3C的标准．且只支持IE浏览器<br>请看下面的实例．该实例已兼容大多数现代浏览器*/
+	  	}
+	});
+	$(this).click(function(){
+		$(".des").fadeOut();
+	})
+
+/*
+	setTimeout(function(){
+		$("#s").fadeIn();
+	},1000);*/
+   
+</script>
