@@ -7,17 +7,18 @@
         * @param failCallback fail 回调 可空 defaultFailCallback
         * 使用方法ajax_get("/queryDevice",handleQueryDevice);
         */
-        function ajax_get(url,succCallback,dataType,failCallback){
+        function ajax_get(url,succCallback,dataType,failCallback,middleware){
 
-        	if (url=="") {return;}
-        	dataType=(dataType==undefined||dataType=="")?"json":dataType;
+        	if (url=='') {return;}
+        	dataType=(dataType==undefined||dataType=='')?'json':dataType;
         	failCallback=failCallback==undefined?defaultFailCallback:failCallback;
-
+            middleware=middleware==undefined?defaultMiddleware:middleware;
         	$.ajax({
         		url:url,
-        		type:"get",
+        		type:'get',
         		dataType: dataType,
         		success: function (data) {
+                    middleware(data);
         			if (succCallback!=undefined) {
                 succCallback(data);//允许undefined
             }
@@ -38,13 +39,13 @@
         * @param failCallback fail 回调 可空 defaultFailCallback
         * 使用方法 ajax_post("/queryDevice","{Content: content,To:to}",handleQueryDevice);
         */
-        function ajax_post(url,data,succCallback,dataType,failCallback){
+        function ajax_post(url,data,succCallback,dataType,failCallback,middleware){
 
-        	if (url=="") {return;}
-        	data=data==undefined?"":data;
-        	dataType=(dataType==undefined||dataType=="")?"json":dataType;
+        	if (url=='') {return;}
+        	data=data==undefined?'':data;
+        	dataType=(dataType==undefined||dataType=='')?'json':dataType;
         	failCallback=failCallback==undefined?defaultFailCallback:failCallback;
-
+            middleware=middleware==undefined?defaultMiddleware:middleware;
         	$.ajax({
         		url: url,
         		type: 'POST',
@@ -52,6 +53,7 @@
         		data: data,
         	})
         	.done(function(data) {
+                middleware(data);
         		succCallback(data);
         	})
         	.fail(function() {
@@ -60,7 +62,9 @@
 
         }
 
-
+function defaultMiddleware(){
+          //默认中间件 可在外面重写这个方法
+      }
 
         function defaultFailCallback(){
           A.showToast('网络错误');// AL框架中的方法，类似alert
