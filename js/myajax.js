@@ -1,5 +1,9 @@
       /*
-        * by hgxbajian 15-11-28 继续基于jq
+        * modify 16-02-04 增加处理完后的中间件，意在统一处理一些响应，比如登录超时跳转之类的。
+        */
+
+      /*
+        * by hgxbajian 15-11-28 基于jq
         * 统一处理ajax get 请求（返回json格式），成功分发回调函数处理,失败统一提示
         * @param url 完成get 请求url,可不带上host
         * @param succCallback succ 回调
@@ -7,17 +11,17 @@
         * @param failCallback fail 回调 可空 defaultFailCallback
         * 使用方法ajax_get("/queryDevice",handleQueryDevice);
         */
-        function ajax_get(url,succCallback,dataType,failCallback){
-
-        	if (url=="") {return;}
-        	dataType=(dataType==undefined||dataType=="")?"json":dataType;
+        function ajax_get(url,succCallback,dataType,failCallback,middleware){
+        	if (url=='') {return;}
+        	dataType=(dataType==undefined||dataType=='')?'json':dataType;
         	failCallback=failCallback==undefined?defaultFailCallback:failCallback;
-
+            middleware=middleware==undefined?defaultMiddleware:middleware;
         	$.ajax({
         		url:url,
-        		type:"get",
+        		type:'get',
         		dataType: dataType,
         		success: function (data) {
+                    middleware(data);
         			if (succCallback!=undefined) {
                 succCallback(data);//允许undefined
             }
@@ -38,13 +42,13 @@
         * @param failCallback fail 回调 可空 defaultFailCallback
         * 使用方法 ajax_post("/queryDevice","{Content: content,To:to}",handleQueryDevice);
         */
-        function ajax_post(url,data,succCallback,dataType,failCallback){
+        function ajax_post(url,data,succCallback,dataType,failCallback,middleware){
 
-        	if (url=="") {return;}
-        	data=data==undefined?"":data;
-        	dataType=(dataType==undefined||dataType=="")?"json":dataType;
+        	if (url=='') {return;}
+        	data=data==undefined?'':data;
+        	dataType=(dataType==undefined||dataType=='')?'json':dataType;
         	failCallback=failCallback==undefined?defaultFailCallback:failCallback;
-
+            middleware=middleware==undefined?defaultMiddleware:middleware;
         	$.ajax({
         		url: url,
         		type: 'POST',
@@ -52,6 +56,8 @@
         		data: data,
         	})
         	.done(function(data) {
+                middleware(data);
+                if (succCallback!=undefined)
         		succCallback(data);
         	})
         	.fail(function() {
@@ -63,6 +69,9 @@
 
 
         function defaultFailCallback(){
-          // A.showToast('网络错误');// AL框架中的方法，类似alert
+          //可在外面重写这个方法
+      }
+        function defaultMiddleware(){
+          //默认中间件 可在外面重写这个方法
       }
 

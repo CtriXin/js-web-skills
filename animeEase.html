@@ -32,9 +32,16 @@
 <body>
 <img id="circle" onmousedown="down(this)" onmouseup="up(this)" src="http://7xkaou.com2.z0.glb.qiniucdn.com/default_avatar.png">
 	<!-- <div id="circle" onmousedown="down(this)" onmouseup="up(this)">把鼠标放上去，按下，松开</div> -->
+<p>默认情况下，所有 HTML 元素的位置都是静态的，并且无法移动。如需对位置进行操作，记得首先把元素的 CSS position 属性设置为 relative、fixed 或 absolute。</p>
+<button>开始动画</button>
+<div style="background:#98bf21;height:100px;width:100px;position:absolute;">
+</div><span style="background:#98bf21;height:100px;width:100px;position:absolute;">
+</span>
+
+		<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
 
 	<script type="text/javascript">
-		setTimeout('test()',100);
+		setTimeout('test()',3000);
 
 		function down(obj){
 			obj.style.width='500px';
@@ -55,6 +62,14 @@
 			console.log("click");
 
 		}
+
+		  $("button").click(function(){
+    $("div").animate({width:'80%'},'slow','linear',function(){
+    	$("span").animate({width:'80%'},5000);
+    });
+    
+    // $("div").animate({height:'300px'},5000);//队列http://www.w3school.com.cn/jquery/jquery_animate.asp
+  });
 	</script>
 </body>
 </html>

@@ -384,6 +384,71 @@ function loadjs(script_filename,scriptId) {
   
   loadjs('http://lamp.snewfly.com/static/js/bonezhihui.js','bonezhihui');
 
+增强版：增加回调功能
+function loadjs(script_filename,scriptId,callback) {
+    var script = document.createElement('script');
+    script.setAttribute('type', 'text/javascript');
+    script.setAttribute('src', script_filename);
+    script.setAttribute('id', scriptId);
+ 
+    script_id = document.getElementById(scriptId);
+    if(script_id){//删除重复id的
+        document.getElementsByTagName('head')[0].removeChild(scriptId);
+    }
+    
+    script.onload = function(){
+        if (callback!=undefined) {
+          callback();
+        }
+      
+    };
+    document.getElementsByTagName('head')[0].appendChild(script);
+}
+
+压缩后
+function loadjs(a,b,c){var d=document.createElement("script");d.setAttribute("type","text/javascript"),d.setAttribute("src",a),d.setAttribute("id",b),script_id=document.getElementById(b),script_id&&document.getElementsByTagName("head")[0].removeChild(b),d.onload=function(){void 0!=c&&c()},document.getElementsByTagName("head")[0].appendChild(d)}
+
+
+
+    function loadCss(url,id){
+    var cssTag = document.getElementById(id);
+    var head = document.getElementsByTagName('head').item(0);
+    if(cssTag) head.removeChild(cssTag);
+    css = document.createElement('link');
+    css.href = url;
+    css.rel = 'stylesheet';
+    css.type = 'text/css';
+    css.id = id;
+    head.appendChild(css);
+}
+压缩后：
+function loadCss(a,b){var c=document.getElementById(b),d=document.getElementsByTagName("head").item(0);c&&d.removeChild(c),css=document.createElement("link"),css.href=a,css.rel="stylesheet",css.type="text/css",css.id=b,d.appendChild(css)}
+
+用法举例：
+
+    var bajian=new B();
+    function B() {
+        this.toast = function(str){
+          alert(str);
+        };
+    }
+
+    bajian.toast('测试一下');
+      loadCss('http://7xkaou.com2.z0.glb.qiniucdn.com/toast.min.css','toastcss');
+  loadjs('http://7xkaou.com2.z0.glb.qiniucdn.com/toast.min.js','toastjs',function(){
+      bajian.toast=function(str){
+    var options = {
+            title: str,
+            type: 'success',
+            position: 'bottom',
+            duration: 5000,
+            mobile: true
+        };
+    $toast.show(options);
+  }
+
+    bajian.toast('测试一下');
+  });
 
 ```
 
@@ -1341,7 +1406,8 @@ http://blog.sina.com.cn/s/blog_70491fc60100t5kw.html
 	</a>
 </label>
 
-$('#radio_group_sex input[name="sex"]:checked').val();
+$('#radio_group_sex input[name="sex"]:checked').val();//效率不高
+var volume=$('#select_volume').find('input[name="volume"]:checked').val();//效率高
 
 ```
 

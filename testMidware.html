@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+
+<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
+<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/myajax1.1-min.js"></script>
+<script type="text/javascript">
+        function defaultMiddleware(data){
+        	alert('defaultMiddleware');
+        if (data.code=='101') {
+        	alert('登录超时啦');
+        }
+      }
+
+      function handleGetDailyData(data){
+      	alert('handleGetDailyData');
+      }
+
+	            ajax_get('/zhihui/getDailyData?deviceId=1234',handleGetDailyData);
+
+            
+</script>
+</html>

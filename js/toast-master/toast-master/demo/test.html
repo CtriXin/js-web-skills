@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta http-equiv="cache-control" content="private" />
+  <meta http-equiv="expires" content="0" />
+
+  <title>孩在身边</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.5.0/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="http://7xkaou.com2.z0.glb.qiniucdn.com/mobilebone-min.css"/>
+
+</head>
+<body>
+
+</body>
+
+<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
+<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/amazeui-2.5.0.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="http://res.websdk.rongcloud.cn/RongIMClient-0.9.15.min.js"></script>
+<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/mobilebone-mini.js"></script>
+<!-- <script src="http://7xkaou.com2.z0.glb.qiniucdn.com/myajax-min.js"></script> -->
+<script type="text/javascript">
+
+    var bajian=new B();
+    function B() {
+        this.toast = function(str){
+        	alert(str);
+        };
+    }
+
+    // bajian.toast('测试一下');
+function loadjs(script_filename,scriptId,callback) {
+    var script = document.createElement('script');
+    script.setAttribute('type', 'text/javascript');
+    script.setAttribute('src', script_filename);
+    script.setAttribute('id', scriptId);
+ 
+    script_id = document.getElementById(scriptId);
+    if(script_id){//删除重复id的
+        document.getElementsByTagName('head')[0].removeChild(scriptId);
+    }
+    
+    script.onload = function(){
+    		if (callback!=undefined) {
+    			callback();
+    		}
+			
+		};
+		document.getElementsByTagName('head')[0].appendChild(script);
+}
+	  function loadCss(url,id){
+    var cssTag = document.getElementById(id);
+    var head = document.getElementsByTagName('head').item(0);
+    if(cssTag) head.removeChild(cssTag);
+    css = document.createElement('link');
+    css.href = url;
+    css.rel = 'stylesheet';
+    css.type = 'text/css';
+    css.id = id;
+    head.appendChild(css);
+}
+	loadCss('http://7xkaou.com2.z0.glb.qiniucdn.com/toast.min.css','toastcss');
+  loadjs('http://7xkaou.com2.z0.glb.qiniucdn.com/toast.min.js','toastjs',function(){
+  	  bajian.toast=function(str){
+  	var options = {
+            title: str,
+            type: 'warn',
+            position: 'bottom',
+            duration: 5000,
+            mobile: true
+        };
+  	$toast.show(options);
+  }
+
+    bajian.toast('测试一下');
+  });
+
+
+
+
+
+</script>
+</html>
