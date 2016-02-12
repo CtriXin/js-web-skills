@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>toast demo</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="../dist/warntoast.min.css"/>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {background-color: #f5f6f7}
+        textarea {resize: none}
+        .mobile-navbar {display: block; text-align: center; font-size: 16px; line-height: 40px; font-weight: bold; background-color: #fff; border: 1px solid #ddd;}
+    </style>
+</head>
+<body ng-app="mobile">
+<div class="mobile-navbar">Toast Mobile Demo</div>
+<form name="form" class="container" novalidate style="padding: 15px;">
+    <div class="form-group">
+        <label>title</label>
+        <input type="text" name="title" required class="form-control" ng-model="toastOptions.title"/>
+    </div>
+    <div class="form-group">
+        <label>text</label>
+        <textarea class="form-control" ng-model="toastOptions.text"></textarea>
+    </div>
+    <div class="form-group">
+        <label>type</label>
+        <select class="form-control" ng-model="toastOptions.type" ng-options="item for item in toastOptionTypes"></select>
+    </div>
+    <div class="form-group">
+        <label>position</label>
+        <select class="form-control" ng-model="toastOptions.position" ng-options="item for item in toastOptionPositions"></select>
+    </div>
+    <div class="form-group">
+        <label>cls</label>
+        <input class="form-control" type="text" ng-model="toastOptions.cls"/>
+    </div>
+    <div class="form-group">
+        <label>duration</label>
+        <input class="form-control" type="number" ng-model="toastOptions.duration"/>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <button class="btn btn-block btn-success" ng-click="showToast()" ng-disabled="form.$invalid">Show Toast</button>
+        </div>
+        <div class="col-xs-6">
+            <button class="btn btn-block btn-info" ng-click="reset()" >Reset</button>
+        </div>
+    </div>
+</form>
+
+<script src="../dist/warntoast.min.js"></script>
+<script src="http://cdn.bootcss.com/angular.js/1.4.3/angular.min.js"></script>
+<script >
+    angular.module('mobile', []).run(function ($rootScope) {
+        var defaultToastOptions = {
+            title: '一个测试一个测试',
+            duration: 5000,
+        };
+        $rootScope.toastOptions = angular.copy(defaultToastOptions);
+        $rootScope.toastOptionTypes = ['success', 'error', 'warn', 'info'];
+        $rootScope.toastOptionPositions = ['top', 'center', 'bottom'];
+        $rootScope.showToast = function ()
+        {
+            $toast.show($rootScope.toastOptions);
+        };
+        $rootScope.reset = function ()
+        {
+            $rootScope.toastOptions = angular.copy(defaultToastOptions);
+        };
+
+    });
+</script>
+
+</body>
+</html>

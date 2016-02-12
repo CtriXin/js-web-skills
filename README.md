@@ -17,6 +17,20 @@ $data=file_get_contents('php://input');//post
 ```
 
 ***
+####AL 获取当前section和article的id
+```
+
+function getCurrentActiveSectionId() {
+    return $('section.active').attr('id');
+}
+
+function getCurrentActionArticleId() {
+    return $('#' + getCurrentActiveSectionId() + ' article.active').attr('id');
+}
+
+```
+
+***
 ####post和get的参数最好加上urlencode
 ```
 http://binma85.iteye.com/blog/850042

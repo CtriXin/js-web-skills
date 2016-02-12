@@ -13,3 +13,10 @@ http://7xkaou.com2.z0.glb.qiniucdn.com/toast.min.css
 
 http://7xkaou.com2.z0.glb.qiniucdn.com/toast.min.js
 
+
+http://7xkaou.com2.z0.glb.qiniucdn.com/warntoast.min.css
+
+http://7xkaou.com2.z0.glb.qiniucdn.com/warntoast.min.js
+
+
+
