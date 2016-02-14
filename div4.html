@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<body>
+<img src="http://mhfm2.cnc.cdndm5.com/1/675/675_c.jpg">
+
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>body 元素的内容会显示在浏览器中。</p>
+
+<p>body 元素的内容会显示在浏览器中。</p>
+<p>title 元素的内容会显示在浏览器的标题栏中。</p>
+</body>
+
+<script type="text/javascript">
+;(function(){
+
+	var dom = document.createElement('div');
+    dom.setAttribute('style', 'position:fixed; bottom: 0px;margin: 0px auto;color:red;z-index:9999;');
+    dom.setAttribute('id','divid');
+    inner='<div style="text-align:center;">*这是植入的工具条，可以跟着滚<button id="btn" type="button">点我</button></div>'
+    dom.innerHTML=inner;
+    div = document.getElementById('divid');
+    if(div){//删除重复id的
+        document.getElementsByTagName('body')[0].removeChild(div);
+    }
+    document.getElementsByTagName('body')[0].appendChild(dom);
+
+
+    var dom = document.createElement('div');
+    dom.setAttribute('style', 'margin: 50px auto;');
+    dom.setAttribute('id','divid0');
+    inner=' '
+    dom.innerHTML=inner;
+    div = document.getElementById('divid0');
+    if(div){//删除重复id的
+        document.getElementsByTagName('body')[0].removeChild(div);
+    }
+    document.getElementsByTagName('body')[0].appendChild(dom);
+
+
+    btn = document.getElementById('btn');
+    btn.onclick=function(){
+        alert("bajian");
+    }
+}
+)();
+
+
+</script>
+</html>

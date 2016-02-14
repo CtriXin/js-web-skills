@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+
+	<title></title>
+	<style type="text/css">
+<!--
+*{font-size:12px;}
+a.button:link {       
+       padding:3px 6px 2px 8px;
+       border:2px outset #ffffff;
+       cursor:pointer;
+       background-color: #d4d0c8;
+       text-align:center;
+       height:12px;
+       text-decoration: none;
+       color: #000000;
+       display:inline-block;
+       clear:both;       
+}
+a.button:visited {       
+       padding:3px 6px 2px 8px;
+       border:2px outset #ffffff;
+       cursor:pointer;
+       background-color: #d4d0c8;
+       text-align:center;
+       height:12px;
+       text-decoration: none;
+       color: #000000;
+       display:inline-block;
+       clear:both;       
+}
+a.button:hover {       
+       padding:3px 6px 2px 8px;
+       border:2px outset #ffffff;
+    cursor:pointer;
+       background-color: #d4d0c8;
+       text-align:center;
+       height:12px;
+       text-decoration: none;
+       color: #0000FF;
+       display:inline-block;
+       clear:both;       
+}
+a.button:active {       
+       padding:3px 6px 2px 8px;
+       border:2px inset;
+       cursor:pointer;
+       background-color: #d4d0c8;
+       text-align:center;
+       height:12px;
+       text-decoration: none;
+       color: #999999;
+       display:inline-block;
+       clear:both;       
+}
+-->
+</style>
+</head>
+<body>
+<div id="friend">手机端按压</div>
+
+<a href="https://www.baidu.com/" class="button">baidu</a>&nbsp;<a href="#" class="button">链接模拟的按钮</a>&nbsp;<button style="height:21px">真正的按钮</button>
+<script type="text/javascript">
+window.onload = function() {
+    var friend = document.getElementById("friend");
+    // 触摸
+    friend.ontouchstart = function() {
+        // 背景变绿
+        this.style.backgroundColor = "green";
+    };
+    // 停止触摸
+    friend.ontouchend = function() {
+        // 还原白色
+        this.style.backgroundColor = "white";
+    };
+};
+/*
+1、Touch事件简介
+pc上的web页面鼠 标会产生onmousedown、onmouseup、onmouseout、onmouseover、onmousemove的事件，但是在移动终端如 iphone、ipod  Touch、ipad上的web页面触屏时会产生ontouchstart、ontouchmove、ontouchend、ontouchcancel 事件，分别对应了触屏开始、拖拽及完成触屏事件和取消。
+当按下手指时，触发ontouchstart；
+当移动手指时，触发ontouchmove；
+当移走手指时，触发ontouchend。
+当一些更高级别的事件发生的时候（如电话接入或者弹出信息）会取消当前的touch操作，即触发ontouchcancel。一般会在ontouchcancel时暂停游戏、存档等操作。
+
+2、Touch事件与Mouse事件的出发关系
+在触屏操作后，手指提起的一刹那（即发生ontouchend后），系统会判断接收到事件的element的内容是否被改变，如果内容被改变，接下来的事 件都不会触发，如果没有改变，会按照mousedown，mouseup，click的顺序触发事件。特别需要提到的是，只有再触发一个触屏事件时，才会 触发上一个事件的mouseout事件。*/
+</script>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24"> <path d="M12.984 12.984v-6h-1.969v6h1.969zM12.984 17.016v-2.016h-1.969v2.016h1.969zM12 2.016q4.125 0 7.055 2.93t2.93 7.055-2.93 7.055-7.055 2.93-7.055-2.93-2.93-7.055 2.93-7.055 7.055-2.93z"></path> </svg>
+</body>
+
+<script type="text/javascript">
+	
+	;(function(root,factory){
+		console.log("factory "+factory);
+		root.$toast = factory();
+	}
+	)(this,function(){
+		function isA(str){
+			return 'A'==str;
+		}
+
+		var Toast={
+			show:function(str){
+				if (isA(str)) {
+					alert('isA');
+				}else{
+					alert(str);
+				}
+				
+			},
+			console:function(str){
+				console.log(str);
+			}
+		}
+
+		return Toast;
+	});
+$toast.show('A');
+
+
+//对象
+var $util = {
+
+    trim: function (str)
+    {
+        return str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+    },
+    alertStr:function(str){
+    	alert(str);
+    }
+}
+
+	console.log($util.trim(' 12342 '));
+
+
+// 这里有一个地方需要注意，函数内部声明变量的时候，一定要使用var命令。如果不用的话，你实际上声明了一个全局变量！
+　　function f1(){
+　　　　n=999;
+　　}
+　　f1();
+　　alert(n); // 999
+document.write("aaaa")
+
+
+/*
+回调函数是一种后续传递风格(Continuation Passing Style, CPS)的技术，这种风格的程序编写将函数的业务重点从返回值转移到回调函数中去。而且其相比闭包的好处也不少：
+
+如果传入的参数是基础类型（如字符串、数值），回调函数中传入的形参就会是复制值，业务代码使用完毕以后，更容易被回收；
+通过回调，我们除了可以完成同步的请求外，还可以用在异步编程中，这也就是现在非常流行的一种编写风格；
+回调函数自身通常也是临时的匿名函数，一旦请求函数执行完毕，回调函数自身的引用就会被解除，自身也得到回收。*/
+function getData(callback) {
+  var data = 'some big data';
+
+  callback(null, data);
+}
+
+getData(function(err, data) {
+  console.log(data);
+});
+
+
+// http://www.cnblogs.com/mliudong/p/3635294.html
+ // 3.5 良好的闭包管理
+// 4. 检查JavaScript 的内存使用情况
+
+</script>
+</html>

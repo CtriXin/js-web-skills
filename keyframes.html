@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<style type="text/css">
+	.test1{
+ background:url(http://img.xiaoho.com/2014/12/test.png) no-repeat 0 0;
+ -webkit-animation:run1 1550ms infinite 0s;}
+@-webkit-keyframes run1 {
+	0% {
+       	background-position:0;
+    }
+	20% {
+       background-position:-90px 0;
+    }
+	40% {
+       background-position:-180px 0;
+    }
+	60% {
+       background-position:-270px 0;
+    }
+	80% {
+       background-position:-360px 0;
+    }
+	100% {
+       background-position:-450px 0;
+    }
+	
+}
+
+	.test2{
+ -webkit-animation:run2 850ms  steps(8) infinite 0s;ease;}
+
+@-webkit-keyframes run2 {
+	100% {
+       background-position:-640px 0;
+    }
+	
+}
+
+	.test3{
+ -webkit-animation:run3 2850ms  steps(14) infinite 0s;ease;}
+
+@-webkit-keyframes run3 {
+	100% {
+       background-position:-1120px 0;
+    }
+	
+}
+
+/*因为图片是由182张160*120的小图合并而成，因此只要只需要走181步就完成了整个动画，最后在keyframes的100%处调用最后一张图片的位置即可。*/
+.hot{width:160px;height:120px; overflow:hidden; background:url(http://img.xiaoho.com/2014/12/hot.png) no-repeat;
+-webkit-animation:dajia 20s steps(181) 1 2s forwards;
+animation:dajia 20s steps(181) 1 2s forwards;
+}
+@keyframes dajia{
+	100%{ background-position:0 -21720px;}
+	}
+@-webkit-keyframes dajia{
+	100%{ background-position:0 -21720px;}
+	}
+
+</style>
+<body>
+
+<div class="test1" style="display: block; width: 85px; height: 80px; background-position: 0px 0px;"></div>
+
+
+        <div class="block coin" arctype="Original" style="display: block;">
+            <span class="t">
+                <i class="test2" title="投硬币" style="display: block; width: 80px; height: 80px; background-image: url(http://static.hdslb.com/images/base/anim-coin.png); background-position: 0px 0px;"></i>
+                <div class="t-right">
+                    <span class="t-right-top">硬币</span>
+                    <span class="t-right-bottom v_ctimes">2992</span>
+                </div>
+            </span>
+        </div>
+
+        <div class="block fav">
+            <span class="t fav_btn" href="http://www.bilibili.com/m/stow?aid=3785384">
+                <i class="test3" title="收藏" style="display: block; width: 80px; height: 80px; background-image: url(http://static.hdslb.com/images/base/anim-fav.png); background-position: 0px 0px;"></i>
+                <div class="t-right">
+                    <span class="t-right-top">收藏</span>
+                    <span class="t-right-bottom">4191</span>
+                </div>
+            </span>
+        </div>
+
+        <div class="hot"></div>
+</body>
+</html>
