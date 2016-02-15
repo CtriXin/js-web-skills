@@ -61,7 +61,7 @@
 	var dom = document.createElement('div');
     dom.setAttribute('style', 'position:fixed; bottom: 0px;margin: 0px auto;color:red;z-index:9999;');
     dom.setAttribute('id','divid');
-    inner='<div style="text-align:center;">*这是植入的工具条，可以跟着滚<button id="btn" type="button">点我</button></div>'
+    inner='<div style="text-align:center;">*这是植入的工具条，可以跟着滚<select id="myKeySelect" data-am-selected="{btnWidth: \'50%\', btnSize: \'sm\', btnStyle: \'default\'}"><option value="">请选择绑定按键</option><option value="F">F 爸爸键</option><option value="M">M 妈妈键</option><option value="O">O 更多键</option></select>'
     dom.innerHTML=inner;
     div = document.getElementById('divid');
     if(div){//删除重复id的
@@ -90,5 +90,16 @@
 )();
 
 
+</script>
+
+<script type="text/javascript">
+    ;(function(){
+    var dom = document.createElement('div');
+    dom.setAttribute('style', 'position:fixed; bottom: 0px;margin: 0px auto;color:red;z-index:9999;');
+    inner='<div style="text-align:center;"><figure id="myfigure" style="width: 100%; margin: 0px auto; display: block;" data-am-widget="figure" class="am am-figure am-figure-default hide am-no-layout am-figure-zoomable" data-am-figure="{  pureview: \'true\' }"><img id="myImg" src="http://7xkaou.com2.z0.glb.qiniucdn.com/bxjbgmin.png" data-rel="http://7xkaou.com2.z0.glb.qiniucdn.com/bxjbgmin.png" alt="" data-am-pureviewed="1"></figure>'
+    dom.innerHTML=inner;
+    document.getElementsByTagName('body')[0].appendChild(dom);
+}
+)();
 </script>
 </html>

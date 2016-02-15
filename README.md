@@ -1198,6 +1198,21 @@ return my;
 ```
 
 ***
+####返回当天0点时间戳 十三位
+```
+function getZeroTs(){
+var today = new Date();
+today.setHours(0);
+today.setMinutes(0);
+today.setSeconds(0);
+today.setMilliseconds(0);
+return today.valueOf();
+}
+//压缩
+function getZeroTs(){var a=new Date;return a.setHours(0),a.setMinutes(0),a.setSeconds(0),a.setMilliseconds(0),a.valueOf()}
+```
+
+***
 ####web 融云使用
 ```
 //初始化，传入key
