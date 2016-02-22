@@ -1,0 +1,56 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+		body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=3c7ffcd0889bb67e543a2328f07964cd"></script>
+	<title>定位及驾车test</title>
+</head>
+<body>
+	<div id="allmap"></div>
+</body>
+</html>
+<script type="text/javascript">
+	// 百度地图API功能
+	var map = new BMap.Map("allmap");
+	map.addControl(new BMap.NavigationControl());
+	map.addControl(new BMap.ScaleControl());
+	map.addControl(new BMap.OverviewMapControl());
+	map.addControl(new BMap.MapTypeControl());
+	var point = new BMap.Point(116.331398,39.897445);
+	map.centerAndZoom(point,15);
+
+	var geolocation = new BMap.Geolocation();
+	geolocation.getCurrentPosition(function(r){
+		if(this.getStatus() == BMAP_STATUS_SUCCESS){
+			//获取当前定位用微信的接口。，百度的太不准了
+			 var lng = 114.23755;//经度校正
+        var lat = 22.70237;//纬度校正
+        var p1 = new BMap.Point(lng,lat);
+        var p2 = new BMap.Point(114.332392,22.529016);
+
+        var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});
+        driving.search(p1, p2);
+   //      	var p=new BMap.Point(lng,lat);
+			// var mk = new BMap.Marker(p);
+			// map.addOverlay(mk);
+			// map.panTo(p);
+			alert('您的位置：'+r.point.lng+','+r.point.lat);
+		}
+		else {
+			alert('failed'+this.getStatus());
+		}        
+	},{enableHighAccuracy: true})
+	//关于状态码
+	//BMAP_STATUS_SUCCESS	检索成功。对应数值“0”。
+	//BMAP_STATUS_CITY_LIST	城市列表。对应数值“1”。
+	//BMAP_STATUS_UNKNOWN_LOCATION	位置结果未知。对应数值“2”。
+	//BMAP_STATUS_UNKNOWN_ROUTE	导航结果未知。对应数值“3”。
+	//BMAP_STATUS_INVALID_KEY	非法密钥。对应数值“4”。
+	//BMAP_STATUS_INVALID_REQUEST	非法请求。对应数值“5”。
+	//BMAP_STATUS_PERMISSION_DENIED	没有权限。对应数值“6”。(自 1.1 新增)
+	//BMAP_STATUS_SERVICE_UNAVAILABLE	服务不可用。对应数值“7”。(自 1.1 新增)
+	//BMAP_STATUS_TIMEOUT	超时。对应数值“8”。(自 1.1 新增)
+</script>

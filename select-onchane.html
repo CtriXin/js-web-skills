@@ -1,0 +1,21 @@
+<html>
+<head>
+
+</head>
+<body>
+  <select id="selectid">
+    <option value="a">a text</option>
+    <option value="b">b text </option>
+  </select>
+
+  <script>
+    window.onload = function(){
+      document.getElementById('selectid').onchange = function(){
+        alert(this.value);
+        alert(this.options[this.selectedIndex].text);
+      }
+    }
+
+  </script>
+</body>
+</html>

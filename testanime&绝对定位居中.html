@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-dns-prefetch-control" content="on" />
+  <link rel="dns-prefetch" href="http://bxj.server.snewfly.com"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <title>孩在身边</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.5.0/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="http://bxj.snewfly.com/static/css/bxj-main.min.css"/>
+
+</head>
+<body>
+  <div  id="pageHome" class="page out" >
+
+  <div class="padded">
+
+    <div style="margin: 3px" id="picMsgContainer"></div>
+    <hr data-am-widget="divider" style="border:0;background-color:#DEDEDE;height:1px;" class="am-divider am-divider-dashed"/>
+    <div id="audioMsgContainer"></div>
+    <div style="text-align: center;">
+      <div style="text-align: center;position: absolute;margin: auto; left: 0;right: 0;" id="div_record"><button  class="am-btn am-btn-success mybtn-radius" id="startRecord" style="width:0px;padding:0.5em 0em;"><span class="am-icon-microphone"></span>&nbsp;单击录音</button></div>
+
+      <div class="am-btn-group" id="btn_group">
+        <button style="width:0px;border-top-left-radius: 7px; border-bottom-left-radius: 7px;padding:0.5em 0em;" class="am-btn am-btn-danger am-round" id="stopRecord"><span class="am-icon-trash"></span>&nbsp;放 弃</button>
+        <button style="width:0px;border-top-right-radius: 7px; border-bottom-right-radius: 7px;padding:0.5em 0em;" class="am-btn am-btn-success am-round" id="uploadVoice"><span class="am-icon-paper-plane"></span>&nbsp;发 送</button>
+      </div>
+      
+    </div>
+
+  </div>
+
+
+
+</div>
+
+</body>
+
+
+<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
+<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/amazeui-2.5.0.min.js"></script>
+<script type="text/javascript">
+  
+function showRecordView(){
+  $('#div_record').show();
+  $('#startRecord').animate({width:'214px'},900);
+}
+
+function hideRecordView(){
+  $('#startRecord').animate({width:'0px'},900);
+}
+
+function hideBtnStop(){
+  $('#stopRecord').animate({width:'0px'},400);
+  $('#uploadVoice').animate({width:'0px'},400);
+}
+
+function showBtnStop(){
+  $('#stopRecord').animate({width:'107px'},400);
+  $('#uploadVoice').animate({width:'107px'},400);
+}
+
+function hideBtnGroup(){
+  $('#btn_group').hide();
+}
+
+function showBtnGroup(){
+  $('#btn_group').show();
+}
+
+hideBtnGroup();
+showRecordView();
+
+var isRecording=false;
+
+        //录音三个按钮状态逻辑
+        $('#startRecord').click(function(){
+          $('#startRecord').animate({width:'0px'},900,function(){
+            $('#div_record').hide();
+            $('#btn_group').show();
+            showBtnStop();
+          });
+          isRecording=true;
+          $('#stopRecord').removeAttr('disabled');
+          $('#uploadVoice').removeAttr('disabled');
+          $('#startRecord').attr("disabled",true);
+
+        });
+
+        $('#stopRecord').click(function(){
+          hideBtnStop();
+          setTimeout(function(){
+            hideBtnGroup();
+            showRecordView();
+          },400);
+
+          $('#stopRecord').attr("disabled",true);
+          $('#uploadVoice').attr("disabled",true);
+          $('#startRecord').removeAttr('disabled');
+        });
+
+        $('#uploadVoice').click(function(){
+          hideBtnStop();
+          setTimeout(function(){
+            hideBtnGroup();
+            showRecordView();
+          },400);
+          $('#startRecord').removeAttr('disabled');
+          $('#uploadVoice').attr("disabled",true);
+          $('#stopRecord').attr("disabled",true);
+        });
+
+        //重置录音按钮
+        function resetRecordBtn(){
+          isRecording=false;
+          $('#startRecord').removeAttr('disabled');
+          $('#uploadVoice').attr("disabled",true);
+          $('#stopRecord').attr("disabled",true);
+        }
+
+</script>
+</html>
