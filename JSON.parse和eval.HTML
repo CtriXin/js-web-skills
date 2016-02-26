@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+	
+	var value = 1;
+var jsonstr = '{"data1":"hello","data2":++value}';
+var jsonstr2 = '{"data1":"hello","data2":"++value"}';
+var data1 = eval('('+jsonstr+')');
+console.log(data1);//这时value值为2
+var data2=JSON.parse(jsonstr2);
+// var data2=JSON.parse(jsonstr);
+console.log(data2);//报错
+
+//结论劲量用JSON.parse
+/*
+可以看到控制输出台的结果，第一个eval_r()顺利执行，第二个报错了。从上例就可以明显地看出，eval在解析字符串时，会执行该字符串中的代码（这样的后果是相当恶劣的），如上例中，由于用eval解析一个json字符串而造成原先的value的值改变。
+《高性能Javascript》一书即指出：
+警告：关于JSON和eval需要注意的是：在代码中使用eval是很危险的，特别是用它执行第三方的JSON数据（其中可能包含恶意代码）时，尽可能使用JSON.parse()方法解析字符串本身。该方法可以捕捉JSON中的语法错误，并允许你传入一个函数，用来过滤或转换解析结果。如果此方法以备Firfox 3.5 、IE8 及 Safari 4 原生支持。大多数javascript类库包含的JSON解析代码会直接调用原生版本，如果没有原生支持的话，会调用一个略微不那么强大的非原生版本来处理。*/
+</script>
+</body>
+</html>

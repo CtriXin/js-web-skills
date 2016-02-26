@@ -1,0 +1,34 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+<title></title>  
+<style>  
+  
+.ui-select {  
+    text-align: center;  
+    /* 加border只是为了看到边框*/  
+    border:solid 1px;  
+}  
+.ui-select select {  
+    position: absolute;  
+    left: 0px;  
+    top: 0px;  
+    width: 100%;  
+    height: 3em;  
+    opacity: 0;  
+}  
+  
+</style>  
+</head>  
+<body>  
+    <div class="ui-select">  
+        <span>The 1st Option</span>  
+        <select>  
+            <option value="1">The 1st Option</option>  
+            <option value="2">The 2nd Option</option>  
+            <option value="3">The 3rd Option</option>  
+            <option value="4">The 4th Option</option>  
+        </select>  
+    </div>  
+</body>  
+</html> 

@@ -9,13 +9,12 @@
   </select>
 
   <script>
-    window.onload = function(){
+    (function(){
       document.getElementById('selectid').onchange = function(){
         alert(this.value);
         alert(this.options[this.selectedIndex].text);
       }
-    }
-
+    })();
   </script>
 </body>
 </html>

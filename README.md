@@ -13,7 +13,29 @@ js web 相关总结
 echo $_SERVER["QUERY_STRING"];//get
 
 $data=file_get_contents('php://input');//post
+laravrl :
+Input::all();或者：
+$arr = $request->all();
 
+
+```
+***
+####js 数组的key value添加
+```
+var a=[];a['111']=11; a['22']=22222; a['111']
+a.push(1111)//顺序添加 shift移除末尾
+
+遍历：
+var x
+var mycars = new Array()
+mycars['1q1'] = "Saab"
+mycars['q2'] = "Volvo"
+mycars['q3'] = "BMW"
+
+for (x in mycars)
+{
+document.write(mycars[x]+x + "<br />")
+}
 ```
 
 ***
