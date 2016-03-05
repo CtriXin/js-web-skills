@@ -1,62 +1,3 @@
-windowsÏÂÅäÖÃ
-http://www.myhack58.com/Article/sort099/sort0100/2015/59428.htm
-
-
-ApacheµÄexpires_moduleÄ£¿é¿ÉÒÔÔÚHttpÏìÓ¦Í·²¿×Ô¶¯¼ÓÉÏExpires×Ö¶Î¡£ÔÚApacheµÄhttpd.confÎÄ¼şÖĞ½øĞĞÈçÏÂÅäÖÃ£º
-#ÆôÓÃexpires_moduleÄ£¿é
-LoadModule expires_module modules/mod_expires.so
-# ÆôÓÃÓĞĞ§ÆÚ¿ØÖÆ
-ExpiresActive On
-# GIFÓĞĞ§ÆÚÎª1¸öÔÂ
-ExpiresByType image/gif A2592000
-# HTMLÎÄµµµÄÓĞĞ§ÆÚÊÇ×îºóĞŞ¸ÄÊ±¿ÌºóµÄÒ»ĞÇÆÚ
-ExpiresByType text/html M604800
-#ÒÔÏÂµÄº¬ÒåÀàËÆ
-ExpiresByType text/css "now plus 2 months"
-ExpiresByType text/js "now plus 2 days"
-ExpiresByType image/jpeg "access plus 2 months"
-ExpiresByType image/bmp "access plus 2 months"
-ExpiresByType image/x-icon "access plus 2 months"
-ExpiresByType image/png "access plus 2 months"
-ExpiresByType application/javascript "now plus 2 days"
-
-
-linuxÏÂ/etc/apache2/apache2.conf
-https://www.digitalocean.com/community/tutorials/how-to-configure-apache-content-caching-on-ubuntu-14-04
-
-1¡¢ÏÈÔÚ
-mods-enabledÖĞ²é¿´expires.loadÊÇ·ñ¿ªÆô£¬Èç¹ûÃ»ÓĞÔò¿ªÆô£º
-a2enmod expires
-mods-enabledÖĞ²é¿´headers.loadÊÇ·ñ¿ªÆô£¬Èç¹ûÃ»ÓĞÔò¿ªÆô£º
-a2enmod headers
-
-2¡¢ÔÚapache2.confÖĞµÄĞèÒªµÄÄ¿Â¼ÏÂÉèÖÃ
-Èç£º
-
-<Directory /var/www/>
-	Options Indexes FollowSymLinks
-	AllowOverride all 
-	Require all granted
-ExpiresActive On
-# GIFÓĞĞ§ÆÚÎª1¸öÔÂ
-ExpiresByType image/gif A2592000
-# HTMLÎÄµµµÄÓĞĞ§ÆÚÊÇ×îºóĞŞ¸ÄÊ±¿ÌºóµÄÒ»ĞÇÆÚ
-ExpiresByType text/html M604800
-#ÒÔÏÂµÄº¬ÒåÀàËÆ
-ExpiresByType text/css "now plus 2 months"
-ExpiresByType text/js "now plus 2 days"
-ExpiresByType application/javascript "now plus 2 months"
-ExpiresByType image/jpeg "access plus 2 months"
-ExpiresByType image/bmp "access plus 2 months"
-ExpiresByType image/x-icon "access plus 2 months"
-ExpiresByType image/png "access plus 2 months"
-</Directory>
-
-
-3¡¢ service apache2 restart
-
-
-¸¶ÍêÕûÅäÖÃÎÄ¼ş
 # This is the main Apache server configuration file.  It contains the
 # configuration directives that give the server its instructions.
 # See http://httpd.apache.org/docs/2.4/ for detailed information about
@@ -211,28 +152,28 @@ Include ports.conf
 # access here, or in any related virtual host.
 <Directory />
 	Options FollowSymLinks
-	AllowOverride all 
+	AllowOverride None
 	Require all denied
 </Directory>
 
 <Directory /usr/share>
-	AllowOverride all 
+	AllowOverride None
 	Require all granted
 </Directory>
 
 <Directory /var/www/>
 	Options Indexes FollowSymLinks
-	AllowOverride all 
+	AllowOverride All 
 	Require all granted
 ExpiresActive On
-# GIFÓĞĞ§ÆÚÎª1¸öÔÂ
+# GIFæœ‰æ•ˆæœŸä¸º1ä¸ªæœˆ
 ExpiresByType image/gif A2592000
-# HTMLÎÄµµµÄÓĞĞ§ÆÚÊÇ×îºóĞŞ¸ÄÊ±¿ÌºóµÄÒ»ĞÇÆÚ
+# HTMLæ–‡æ¡£çš„æœ‰æ•ˆæœŸæ˜¯æœ€åä¿®æ”¹æ—¶åˆ»åçš„ä¸€æ˜ŸæœŸ
 ExpiresByType text/html M604800
-#ÒÔÏÂµÄº¬ÒåÀàËÆ
+#ä»¥ä¸‹çš„å«ä¹‰ç±»ä¼¼
 ExpiresByType text/css "now plus 2 months"
 ExpiresByType text/js "now plus 2 days"
-ExpiresByType application/javascript "now plus 2 days"
+ExpiresByType application/javascript "now plus 2 months"
 ExpiresByType image/jpeg "access plus 2 months"
 ExpiresByType image/bmp "access plus 2 months"
 ExpiresByType image/x-icon "access plus 2 months"
@@ -291,6 +232,3 @@ IncludeOptional conf-enabled/*.conf
 IncludeOptional sites-enabled/*.conf
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
-
-#Server Name
-ServerName 127.0.0.1

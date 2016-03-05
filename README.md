@@ -7,6 +7,7 @@ js web 相关总结
 
 ```
 
+
 ***
 ####PHP 获取post和get的全部参数
 ```
@@ -19,6 +20,25 @@ $arr = $request->all();
 
 
 ```
+
+
+***
+####jQuery 新增元素绑定方法
+```
+
+$(document).on('click', '.banner-img', function () {
+  Bn.showFigure(this.src);
+    });
+
+```
+
+***
+####JS 用正则替换【全部】
+```
+content.replace(/\r\n/g, '<br/>');
+data=data.replace(/\d+-\d+-(\d\d) \d\d:\d\d:\d\d/g, "$1号");
+```
+
 ***
 ####js 数组的key value添加
 ```
@@ -61,6 +81,7 @@ echo urlencode('&');
 ```
 
 [输入链接说明](http://)
+[JS&JQ 获取节点的兄弟,父级,子级元素的方法](http://www.jb51.net/article/45372.htm)
 [网页特效库](http://www.5iweb.com.cn/)
 [百度地图圆形区域类](http://developer.baidu.com/map/reference/index.php?title=Class:%E8%A6%86%E7%9B%96%E7%89%A9%E7%B1%BB/Circle)
 
