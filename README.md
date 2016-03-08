@@ -21,6 +21,28 @@ $arr = $request->all();
 
 ```
 
+***
+####JS 取文本中间
+```
+  /**
+   * 取文本中间
+   * @param str 原文本
+   * @param left 左边文本
+   * @param right 右边文本
+   * @param 是否返回匹配文本包含左右边（可省略）
+   * @return string 返回匹配文本
+   */
+function getStringMiddle(str,left,right,returnWhole) {
+    var $=left+"([\\d\\D]*?)"+right;
+    var pattern=new RegExp($,'g');
+    var matches=pattern.exec(str);
+    if(!matches) return '';
+    if(returnWhole) return matches[0];
+    return matches[1];
+  }
+
+```
+
 
 ***
 ####jQuery 新增元素绑定方法
@@ -29,6 +51,20 @@ $arr = $request->all();
 $(document).on('click', '.banner-img', function () {
   Bn.showFigure(this.src);
     });
+或者逐个新增的绑定
+```
+
+***
+####jQuery学习之prop和attr的区别示例介绍
+
+```
+
+http://www.jb51.net/article/43303.htm
+总结：
+.prop()方法应该被用来处理boolean attributes/properties以及在html(比如：window.location)中不存在的properties。其他所有的attributes(在html中你看到的那些)可以而且应该继续使用.attr()方法来进行操作。 
+
+$('#lll').prop('disabled') //判断LLL元素是否含有disable
+
 
 ```
 
@@ -115,27 +151,43 @@ StrokeDashArray 描述Shape类型轮廓的虚线和间隔的样式，写法为St
 [酷炫的FAB](http://materialdesignblog.com/awesome-css-codepen-to-enhance-material-design-fab-button/)
 
 [替换webview中js资源本地加载，提高速度](http://xunhou.me/webview-2/)
+[jQuery.extend 函数详解](http://www.cnblogs.com/RascallySnake/archive/2010/05/07/1729563.html)
 
 [js判断移动端是否安装某款app的多种方法](http://www.jb51.net/article/76585.htm)
 但是，但是....还是有奇思淫巧滴，启动app需要的时间较长，js中断时间长，如果没安装，js瞬间就执行完毕。直接上代码吧！
 ***
 ####获取url参数
 ```
-function GetRequest() {
+function getRequest() {
 var url = location.search; //获取url中"?"符后的字串 
 var theRequest = new Object();
 if (url.indexOf("?") != -1) {
   var str = url.substr(1);
   strs = str.split("&");
   for(var i = 0; i < strs.length; i ++) {
-    theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+    theRequest[strs[i].split("=")[0]]=decodeURIComponent(strs[i].split("=")[1]);
   }
 }
 return theRequest;
 }
 
 压缩后
-function GetRequest(){var a,b,c=location.search,d=new Object;if(-1!=c.indexOf("?"))for(a=c.substr(1),strs=a.split("&"),b=0;b<strs.length;b++)d[strs[b].split("=")[0]]=unescape(strs[b].split("=")[1]);return d}
+function getRequest(){var c,d,a=location.search,b=new Object;if(-1!=a.indexOf("?"))for(c=a.substr(1),strs=c.split("&"),d=0;d<strs.length;d++)b[strs[d].split("=")[0]]=decodeURIComponent(strs[d].split("=")[1]);return b}
+
+在js中可以使用escape(), encodeURL(), encodeURIComponent()，三种方法都有一些不会被编码的符号：
+escape()：@ * / +
+encodeURL()：! @ # $& * ( ) = : / ; ? + '
+encodeURIComponent()：! * ( ) '
+ 通过对三个函数的分析，我们可以知道：escape()除了 ASCII 字母、数字和特定的符号外，对传进来的字符串全部进行转义编码，因此如果想对URL编码，最好不要使用此方法。而encodeURI() 用于编码整个URI,因为URI中的合法字符都不会被编码转换。encodeURIComponent方法在编码单个URIComponent（指请求参 数）应当是最常用的，它可以讲参数中的中文、特殊字符进行转义，而不会影响整个URL。
+
+
+window.location.href：获取完整url的方法：,即scheme://host:port/path?query#fragment
+window.location.protocol：获取rul协议scheme
+window.location.host：获取host
+window.location.port：获取端口号
+window.location.pathname：获取url路径
+window.location.search：获取参数query部分，注意此处返回的是?query
+window.location.hash：获取锚点，#fragment
 
 用法
 otherDevice();
@@ -1207,25 +1259,25 @@ var Minutes=d.getMinutes(); //获取当前分钟数(0-59)
 var Seconds=d.getSeconds(); //获取当前秒数(0-59)
 var curDateTime = '';
 if (month > 9)
-curDateTime = curDateTime + month+'-';
+curDateTime += month+'-';
 else
-curDateTime = curDateTime + "0" + month+'-';
+curDateTime += "0" + month+'-';
 if (date > 9)
-curDateTime = curDateTime + date+' ';
+curDateTime += date+' ';
 else
-curDateTime = curDateTime + "0" + date+' ';
+curDateTime += "0" + date+' ';
 if (Hours > 9)
-curDateTime = curDateTime + Hours+':';
+curDateTime+= Hours+':';
 else
-curDateTime = curDateTime + "0" + Hours+':';
+curDateTime+="0" + Hours+':';
 if (Minutes > 9)
-curDateTime = curDateTime + Minutes+':';
+curDateTime +=Minutes+':';
 else
-curDateTime = curDateTime + "0" + Minutes+':';
+curDateTime+="0" + Minutes+':';
 if (Seconds > 9)
-curDateTime = curDateTime + Seconds;
+curDateTime += Seconds;
 else
-curDateTime = curDateTime + "0" + Seconds;
+curDateTime += "0" + Seconds;
 return curDateTime;
 }
 ```

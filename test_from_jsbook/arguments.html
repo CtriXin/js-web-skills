@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<style type="text/css">
+	
+</style>
+</head>
+<body>
+<script type="text/javascript">
+	function set(){
+		console.log('hello'+arguments[0]+'arguments[1]='+arguments[1]);
+	}
+
+	set(1,'3',11);
+
+	console.log(typeof null)
+	console.log(null ==undefined)
+	console.log(null ===undefined)
+
+	var msg='111';
+	console.log(Boolean(msg));
+	var msg=0;
+	console.log(Boolean(msg));
+	var msg='0';
+	console.log(Boolean(msg));
+	var msg=null;
+	console.log(Boolean(msg));
+	var msg=-1;
+	console.log(Boolean(msg));//Boolean只对false；'',0,NaN，null，undefined才显示false
+	// 这规则对if()语句和||的掌握十分重要
+	console.log('0'||111);
+</script>
+</body>
+</html>

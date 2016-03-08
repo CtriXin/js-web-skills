@@ -1,0 +1,256 @@
+不要做浮点运算
+0.1+0.2
+
+0.30000000000000004
+
+
+\unnnn Unicode长度为1
+var str='\u03a3'; str.length
+
+1
+
+
+字符串创建后长度不在改变，只能新的字符串被覆盖，影响效率
+
+逻辑与在有一个非布尔值下：（与||相反）
+'a'&&123
+
+123
+
+'a'&&false
+
+false
+false&&123
+
+false
+
+'a'||123
+
+"a"
+
+
+字符串比较大小是按ascii码比较的（比较首位谁大就谁，同样大舅比较下一位。。）
+'a'>'B'
+true
+
+'a'>'b'
+false
+'aaaaaaaaaaaa'>'b'
+false
+'ba'>'b'
+true
+
+'b'>'b'
+false
+
+for in 遍历对象、数组等
+for(var pro in window){console.log(pro)}
+for(var pro in [1,2,3,4]){console.log(pro)}
+
+var obj={a:function(){alert(1234)},b:1}
+for(var pro in obj){console.log(pro)}
+可以用来反射之类的
+var obj={a:function(){alert(1234)},b:1}
+for(var pro in obj){console.log(obj[pro])}
+
+lebel语句跳出多重循环（不建议使用）
+
+基本类型（Undefined Null Bollean Number String）(具有固定大小内存，因此保存在栈内存中)
+引用类型（obj）(引用类型的值是对象，保存在堆内存中。包含引用类型的值的变量实际是一个指向该对象的指针)
+引用类型 复制变量值实际是同一个指针，最终指向同一个对象
+而传递参数是值传递
+
+var person=new Object;
+person.name='b';
+function set(obj){
+obj.name='aaaa';
+}
+set(person);
+console.log(person.name);//aaaa
+
+
+var person=new Object;
+person.name='b';
+function set(obj){
+obj.name='aaaa';
+obj=new Object;//当函数在内部重写这个obj时候，这个变量引用的局部对象了
+obj.name=123;
+}
+set(person);
+console.log(person.name);//仍然是aaaa
+
+typeof 用于检测基本类型
+'11' instanceof RegExp
+false 用于判断变量是否引用类型的实例
+
+没有块级作用域
+if(1>0){
+var a=1;
+}
+console.log(a);//1
+
+for(var i=0;i<=10;i++){
+
+}
+console.log(i);//11
+
+用[]访问对象属性 和.访问一样。便利之处就在于他可以通过字符串去访问，特别是有空格的属性名，根本不能用.访问
+var obj={a:1}
+var str='a';
+console.log(obj[str]);//1
+
+var begin=(new Date()).valueOf();
+var a='1';
+for(var i=0;i<10000000;i++){
+	if(a==='0'){
+}else if(a==='1'){
+}
+}
+var end=(new Date()).valueOf();
+console.log(end-begin)//18063
+
+
+
+var begin=(new Date()).valueOf();
+var a='1';
+for(var i=0;i<10000000;i++){
+	switch(a){
+
+	case '0':
+	break;
+
+	case '1':
+	break;}
+}
+var end=(new Date()).valueOf();
+console.log(end-begin)//13775、13910
+总结：switch比if更高效
+
+数组：
+sort 默认按字符串排序的，尽管里面全是整形的数据,可以自定义规则（可以任何类型，如obj的）
+	 function compare(a,b){
+		return b-a;
+	 }
+	 var arr=[1,22,3,55,32];
+	 arr.sort(compare);
+	 console.log(arr);//[55, 32, 22, 3, 1]
+
+concat在数组末尾添加新的数组
+	 var arr=[1,2,55];
+	 var arr2=arr.concat([1,23]);
+	 console.log(arr2);//[1, 2, 55, 1, 23]
+
+slice 返回切割数组的后面数据为新的数组
+	var arr=[55, 32, 22, 3, 1].slice(3);
+	console.log(arr);//[3, 1]
+	
+splice 删除数组任意项的任意个数、插入任意位置任意项数、替换任意位置任意项数
+
+indexOf()从开头找第一个匹配的位置/lastIndexOf 从末尾开始找【按===的方式查找的！】
+var person={name:"bajian"};
+var people=[{name:"bajian"}];
+var people2=[person];
+console.log(people.indexOf(person));//-1 【按===的方式查找的！】
+console.log(people2.indexOf(person));//0
+
+迭代
+every:对数组每项运行给定的函数。如果没项都返回true则返回true
+	var arr=[3,2,5];
+	var re=arr.every(function(item,index,array){
+		console.log(index+' '+item+' '+array);
+		if(item>1) return true;
+	});
+	console.log(re);
+	0 3 3,2,5
+	1 2 3,2,5
+	2 5 3,2,5
+	true
+	
+some:对数组每项运行给定的函数。如果至少有一项返回true则返回true	
+
+filter：返回符合项组成的数组
+	var arr=[3,2,5];
+	var re=arr.filter(function(item,index,array){
+	return item>2;
+	});
+	console.log(re);//[3, 5]
+
+map:返回运行结果的数组
+	var arr=[3,2,5];
+	var re=arr.map(function(item,index,array){
+	return item*2;
+	});
+	console.log(re);//[6, 4, 10]
+	
+forEach:就是遍历数组。。无返回值
+var arr=[3,2,5];
+	var re=arr.forEach(function(item,index,array){
+	//
+	});
+	
+new Date(2016,2,8,15,16,12)//2016.03.08 15:16:12（注意月份-1的）
+Tue Mar 08 2016 15:16:12 GMT+0800 (中国标准时间)
+
+Date.now()//获取当前时间戳13位，比(new Date).valueOf()简单
+
+console.log(new Date(2007,1,1)>new Date(2007,2,3))//false日期可以直接比较大小
+
+正则：
+var exp=/PATTERN/FLAG;
+flag有三种：g:匹配全局（global）、i:不区分大小写（case-insensitive）、m:多行模式
+/[a]/g.test("plain");//true
+var matches=/[a]/g.exec("plain");
+
+//错误的实现方法（无法动态设置正则表达式）
+function getStringMiddle(str,left,right) {
+		var $=left+"([\d\D]*?)"+right;
+		var pattern=/{$}/g
+		var matches=pattern.exec(str);
+		return matches;
+	}
+
+//正确的实现方法
+	/**
+	 * 取文本中间
+	 * @param str 原文本
+	 * @param left 左边文本
+	 * @param right 右边文本
+	 * @param 是否返回匹配文本包含左右边（可省略）
+	 * @return string 返回匹配文本
+	 */
+function getStringMiddle(str,left,right,returnWhole) {
+		var $=left+"([\\d\\D]*?)"+right;
+		var pattern=new RegExp($,'g');
+		var matches=pattern.exec(str);
+		if(!matches) return '';
+		if(returnWhole) return matches[0];
+		return matches[1];
+	}
+	
+m=getStringMiddle('ashiahsfkjasf','shi','ja',1);//shiahsfkja
+m=getStringMiddle('ashiahsfkjasf','shi','ja');//ahsfk
+
+var str='{"code":"S000000","msg":"操作成功","data":[{"pic":0,"audio":0,"ts":"2016-03-08 14:30:07"},{"pic":0,"audio":0,"ts":"2016-03-08 14:30:07"}],"extra":""}';
+str=str.replace(/\d+-\d+-(\d\d) \d\d:\d\d:\d\d/g, "$1号");
+console.log(str);//{"code":"S000000","msg":"操作成功","data":[{"pic":0,"audio":0,"ts":"08号"},{"pic":0,"audio":0,"ts":"08号"}],"extra":""}
+
+每个函数实际是对象，是Function的实例
+function t(){} t instanceof Function;//true
+
+function sum(a,b){return a+b;}
+var anotherSum=sum;
+console.log(anotherSum(1,5));//6
+sum=null;
+console.log(anotherSum(1,5));//6
+
+函数声明：
+function sum(a,b){return a+b;}
+函数表达式：
+var sum=function(){}
+两者几乎没什么区别，唯一区别：
+//不报错：
+sum(1,5);
+function sum(a,b){return a+b;}
+//报错：
+sum(1,5);
+var sum=function(a,b){return a+b;}
