@@ -234,6 +234,17 @@ var str='{"code":"S000000","msg":"操作成功","data":[{"pic":0,"audio":0,"ts":"201
 str=str.replace(/\d+-\d+-(\d\d) \d\d:\d\d:\d\d/g, "$1号");
 console.log(str);//{"code":"S000000","msg":"操作成功","data":[{"pic":0,"audio":0,"ts":"08号"},{"pic":0,"audio":0,"ts":"08号"}],"extra":""}
 
+var str='cat rat fat';
+str=str.replace(/(at)/g, "aa$1 hi");
+console.log(str);//caaat hi raaat hi faaat hi
+
+var str='cat rat fat';
+str=str.replace(/(.at)/g, "aa$1 hi");
+console.log(str);
+aacat hi aarat hi aafat hi
+第二个参数还可以是function,实现更定制化的替换操作
+
+
 每个函数实际是对象，是Function的实例
 function t(){} t instanceof Function;//true
 
@@ -247,10 +258,63 @@ console.log(anotherSum(1,5));//6
 function sum(a,b){return a+b;}
 函数表达式：
 var sum=function(){}
-两者几乎没什么区别，唯一区别：
-//不报错：
-sum(1,5);
+	两者几乎没什么区别，唯一区别：
+	//不报错：
+	sum(1,5);
+	function sum(a,b){return a+b;}
+	//报错：
+	sum(1,5);
+	var sum=function(a,b){return a+b;}
+
+	arguments.callee指向函数名(实现无须指定函数名的递归)//严苛模式下arguments.callee、arguments.caller报错
+	function a(a){
+	if(a>1){
+	 a--;
+	 arguments.callee(a);
+	 console.log(a);
+	 }
+	 }
+	//1
+	//2
+	//3
+
+
 function sum(a,b){return a+b;}
-//报错：
-sum(1,5);
-var sum=function(a,b){return a+b;}
+sum.length//2 返回函数期望接收多少个参数
+
+call、apply：作用相同，区别在传入的参数方式不同而已：用法：扩充函数赖以生存的运行作用域、对象不需要和方法有耦合关系
+	window.color='red';
+	var o={color:'blue'};
+	function sayColor(){
+	console.log(this.color);
+	}
+	sayColor();//red
+	sayColor.call(this);//red
+	sayColor.call(window);//red
+	sayColor.call(o);//blue
+
+bind 绑定：
+	window.color='red';
+	var o={color:'blue'};
+	function sayColor(){
+	console.log(this.color);
+	}
+	var bo=sayColor.bind(o);
+	bo();//blue
+
+toFixed：
+	var num=10.222;num.toFixed(2)
+	"10.22"
+	var num=10.225;num.toFixed(2)
+	"10.22"
+	var num=10.226;num.toFixed(2)
+	"10.23"
+
+	
+'bajian'.charAt(2)//"j"
+'bajian'.charCodeAt(2)//106 ascii码
+String.fromCharCode(106)//"j"
+
+Math.ceil()//向上舍入Math.ceil(1.2)//2
+Math.floor()//向下
+Math.round()//四舍五入

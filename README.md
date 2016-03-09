@@ -1283,13 +1283,9 @@ return curDateTime;
 ```
 
 ***
-####返回当前十位时间戳
+####返回当前十位时间戳 string
 ```
-function getCurTs(){
-var ts = (new Date()).valueOf()+"";
-var my=ts.substr(0,ts.length-3);
-return my;
-}
+function getCurTs(){return (Date.now()+'').substr(0,10);}
 
 
 ```
