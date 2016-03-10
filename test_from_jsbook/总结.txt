@@ -318,3 +318,191 @@ String.fromCharCode(106)//"j"
 Math.ceil()//向上舍入Math.ceil(1.2)//2
 Math.floor()//向下
 Math.round()//四舍五入
+
+//Object.keys获取函数原型
+	function Person(){
+	this.value='jimi';
+	}
+	Person.prototype.name='bajian';
+	key=Object.keys(Person.prototype);//["name"]
+for(var i in Person){
+	console.log(i);//bajian
+}
+
+	function Person(){
+	this.value='jimi';
+	}
+	Person.prototype.name='bajian';
+	Person.prototype.alert=function(){
+		alert(12);
+	}
+	Person.alert();
+
+var BaseClass = function() {}; // var BaseClass=new Function();  
+BaseClass.f1 = function(){//定义静态方法  
+     alert(' This is a static method ');  
+}
+BaseClass.f1();//This is a static method  
+var instance1 = new BaseClass();  
+instance1.f1();//instance1.f1 is not a function  
+由以上代码分析可知，静态方法不能被实例对象调用，而原型可以被实例调用
+javascript中静态方法、实例方法、内部方法和原型的一点见解http://blog.csdn.net/jerrysbest/article/details/6642003
+
+var BaseClass = function() {  
+this.method1 = function(){  
+       alert(' Defined by the "this" in the instance method');  
+ }  
+};  
+var instance1 = new BaseClass();  
+instance1.method1 = function(){  
+    alert(' Defined directly in the instance method');  
+}  
+BaseClass.prototype.method1 = function(){  
+    alert(' Defined by the prototype instance method ');  
+}  
+instance1.method1();//Defined directly in the instance method  
+    通过运行结果跟踪测试可以看出直接定义在实例上的变量的优先级要高于定义在“this”上的，而定义在“this”上的又高于 prototype定义的变量
+
+下面这个例子类似于面向对象public和private的应用方式
+	var BaseClass = function() {  
+    var method1 = function() {  
+        alert("Internal method");  
+    };  
+    var method2 = function() {  
+        alert("call Internal method");  
+        method1();  
+    };  
+    this.method3 = function(){  
+        method2();  
+    }  
+};  
+var instance1 = new BaseClass();  
+instance1.method1();// 会报错，因为method1是BaseClass中定义的内部变量，作用域只有在内部可见（闭包）  
+instance1.method3();//会先后调用method2和method1  
+
+原型动态性：
+	function Person(){
+	this.value='jimi';
+	}
+	Person.prototype.name='bajian';
+	var p=new Person();
+	Person.prototype.say=function(){
+	alert(123);}
+	p.say();
+实例的指针指向原型，而不是构造函数、尽管可以修改和添加，但重写整个原型就不行了：
+	function Person(){
+	this.value='jimi';
+	}
+	var p=new Person();
+	Person.prototype={
+	say:alert(123);
+	}
+	p.say();//error
+
+结合使用构造函数模式和原型模式(目前使用最广泛，最认可的自定义类型的模式)
+	function Person(name,age,job){
+	this.name=name;
+	this.age=age;
+	this.job=job;
+	}
+	Person.prototype={
+	constructor:Person,//关键
+	sayName:function(){
+	console.log(this.name);
+	}
+	}
+	var p1=new Person('bajian',18,'php');
+	var p2=new Person('jiban',22,'java');
+	p1.sayName();//bajian
+	p2.sayName();//jiban
+	p1.sayName===p2.sayName//true
+
+组合继承：(最常用的继承方式)
+	function Person(name,age){
+	this.name=name;
+	this.age=age;
+	this.job="web";
+	}
+	Person.prototype.sayAge=function(){
+	alert(this.age);
+	}
+	
+	function SubPerson(name,age){
+	//继承属性
+	Person.call(this,name);
+	this.age=age;
+	
+	}
+	//继承方法
+	SubPerson.prototype=new Person('jimi',11);
+	SubPerson.prototype.sayName=function(){
+	alert(this.name);
+	}
+	
+	var sp=new SubPerson('bajian',20);
+	sp.sayAge();//20
+	sp.sayName();//bajian
+	sp.job;//"web"
+
+很多开发者常把闭包和匿名函数搞混，闭包指有权访问另一个函数作用域内的变量的函数，常见方式就是在一个函数中创建另一个函数
+
+
+	var p=(function(){
+	
+	var Person=function(name,age){
+	this.name=name;
+	this.age=age;
+	this.job="web";
+	};
+	
+	Person.prototype.sayAge=function(){
+	alert(this.age);
+	}
+	
+	Person.prototype.sayAgeAndName=function(){
+	p.sayAge();
+	alert(this.name);
+	}  
+	return new Person('bajian',15);
+	})();
+	p.sayAgeAndName()//15,BAJIAN
+优化后：
+
+	var p=(function(){
+	
+	var Person=function(name,age){
+	this.name=name;
+	this.age=age;
+	this.job="web";
+	};
+	
+	function sayAge(age){
+	alert(age);
+	}
+	
+	Person.prototype.sayAgeAndName=function(){
+	sayAge(this.age);
+	alert(this.name);
+	}  
+	return new Person('bajian',15);
+	})();
+	p.sayAgeAndName()//15,BAJIAN
+	
+//变量无块级作用域
+	for(var i=1;i<5;i++){
+	}
+	console.log(i);//5
+	var i;//忽略重复定义，但是值会覆盖，比如var i=6;则输出6
+	console.log(i);//5
+	
+//模块模式：为单例模式创建私有变量和特权方法[常用来管理应用程序级别的信息]
+	var single=function(){
+	var a=1;
+	return {
+	getA:function(){
+	return a;
+	}
+	};
+	}();
+	single.getA();
+	
