@@ -1,0 +1,6 @@
+一：在php.ini 中设置 session.gc_maxlifetime = 1440 //默认时间
+
+二：代码实现
+$lifeTime = 24 * 3600;  // 保存一天 
+session_set_cookie_params($lifeTime); 
+session_start();

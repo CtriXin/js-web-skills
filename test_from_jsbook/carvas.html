@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<style type="text/css">
+	
+</style>
+</head>
+<body>
+
+<canvas id="canvas">
+	
+</canvas>
+<script type="text/javascript">
+	var canvas=document.getElementById('canvas');
+	if (canvas.getContext) {
+		var context=canvas.getContext('2d');
+
+		/*context.fillStyle='#ff0000';
+		context.fillRect(10,10,100,200);//x,y,width,height
+
+		context.fillStyle='rgba(0,0,255,0.5)';
+		context.fillRect(50,20,100,100);//x,y,width,height
+
+
+		context.strokeStyle='#ff0000';
+		context.strokeRect(210,10,200,200);//x,y,width,height
+
+		context.strokeStyle='rgba(0,0,255,0.5)';
+		context.strokeRect(250,20,100,100);//x,y,width,height
+
+		context.clearRect(40,50,50,50)*/
+
+		console.log('beginPath');
+		context.beginPath();
+		context.arc(100,100,95,0,2*Math.PI,false);
+
+		context.moveTo(199,100)
+		context.arc(100,100,92,0,2*Math.PI,false);
+
+		context.moveTo(100,100)
+		context.lineTo(100,15)
+
+		context.moveTo(100,100)
+		context.lineTo(35,100)
+
+
+
+		context.front='bold 14px Arial';
+		context.textAlign='center'
+		context.textBaseline-'middle';
+		context.fillText("bajian",100,20)
+
+		context.strokeStyle='#ff0000';
+		context.textAlign='start'
+		context.fillText("bajian",100,40)
+		context.textAlign='end'
+		context.fillText("bajian",100,60)
+		context.stroke();
+	}
+</script>
+</body>
+</html>

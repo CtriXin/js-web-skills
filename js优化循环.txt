@@ -1,0 +1,11 @@
+http://lifemap.in/javascript-loop-optimization/
+
+
+for (var i = list.length - 1; i >= 0; --i) {
+  //...
+}
+
+這段代碼通過把循環順序倒置，把i計數器從最後一個元素下標（list.length - 1）開始，向前循環。 以達到把循環所需變量數減到 1 個，而且在執行判斷中，降低了變量查詢的次數，減少了執行 CPU 指令前的耗時。
+
+console.log('Name: %s', array[i].name);
+

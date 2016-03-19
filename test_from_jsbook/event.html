@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<style type="text/css">
+	
+</style>
+</head>
+<body>
+<!-- click -->
+<input id="bajian" type="button" onclick="alert(event.type)" value="123"></input>
+<!-- 456 -->
+<input id="remove" type="button" onclick="alert(this.value)" value="456"></input>
+<script type="text/javascript">
+	var obj=document.getElementById('bajian');
+	//DOM0级事件处理
+	obj.onclick=function () {
+		 alert(this.value);//覆盖掉html里的 onclick="alert(event.type)"
+	}
+
+	obj.onclick=function () {
+		 alert(this.value+" 2");//覆盖掉上面的
+	}
+	// obj.onclick=null//解除绑定
+
+	// DOM2级事件处理(好处主要是可以添加多个处理事件),第三个参数false表示冒泡事件时执行，true表示捕获阶段调用
+	obj.addEventListener('click', function () {
+		 alert(this.value+" addEventListener");//先执行alert(this.value+" 2");，再alert(this.value+" addEventListener");
+		 // event.stopPropagation()//取消后面的事件传递，即body.onclick不生效
+	})
+
+		obj.addEventListener('click', function () {
+		 alert(this.value+" addEventListener2 ");//先执行alert(this.value+" 2");，再alert(this.value+" addEventListener");再alert(this.value+" addEventListener2 ");
+	})
+// removeEventListener(type, listener) 只能移除addEventListener传相同参数的函数，匿名函数则无法移除
+
+
+	var obj2=document.getElementById('remove');
+
+	var listener=function () {
+		 alert('999');
+	}
+
+	obj2.addEventListener('click', listener);
+
+	obj2.removeEventListener('click', listener);
+
+
+	document.body.onclick=function (event) {
+		 alert('body--')
+	}
+</script>
+</body>
+</html>

@@ -1573,7 +1573,13 @@ $('#male').prop("checked",true);
 不要用下面的，会出毛病的
 $('#male').attr("checked",true);
 
-
+```
+***
+####设置 获取元素自定义属性
+```
+  img.setAttribute('mId','bajianid');
+  img.getAttribute('mId');
+  //或者 img.attributes['mId'].nodeValue
 ```
 
 ***

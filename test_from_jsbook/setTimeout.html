@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<style type="text/css">
+	
+</style>
+</head>
+<body>
+
+<div id="div_id" data-appid="bajian">haha</div>
+<script type="text/javascript">
+var b=0
+	setTimeout(function () {
+		console.log('1 begin')
+		 for (var i = 0; i < 1000000000; i++) {
+		 	if (i>50) {
+		 		b++
+		 	}
+		 }
+		 console.log('1 complete')
+	}, 2000);
+		setTimeout(function () {
+			console.log('2 begin')
+		 for (var i = 0; i < 10; i++) {
+		 	
+		 }
+		 console.log('2 complete')
+	}, 2010);
+/*
+		1 begin setTimeout.html:15
+1 complete setTimeout.html:21
+2 begin setTimeout.html:24
+2 complete */
+//说明setTimeout只是将任务放进队列里面，并不能并行执行，只有当1执行完毕（尽管他需要执行十几秒），2才会开始执行
+</script>
+</body>
+</html>

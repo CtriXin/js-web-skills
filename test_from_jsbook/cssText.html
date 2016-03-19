@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<style type="text/css">
+	
+</style>
+</head>
+<body>
+
+<div id="bajian">
+	cssText 便捷的设置多属性，不过我更建议写成class吧。。
+</div>
+<script type="text/javascript">
+	var obj=document.getElementById('bajian');
+	obj.style.cssText="width:300px;background-color:#ff0000;border:1px solid #00ff00"
+	alert(obj.style.length);
+	alert(obj.style[0]+obj.style.getPropertyValue(obj.style[0]));
+</script>
+</body>
+</html>

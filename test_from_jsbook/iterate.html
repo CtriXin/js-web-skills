@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<style type="text/css">
+	
+</style>
+</head>
+<body>
+
+<div id="bajian">
+	cssText 便捷的设置多属性，不过我更建议写成class吧。。
+	<p>23423b
+	<b>2342</b>
+	</p>
+	<ul id="aaa">
+		<li class="jiban">aaaa</li>
+		<li>345</li>
+		<li>123</li>
+		<li>22</li>
+	</ul>
+</div>
+<script type="text/javascript">
+	var obj=document.getElementById('bajian');
+	var iterate=document.createNodeIterator(obj, NodeFilter.SHOW_ELEMENT, null,false);
+	var node = iterate.nextNode();
+	while (node) {
+		console.log(node.tagName);
+		node = iterate.nextNode();
+
+	}
+
+/*	DIV 
+P 
+B 
+UL 
+4LI */
+</script>
+</body>
+</html>

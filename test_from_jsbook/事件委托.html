@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+
+	</style>
+</head>
+<body id="body">
+
+	<ul id="ul">
+		<li class="cls" id="li1">bajian</li>
+		<li id="li2">bajian2</li>
+		<li id="li3">bajian3</li>
+		<li id="li4">bajian4</li>
+		<li id="li5">bajian5</li>
+
+	</ul>
+	<script type="text/javascript">
+		var ul=document.getElementById('body');
+		// var ul=document.getElementById('ul');
+
+		var target=null;
+		ul.onclick=function(event){
+			console.log(event.target.id);
+			target=event.target
+			switch (event.target.id) {
+				case 'li1':
+				console.log('li1 '+target.textContent+target.className)
+				break;
+
+				case 'li2':
+				console.log('li2 '+target.textContent)
+				break;
+
+				default:
+				break;
+			}
+		}
+
+		document.getElementById('li1').click();
+	</script>
+</body>
+</html>

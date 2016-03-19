@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<style type="text/css">
+	
+</style>
+</head>
+<body>
+
+<span id="number"></span>
+
+<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+	function magic_number(value) {
+	var num = $("#number");
+    num.animate({count: value}, {
+        duration: 300,
+        step: function() {
+            num.text(String(Math.ceil(this.count?this.count:0)));
+		}
+	});
+}
+
+magic_number(81)
+
+</script>
+</body>
+</html>

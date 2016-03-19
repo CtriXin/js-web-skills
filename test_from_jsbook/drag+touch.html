@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<title></title>
+	<style type="text/css">
+
+	</style>
+</head>
+<body>
+
+	<div style="background-color: #666666;width: 100px;height: 100px;position: absolute;" id="bajian" >
+
+	</div>
+	<script type="text/javascript">
+		var div=document.getElementById('bajian');
+
+		wid=parseInt(div.style.width)/2;
+		height=parseInt(div.style.height)/2;
+		div.addEventListener('mousedown',function(){
+			bind();
+		})
+
+		div.addEventListener('mouseup',function(){
+			unbind()
+		})
+
+		// div.addEventListener('touchstart',move)
+		// http://blog.csdn.net/fuqinyijiu/article/details/41315123
+		div.addEventListener('touchmove',touch)
+		// div.addEventListener('touchend',move)
+
+		function touch(event){
+			event.preventDefault()//touchmove事件：当手指在屏幕上滑动的时候连续地触发。在这个事件发生期间，调用preventDefault()事件可以阻止滚动。比如UC、微信自带的手势，类是于android 的interruptXXX
+
+
+			div.style.left=(event.touches[0].clientX-wid)+"px";
+			div.style.top=(event.touches[0].clientY-height)+"px";
+		}
+
+		function bind(){
+			document.addEventListener('mousemove',move)
+		}
+
+		function move(event){
+			// alert(event.type)
+			console.log("mousemoveX"+event.clientX);
+			console.log("mousemoveY"+event.clientY);
+			div.style.left=(event.clientX-wid)+"px";
+			div.style.top=(event.clientY-height)+"px";
+		}
+
+		function unbind(){
+			document.removeEventListener('mousemove',move)
+		}
+
+	</script>
+</body>
+</html>

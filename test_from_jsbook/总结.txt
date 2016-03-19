@@ -506,3 +506,60 @@ instance1.method3();//会先后调用method2和method1
 	}();
 	single.getA();
 	
+事件委托
+在DOM树尽可能高的层次添加事件处理（利用冒泡原理）
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+		<style type="text/css">
+
+		</style>
+	</head>
+	<body id="body">
+
+		<ul id="ul">
+			<li class="cls" id="li1">bajian</li>
+			<li id="li2">bajian2</li>
+			<li id="li3">bajian3</li>
+			<li id="li4">bajian4</li>
+			<li id="li5">bajian5</li>
+
+		</ul>
+		<script type="text/javascript">
+			var ul=document.getElementById('body');
+			// var ul=document.getElementById('ul');
+
+			var target=null;
+			ul.onclick=function(event){
+				console.log(event.target.id);
+				target=event.target
+				switch (event.target.id) {
+					case 'li1':
+					console.log('li1 '+target.textContent+target.className)
+					break;
+
+					case 'li2':
+					console.log('li2 '+target.textContent)
+					break;
+
+					default:
+					break;
+				}
+			}
+		</script>
+	</body>
+	</html>
+
+在使用innerHTML之前如果有绑定事件要先移除，否则浏览器可能没有回收这个空事件
+	XXX.onclick=null;
+	XXX.innerHTML='';
+
+
+函数添加preventExtensions就不能添加新的成员了，但可以修改和删除
+	Object.preventExtensions(person);
+
+
+函数添加seal()/frozen()就不能添加新的成员了不可以修改和删除
+	Object.preventExtensions(person);
+
