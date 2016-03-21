@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<title></title>
+<style type="text/css">
+	body{
+		margin: 0;
+		padding: 0;
+		background-color: #424242
+	}
+
+	#main section{
+		display: block;
+		border: 1px solid #29D9C2;
+		width: 50%;
+		height: 120px;
+		margin: 5% auto;
+	}
+
+	@media screen and (min-width: 480px){
+		#main{
+			width: 90%;
+			margin: 0 auto;
+		}
+
+		#main >section :first-child {
+			margin-right: 5%;
+		}
+
+		#main section{
+			float: left;
+			width: 45%;
+		}
+	}
+</style>
+</head>
+<body>
+
+<div id="container">
+	
+	<div id="main">
+		<section id="top-news"></section>
+		<section id="sports"></section>
+	</div>
+</div>
+
+<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="myajax1.3.js?30"></script>
+<script type="text/javascript">
+	myajax.defaultMiddleware=function(data){
+		alert('中间件');
+	};
+	myajax.defaultFailCallback=function(data){
+		alert('错误');
+	};
+	myajax.get('http://bxj.snewfly.com/card_sign',{a:'b',c:'d'});
+	myajax.get('http://bxj.snewfly.com/card_sign',{},function(){
+		alert('succ');
+	});
+	myajax.post('http://bxj.snewfly.com/card_sign',{a:'b',c:'d'});
+</script>
+</body>
+</html>

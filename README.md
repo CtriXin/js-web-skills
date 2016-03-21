@@ -20,6 +20,33 @@ $arr = $request->all();
 
 
 ```
+***
+####object->post和get的全部参数
+```
+function obj2param(obj){
+            var param='?';
+            if (obj instanceof Object) {
+                for(var key in obj){
+                    param+=key+'='+obj[key]+'&';
+                }
+            }
+            if (param!=='?') {
+                console.log(param);
+                param=param.substring(0,param.length-1);
+                return param;
+            }
+            return '';
+        }
+
+```
+
+
+***
+####js 遍历object，array类似
+```
+a={"a":"b","c":"d"};for(var i in a){console.log(i+'='+a[i])}
+
+```
 
 ***
 ####JS 取文本中间
