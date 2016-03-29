@@ -17,9 +17,56 @@ $data=file_get_contents('php://input');//post
 laravrl :
 Input::all();或者：
 $arr = $request->all();
-
-
 ```
+
+***
+####获取毫秒级别的时间戳
+```
+    /**
+     * 获取毫秒级别的时间戳
+     */
+      function getMillisecond()
+    {
+        //获取毫秒的时间戳
+        $time = explode ( " ", microtime () );
+        $time = $time[1] . ($time[0] * 1000);
+        $time2 = explode( ".", $time );
+        return $time2[0];
+    }
+```
+
+***
+####函数的作用域是在定义的时候创建的，而不是在执行的时候创建的
+```
+var aaa = "123";
+
+(function(){alert(aaa); var aaa="456";})(1);
+
+
+
+输出的结果是 ： undefined
+
+
+
+
+
+var aaa = "123";
+
+(function(){alert(aaa);})(1);
+
+
+输出的结果是
+123
+
+
+这个简单的问题说明了
+
+Jquery具有词法作用域
+，函数的作用域是在定义的时候创建的，而不是在执行的时候创建的
+
+如果运行上面的代码，返回的值会是`undefined`，而不是`’123’`。 就是说，在同一个变量作用域或者同一个函数内，只要有使用var声明变量jQuery的语句，就可以在函数中的任何位置访问它，包括在var语句之前。但是在这个例子中，没对这个变量进行初始化 ，所以返回的结果是 undefined
+```
+
 ***
 ####object->post和get的全部参数
 ```
@@ -37,6 +84,29 @@ function obj2param(obj){
             }
             return '';
         }
+
+//用trim更简单。。
+  private function ToUrlParams($urlObj)
+  {
+    $buff = "";
+    foreach ($urlObj as $k => $v)
+    {
+      if($k != "sign"){
+        $buff .= $k . "=" . $v . "&";
+      }
+    }
+    
+    $buff = trim($buff, "&");
+    return $buff;
+  }
+
+  private function arrayToString($arr){
+        $str='';
+        foreach ($arr as $key => $value) {
+            $str.=$key.'='.$value.'&';
+        }
+        return trim($str, '&');
+    }
 
 ```
 
