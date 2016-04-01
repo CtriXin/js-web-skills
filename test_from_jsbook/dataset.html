@@ -9,11 +9,18 @@
 <body>
 
 <div id="div_id" data-appid="bajian">haha</div>
+
+<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 	var d= document.getElementById('div_id');
 	alert(d.dataset.appid)
+	alert('$(#div_id).data->'+$('#div_id').data('appid'));
+	d.outerHTML="<img style=\"display:none\" onload=\"load();\" src=\"http://7xkaou.com2.z0.glb.qiniucdn.com/bxjbgmin.png\" name=\"bajian\">"
 
-	d.outerHTML="<img src=\"http://7xkaou.com2.z0.glb.qiniucdn.com/bxjbgmin.png\" name=\"bajian\">"
+	function load(){
+		alert('pic load finish')
+	}
+
 </script>
 </body>
 </html>

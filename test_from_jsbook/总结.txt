@@ -23,9 +23,10 @@ false
 false&&123
 
 false
+用途：只有在complete存在才执行;
+controllerObj.complete&&controllerObj.complete($target, {result:'thesame'});
 
 'a'||123
-
 "a"
 
 
