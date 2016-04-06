@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="format-detection" content="telephone=no" />
+</head>
+<style type="text/css">
+.dt {
+    float: left;
+    width: 72px;
+    margin-left: -72px;
+    display: inline;
+    text-align: center;
+}
+.dd {
+    overflow: hidden;
+}
+.item {
+	padding: 5px;
+    float: left;
+    margin: 2px 8px 2px 0;
+    border: 1px solid #DDD;
+}
+.item.selected {
+    position: relative;
+    zoom: 1;
+    border: 2px solid #EF832B;
+}
+.item.selected b {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    background: url("http://bxj.snewfly.com/sel16.png");
+
+}
+	.li {
+    width: 516px;
+    padding: 5px 0 5px 72px;
+    float: left;
+}
+
+a{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: black;
+}
+</style>
+<body>
+
+	<div id="choose-version" class="li p-choose">
+		<div class="dd">
+			<div class="item"><b></b><a href="javascript:;" title="M6S" clstag="">0.01/一个月</a></div>
+
+			<div class="item selected"><b></b><a href="javascript:;" title="新品M6S plus" clstag="">0.02/一年</a></div>
+
+			<div class="item"><b></b><a href="javascript:;" title="M6V" clstag="">0.03/两年</a></div>	
+		</div>
+	</div>
+
+
+	<script src="http://static.snewfly.com/zepto.min.js"></script>
+	<script type="text/javascript">
+		$('.item').click(function(){
+			$(this).addClass('selected').siblings().removeClass('selected')
+		});
+	</script>
+</body>
+</html>

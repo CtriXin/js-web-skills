@@ -54,6 +54,8 @@ for(var pro in obj){console.log(pro)}
 var obj={a:function(){alert(1234)},b:1}
 for(var pro in obj){console.log(obj[pro])}
 
+var obj=JSON.parse('{"errcode":0,"errmsg":"操作成功","data":{"strategy":[{"name":"月","describe":"","duration":"1","money":"0.01"},{"name":"年","describe":"省90%","duration":"12","money":"0.02"},{"name":"两年","describe":"省95%","duration":"24","money":"0.03"}],"region":"珠海","student_id":"4","name":"cc标","school_name":"深圳大学","class_name":"测试二班","device_id":"2016011901","valid":1,"validity":"2016-08-03"}}');for(var obj1 in obj.data.strategy){console.log(obj.data.strategy[obj1])}
+
 lebel语句跳出多重循环（不建议使用）
 
 基本类型（Undefined Null Bollean Number String）(具有固定大小内存，因此保存在栈内存中)
