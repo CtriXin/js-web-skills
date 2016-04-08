@@ -7,6 +7,13 @@ js web 相关总结
 
 ```
 
+***
+####Php函数前加@是什么意思  
+```
+@通常是用来抑制误输出的
+
+```
+
 
 ***
 ####PHP 获取post和get的全部参数
@@ -1383,7 +1390,7 @@ return curDateTime;
 ####返回当前十位时间戳 string
 ```
 function getCurTs(){return (Date.now()+'').substr(0,10);}
-
+parseInt(Date.now()/1000)
 
 ```
 
