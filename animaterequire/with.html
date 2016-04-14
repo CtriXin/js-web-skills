@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title></title>
+</head>
+<body>
+
+  <div id="el" style="position: absolute;">
+    Javascript时钟实现动画
+  </div>
+  <script src="http://bxj.snewfly.com/card_assets/third/zepto/zepto.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    var rAF = window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    function (callback) { window.setTimeout(callback, 1000 / 60); };
+    var pos = 0;
+    var final = 200;
+    var dir = 0;
+    var el = $('#el');
+    function upLeft() {
+      var left = parseInt(el.css('left')) || 0;
+      if (left >= final) dir = 1;
+      if (left <= pos) dir = 0;
+
+      if (dir == 0) {
+        left++;
+        el.css('left', left + 'px');
+        rAF(upLeft);
+      } else {
+        left--;
+        el.css('left', left + 'px');
+        rAF(upLeft);
+      }
+    }
+    upLeft();
+  </script>
+</body>
+</html>

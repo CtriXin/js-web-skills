@@ -46,7 +46,7 @@
 </div>
 
 <script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="myajax1.3.js?30"></script>
+<script type="text/javascript" src="http://static.snewfly.com/myajax1.3.min.js?30"></script>
 <script type="text/javascript">
 	myajax.defaultMiddleware=function(data){
 		alert('中间件');
@@ -54,11 +54,17 @@
 	myajax.defaultFailCallback=function(data){
 		alert('错误');
 	};
-	myajax.get('http://bxj.snewfly.com/card_sign',{a:'b',c:'d'});
-	myajax.get('http://bxj.snewfly.com/card_sign',{},function(){
+	// myajax.get('http://bxj.snewfly.com/card_sign',{a:'b',c:'d'});
+	/*myajax.get('http://bxj.snewfly.com/test',{},function(){//jsonp
 		alert('succ');
+	},'jsonp');*/
+	myajax.get('http://bxjtest.snewfly.com/test',{},function(data){//Access-Control-Allow-Origin实现跨域访问 http://blog.csdn.net/fdipzone/article/details/46390573/
+		alert('Access succ'+data.value);
 	});
-	myajax.post('http://bxj.snewfly.com/card_sign',{a:'b',c:'d'});
+	myajax.post('http://bxjtest.snewfly.com/test',{},function(data){//Access-Control-Allow-Origin实现跨域访问
+		alert('post Access succ'+data.value);
+	});
+	// myajax.post('http://bxj.snewfly.com/card_sign',{a:'b',c:'d'});
 </script>
 </body>
 </html>

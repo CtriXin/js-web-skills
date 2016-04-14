@@ -7,6 +7,7 @@ js web 相关总结
 
 ```
 
+
 ***
 ####Php函数前加@是什么意思  
 ```
@@ -221,6 +222,33 @@ echo urlencode('&');
 ```
 
 [输入链接说明](http://)
+[跨域访问的两种方式](http://blog.csdn.net/fdipzone/article/details/46390573/)
+```
+<?php
+namespace App\Http\Controllers;
+
+require('lib/ServerConfig.php');
+use ServerConfig;
+use Log;
+use Input;
+header('content-type:application:json;charset=utf8');  
+header('Access-Control-Allow-Origin:*');  
+header('Access-Control-Allow-Methods:POST');  
+header('Access-Control-Allow-Headers:x-requested-with,content-type');  
+class TestController extends BaseController{
+  public function test()
+  {
+    // $callback=Input::get('callback');//jsonp
+    // return $callback.'('.json_encode(['value']).')';
+    return json_encode(['value'=>123]);
+    // $cmd = Input::get('cmd');
+    // if ($cmd == 'file') {
+    //  Log::info($_FILES);
+    // }
+  }
+
+}
+```
 [JS&JQ 获取节点的兄弟,父级,子级元素的方法](http://www.jb51.net/article/45372.htm)
 [网页特效库](http://www.5iweb.com.cn/)
 [百度地图圆形区域类](http://developer.baidu.com/map/reference/index.php?title=Class:%E8%A6%86%E7%9B%96%E7%89%A9%E7%B1%BB/Circle)
