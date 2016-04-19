@@ -1,6 +1,6 @@
 ### js-web-skills
 js web 相关总结
-
+<a href="tencent://message/?uin=313066164">QQ:313066164</a>
 [1秒破解 js packer 加密](http://www.cnblogs.com/52cik/p/js-unpacker.html)
 
 ***
@@ -22,7 +22,6 @@ echo mb_strlen($str,'gb2312').'<br>';//10
 
 ```
 
-[QQ:313066164](tencent://message/?uin=313066164)
 ***
 ####PHP 获取post和get的全部参数
 ```
