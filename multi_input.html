@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<input value="123"></input>
+<input value="345"></input>
+<input value="678"></input>
+
+<script src="http://static.snewfly.com/zepto.min.js"></script>
+<script type="text/javascript">
+// console.log($('input').length)
+var objArr=$('input');
+// for(var index in objArr){
+// 	console.log(objArr[index])
+// }
+for (var i = 0; i < objArr.length; i++) {
+	console.log(objArr[i].value)
+}
+</script>
+</body>
+</html>

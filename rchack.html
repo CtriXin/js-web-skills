@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>修复程序</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+</head>
+<body>
+	<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/RongIMClient-0.9.10.min.js"></script>
+
+	<script type="text/javascript">
+	var RongKey = 'm7ua80gbufiym';//融云key
+	var RongToken='jkzBA2rX3oMLkYYj/4a6SCiMQCy7SKTppWaE6znBR8yonzmmBMru9g6xZWz5JeS+F348Fs77o7oC843Ta6AeGMh/By/7x+PaW5/p00t7CATJToConZ+xcVlIjZsa6AsJ';
+
+	rongyunIni();
+	rongIMClientConnet();
+	function rongyunIni() {
+		RongIMClient.init(RongKey);
+	}
+
+	function rongIMClientConnet() {
+    //融云链接
+    RongIMClient.connect('jkzBA2rX3oMLkYYj/4a6SCiMQCy7SKTppWaE6znBR8yonzmmBMru9g6xZWz5JeS+F348Fs77o7oC843Ta6AeGMh/By/7x+PaW5/p00t7CATJToConZ+xcVlIjZsa6AsJ', {
+    	onSuccess: function (x) {
+    		document.writeln('登录成功'+x+'<br/>');
+            setTimeout(rongIMClientConnet,3000);
+    	},
+    	onError: function (x) {
+            document.writeln('onError'+x);
+    		document.writeln('onError'+x.name);
+    	}
+    });
+}
+
+RongIMClient.getInstance().setOnReceiveMessageListener({
+    //接收消息
+    onReceived: function (data) {
+    	// document.writeln('onReceived');
+    }
+});
+
+RongIMClient.getInstance().setConnectionStatusListener({
+  onChanged:function(x){
+  	document.writeln('onChanged '+x.name+'<br/>');
+    if (x==RongIMClient.ConnectionStatus.CONNECTED) {
+        document.writeln('修复成功！'+'<br/>');
+    }
+    if (x==RongIMClient.ConnectionStatus.CONNECTING) {
+        document.writeln('修复中..'+'<br/>');
+    }
+}
+})
+</script>
+</body>
+</html>

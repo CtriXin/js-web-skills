@@ -1,10 +1,17 @@
 ### js-web-skills
 js web 相关总结
 
-***
-####
-```
+[1秒破解 js packer 加密](http://www.cnblogs.com/52cik/p/js-unpacker.html)
 
+***
+####细说PHP中strlen和mb_strlen的区别
+```
+//测试时文件的编码方式要是UTF8  
+$str='中文a字1符';  
+echo strlen($str).'<br>';//14  
+echo mb_strlen($str,'utf8').'<br>';//6  
+echo mb_strlen($str,'gbk').'<br>';//8  
+echo mb_strlen($str,'gb2312').'<br>';//10  
 ```
 
 
@@ -15,7 +22,7 @@ js web 相关总结
 
 ```
 
-
+[QQ:313066164](tencent://message/?uin=313066164)
 ***
 ####PHP 获取post和get的全部参数
 ```
@@ -25,6 +32,16 @@ $data=file_get_contents('php://input');//post
 laravrl :
 Input::all();或者：
 $arr = $request->all();
+```
+
+***
+####CAP理论
+```
+CAP：任何分布式系统在可用性、一致性、分区容错性方面，不能兼得，最多只能得其二，因此，任何分布式系统的设计只是在三者中的不同取舍而已。
+C（一致性）：所有的节点上的数据时刻保持同步
+A（可用性）：每个请求都能接受到一个响应，无论响应成功或失败
+P（分区容错）：系统应该能持续提供服务，即使系统内部有消息丢失（分区）
+
 ```
 
 ***
@@ -281,6 +298,8 @@ StrokeDashArray 描述Shape类型轮廓的虚线和间隔的样式，写法为St
 ```
 
 [酷炫的FAB](http://materialdesignblog.com/awesome-css-codepen-to-enhance-material-design-fab-button/)
+
+[1秒破解 js packer 加密](http://www.cnblogs.com/52cik/p/js-unpacker.html)
 
 [替换webview中js资源本地加载，提高速度](http://xunhou.me/webview-2/)
 [jQuery.extend 函数详解](http://www.cnblogs.com/RascallySnake/archive/2010/05/07/1729563.html)
