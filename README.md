@@ -1,7 +1,7 @@
 ### js-web-skills
 js web 相关总结
-<a href="tencent://message/?uin=313066164">QQ:313066164</a>
 [1秒破解 js packer 加密](http://www.cnblogs.com/52cik/p/js-unpacker.html)
+[了解一下幂等](http://macrochen.iteye.com/blog/678683)
 
 ***
 ####细说PHP中strlen和mb_strlen的区别
@@ -12,6 +12,22 @@ echo strlen($str).'<br>';//14
 echo mb_strlen($str,'utf8').'<br>';//6  
 echo mb_strlen($str,'gbk').'<br>';//8  
 echo mb_strlen($str,'gb2312').'<br>';//10  
+```
+
+***
+####解决apache下重定向不执行
+```
+public function auth_card_bxjtest()
+  {
+    $code=Input::get('code');
+    if ($code) {
+      header('Location:http://bxjtest.snewfly.com/auth_card?code='.Input::get('code')); 
+    }else{
+      header('Location:http://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2683432074892f86&redirect_uri=http://bxj.snewfly.com/auth_card_bxjtest&response_type=code&scope=snsapi_base&state=SUISHI');  
+    }
+    header('HTTP/1.1 301 Moved permanently');
+      exit(); 
+  }
 ```
 
 
