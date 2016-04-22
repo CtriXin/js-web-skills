@@ -1,0 +1,276 @@
+﻿/*
+ * for Agile Lite 2.4.5 beta
+ * */
+/*******************alige框架样式-start*******************/
+
+/****  for section start ***/
+@-webkit-keyframes emptyAnim{
+    0% { -webkit-transform: scale(1)}
+	100% { -webkit-transform:scale(1)}
+}
+@-webkit-keyframes slideLeftIn {
+	0% { -webkit-transform: translate3d(100%,0,0)}
+	100% { -webkit-transform: translate3d(0,0,0)}
+}
+@-webkit-keyframes slideLeftOut {
+	0% { -webkit-transform: translate3d(0,0,0)}
+	100% { -webkit-transform: translate3d(-100%,0,0)}
+}
+@-webkit-keyframes slideRightIn {
+	0% { -webkit-transform: translate3d(-100%,0,0)}
+	100% { -webkit-transform: translate3d(0%,0,0) }
+}
+@-webkit-keyframes slideRightOut {
+	0% { -webkit-transform: translate3d(0%,0,0)}
+	100% { -webkit-transform: translate3d(100%,0,0)}
+}
+@-webkit-keyframes scaleIn {
+	0% {opacity: 0;-webkit-transform: scale(.5)}
+	100% {opacity: 1;-webkit-transform: scale(1)}
+}
+@-webkit-keyframes scaleOut {
+	0% {opacity: 1;-webkit-transform: scale(1)}
+	100% {opacity: 0;-webkit-transform: scale(.5)}
+}
+@-webkit-keyframes slideDownIn {
+	0% {opacity: 0;-webkit-transform: translate3d(0,-100%,0)}
+	100% {opacity: 1;-webkit-transform: translate3d(0,0,0)}
+}
+@-webkit-keyframes slideUpOut {
+	0% {opacity: 1;-webkit-transform: translate3d(0,0,0)}
+	100% {opacity: 0;-webkit-transform: translate3d(0,-100%,0)}
+}
+@-webkit-keyframes slideDownOut {
+	0% {-webkit-transform: translate3d(0,0,0)}
+	100% {-webkit-transform: translate3d(0,100%,0)}
+}
+@-webkit-keyframes slideUpIn {
+	0% {-webkit-transform: translate3d(0,90%,0)}
+	100% {-webkit-transform: translate3d(0,0,0)}
+}
+@-webkit-keyframes flipIn {
+    0% { -webkit-transform: perspective(1000px) rotateY(90deg);opacity: 0;}
+    100% {-webkit-transform: perspective(1000px) rotateY(0deg); opacity: 1;}
+}
+@-webkit-keyframes flipOut {
+    0% { -webkit-transform: perspective(1000px) rotateY(90deg);opacity: 0;}
+    100% {-webkit-transform: perspective(1000px) rotateY(0deg); opacity: 1;}
+}
+@-webkit-keyframes fadeIn {
+    0% { opacity: 0;}
+    100% { opacity: 1;}
+}
+@-webkit-keyframes fadeOut {
+    0% { opacity: 1;}
+    100% { opacity: 0;}
+}
+@-webkit-keyframes bounceIn {
+	0% {opacity: 0;-webkit-transform: scale(.3);}
+	50% {opacity: 1;-webkit-transform: scale(1.1);}
+	100% {-webkit-transform: scale(1);}
+}
+@-webkit-keyframes bounceOut {
+	0% {-webkit-transform: scale(1);}
+	100% {opacity: 0;-webkit-transform: scale(.5);}
+}
+
+.empty{
+    z-index: 4 !important;
+    -webkit-animation-name: emptyAnim;
+}
+
+.slideLeftOut{
+    -webkit-animation-name: slideLeftOut;
+}
+.slideLeftIn{
+    -webkit-animation-name: slideLeftIn;
+}
+.slideRightIn{
+    -webkit-animation-name: slideRightIn;
+}
+.slideRightOut{
+    -webkit-animation-name: slideRightOut;
+}
+.scaleIn{
+    -webkit-animation-name: scaleIn;
+}
+.scaleOut{
+    -webkit-animation-name: scaleOut;
+}
+.slideDownIn{
+    -webkit-animation-name: slideDownIn;
+}
+.slideDownOut{
+    -webkit-animation-name: slideDownOut;
+}
+.slideUpIn{
+    z-index: 10;
+    -webkit-animation-name: slideUpIn;
+}
+.slideUpOut{
+    -webkit-animation-name: slideUpOut;
+}
+.flipIn {
+    -webkit-backface-visibility: visible !important;
+    -webkit-animation-name: flipIn;
+    -webkit-transform-origin: top left;
+}
+.flipOut {
+    -webkit-animation-name: flipOut;
+    -webkit-backface-visibility: visible !important;
+    -webkit-transform-origin: top right;
+}
+.fadeIn {
+    -webkit-animation-name: fadeIn;
+	-webkit-animation-timing-function: linear;
+}
+.fadeOut {
+    -webkit-animation-name: fadeOut;
+	-webkit-animation-timing-function: linear;
+}
+.bounceIn{
+    -webkit-animation-name: bounceIn;
+}
+.bounceOut{
+    -webkit-animation-name: bounceOut;
+}
+
+.anim{
+    -webkit-animation-duration: 250ms;
+    -webkit-animation-fill-mode: both;
+    -webkit-animation-timing-function: ease-in-out;
+    display: block !important;
+    overflow: hidden;
+}
+.anim:after {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+.padded {
+	padding: 10px !important;
+}
+.full{
+	width:100%;
+	height:100%;
+}
+.full-width{
+	width:100%;
+}
+.inherit-height{
+	height:inherit;
+}
+
+#section_container {
+	position: absolute;
+	top:0;
+	right:0;
+	bottom :0;
+	left:0;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	z-index: 3;
+}
+
+section{
+	display: none !important;
+	position:absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 4;
+	overflow: hidden;
+}
+section.active{
+	display: block !important;
+}
+section > *{
+	position: absolute !important;
+}
+article{
+	display: none !important;
+	position: absolute;
+	top:0;
+	right:0;
+	bottom :0;
+	left:0;
+	width: 100%;
+	background-color: #fff;
+	overflow: auto;
+  	-webkit-overflow-scrolling: touch;
+}
+article.active{
+	display: block !important;
+}
+
+/*通用转动动画*/
+@-webkit-keyframes spinner {
+	0% { -webkit-transform: rotate(0deg); }
+	50% { -webkit-transform: rotate(180deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+/*颜色渐变动画*/
+@keyframes gradient{
+	0%{opacity: 0.5;}
+    50%{opacity: 1;}
+	100%{opacity: 0.5;}
+}
+
+@-moz-keyframes gradient{
+	0%{opacity: 0.5;}
+    50%{opacity: 1;}
+	100%{opacity: 0.5;}
+}
+
+@-webkit-keyframes gradient{
+	0%{opacity: 0.5;}
+    50%{opacity: 1;}
+	100%{opacity: 0.5;}
+}
+
+@-o-keyframes gradient{
+	0%{opacity: 0.5;}
+    50%{opacity: 1;}
+	100%{opacity: 0.5;}
+	
+}
+@-ms-keyframes gradient{
+	0%{ filter: "alpha(opacity=50)";}
+    50%{ filter: "alpha(opacity=100)";}
+	100%{ filter: "alpha(opacity=50)";}
+}
+.spinner{
+	display: inline-block;
+    -webkit-animation: spinner 1.2s infinite linear;
+    animation: spinner 1.2s infinite linear;
+}
+
+.agile-toast{
+    display: none;
+    position: absolute;
+    z-index: 99;
+    color: #fff;
+    top: 70%;
+    font-size: 1em;
+    text-align: center;
+    width: 100%;
+    left: 0;
+}
+.agile-toast>a{
+    padding: 10px 15px;
+    background: #222;
+    opacity :.7;
+    display: inline-block;
+    max-width: 90%;
+    margin: 0 auto;
+    color:#fff;
+    text-align: center;
+    border-radius: 20px;
+}
+.agile-toast.alarm>a{background-color: #E74C3C;!important}
+
+/*******************alige框架样式-end*******************/

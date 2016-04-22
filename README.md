@@ -30,6 +30,14 @@ public function auth_card_bxjtest()
   }
 ```
 
+***
+####Jquery获取和修改img的src值的方法
+```
+$("#imgId")[0].src;
+$("#imgId").attr('src',path); 
+
+```
+
 
 ***
 ####Php函数前加@是什么意思  
