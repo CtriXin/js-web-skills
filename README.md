@@ -15,6 +15,14 @@ echo mb_strlen($str,'gb2312').'<br>';//10
 ```
 
 ***
+####微信下载app（任何附件）的方式（安卓唤起自带浏览器下载）
+```
+设置 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+适用于融云和自己的服务器
+详见wxdownload.php
+```
+
+***
 ####解决apache下重定向不执行
 ```
 public function auth_card_bxjtest()
@@ -35,6 +43,16 @@ public function auth_card_bxjtest()
 ```
 $("#imgId")[0].src;
 $("#imgId").attr('src',path); 
+
+```
+
+***
+####当用curl下载文件的时候不能带\/这样的转义字符
+```
+//正确
+$url='http://bxj242.snewfly.com/upload/wechat/card/voice/16-04-26/0.07610300146164359034.amr';
+// 错误
+$url='http:\/\/10.169.117.7:9090\/upload\/wechat\/card\/voice\/16-04-26\/0.07610300146164359034.amr';
 
 ```
 
@@ -391,6 +409,7 @@ $('#section_cardcenter article.active').attr("id")
 
 
 * [高性能JavaScript：加载和运行](http://ilanever.com/article/detail.do?id=264#page-catalog-4)
+* [JS中的prototype](http://www.cnblogs.com/yjf512/archive/2011/06/03/2071914.html)
 * [JS 进阶 闭包，作用域链，垃圾回收，内存泄露](http://segmentfault.com/a/1190000002778015)
 * [Javascript 面向对象编程（一）：封装](http://www.ruanyifeng.com/blog/2010/05/object-oriented_javascript_encapsulation.html)
 
