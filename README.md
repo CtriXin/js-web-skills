@@ -23,6 +23,41 @@ echo mb_strlen($str,'gb2312').'<br>';//10
 ```
 
 ***
+####js 字符或字符串出现次数  
+```
+function countSubstr(str,substr){
+           var count;
+           var reg="/"+substr+"/gi";    //查找时忽略大小写
+           reg=eval(reg);
+           if(str.match(reg)==null){
+                   count=0;
+           }else{
+                   count=str.match(reg).length;
+           }
+           return count;//返回找到的次数
+}
+```
+
+***
+####让php执行shell
+```
+system() 输出并返回最后一行shell结果。
+exec() 不输出结果，返回最后一行shell结果，所有结果可以保存到一个返回的数组里面。
+passthru() 只调用命令，把命令的运行结果原样地直接输出到标准输出设备上。
+```
+
+***
+####grep多个关键字“与”和“或
+```
+或操作
+grep -E '123|abc' filename
+
+与操作
+grep pattern1 files | grep pattern2
+
+```
+
+***
 ####解决apache下重定向不执行
 ```
 public function auth_card_bxjtest()
