@@ -23,6 +23,40 @@ echo mb_strlen($str,'gb2312').'<br>';//10
 ```
 
 ***
+####自定义android版confirm依赖AL框架
+```
+myConfirm('退出当前账号后不会删除任何历史数据，下次登录依然可以使用本账号。','取消','退出','',function(){
+    alert(1);
+  });
+    /*
+    * 自定义android版confirm依赖AL框架
+    * @params content 内容
+    * @params conceltext 取消按钮文字
+    * @params confirmtext 确认按钮文字
+    * @params concelcb 取消callback 可空。不需要close
+    * @params confirmcb 确认callback 可空。不需要close
+    */
+    function myConfirm(content,conceltext,confirmtext,concelcb,confirmcb){
+      conceltext=conceltext||'取消';
+      confirmtext=confirmtext||'确认';
+      var $popup = A.popup({
+            html: '<div style="padding:24px 21px;font-size: 18px;background:#fff">'+content+'<div style="color:#616161"></div><div style="margin:26px 5px 48px 0px;"><a style="position:absolute;right:115px;color:#4f6692" href="javascript:;" id="concel">'+conceltext+'</a><a style="position:absolute;right:48px;color:#4f6692;" href="javascript:;" id="confirm">'+confirmtext+'</a></div></div>',
+              css : {width:'70%'},
+              pos : 'center',
+              isBlock : true
+          });
+          $popup.popup.find('#concel').on(A.options.clickEvent, function(){
+            concelcb&&concelcb();
+            $popup.close();
+          });
+          $popup.popup.find('#confirm').on(A.options.clickEvent, function(){
+            confirmcb&&confirmcb();
+            $popup.close();
+          });
+    }
+```
+
+***
 ####js 字符或字符串出现次数  
 ```
 function countSubstr(str,substr){

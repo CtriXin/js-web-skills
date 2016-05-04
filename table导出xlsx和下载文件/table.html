@@ -1,0 +1,17 @@
+<script type="text/javascript" src="http://oss.sheetjs.com/js-xlsx/xlsx.core.min.js"></script>
+<!-- <script type="text/javascript" src="Blob.js"></script> -->
+<script type="text/javascript" src="FileSaver.js"></script>
+<script type="text/javascript" src="Export2Excel.js"></script>
+<script>
+function doit() { export_table_to_excel('table'); }
+</script>
+<b>SheetJS JS-XLSX In-Browser HTML Table to XLSX Export Demo</b><br />
+<table id="table" border="1">
+    <tr><td>This</td><td>is</td><td>a</td><td>Test</td></tr>
+    <tr><td>Fee</td><td>Fi</td><td>Fo</td><td>Fum</td></tr>
+    <tr><td>Foo</td><td></td><td>Bar</td><td></td></tr>
+    <tr><td></td><td>Baz</td><td>(unicode sushi) x1f363</td><td>Qux</td></tr>
+    <tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+</table>
+<input type="submit" value="Export to Excel!" onclick="doit();">
+
