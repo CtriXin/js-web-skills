@@ -222,7 +222,7 @@ function getStringMiddle(str,left,right) {
 	 * @return string 返回匹配文本
 	 */
 function getStringMiddle(str,left,right,returnWhole) {
-		var $=left+"([\\d\\D]*?)"+right;
+		var $=left+"([\\d\\D]*?)"+right;//若要匹配'['需要'\\['
 		var pattern=new RegExp($,'g');
 		var matches=pattern.exec(str);
 		if(!matches) return '';

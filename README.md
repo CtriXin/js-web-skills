@@ -13,6 +13,30 @@ echo mb_strlen($str,'utf8').'<br>';//6
 echo mb_strlen($str,'gbk').'<br>';//8  
 echo mb_strlen($str,'gb2312').'<br>';//10  
 ```
+***
+####JS计算2个标准格式时间字符串的差 时间差
+```
+
+/*
+ * 计算2个标准格式时间字符串的差(t1-t2)，如calStanderTimeDiff('2016-05-04 12:54:54','2016-05-04 12:54:14');
+ * @return int 相差的秒数
+ */
+function calStanderTimeDiff(t1,t2){
+  return (new Date(t1)-new Date(t2))/1000;
+}
+```
+***
+####JS 保留小数点后X位（四舍五入）
+```
+(4.5).toFixed(1)
+"4.5"
+(4.523).toFixed(1)
+"4.5"
+(4.553).toFixed(1)
+"4.6"
+(4.583).toFixed(1)
+"4.6"
+```
 
 ***
 ####微信下载app（任何附件）的方式（安卓唤起自带浏览器下载）
