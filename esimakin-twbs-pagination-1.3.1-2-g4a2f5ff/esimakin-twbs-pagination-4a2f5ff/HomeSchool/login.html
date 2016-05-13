@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>登录界面</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/login.css" />
+		<script src="js/jquery-1.11.1.min.js" ></script>
+		<script src="js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="js/login.js" ></script>
+
+	</head>
+	<body>
+		<div class="contain">
+			<div class="header">
+				<ul>
+					<li class="logo"></li>
+					<li class="right">
+						<span>第一次使用？<a href="#">立即注册</a></span><span>|
+						<a href="#">使用帮助</a>
+						</span>
+					</li>
+				</ul>
+			</div>
+			<div class="bgpic">
+				<div class="cont">
+					<div class="container" style="position: relative;" >
+						<form class="form-side" method="post" id="bindForm">
+							<h4 style="font-weight: 400;">登录</h4>
+							<div class="input-group inputGroup">
+								<span class="input-group-addon inputGroupAddon">
+									<img src="img/user.png"/>
+								</span>
+								<input type="text" class="form-control formControl" id="username" placeholder="账号"/>
+							</div>
+							<div class="input-group inputGroup">
+								<span class="input-group-addon inputGroupAddon">
+									<img src="img/psw.png"/>
+								</span>
+								<input type="text" class="form-control formControl" id="username" placeholder="密码"/>
+							</div>
+							<div class="checkbox checkbox-inline">
+								<label >
+									<input type="checkbox" checked="checked" />记住账号
+								</label>
+								<a href="" class="text-right">无法登录？</a>
+							</div>
+							<button type="submit" id="submit_btn" class="btn btn-primary btn-block ">登录</button>
+						</form>
+						<div class="qrcode">
+							<dl>
+								<dt><img src="img/erweima.jpg"/></dt>
+								<dd>扫描并关注微信公众号</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="pic">
+				<img src="img/bg_1.png" />
+				<img src="img/bg_2.png" />
+			</div>
+			<div class="text-center footer">
+				<a href="http://www.miitbeian.gov.cn/">粤ICP备16032661号</a>
+				<span>Copyright ©2016 SNEWFLY Corporation, All Rights Reserved</span>
+			</div>
+		</div>
+		
+
+	</body>
+</html>

@@ -1,0 +1,68 @@
+.addMess{
+	background: #62aae9;
+	color: #fff;
+	border: 0;
+}
+.btnDel{
+	width: 90px;
+	background: #e5394a;
+	color: #fff;
+	border: 0;
+}
+table{border: 1px solid #ddd;}
+table tr th:nth-last-child(1),table tr td:nth-last-child(1){color: #62aae9;}
+.table tr td{
+	cursor: pointer;
+}
+.paglist{text-align: right;}
+.paglist ul{margin-top: 0;}
+/*模态框样式*/
+.modal{position: fixed;top: 150px;left: 32%;}
+.modalHeader{padding: 10px 0 10px 20px;} 
+.modalHeader h4{font-size: 15px;} 
+ .modalBody{
+ 	height: 30px; 
+ 	padding: 0;
+ 	border-bottom: 1px solid #eee;
+ 	}     
+.modalBody ul{height: 100%;}
+.modalBody ul li{    
+	width: 50%;
+    height: 100%;
+    float: left;
+    list-style: none;
+    text-align: center;
+    line-height: 28px;
+    cursor: pointer;
+    }
+.modalBody ul li span{
+	width: 12px;
+    height: 10px;
+    font-size: 12px;
+    background: #4a9ce6;
+    display: inblock;
+    color: #fff;
+    padding: 0px 7px;
+    margin-left: 5px;
+    } 
+.contTxt{padding: 10px;}    
+.headerLi{background: #eee;}
+.modfoot{
+	border-top: 0;
+	padding: 0 15px 15px;
+	}
+.btm{
+	padding: 5px 40px;
+	background: #62aae9;
+	border: 0;
+	}
+.container img{width: 75%;} 
+
+.contnet { margin: 5% 35%;} 
+.butn{
+	padding: 5px 40px; 
+	background: #62aae9; 
+	border: 0;
+	}
+.pagra{text-align: right;}
+.pagra ul{margin-top: 0;}

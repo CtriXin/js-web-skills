@@ -1,0 +1,19 @@
+.modal{
+	position: fixed;
+	top: 150px;left: 32%;
+	}
+
+.btm{
+	width: 90px;
+	background: #62aae9;
+	border: 0;
+	}
+
+.btun{
+	padding: 5px 40px;
+	background: #62aae9;
+	border: 0;
+	}
+.msgbox{padding: 30px 0 20px 0;}
+.modfoot{border-top: 0;	}    
+.textRight { 	margin: 30px 0 20px 45px;	}

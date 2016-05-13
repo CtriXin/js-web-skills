@@ -1,0 +1,56 @@
+.botmm{
+	display: block;
+	height: 2px;
+	background: url(../img/bottom10.png) no-repeat;
+	background-size:100%;
+}
+
+
+.btn{ 	
+	padding: 5px 30px; 
+	background: #62aae9; 
+	border: 0;
+	}
+.contment{margin: 30px 0 20px 55px;}	    
+.labelText{
+    text-align: right;
+    line-height: 32px;
+    font-weight: normal;
+} 
+
+.pic img{
+	width: 20%;
+    margin-top: 6px;
+    margin-left: -15px;
+    cursor: pointer;
+}
+
+/*模态框*/
+.mod{
+		margin-bottom: 20px;
+	    text-align: right;
+	}
+   
+.mod label{font-size: 15px;}
+#Modal,#modal{
+	position: fixed;
+	top: 150px;
+	left: 15%;
+	}
+.modalDialog{width: 450px;}
+.modalTitle{font-size: 12px;} 
+.botm{margin-bottom: 10px;}  
+.modalFoot{
+	border-top: 0;
+	text-align: center;
+	}
+
+.textRight{
+	text-align: right;
+	font-weight: normal;
+	line-height: 30px
+	} 
+.cancel{
+	background: #b5b5b5;
+	color: #fff;
+	} 

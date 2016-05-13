@@ -13,10 +13,25 @@ echo mb_strlen($str,'utf8').'<br>';//6
 echo mb_strlen($str,'gbk').'<br>';//8  
 echo mb_strlen($str,'gb2312').'<br>';//10  
 ```
+
+***
+####修改输入框placeholder文字默认颜色-webkit-input-placeholder
+```
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    color: #f00;
+}
+```
+***
+####mysql查詢數據存儲位置
+```
+show global variables like "%datadir%";
+```
+
 ***
 ####JS计算2个标准格式时间字符串的差 时间差
 ```
-
+ 
 /*
  * 计算2个标准格式时间字符串的差(t1-t2)，如calStanderTimeDiff('2016-05-04 12:54:54','2016-05-04 12:54:14');
  * @return int 相差的秒数

@@ -1,0 +1,67 @@
+.warn{
+	height: 60px;
+	float: left;
+	background: #f4f5f9;
+	font-size: 14px;
+	margin-top: -5px;
+	}
+.warn p{
+    width: 94%;
+    margin: 5px auto 0 auto;
+    font-size: 14px;
+    line-height: 25px;
+	}    
+.table{
+	width: 50%;
+	margin: 10px 0 15px 30px;
+	}    
+.table tbody tr td{border-top: 0;padding: 0;text-align: left;} 
+
+.table tr td select{width: 80px;}
+.addMod{    height: 25px;
+    border: 2px dashed #c6c6c6;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;}
+.formControl{width: 99%;margin: 0 auto;} 
+.textArea{
+	float: left;
+    width: 97%;
+    margin-left: 15px;
+}  
+.ptxt{margin-left: 3px;}   
+.submit{
+	width: 90px;
+	margin-left: 3px;
+	background: #EF8842;
+	color: #fff;
+	} 
+
+/*模态框样式*/
+.modal{position: fixed;top: 150px;left: 35%;}
+.container img{width: 75%;}    
+.modfoot{border-top: 0;padding: 0 15px 15px;}
+.contnet{margin: 5% 35%;}
+.bton{
+	padding: 5px 40px;
+	background: #62aae9;
+	border: 0;
+	}
+.btnNo{
+	background: #d2d2d2;
+	color: #fff;
+	border: 0;
+	}
+.btnY{
+	background: #62aae9;
+	color: #fff;
+	border: 0;
+}
+.btnOK{
+	width: 90px;
+    background: #62aae9;
+    border: 0;
+}	
+.msgbox{padding: 30px 0 20px 0;}    
+.modfoot img{width: 10%;}

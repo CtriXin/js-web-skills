@@ -64,6 +64,9 @@
 	myajax.post('http://bxjtest.snewfly.com/test',{},function(data){//Access-Control-Allow-Origin实现跨域访问
 		alert('post Access succ'+data.value);
 	});
+	myajax.post('http://bxjtest.snewfly.com/test',{'name':[1,2,3]},function(data){//Access-Control-Allow-Origin实现跨域访问
+		alert('post Access 数组'+data.value);
+	});
 	// myajax.post('http://bxj.snewfly.com/card_sign',{a:'b',c:'d'});
 </script>
 </body>

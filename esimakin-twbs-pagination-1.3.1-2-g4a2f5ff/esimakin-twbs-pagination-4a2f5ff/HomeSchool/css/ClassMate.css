@@ -1,0 +1,45 @@
+.searchBtn{
+	width: 90px;
+    margin-left: 30px;
+    background: #ef8842;
+    color: #fff;
+    border: 0;
+}    
+.modal{
+	position: fixed;
+	top: 150px;left: 32%;
+	}
+.text{height: 35px;}
+.btm{
+	margin-left: 30px;
+	background: #ef8842;
+	color: #fff;
+	border: 0;
+	}
+.table{
+	width: 38%;
+    margin-left: 150px;
+	}
+#tableCont tr td{
+	border-top: 0;
+}
+.InputRight {
+	margin: 30px 0 20px 150px;
+	}
+.textArea{
+	margin-left: 165px;
+	}
+table.tble{   
+	border: 1px solid #ddd;
+	}
+.btun{
+	padding: 5px 40px;
+	background: #62aae9;
+	border: 0;
+	}
+.msgbox{
+	padding: 30px 0 20px 0;
+	}
+.modfoot{
+	border-top: 0;
+}    

@@ -1,0 +1,76 @@
+.msg{
+	display: block;
+	text-align: right;
+	margin-top: -25px;
+	margin-right: 35px;
+	font-weight: 400;
+	}
+.warn{
+	height: 60px;
+	float: left;
+	background: #f4f5f9;
+	font-size: 14px;
+	margin-top: -5px;
+	}
+.warn p{
+    width: 94%;
+    margin: 5px auto 0 auto;
+    font-size: 14px;
+    line-height: 25px;
+	} 
+.textArea{
+	float: left;
+    width: 97%;
+    margin-left: 15px;
+} 	 
+.table{
+	width: 50%;
+	margin: 10px 0 15px 30px;
+	}    
+.table tbody tr td{
+	border-top: 0;
+	padding: 0; 
+   	text-align: left;
+   	} 
+.table tr{
+	padding-bottom: 10px;
+	}  
+.table tr td select{
+	width: 80px;
+	}
+.btn{
+	color: #fff;
+	border: 0;
+	}
+.save{
+	width: 90px;
+	
+}	
+.set{
+	width: 90px;
+	margin-left: 15px;
+	background: #ef8842;
+	}
+/*发布警告模态框样式*/
+.modal{
+	position: fixed;
+	top: 150px;
+	left: 32%;
+	}
+.container img{width: 75%;} 
+.contnet { margin: 5% 35%;} 
+.box{
+	padding: 25px 0 0 0;
+}
+.butn{
+    padding: 5px 40px;
+    background: #62aae9;
+    border: 0;
+}
+.btm{
+    background: #62aae9;
+	}
+.btnNo{background: #d2d2d2;}
+.msgbox{padding: 30px 0 20px 0;}
+.modfoot{border-top: 0;}    
+.modfoot img{width: 10%;}

@@ -1,0 +1,128 @@
+.AddTeach{
+	background: #ef8842;
+	border: 0;
+	color: #fff;
+}
+.addMod{
+	background-color: #5cb85c;
+	border: 0;
+	color: #fff;
+}
+.delet{
+	background: #e5394a;
+	border: 0;
+	color: #fff;
+}
+table tr{
+	border-left: 1px solid #ddd; 
+	border-bottom:1px solid #ddd;
+	}
+.table tbody tr td,.table tbody tr th{
+	border: 0;
+	} 
+table tr th a,table tr td a{
+	cursor: pointer;
+}
+.table tbody tr td,.table tbody tr th{
+	border: 0;
+	} 
+.table tbody tr th:nth-last-child(1){
+	text-align: right;
+}		
+.table tbody tr td:nth-last-child(1){
+	text-align: right;
+}	
+.paglist{
+	
+	text-align: right;
+	}
+.paglist ul{
+	margin: 0;
+	}
+.modalTitle {
+	font-size: 12px;
+	}
+#Modal{
+	position: fixed;
+	top: 150px;left: 15%;
+	}
+#addModal{
+	position: fixed;
+	top: 150px;
+	left: 15%;
+	}
+.modal{
+	position: fixed;
+	top: 150px;
+	left: 35%;
+	}
+.modalDialog{
+	width: 450px;
+	}
+
+.modalTitle{
+	font-size: 12px;
+	} 
+.textRight{
+	text-align: right;
+	}  
+.modalFoot,.modfoot{
+	border-top: 0;
+	text-align: center;
+	}
+.container button{
+	width: 90px;
+	}
+.modalFoot button{
+	width: 80px;
+	}
+
+.msgbox {
+	padding: 30px 0 20px 0;
+	}
+#ModalCont{
+	width: 300px;
+	position: fixed;
+	top: 150px;
+	left: 47%;}
+	
+.btun{
+	padding: 5px 40px;
+	background: #62aae9;
+	border: 0;
+	margin-left: 0;
+	}
+.container img{
+	width: 75%;
+	} 
+.btnGroup button{
+	width: 90px;
+	}
+.contnet { 
+	margin: 5% 35%;
+	} 
+.butn{
+	padding: 5px 40px;
+	background: #62aae9; 
+	border: 0;
+	}
+.modalFoot button {
+	width: 80px;
+	}
+.box{
+	width:70%;
+	height: 50px;
+	margin: 0 auto;
+	border:dashed 1px #ddd;
+	line-height: 50px;
+	text-align: center;
+	}
+.Cancel{
+	background: #b5b5b5;
+	border: 0;
+	color: #fff;
+	}
+.Submit{
+	background: #62aae9;
+	border: 0;
+}		

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>学生</title>
+	<link rel="stylesheet" href="../css/bootstrap.min.css" />
+	<link rel="stylesheet" href="../css/base.css" />
+	<link rel="stylesheet" href="../css/SchoolStudent.css" />
+	<script src="../js/jquery-1.11.1.min.js" ></script>
+	<script src="../js/bootstrap.min.js" ></script>
+	<script src="../js/jquery.twbsPagination.js" ></script>
+
+</head>
+<body>
+
+	<div class="navbar navbar-static-top">
+		<div class="container-fluid">					
+			<div class="navbar-header"></div>
+			<div class="rightCont">
+				<div class="rightPic"></div>
+				<dl>
+					<dt>已认证</dt>
+					<dd>孩在身边智慧教育<span class="spanlist">|</span><a href="#">退出</a></dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+	<div class="cont">
+		<div class="container-fluid content">
+			<div class="row">
+				<div class="col">
+					<div>
+						<span class="manage"><img src="../img/ability.png" class="smicon" />&nbsp;&nbsp;管理相关</span>
+						<ul class="nav nav-stacked">
+							<li ><a href="">班级</a></li>
+							<li><a href="">科目</a></li>
+							<li ><a href="#">教师</a></li>
+							<li class="activ"><a href="#">学生</a></li>
+							<li ><a href="#">班主任</a></li>
+						</ul>
+					</div>
+					<div >
+						<span class="manage list"><img src="../img/checkcard.png" class="smicon" />&nbsp;&nbsp;考勤相关</span>
+						<ul class="nav nav-stacked">
+							<li><a href="#">班级考勤</a></li>
+							<li><a href="#">学校班级</a></li>
+						</ul>
+					</div>
+					<div>
+						<span class="manage list"><img src="../img/other.png" class="smicon"/>&nbsp;&nbsp;其他相关</span>
+						<ul class="nav nav-stacked">
+							<li><a href="#">设备时间</a></li>
+							<li><a href="#">模板下载</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-sm-9">
+					<div class="contHead">
+						<h2>班级</h2>
+						<p>班级信息</p>
+						<label class="bttom"></label>
+					</div>
+					<div class="col-lg-12">
+						<div class="container col-lg-12 text-right">
+							<button type="button" class="btn  AddStudent" data-toggle="modal" data-target="#Modal">学生添加</button>
+							<button type="button" class="btn addMod " data-toggle="modal" data-target="#addModal">模板添加</button>
+							<button type="button" class="btn  delete" id="deleted">删除</button>
+
+						</div>
+
+						<div class="container col-lg-12">
+							<table class="table table-bordered table-hover" border="0" cellspacing="" cellpadding="">
+								<tr><th>班级</th><th>科目</th><th>姓名</th><th>账号</th><th>密码</th><th><a>反选</a></th></tr>
+								<tr><td>三年级二班</td><td>数学</td><td>周杰伦</td><td>2011103026</td><td>123456</td><td><a>编辑</a>&nbsp;<input type="checkbox" class="checkBox"/></td></tr>
+								<tr><td>三年级二班</td><td>数学</td><td>周杰伦</td><td>2011103026</td><td>123456</td><td><a>编辑</a>&nbsp;<input type="checkbox" class="checkBox"/></td></tr>
+								<tr><td>三年级二班</td><td>数学</td><td>周杰伦</td><td>2011103026</td><td>123456</td><td><a>编辑</a>&nbsp;<input type="checkbox" class="checkBox"/></td></tr>
+								<tr><td>三年级二班</td><td>数学</td><td>周杰伦</td><td>2011103026</td><td>123456</td><td><a>编辑</a>&nbsp;<input type="checkbox" class="checkBox"/></td></tr>
+							</table>
+						</div>
+						<!-- <div class="container col-lg-12 paglist">
+							<ul class="pagination">
+								<li><a href="#">&laquo;</a></li>
+								<li><a href="#">1</a></li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#">4</a></li>
+								<li><a href="#">5</a></li>
+								<li><a href="#">&raquo;</a></li>
+							</ul>
+						</div> -->
+						<ul id="pagination" class="container col-lg-12 paglist"></ul>
+
+						<script type="text/javascript">
+							$('#pagination').twbsPagination({
+								totalPages: 35,
+								visiblePages: 7,
+								onPageClick: function (event, page) {
+									// $('#page-content').text('Page ' + page);
+									console.log(page);
+								},
+								first:'首页',
+								prev:'上页',
+								next:'下页',
+								last:'末页',
+							});
+							//refreshPagination
+							var refreshPagination=function(totalPages,visiblePages,clickCB){
+								$('#pagination').empty()
+								.removeData("twbs-pagination")
+								.unbind("page")
+								.twbsPagination({
+								totalPages: totalPages,
+								visiblePages: visiblePages,
+								onPageClick: clickCB,
+								first:'首页',
+								prev:'上页',
+								next:'下页',
+								last:'末页',
+							});
+							}
+
+							// refreshPagination(15,5,function(event, page){
+							// 	alert(page);
+							// });
+						</script>
+
+					</div>
+
+					<!-- 学生添加 -->
+					<div class="modal fade" id="Modal" tabindex="-1" role="dialog" 
+					aria-labelledby="ModalLabel" aria-hidden="true">
+					<div class="modal-dialog modalDialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title modalTitle" id="ModalLabel">联系人添加</h4>
+							</div>
+							<div class="modal-body">
+								<div class="form-group container col-sm-12">
+									<label for="classmate" class="col-sm-4 control-label textRight">班级名称</label>
+									<div class="col-sm-7">
+										<select name="" class="form-control input-sm">
+											<option value="">一年级1班</option>
+											<option value="">一年级2班</option>
+											<option value="">一年级3班</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group container col-sm-12">
+									<label for="classmate" class="col-sm-4 control-label textRight">学号</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" />
+									</div>
+								</div>
+								<div class="form-group container col-sm-12">
+									<label for="classmate" class="col-sm-4 control-label textRight">姓名</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" />
+									</div>
+								</div>
+								<div class="form-group container col-sm-12">
+									<label for="classmate" class="col-sm-4 control-label textRight">性别</label>
+									<div class="col-sm-7">
+										<select name="" class="form-control input-sm">
+											<option value="">男</option>
+											<option value="">女</option>								
+										</select>
+									</div>
+								</div>
+								<div class="form-group container col-sm-12">
+									<label for="classmate" class="col-sm-4 control-label textRight">设备ID</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" />
+									</div>
+								</div>	
+								<div class="form-group container col-sm-12">
+									<label for="classmate" class="col-sm-4 control-label textRight">设备密码</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" />
+									</div>
+								</div>		   			
+							</div>	
+							<div class="modal-footer modalFoot ">
+								<button type="button" class="btn btn-default Cancel" data-dismiss="modal">取消</button>
+								<button type="button" class="btn btn-primary Submit">提交</button>
+							</div>
+						</div>
+					</div>
+				</div>	
+
+				<!--删除不成立-->
+				<div class="modal fade" id="DelModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content col-lg-6">	
+							<div class="modal-footer modfoot col-lg-12">
+								<p class="text-center msgbox">请选择所需删除的项目</p>
+								<div class="col-lg-12 text-center">
+									<button type="button" class="btn butn btn-primary" data-dismiss="modal">ok </button>           
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!--确认删除-->
+				<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content col-lg-6">	
+							<div class="container contnet col-lg-4" >
+								<img src="../img/danger.png"/>
+							</div>
+							<div class="modal-footer modalFoot col-lg-12">
+								<p class="text-center">确认删除</p>
+								<div class="col-lg-12 text-center">
+									<button type="button" class="btn btn-default Cancel" data-dismiss="modal">取消</button>
+									<button type="button" class="btn btn-primary Submit">确定</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!--模板添加-->
+				<div class="modal fade" id="addModal" tabindex="-1" role="dialog" 
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog modalDialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title modalTitle" id="myModalLabel">联系人添加</h4>
+						</div>
+						<div class="modal-body">
+							<div class="box">点击添加模板
+								<input type="file"  style="display: none;" />
+							</div>
+						</div>	
+						<div class="modal-footer modalFoot ">
+							<button type="button" class="btn btn-default Cancel" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-primary Submit">提交</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+</div>
+
+
+</div>
+<script>
+	$(function(){
+		$("#deleted").click(function(){
+			/*var chkval=$('.checkBox').is(':checked');
+					if(chkval==true){		//checkbox被选中
+						$("#deleted").attr("data-toggle","modal");
+						$("#deleted").attr("data-target","#DeleteModal");
+						
+					}
+					else{
+						$("#deleted").attr("data-toggle","modal");
+						$("#deleted").attr("data-target","#DelModal");
+					}*/
+
+					cb=$('.checkBox');
+					for(var i in cb){
+						if ($(cb[i]).is(':checked')) {
+							console.log(i);
+
+						}
+					}
+
+				})
+
+	});
+</script>
+
+</body>
+</html>

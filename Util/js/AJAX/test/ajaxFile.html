@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<title></title>
+</head>
+<body>
+
+	<form id="form1">
+		<input id="file" type="file"/>
+		<input id="ip" value="bajian"></input>
+	</form>
+	<button id="upload" type="button">upload</button>
+	<button id="login" type="button">login</button>
+
+
+
+	<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="http://static.snewfly.com/myajax1.3.min.js?30"></script>
+	<script type="text/javascript">
+// http://www.jianshu.com/p/46e6e03a0d53
+
+// $('yourform').submit(function(){  
+//     var formdata=new FormData(this);  
+//     $.ajax({  
+//         type:'POST',  
+//         url:'/yourpath',  
+//         data:formdata,  
+//         /** 
+//          *必须false才会自动加上正确的Content-Type 
+//          */  
+//         contentType:false,  
+//         /** 
+//          * 必须false才会避开jQuery对 formdata 的默认处理 
+//          * XMLHttpRequest会对 formdata 进行正确的处理 
+//          */  
+//         processData:false  
+//     }).then(function(){  
+//         //doneCal  
+//     },function(){  
+//         //failCal  
+//     });  
+//     return false;  
+// });  
+/*array(1) {
+  ["file"]=>
+  array(5) {
+    ["name"]=>
+    string(12) "chengji.xlsx"
+    ["type"]=>
+    string(24) "application/octet-stream"
+    ["tmp_name"]=>
+    string(14) "/tmp/php36zBWM"
+    ["error"]=>
+    int(0)
+    ["size"]=>
+    int(11493)
+  }
+}
+*/
+myajax.defaultMiddleware=function(data){
+	alert('中间件');
+};
+myajax.defaultFailCallback=function(data){
+	alert('错误');
+};
+
+$('#upload').click(function(){
+	// var data = new FormData($('#form1')[0]);  
+	var formdata=new FormData($('#form1')[0]);
+
+	var formData = new FormData();
+formData.append('file', $('#file')[0].files[0]);
+formData.append('note', $('#ip').val());
+formData.append('classID', 26);
+$.ajax({
+    url: 'http://bxjtest.snewfly.com/jxhd/teacher/grade/publish',
+    type: 'POST',
+    cache: false,
+    data: formData,
+    processData: false,
+    contentType: false
+}).done(function(res) {
+	alert('done');
+}).fail(function(res) {
+	alert('fail');
+});
+});
+
+//跨域的cookie问题好像无法处理
+$('#login').click(function(){
+	myajax.post('http://bxjtest.snewfly.com/jxhd/user/login',
+		{name:'szu',password:'szu123'},function(data){
+			alert(data.code)
+		})
+});
+
+
+</script>
+</body>
+</html>
