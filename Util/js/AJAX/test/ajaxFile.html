@@ -12,11 +12,14 @@
 	</form>
 	<button id="upload" type="button">upload</button>
 	<button id="login" type="button">login</button>
+	<button id="get" type="button">get</button>
+	<button id="fileup" type="button">file</button>
 
 
 
 	<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
-	<script type="text/javascript" src="http://static.snewfly.com/myajax1.3.min.js?30"></script>
+	<!-- <script type="text/javascript" src="http://static.snewfly.com/myajax1.3.min.js?30"></script> -->
+	<script type="text/javascript" src="../myajax1.4.js?30"></script>
 	<script type="text/javascript">
 // http://www.jianshu.com/p/46e6e03a0d53
 
@@ -66,8 +69,7 @@ myajax.defaultFailCallback=function(data){
 };
 
 $('#upload').click(function(){
-	// var data = new FormData($('#form1')[0]);  
-	var formdata=new FormData($('#form1')[0]);
+	// var formdata=new FormData($('#form1')[0]);
 
 	var formData = new FormData();
 formData.append('file', $('#file')[0].files[0]);
@@ -92,6 +94,27 @@ $('#login').click(function(){
 	myajax.post('http://bxjtest.snewfly.com/jxhd/user/login',
 		{name:'szu',password:'szu123'},function(data){
 			alert(data.code)
+		})
+});
+
+//跨域的cookie问题好像无法处理
+$('#get').click(function(){
+	myajax.get('http://bxjtest.snewfly.com/jxhd/user/login',
+		{name:'szu',password:'szu123'},function(data){
+			alert(data.code)
+		})
+});
+
+
+//跨域的cookie问题好像无法处理
+$('#fileup').click(function(){
+	var formData = new FormData();
+formData.append('file', $('#file')[0].files[0]);
+formData.append('note', $('#ip').val());
+formData.append('classID', 26);
+	myajax.file('http://bxjtest.snewfly.com/jxhd/teacher/grade/publish',
+		formData,function(data){
+			alert(data.code);
 		})
 });
 
