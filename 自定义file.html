@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		
+		label,.myfile,#filebox{
+			width: 150px;border: 1px dashed #eee;position: relative;text-align: center;height: 20px;cursor: pointer;
+		}
+		input[type="file"]{
+			position: absolute;width: 150px;left: 0px;top: 0px;opacity: 0;cursor: pointer;height: 20px;z-index: 2;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="myfile">
+		<div id="filebox">上传文件</div>
+		<input type="file" onchange="document.getElementById('filebox').innerHTML=this.files[0].name?this.files[0].name:'选择文件'" />
+
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	fangfa2
+<!-- 
+	<label id="t" for="bajian">选择文件</label>
+	<input id="bajian" type="file" onchange="document.getElementById('t').innerHTML=this.files[0].name?this.files[0].name:'选择文件'"/> -->
+</body>
+</html>

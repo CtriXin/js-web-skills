@@ -15,6 +15,33 @@ echo mb_strlen($str,'gb2312').'<br>';//10
 ```
 
 ***
+####h:i格式可以直接比大小
+```
+"15:46">"23:00"
+false
+```
+
+***
+####获取文件大小
+```
+//jQ版float ,kb
+function getFileSize(id){
+  return $('#'+id)[0].files[0].size/1000
+}
+//js版float ,kb
+function getFileSize(id){
+  return document.getElementById(id).files[0].size/1000
+}
+file对象
+lastModified: 1463472739374
+lastModifiedDate: Tue May 17 2016 16:12:19 GMT+0800 (中国标准时间)
+name: "家校互动-教师微信端2.0.zip"
+size: 7898422
+type: ""
+webkitRelativePath: ""
+```
+
+***
 ####text-align:center
 ```
  6、text-align:center 在块元素中用text-align来设置其中的文本对齐样式，这里设置为居中。其实text-align属性会影响到一个元素中所有内联内容的对齐样式，不仅仅是文本。还要记住，text-aligh属性只能用于块元素，如果直接用于内联元素（如<img>）就没有作用了。text-aligh属性值也可继承。例如<div>元素中的所有文本都在其他块元素中，如<h2>、<p>.但现在他们的对齐样式都改变了。这是因为这些块元素继承了<div>的text-align属性。区别是，不是<div>直接影响标题和段落（这些都是块元素）中的文本对齐样式，而是标题和段落继承了text-align属性值"center"，使它们自己的内容居中了。但是谨记并非所有的属性都是可以默认继承的，所以这并不会对所有的属性都起作用。

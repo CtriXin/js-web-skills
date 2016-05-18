@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<input id="name" type="text" value="黄桂旋"><button onclick="search();">查</button>
+<script src="toChineseLetter.js"></script>
+<script type="text/javascript">
+	function search(){
+		alert(getFirstChineseLetter(document.getElementById('name').value))
+	}
+</script>
+</body>
+</html>
