@@ -2,6 +2,7 @@
         * modify 16-03-04 增加处理完后的中间件，意在统一处理一些响应，比如登录超时跳转之类的。
         * modify 16-03-21 重构代码
         * modify 16-05-16 重构，增加file上传
+        * modify 16-05-25 兼容zepto
         */
 
         var myajax=(function($){
@@ -79,14 +80,14 @@
         }
 
         var exec=function(opts,middleware,succCallback,failCallback){
-          myajax.$.ajax(opts)
-          .done(function(data) {
+          opts.success=function(data){
             middleware&&middleware(data);
             succCallback&&succCallback(data);
-          })
-          .fail(function() {
+          };
+          opts.error=function(data){
             failCallback&&failCallback();
-          })
+          };
+          myajax.$.ajax(opts);
         }
 
         return new Ajax();

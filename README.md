@@ -20,6 +20,38 @@ echo mb_strlen($str,'gb2312').'<br>';//10
 "15:46">"23:00"
 false
 ```
+***
+####mysql 字符串数字排序
+```
+return DB::connection('jxhd')->select('SELECT a.`student_id` AS studentID,a.`name` AS studentName,b.`type`,b.`time` AS datetime FROM manager_student a LEFT JOIN xsk_attendance b ON a.`device_id`=b.`device_id` AND DATE_FORMAT(b.time,\'%Y-%m-%d\') =? WHERE a.`class_id`=? GROUP BY a.`name` ORDER BY (studentID+0) ASC',[$date,$class_id]);
+http://www.111cn.net/database/mysql/55179.htm
+
+```
+
+***
+####Table的“min-height”属性
+```
+需要对table元素里的td设置min-height属性，设置都没有效果。
+
+对于table元素，如th、td来说，
+
+使用height属性就等效于min-height属性了，
+```
+
+
+```
+:nth-child(n) 选择器匹配属于其父元素的第 N 个子元素，不论元素的类型。
+nth-of-type(n)可以筛选元素类型
+nth-child快速实现table相间色
+
+
+
+```
+***
+####去掉点击后控件的outline
+```
+outline-style: none;
+```
 
 ***
 ####获取文件大小
@@ -62,6 +94,8 @@ textarea::-webkit-input-placeholder {
 ```
 show global variables like "%datadir%";
 ```
+***
+####span文字居中可以调节line-height
 
 ***
 ####JS计算2个标准格式时间字符串的差 时间差
@@ -95,6 +129,7 @@ function calStanderTimeDiff(t1,t2){
 适用于融云和自己的服务器
 详见wxdownload.php
 ```
+
 
 ***
 ####自定义android版confirm依赖AL框架

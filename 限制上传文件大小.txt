@@ -1,0 +1,17 @@
+ $uploadInput.val("").on("change", function () {
+                if (this.files.length <= 0) {
+                    return false;
+                }
+                if (this.files[0].size/1024 >= 1024) {
+                    $("#promptPop .con-tit").html("很遗憾");
+                    $("#promptPop .con-txt").html("很抱歉，图片大小不能超过1024KB");
+                    openDialog("promptPop");
+                    return false;
+                }
+                /*if(!check_file_type())
+                 {
+                 return false;
+                 } */
+                document.forms["__ISHOW_UploadForm__"].submit();
+                return true;
+            });

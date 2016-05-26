@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>last.html</title>
+<style>
+a {
+    text-decoration: none;
+}
+ 
+a:FOCUS {
+    outline-style: none;
+    -moz-outline-style: none;
+}
+</style>
+<script type="text/javascript">
+    var hidediv = function (obj)
+    {
+        var target = !!window.ActiveXObject ? obj.parentElement.previousSibling : obj.parentElement.previousElementSibling;
+        target.style.display = !target.style.display || target.style.display == 'block' ? 'none' : 'block';
+        obj.firstChild.nodeValue = obj.firstChild.nodeValue == '展开全文' ? '收起全文' : '展开全文';
+        return false;
+    }
+
+    var toggleDiv = function (obj)
+    {
+        var nv = obj.firstChild.nodeValue;
+        var p = obj.parentElement;
+        var isIE = !!window.ActiveXObject;
+        var content = null;
+        if (nv == '全文')
+        {
+            p.style.display = 'none';
+            content = isIE ? p.nextSibling : p.nextElementSibling;
+            content.style.display = 'block'; 
+        }
+        else if (nv == '收起全文')
+        {
+            content = p.parentElement;
+            p = isIE ? content.previousSibling : content.previousElementSibling;
+            p.style.display = 'block';
+            content.style.display = 'none';
+        }
+    }
+</script>
+</head>
+<body>
+    <div id="pn">
+        <div>
+            <p class="title">Slack：团队日常沟通协作工具典范</p>
+            <p class="subtitle">作者：来自网络 发表时间：2014-3-1</p>
+            <p>
+                现在可以在Slack.com上申请成为试用用户，这是一个面对企业、团队的协作工具，似乎需要试用企业域名后缀的邮箱。
+                Slack从目前看，基本符合我对团队沟通工具的完全要求。特点如下： 在所有端都可以进行，即桌面端，包括Mac
+                OS和Windows系统；web端即浏览器；移动端的支持包括iOS和Android。 同时，移动端是有良好体验以满足移动办公便利性的。
+                聚焦核心行为，即"发布一条信息"，团队成员只需要做一个这个基本行为即可。 发布一条...<a onclick="toggleDiv(this);"
+                    href="#">全文</a>
+            </p>
+            <div class="content" id="content1">
+                <p>现在可以在Slack.com上申请成为试用用户，这是一个面对企业、团队的协作工具，似乎需要试用企业域名后缀的邮箱。
+                    Slack从目前看，基本符合我对团队沟通工具的完全要求。特点如下：</p>
+                <p>支持@方式直接和单个团队成员沟通，并且能够被其他成员看到和参与进来。</p>
+                <p>以#来进行快速形成话题组或者项目组。</p>
+                <p>良好的搜索支持。
+                    上述虽然是Slack的特性，也是我对团队日常协作工具的要求——显然，Slack完全符合这些要求，而且产品做得很易用。这些要求其实就是我对“移动、社交、云端存储”的理解，这三个因素基本会重写很多软件和应用。</p>
+                <p>Slack有免费的lite版本，但收费版本似乎价格对中文用户而言略高。</p>
+                <p>
+                    Slack由我很喜欢的项目Flickr的创始人新公司TinySpeck创办，因此基础甚好。而且从目前看，基本上会成为一个很成功的应用，所以在产品持续发展上面应该毫无问题。</p>
+                <p>The post Slack：团队日常沟通协作工具典范 appeared first on 游山打猎.</p>
+            </div>
+        </div>
+        <div class="btm">
+            <a href="#" class="btn" onclick="toggleDiv(this);">收起全文</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0"><meta name="format-detection" content="telephone=no">
+	<style type="text/css">
+		input[type=range] {
+			-webkit-appearance: none;
+			background-color: rgb(221, 221, 221);/*line color*/
+			height: 2px;
+			line-height: normal;
+			margin: 17px 0px;
+			outline-style: none;
+			position: relative;
+			visibility: visible;
+			width: 150px;
+		}
+
+		input[type="range"]::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			cursor: pointer;
+			height: 20px;
+			width: 20px;
+			background: none repeat scroll 0 0 #ff9a38;/*point color*/
+			border-radius: 100%;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<input type="range" min="0" max="6" step="2" value="0" id="range_vol"><span style="margin-left: 3px;vertical-align:middle;" id="sp_vol"></span>
+	</div>
+	<script src="http://static.snewfly.com/zepto.min.js"></script>
+	<script type="text/javascript">
+		
+		$('#range_vol').change(function(){
+			var name='静音';
+			switch(this.value)
+			{
+				case '0':
+				name='静音';
+				break;
+				case '2':
+				name='1档';
+				break;
+				case '4':
+				name='2档';
+				break;
+				case '6':
+				name='3档';
+				break;
+			}
+			$('#sp_vol').html(name);
+
+		});
+	</script>
+</body>
+</html>
