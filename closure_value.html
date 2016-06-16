@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<button id="btn">click</button>
+<script type="text/javascript">
+	var btn=document.getElementById('btn');
+	
+	var test=function(){
+		var index=0;
+		index++;
+		console.log(index);
+		btn.addEventListener('click',function (argument) {
+		alert(index);
+		index++;
+	});
+
+	};
+	test()
+	test()
+</script>
+</body>
+</html>

@@ -15,6 +15,38 @@ echo mb_strlen($str,'gb2312').'<br>';//10
 ```
 
 ***
+####php 空对象
+```
+$obj=(object)null;
+$obj=(object)[];
+
+
+```
+
+
+***
+####事件的委托处理（Event Delegation）
+```
+javascript的事件模型，采用"冒泡"模式，也就是说，子元素的事件会逐级向上"冒泡"，成为父元素的事件。
+利用这一点，可以大大简化事件的绑定。比如，有一个表格（table元素），里面有100个格子（td元素），现在要求在每个格子上面绑定一个点击事件（click），请问是否需要将下面的命令执行100次？
+　　$("td").on("click", function(){
+　　　　$(this).toggleClass("click");
+　　});
+回答是不需要，我们只要把这个事件绑定在table元素上面就可以了，因为td元素发生点击事件之后，这个事件会"冒泡"到父元素table上面，从而被监听到。
+因此，这个事件只需要在父元素绑定1次即可，而不需要在子元素上绑定100次，从而大大提高性能。这就叫事件的"委托处理"，也就是子元素"委托"父元素处理这个事件。
+　　$("table").on("click", "td", function(){
+　　　　$(this).toggleClass("click");
+　　});
+更好的写法，则是把事件绑定在document对象上面。
+　　$(document).on("click", "td", function(){
+　　　　$(this).toggleClass("click");
+　　});
+如果要取消事件的绑定，就使用off()方法。
+　　$(document).off("click", "td");
+
+```
+
+***
 ####h:i格式可以直接比大小
 ```
 "15:46">"23:00"
@@ -36,6 +68,87 @@ http://www.111cn.net/database/mysql/55179.htm
 对于table元素，如th、td来说，
 
 使用height属性就等效于min-height属性了，
+```
+
+***
+####mysql中having的用法
+```
+http://jingyan.baidu.com/article/425e69e6ddeebdbe14fc1678.html
+mysql中，当我们用到聚合函数，如sum，count后，又需要筛选条件时，having就派上用场了，因为WHERE是在聚合前筛选记录的，having和group by是组合着用的，下面通过实例介绍下用法
+
+http://www.jb51.net/article/32562.htm
+二、 显示每个地区的总人口数和总面积．仅显示那些面积超过1000000的地区 
+SELECT region, SUM(population), SUM(area)FROM bbcGROUP BY regionHAVING SUM(area)>1000000 
+在这里，我们不能用where来筛选超过1000000的地区，因为表中不存在这样一条记录。相反，having子句可以让我们筛选成组后的各组数据 
+
+
+```
+***
+####viewport模板——通用
+```
+<!-- <!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+<title>标题</title>
+<link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+这里开始内容
+</body>
+
+</html> -->
+
+```
+
+***
+####webkit表单元素的默认外观怎么重置
+```
+通用
+.css{-webkit-appearance:none;}
+
+```
+
+***
+####数组和对象都是引用传递
+```
+b=c=[];
+[]
+b.push(333); console.log(c)
+[333]
+
+typeof []
+
+"object"
+typeof {}
+
+"object"
+typeof 'A'
+"string"
+```
+
+***
+####欣赏别人的写法
+```
+
+    var createDots = function(){
+      var _index = $scroller.index($slide.filter('.active'));_index = _index<0?0:_index;
+      $el.children('.dots').remove();     
+      var arr = [];
+      arr.push('<div class="dots">');
+      for(var i=0;i<slideNum;i++){
+        arr.push('<div class="dotty"></div>');
+      }
+      arr.push('</div>');
+      $dots = $(arr.join('')).appendTo($el).addClass(sliderOpts.dots).find('.dotty');
+      $($dots.get(_index)).addClass('active');
+    };
 ```
 
 
@@ -214,6 +327,11 @@ public function auth_card_bxjtest()
     header('HTTP/1.1 301 Moved permanently');
       exit(); 
   }
+```
+
+```
+<img name="yyy" id="i" src="">
+不需要getElementById,直接yyy.src/i.src都不会报错的,但不建议这么使用
 ```
 
 ***
@@ -456,6 +574,14 @@ http://binma85.iteye.com/blog/850042
 echo urlencode('&');
 
 ```
+***
+####mysql的ERROR 1129 (00000): is blocked because of many connection errors
+```
+whereis mysqladmin
+/usr/bin/mysqladmin flush-hosts -uroot -psxxxxx
+http://www.cnblogs.com/susuyu/archive/2013/05/28/3104249.html
+
+```
 
 [输入链接说明](http://)
 [跨域访问的两种方式](http://blog.csdn.net/fdipzone/article/details/46390573/)
@@ -662,6 +788,20 @@ for ($i=0; $i <5 ; $i++) {
 print_r($arr);
 
 ```
+***
+####shell脚本参数
+```
+shell脚本参数可以任意多，但只有前9各可以被访问，使用shift命令可以改变这个限制。参数从第一个开始，在第九个结束。
+$0 程序名字
+$n 第n个参数值，n=1..9 
+$* 所有命令行参数
+$@        所有命令行参数,如果它被包含在引号里,形如”$@”,则每个参数也各自被引号包括
+$# 命令行参数个数 
+$$ 当前进程的进程ID(PID)
+$!  最近后台进程的进程ID 
+$?  最近使用命令的退出状态
+
+```
 
 ***
 ####nginx负载均衡
@@ -776,6 +916,33 @@ location.reload()
         切换账号
       </a>
 
+```
+
+***
+####特殊字符过滤
+```
+
+  B_util.wordFilter=function(t){
+    t=t.replace(/\&/g,'&amp;');
+    t=t.replace(/\"/g,'&quot;');
+    t=t.replace(/\</g,'&lt;');
+    t=t.replace(/\>/g,'&gt;');
+    return t.replace(/\'/g,'&#39;');
+  }
+用途：
+<!-- <div id="rrr"></div> -->
+
+  <script type="text/javascript">
+    var t="ceshi 特殊符号\n“\\\"\\'”‘’，。、！@￥%……&~（*&（*&~!@$%^&^%&*&(*bKJH\n啥啥啥\nceshi 特殊符号\n“\\\"\\'”‘’，。、！@￥%……&~（*&（*&~!@$%^&^%&*&(*bKJH\n啥啥啥\n“”\\\"\\\"\\\"\\\"\\\";;\\'\\'\\'\\'\\',..\/，。，。、‘；’";
+    // t=encodeURIComponent(t);
+    t=t.replace(/\&/g,'&amp;');
+    t=t.replace(/\"/g,'&quot;');
+    t=t.replace(/\</g,'&lt;');
+    t=t.replace(/\>/g,'&gt;');
+    t=t.replace(/\'/g,'&#39;');
+    rrr.innerHTML='<span id="r" data-content="'+t+'">'+t+'</span>';
+    console.log(r.dataset.content);
+  </script>
 ```
 
 ***

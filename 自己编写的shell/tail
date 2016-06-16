@@ -1,0 +1,10 @@
+logName="laravel-` date +%Y-%m-%d`.log"
+num=100
+if [[ $1 -gt 0 ]]; then
+	num=$1
+fi
+cmd_grep=""
+if [ $2 ]; then
+	cmd_grep="|grep '"$2"'"
+fi
+tail -$num $logName $cmd_grep

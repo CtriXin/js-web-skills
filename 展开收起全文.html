@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.publish_history_content{
+			padding: 10px 20px;border-top: 1px solid #fc7700;position: relative;width: 50%
+		}
+
+		.toggleContent{
+			position: absolute;bottom: 10px;right: 20px;color: gray;cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+
+
+
+	<div class="publish_history_container">
+
+		<div class="publish_history_content">
+			<span data-content="999和地方了科技是电话费是打算从对方基地附近所得税的方式的我我我我我是的空间和地方了科技是电话费是打算从对方基地附近所得税的方式的我我我我我是的空间和地方了科技是电话费是打算从对方基地附近所得税的方式的我我我我我是的空间和地方了科技是电话费是打算从对方基地附近所得税的方式的我我我我我是的空间和地方了科技是电话费是打算从对方基地附近所得税的方式的我我我我我是的空间和地方了科技是电话费是&nbsp;&nbsp;&nbsp;&nbsp;">999我我是的空间和地方了科技是电话费是打算从对方基地附近所得税的方式的我我我我我是的空间和地方了科技是电话费是打算从对方基地附近所得税的...&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			<span class="toggleContent">全文</span>
+		</div>
+
+		<div class="publish_history_content">
+			<span data-content="999和地方了科技是电话费是打算从对方基地附近所得税的方式的我我我我我是的空间和地方了科技是电话费是打算从对方基地附近所得税的方式的我我我我我是的空间和地方了科技是电话费是打算从对方基地附近所得税的方式的我我我我我是的空间和地方了科技是电话费是打算从对方基地附近所得税的方式的我我我我我是的空间和地方了科技是电话费是打算从对方基地附近所得税的方式的我我我我我是的空间和地方了科技是电话费是&nbsp;&nbsp;&nbsp;&nbsp;">999我我是的空间和地方了科技是电话费是打算从对方基地附近所得税的方式的我我我我我是的空间和地方了科技是电话费是打算从对方基地附近所得税的...&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			<span class="toggleContent">全文</span>
+		</div>
+
+	</div>
+
+	<script src="http://static.snewfly.com/zepto.min.js"></script>
+	<script type="text/javascript">
+		
+
+
+					$(document).on('click','.toggleContent', function () {
+						var $_this=$(this);
+						var $content=$_this.siblings();
+						var toggleContent=$content.data('content');
+						if (!toggleContent) return;
+						if (this.innerHTML==='全文') this.innerHTML='收起';
+						else this.innerHTML='全文';
+
+						$content.data('content',$content.html()).html(toggleContent);
+						return false;
+					});
+	</script>
+</body>
+</html>

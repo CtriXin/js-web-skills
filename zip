@@ -1,0 +1,2 @@
+logName="laravel-` date +%Y-%m-%d`.log"
+zip "laravel.zip" $logName
