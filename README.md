@@ -22,6 +22,88 @@ $obj=(object)[];
 
 
 ```
+***
+####sql 高级查询汇总
+```
+使用rand()抽样调查，随机抽取2个员工，查看其资料
+mysql> select * from emp order by rand() limit 2;
+
+查询结果的字段联合和重新命名
+mysql> select concat(emp_id," ",emp_name) from emp;
+
+统计男女职工数目：（GROUP BY语句分类）
+mysql> select emp_sex,count(*) from emp group by emp_sex;
+
+
+5、限制返回的行数
+使用TOP n [PERCENT]选项限制返回的数据行数，TOP n说明返回n行，而TOP n PERCENT时，说明n是
+表示一百分数，指定返回的行数等于总行数的百分之几。
+例如： 
+代码:SELECT TOP 2 * FROM `testtable` 
+代码:SELECT TOP 20 PERCENT * FROM `testtable`
+
+4 模式匹配(LIKE) 
+LIKE运算符检验一个包含字符串数据的字段值是否匹配一指定模式。 
+LIKE运算符里使用的通配符 
+通配符 含义 
+？ 任何一个单一的字符 
+* 任意长度的字符 
+# 0~9之间的单一数字 
+[字符列表] 在字符列表里的任一值 
+[！字符列表] 不在字符列表里的任一值 
+- 指定字符范围，两边的值分别为其上下限 
+例：返回邮政编码在（171）555-0000到（171）555-9999之间的客户 
+Select CustomerID ,CompanyName,City,Phone 
+FROM Customers 
+Where Phone Like ‘(171)555-####’ 
+LIKE运算符的一些样式及含义 
+样式 含义 不符合 
+LIKE ‘A*’ A后跟任意长度的字符 Bc,c255 
+LIKE’5  
+’ 5*5 555 
+LIKE’5?5’ 5与5之间有任意一个字符 55,5wer5 
+LIKE’5##5’ 5235，5005 5kd5,5346 
+LIKE’[a-z]’ a-z间的任意一个字符 5,% 
+LIKE’[!0-9]’ 非0-9间的任意一个字符 0,1 
+LIKE’[[]’ 1,* 
+
+```
+
+***
+####一些复杂的sql记录
+```
+每次查询kimit个老师（一个老师含多个班级）
+SELECT a.*,b.`name`,b.`password`,b.`nickname`,b.`note` AS subject,c.`name` AS class  FROM manager_class_teacher a INNER JOIN manager_admin b ON a.`admin_id`=b.`id` LEFT JOIN manager_class c ON a.class_id=c.`id` WHERE a.admin_id IN ( SELECT * FROM( SELECT DISTINCT admin_id FROM manager_class_teacher WHERE school_id=? LIMIT ?,?)AS t)
+$re=$this->queryTeacherSql($_SESSION['admin_school_id'],$start,$limit);
+      $listCount=count($re);
+      $list=[];
+      for ($i=0; $i <$listCount ; $i++) {
+        $t=new TeacherBean();
+        $t->name=$re[$i]->name;
+        $t->id=$re[$i]->admin_id;
+        $t->nickname=$re[$i]->nickname;
+        $t->password=$re[$i]->password;
+        $t->subject=$re[$i]->subject;
+        $t->classes=[['id'=>$re[$i]->class_id,'name'=>$re[$i]->class]];
+        for ($j=$i; $j <$listCount-1 ; $j++) { 
+          if ($re[$j]->admin_id==$re[$j+1]->admin_id) {
+            $i++;
+            array_push($t->classes, ['id'=>$re[$j+1]->class_id,'name'=>$re[$j+1]->class]);
+          }else{
+            break;
+          }
+        }
+        array_push($list, $t);
+      }
+
+```
+
+
+***
+####获取运行脚本的目录（也可用于require的模块中）
+```
+console.log(require('path').dirname(process.argv[1]));
+```
 
 
 ***
@@ -52,6 +134,15 @@ javascript的事件模型，采用"冒泡"模式，也就是说，子元素的�
 "15:46">"23:00"
 false
 ```
+
+***
+####语义版本号分为X.Y.Z三位
+```
+语义版本号分为X.Y.Z三位，分别代表主版本号、次版本号和补丁版本号。当代码变更时，版本号按以下原则更新。
++ 如果只是修复bug，需要更新Z位。
++ 如果是新增了功能，但是向下兼容，需要更新Y位。
++ 如果有大变动，向下不兼容，需要更新X位。
+```
 ***
 ####mysql 字符串数字排序
 ```
@@ -68,6 +159,13 @@ http://www.111cn.net/database/mysql/55179.htm
 对于table元素，如th、td来说，
 
 使用height属性就等效于min-height属性了，
+```
+
+***
+####JavaScript中字符串与Unicode编码的互相转换
+```
+code = 'a'.charCodeAt(0); // 97
+String.fromCharCode(97)//a
 ```
 
 ***
