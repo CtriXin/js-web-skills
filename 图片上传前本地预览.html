@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<label for="f" style="padding: 5px;border: 1px dashed #eee;">上传图片</label>
+<img name="yyy" id="i" src="">
+<input onchange="displayPic();" id="f" style="display: none;" accept="image/*" type="file"></input>
+
+<script type="text/javascript">
+	function displayPic(){
+		i.src=window.webkitURL.createObjectURL(f.files[0])
+	}
+</script>
+</body>
+</html>

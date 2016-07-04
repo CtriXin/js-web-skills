@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+
+// Web Worker无法访问DOM节点；
+// Web Worker无法访问全局变量或是全局函数；
+// Web Worker无法调用alert()或者confirm之类的函数；
+// Web Worker无法访问window、document之类的浏览器全局变量；
+//不能加载跨域js
+var worker;
+
+function startWorker()
+{
+	if(typeof(Worker)!=="undefined")
+	{
+		worker = new Worker('./worker.js');
+
+		worker.onmessage = function(evt){
+
+			alert('消息收到啦：'+ evt.data);
+
+			stopWorker();
+
+		};
+
+		worker.onerror = function(e){
+
+			console.log('demo出错了！出错原因是：' + e.message);
+
+			stopWorker();
+
+		};
+
+		worker.postMessage('这是webworker的demo！');
+	}
+	else
+	{
+		console.log('not support!');
+	}
+}
+
+function stopWorker()
+{ 
+	worker.terminate();
+}
+
+
+startWorker();
+</script>
+</body>
+</html>

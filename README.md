@@ -23,8 +23,19 @@ $obj=(object)[];
 
 ```
 ***
-####sql 高级查询汇总
+####setTimeout传参数
 ```
+var timer = setTimeout(function (timerInstance, timeoutId) {
+    timerInstance.clear(timeoutId);
+    fn();
+  }, delay, this, id);
+```
+***
+####sql 高级查询汇总 
+```
+http://aoxueshou.blog.163.com/blog/static/1002357142013817515604/
+http://www.cnblogs.com/yubinfeng/archive/2010/11/02/1867386.html
+
 使用rand()抽样调查，随机抽取2个员工，查看其资料
 mysql> select * from emp order by rand() limit 2;
 
@@ -34,6 +45,25 @@ mysql> select concat(emp_id," ",emp_name) from emp;
 统计男女职工数目：（GROUP BY语句分类）
 mysql> select emp_sex,count(*) from emp group by emp_sex;
 
+查询班级信息，统计班级学生人生 
+SELECT *,(SELECT COUNT(*) FROM manager_student WHERE class_id=manager_class.`id`) AS studentnum FROM manager_class 
+
+查询某学校的所有班级及每个班级的学生人数
+SELECT *,(SELECT COUNT(*) FROM manager_student WHERE class_id=manager_class.`id`) AS studentnum FROM manager_class WHERE manager_class.`school_id`=30
+
+查询某学校的所有班级及每个班级的学生人数及制定天数的出勤人数
+SELECT *,(SELECT COUNT(DISTINCT b.`device_id`)num  FROM manager_student a  RIGHT JOIN xsk_attendance b ON a.`device_id`=b.device_id WHERE class_id=manager_class.`id` AND DATE_FORMAT(b.time,'%Y-%m-%d') ='2016-05-26')attandanceNum,(SELECT COUNT(*) FROM manager_student WHERE class_id=manager_class.`id`) AS studentnum FROM manager_class WHERE manager_class.`school_id`=30
+
+
+1. 查找出符合条件的记录, 按user_id asc, create_time desc 排序;
+select ord.user_id, ord.money, ord.create_time from orders ord where ord.user_id > 0 and create_time > 0 order by user_id asc , create_time desc
+2. 将(1)中记录按user_id分组, group_concat(money);
+select t.user_id, group_concat( t.money ) moneys from (select ord.user_id, ord.money, ord.create_time from orders ord where ord.user_id > 0 and create_time > 0 order by user_id asc , create_time desc) t group by user_id
+user_id moneys
+1 100,50
+2 200,100
+3. 这时, 如果用户有多个消费记录, 就会按照时间顺序排列好, 再利用 subString_index 函数进行切分即可
+select t.user_id, substring_index(group_concat( t.money ),',',1) lastest_money from (select ord.user_id, ord.money, ord.create_time from orders ord where ord.user_id > 0 and create_time > 0 order by user_id asc , create_time desc) t group by user_id ;
 
 5、限制返回的行数
 使用TOP n [PERCENT]选项限制返回的数据行数，TOP n说明返回n行，而TOP n PERCENT时，说明n是
@@ -72,7 +102,7 @@ LIKE’[[]’ 1,*
 ***
 ####一些复杂的sql记录
 ```
-每次查询kimit个老师（一个老师含多个班级）
+每次查询limit个老师（一个老师含多个班级）
 SELECT a.*,b.`name`,b.`password`,b.`nickname`,b.`note` AS subject,c.`name` AS class  FROM manager_class_teacher a INNER JOIN manager_admin b ON a.`admin_id`=b.`id` LEFT JOIN manager_class c ON a.class_id=c.`id` WHERE a.admin_id IN ( SELECT * FROM( SELECT DISTINCT admin_id FROM manager_class_teacher WHERE school_id=? LIMIT ?,?)AS t)
 $re=$this->queryTeacherSql($_SESSION['admin_school_id'],$start,$limit);
       $listCount=count($re);
