@@ -72,30 +72,9 @@ select t.user_id, substring_index(group_concat( t.money ),',',1) lastest_money f
 代码:SELECT TOP 2 * FROM `testtable` 
 代码:SELECT TOP 20 PERCENT * FROM `testtable`
 
-4 模式匹配(LIKE) 
-LIKE运算符检验一个包含字符串数据的字段值是否匹配一指定模式。 
-LIKE运算符里使用的通配符 
-通配符 含义 
-？ 任何一个单一的字符 
-* 任意长度的字符 
-# 0~9之间的单一数字 
-[字符列表] 在字符列表里的任一值 
-[！字符列表] 不在字符列表里的任一值 
-- 指定字符范围，两边的值分别为其上下限 
-例：返回邮政编码在（171）555-0000到（171）555-9999之间的客户 
-Select CustomerID ,CompanyName,City,Phone 
-FROM Customers 
-Where Phone Like ‘(171)555-####’ 
-LIKE运算符的一些样式及含义 
-样式 含义 不符合 
-LIKE ‘A*’ A后跟任意长度的字符 Bc,c255 
-LIKE’5  
-’ 5*5 555 
-LIKE’5?5’ 5与5之间有任意一个字符 55,5wer5 
-LIKE’5##5’ 5235，5005 5kd5,5346 
-LIKE’[a-z]’ a-z间的任意一个字符 5,% 
-LIKE’[!0-9]’ 非0-9间的任意一个字符 0,1 
-LIKE’[[]’ 1,* 
+mysql数据库replace、regexp的用法 http://www.jb51.net/article/27997.htm
+特别注意中文的话：
+SELECT * FROM table1 a WHERE a.`city` REGEXP '(呵){2}'
 
 ```
 
@@ -939,6 +918,39 @@ http://www.cnblogs.com/liping13599168/archive/2011/04/15/2017369.html
 远程地址带上密码
 http://yourname:password@git.oschina.net/name/project.git
 
+```
+
+***
+####git操作总结
+```
+安装git
+sudo apt-get install git-core
+
+初始化建库
+git init /home/git/myRep.git
+
+远端客户端拉取一份
+git clone root@120.24.49.37:/home/hgx/node/mytest
+
+git config --global  user.email "313066164@qq.com"
+git config --global user.name "bajian"
+config --global  receive.denyCurrentBranch "warn"
+
+提交所有修改过的
+git add .
+Commit 并附加说明
+git commit -m "changes to some-file"
+
+查看提交版本
+git log
+
+如果提交后，服务器代码没变，说明分支不对！！
+git checkout master
+
+如果远程服务器代码没变，可以试着git log后git checkout 到别的版本再试试切回来
+
+查看当前状态
+git status 
 ```
 
 ***

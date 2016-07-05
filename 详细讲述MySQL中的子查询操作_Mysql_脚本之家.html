@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)http://www.jb51.net/article/64016.htm -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=GBK"><script type="text/javascript" charset="utf-8" src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/changyan.js"></script>
+<meta charset="gb2312">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform">
+<title>详细讲述MySQL中的子查询操作_Mysql_脚本之家</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+<meta name="keywords" content="MySQL">
+<meta name="description" content="这篇文章主要介绍了详细讲述MySQL中的子查询操作,文中也给出了具体的代码实例讲解,需要的朋友可以参考下">
+<link rel="alternate" media="only screen and(max-width: 640px)" href="http://m.jb51.net/article/64016.htm">
+<meta http-equiv="mobile-agent" content="format=html5; url=http://m.jb51.net/article/64016.htm">
+<meta http-equiv="mobile-agent" content="format=xhtml; url=http://m.jb51.net/article/64016.htm">
+<script type="text/javascript">
+var tougao="goldensun";var lmname="Mysql";
+(function(){if(/Android|webOS|iPhone|iPad|Windows Phone|iPod|BlackBerry|SymbianOS|Nokia|Mobile/i.test(navigator.userAgent)){window.location.href="http://m.jb51.net/article/64016.htm"}})();
+</script>
+<link type="text/css" href="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/base.css" rel="stylesheet">
+<link type="text/css" href="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/common.css" rel="stylesheet">
+<script type="text/javascript" src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/jquery.min.js"></script><style type="text/css" adt="123"></style>
+<script type="text/javascript" src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/base.js"></script>
+<style type="text/css"></style><script>if(!document.URL.match(/^http:\/\/v\.baidu\.com|http:\/\/music\.baidu\.com|http:\/\/dnf\.duowan\.com|http:\/\/bbs\.duowan\.com|http:\/\/newgame\.duowan\.com|http:\/\/my\.tv\.sohu\.com/)){
+    (function() {
+        function A() {}
+        A.prototype = {
+            rules: {
+                /*'youku_loader': {
+                 'find': /^http:\/\/static\.youku\.com\/.*(loader|player_.*)(_taobao)?\.swf/,
+                 'replace': 'http://swf.adtchrome.com/loader.swf'
+                 },
+                 'youku_out': {
+                 'find': /^http:\/\/player\.youku\.com\/player\.php\/.*sid\/(.*)/,
+                 'replace': 'http://swf.adtchrome.com/loader.swf?VideoIDS=$1'
+                 },*/
+                'pps_pps': {
+                    'find': /^http:\/\/www\.iqiyi\.com\/player\/cupid\/common\/pps_flvplay_s\.swf/,
+                    'replace': 'http://swf.adtchrome.com/pps_20140420.swf'
+                },
+                /*'iqiyi_1': {
+                 'find': /^http:\/\/www\.iqiyi\.com\/player\/cupid\/common\/.+\.swf$/,
+                 'replace': 'http://swf.adtchrome.com/iqiyi_20140624.swf'
+                 },
+                 'iqiyi_2': {
+                 'find': /^http:\/\/www\.iqiyi\.com\/common\/flashplayer\/\d+\/.+\.swf$/,
+                 'replace': 'http://swf.adtchrome.com/iqiyi_20140624.swf'
+                 },*/
+                'ku6': {
+                    'find': /^http:\/\/player\.ku6cdn\.com\/default\/.*\/\d+\/(v|player|loader)\.swf/,
+                    'replace': 'http://swf.adtchrome.com/ku6_20140420.swf'
+                },
+                'ku6_topic': {
+                    'find': /^http:\/\/player\.ku6\.com\/inside\/(.*)\/v\.swf/,
+                    'replace': 'http://swf.adtchrome.com/ku6_20140420.swf?vid=$1'
+                },
+                'sohu': {
+                    'find':/http:\/\/(tv\.sohu\.com\/upload\/swf\/(?!(ap|56)).*\d+|(\d+\.){3}\d+(:\d+)?\/(web|test)player)\/(Main|PlayerShell)[^\.]*\.swf/,
+                    'replace': "http://adtchrome.b0.upaiyun.com/sohu_live.swf"
+                },
+                /*'sohu2':{
+                    'find':/^http:\/\/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\/testplayer\/Main0?\.swf/,
+                    'replace':'http://www.adtchrome.com/sohu/sohu_20150104.swf'
+                },
+                'sohu_share': {
+                    'find': /^http:\/\/share\.vrs\.sohu\.com\/my\/v\.swf&/,
+                    'replace': 'http://www.adtchrome.com/sohu/sohu_20150104.swf?'
+                },
+                'sohu_sogou' : {
+                    'find': /^http:\/\/share\.vrs\.sohu\.com\/(\d+)\/v\.swf/,
+                    'replace': 'http://www.adtchrome.com/sohu/sohu_20150104.swf?vid=$1'
+                },
+                'letv': {
+                 'find': /^http:\/\/player\.letvcdn\.com\/.*p\/.*\/newplayer\/LetvPlayer\.swf/,
+                 'replace': 'http://swf.adtchrome.com/20150110_letv.swf'
+                 },
+                 'letv_topic': {
+                 'find': /^http:\/\/player\.hz\.letv\.com\/hzplayer\.swf\/v_list=zhuanti/,
+                 'replace': 'http://swf.adtchrome.com/20150110_letv.swf'
+                 },
+                 'letv_duowan': {
+                 'find': /^http:\/\/assets\.dwstatic\.com\/video\/vpp\.swf/,
+                 'replace': 'http://yuntv.letv.com/bcloud.swf'
+                 },*/
+                '17173_in':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFile(Customer)?\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_in_20150522.swf"
+                },
+                '17173_out':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFileFirstpage\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_out_20150522.swf"
+                },
+                '17173_live':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream(_firstpage)?\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_stream_20150522.swf"
+                },
+                '17173_live_out':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream_(custom)?Out\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173.out.Live.swf"
+                }
+            },
+            _done: null,
+            get done() {
+                if(!this._done) {
+                    this._done = new Array();
+                }
+                return this._done;
+            },
+            addAnimations: function() {
+                var style = document.createElement('style');
+                style.type = 'text/css';
+                style.innerHTML = 'object,embed{\
+                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;\
+                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;\
+                -o-animation-duration:.001s;-o-animation-name:playerInserted;\
+                animation-duration:.001s;animation-name:playerInserted;}\
+                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}';
+                document.getElementsByTagName('head')[0].appendChild(style);
+            },
+            animationsHandler: function(e) {
+                if(e.animationName === 'playerInserted') {
+                    this.replace(e.target);
+                }
+            },
+            replace: function(elem) {
+                if(this.done.indexOf(elem) != -1) return;
+                this.done.push(elem);
+                var player = elem.data || elem.src;
+                if(!player) return;
+                var i, find, replace = false;
+                for(i in this.rules) {
+                    find = this.rules[i]['find'];
+                    if(find.test(player)) {
+                        replace = this.rules[i]['replace'];
+                        if('function' === typeof this.rules[i]['preHandle']) {
+                            this.rules[i]['preHandle'].bind(this, elem, find, replace, player)();
+                        }else{
+                            this.reallyReplace.bind(this, elem, find, replace)();
+                        }
+                        break;
+                    }
+                }
+            },
+            reallyReplace: function(elem, find, replace) {
+                elem.data && (elem.data = elem.data.replace(find, replace)) || elem.src && ((elem.src = elem.src.replace(find, replace)) && (elem.style.display = 'block'));
+                var b = elem.querySelector("param[name='movie']");
+                this.reloadPlugin(elem);
+            },
+            reloadPlugin: function(elem) {
+                var nextSibling = elem.nextSibling;
+                var parentNode = elem.parentNode;
+                parentNode.removeChild(elem);
+                var newElem = elem.cloneNode(true);
+                this.done.push(newElem);
+                if(nextSibling) {
+                    parentNode.insertBefore(newElem, nextSibling);
+                } else {
+                    parentNode.appendChild(newElem);
+                }
+            },
+            init: function() {
+                var desc = navigator.mimeTypes['application/x-shockwave-flash'].description.toLowerCase();
+                /*if(desc.indexOf('adobe')>-1){
+                 delete this.rules["iqiyi_1"];
+                 delete this.rules["iqiyi_2"];
+                 }*/
+                if(document.URL.indexOf('tv.sohu.com')<=0){
+                    delete this.rules["sohu"];
+                }
+                var handler = this.animationsHandler.bind(this);
+                document.body.addEventListener('webkitAnimationStart', handler, false);
+                document.body.addEventListener('msAnimationStart', handler, false);
+                document.body.addEventListener('oAnimationStart', handler, false);
+                document.body.addEventListener('animationstart', handler, false);
+                this.addAnimations();
+            }
+        };
+        new A().init();
+    })();
+}
+// 20140730
+(function cnbeta() {
+    if (document.URL.indexOf('cnbeta.com') >= 0) {
+        var elms = document.body.querySelectorAll("p>embed");
+        Array.prototype.forEach.call(elms, function(elm) {
+            elm.style.marginLeft = "0px";
+        });
+    }
+})();
+//去百度推广广告
+if(document.URL.indexOf('www.baidu.com') >= 0){
+    if(document && document.getElementsByTagName && document.getElementById && document.body){
+        var a = function(){
+            Array.prototype.forEach.call(document.body.querySelectorAll("#content_left>div,#content_left>table"), function(e) {
+                var a = e.getAttribute("style");
+                if(a && /display:(table|block)\s!important/.test(a)){
+                    e.parentNode.removeChild(e)
+                }
+            });
+        };
+        a();
+        document.getElementById("su").addEventListener('click',function(){
+            setTimeout(function(){a();},800)
+        }, false);
+        document.getElementById("kw").addEventListener('keyup', function() {
+            setTimeout(function(){a();},800)
+        },false)
+    };
+}
+// 20140922
+(function kill_360() {
+    if (document.URL.indexOf('so.com') >= 0) {
+        document.getElementById("e_idea_pp").style.display = none;
+    }
+})();
+</script><style type="text/css">object,embed{                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;                -o-animation-duration:.001s;-o-animation-name:playerInserted;                animation-duration:.001s;animation-name:playerInserted;}                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}</style><script type="text/javascript" charset="UTF-8" src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/version-v3.js"></script><script type="text/javascript" charset="UTF-8" src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/cookie"></script><script type="text/javascript" charset="UTF-8" src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/adapter.min.js"></script><script type="text/javascript" charset="UTF-8" src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/cyrHH3dwi"></script><script type="text/javascript" charset="UTF-8" src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/version.js"></script><script type="text/javascript" charset="UTF-8" src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/cookie(1)"></script><script type="text/javascript" charset="UTF-8" src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/cyrHH3dwi(1)"></script><script type="text/javascript" charset="UTF-8" src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/event"></script><script type="text/javascript" charset="UTF-8" src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/sea.v2.2.0.js"></script><script type="text/javascript" charset="UTF-8" src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/app-build.js"></script><link rel="stylesheet" type="text/css" href="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/upload-img.css"><style id="changyanCss">#SOHUCS{clear:both;min-height:320;_height:320px;overflow:visible;}#SOHUCS iframe{width:100%;min-height:320px;_height:320px;}</style><link charset="utf-8" rel="stylesheet" href="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/changyan2.css"><link charset="utf-8" rel="stylesheet" href="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/default.css"><script type="text/javascript" charset="UTF-8" src="http://changyan.sohu.com/activity/advert_static/main.js"></script></head>
+<body>
+<!--head Star -->
+<div id="head">
+  <div class="toolBar">
+  <div class="main">
+    <!--topNav Star -->
+    <div class="topNav clearfix">
+      <ul class="navList fl">
+        <li>
+          <div class="one"><a href="http://www.jb51.net/" target="_blank">脚本之家</a></div>
+        </li>
+        <li>
+          <div class="one"><a href="http://www.jb51.net/softs/" target="_blank">软件下载<i class="icon"></i></a></div>
+          <div class="two">
+<a href="http://www.jb51.net/softs/android.html" target="_blank">android软件</a> <a href="http://www.jb51.net/softs/mac.html" target="_blank">MAC软件</a> <a href="http://www.jb51.net/qudong/" target="_blank">驱动下载</a> <a href="http://www.jb51.net/fonts/" target="_blank">字体下载</a> <a href="http://www.jb51.net/dll/" target="_blank">DLL下载</a> </div>
+</li>
+        <li>
+          <div class="one"><a href="http://www.jb51.net/codes/" target="_blank">源码下载<i class="icon"></i></a></div>
+          <div class="two"> <a href="http://www.jb51.net/codes/asp.html" target="_blank">asp源码</a> <a href="http://www.jb51.net/codes/php.html" target="_blank">php源码</a> <a href="http://www.jb51.net/codes/aspnet.html" target="_blank">asp.net源码</a> <a href="http://www.jb51.net/codes/jsp.html" target="_blank">jsp源码</a> <a href="http://www.jb51.net/codes/editor.html" target="_blank">网页编辑器</a> <a href="http://www.jb51.net/codes/list123_1.html" target="_blank">数据库管理</a> <a href="http://www.jb51.net/codes/list124_1.html" target="_blank">常用组件</a> <a href="http://www.jb51.net/jiaoben/" target="_blank">脚本下载</a></div>
+        </li>
+        <li>
+          <div class="one"><a href="http://tools.jb51.net/" target="_blank">在线工具<i class="icon"></i></a></div>
+          <div class="two"> <a href="http://www.jb51.net/shouce/" target="_blank">在线手册</a> <a href="http://www.jb51.net/tools/cssyasuo.shtml" target="_blank">CSS格式化</a> <a href="http://tools.jb51.net/tools/js_geshihua.asp" target="_blank">JS格式化</a> <a href="http://www.jb51.net/tools/html-js.htm" target="_blank">Html转化为Js</a> <a href="http://tools.jb51.net/regex/javascript" target="_blank">js正则表达式</a>
+</div>
+        </li>
+        <li>
+          <div class="one"><a href="http://www.jb51.net/w3school/" target="_blank">网页教程基础</a></div>
+        </li>
+			<li>
+          <div class="one"><a href="http://s.jb51.net/" target="_blank">服务器常用软件</a></div>
+        </li>
+		<li>
+          <div class="one"><a href="http://m.jb51.net/" target="_blank">手机版</a></div>
+          <div class="two"><img src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/m.jb51.net.png" data-baiduimageplus-ignore=""></div>     
+        </li>
+        <li class="watch">
+          <div class="one"><a href="http://weibo.com/jb51net" target="_blank" rel="nofollow"><i class="icon"></i>关注微信</a></div>
+          <div class="two"><img src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/weixin_200.gif" data-baiduimageplus-ignore=""></div>
+        </li>
+      </ul>
+      <div class="navUser mt5 fr" id="jb51_topbar"> </div>
+    </div>
+    <!--topNav End -->
+  </div>
+</div>
+
+  <div class="main clearfix">
+    <div class="mtb10 clearfix">
+      <div class="logo"><a href="http://www.jb51.net/"><img src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/logo.gif" title="脚本之家" alt="脚本之家"></a></div>
+      <div class="logom fl"><span id="logo_m" class="jbTestPos"></span></div>
+      <div class="logor fr"><span id="logo_r" class="jbTestPos"></span></div>
+    </div>
+<!-- 导航-->
+<div class="nav_top clearfix">
+<ul>
+<li><a href="http://www.jb51.net/web/">网页制作</a></li>
+<li><a href="http://www.jb51.net/list/index_1.htm">网络编程</a></li>
+<li><a href="http://www.jb51.net/list/index_96.htm">脚本专栏</a></li>
+<li><a href="http://www.jb51.net/jiaoben/">脚本下载</a></li>
+<li><a href="http://www.jb51.net/list/index_104.htm">数据库</a></li>
+<li><a href="http://www.jb51.net/cms/">CMS教程</a></li>
+<li><a href="http://www.jb51.net/books/">电子书籍</a></li>
+<li><a href="http://www.jb51.net/pingmian/">平面设计</a></li>
+<li><a href="http://www.jb51.net/media/">媒体动画</a></li>
+<li><a href="http://www.jb51.net/os/">操作系统</a></li>
+<li><a href="http://www.jb51.net/yunying/">网站运营</a></li>
+<li><a href="http://www.jb51.net/hack/">网络安全</a></li>
+<li class="last"><a href="http://www.jb51.net/shouce/">在线手册</a></li>
+
+</ul>
+</div>
+
+<!--导航结束-->
+<div class="subnav clearfix">
+<ul><li><a href="http://www.jb51.net/list/list_113_1.htm" title="MsSql">MsSql</a></li>
+<li><a href="http://www.jb51.net/list/list_112_1.htm" title="Mysql">Mysql</a></li>
+<li><a href="http://www.jb51.net/list/list_252_1.htm" title="mariadb">mariadb</a></li>
+<li><a href="http://www.jb51.net/list/list_154_1.htm" title="oracle">oracle</a></li>
+<li><a href="http://www.jb51.net/list/list_155_1.htm" title="DB2">DB2</a></li>
+<li><a href="http://www.jb51.net/list/list_236_1.htm" title="mssql2008">mssql2008</a></li>
+<li><a href="http://www.jb51.net/list/list_210_1.htm" title="mssql2005">mssql2005</a></li>
+<li><a href="http://www.jb51.net/list/list_215_1.htm" title="SQLite">SQLite</a></li>
+<li><a href="http://www.jb51.net/list/list_224_1.htm" title="PostgreSQL">PostgreSQL</a></li>
+<li><a href="http://www.jb51.net/list/list_239_1.htm" title="MongoDB">MongoDB</a></li>
+<li><a href="http://www.jb51.net/list/list_242_1.htm" title="Redis">Redis</a></li>
+<li><a href="http://www.jb51.net/list/list_105_1.htm" title="Access">Access</a></li>
+<li><a href="http://www.jb51.net/list/list_132_1.htm" title="数据库文摘">数据库文摘</a></li>
+<li><a href="http://www.jb51.net/list/list_133_1.htm" title="数据库其它">数据库其它</a></li>
+</ul>
+</div>
+<div class="NavBar clearfix ptb10">
+<div class="fl w690">
+<div class="box mb15 mt10"><i class="icon"></i>您的位置：<a href="http://www.jb51.net/">首页</a> → <a href="http://www.jb51.net/list/index_104.htm" title="数据库">数据库</a> → <a href="http://www.jb51.net/list/list_112_1.htm" title="Mysql">Mysql</a> → 正文内容 MySQL子查询</div>
+</div>
+<div class="fr w300"><div class="search">
+<form action="http://so.jb51.net/cse/search" target="_blank">
+    <input type="hidden" name="s" value="10520733385329581432">
+    <input type="hidden" name="ie" value="gbk">
+    <input type="text" name="q" class="key_input" placeholder="请输入关键词">
+    <input type="submit" value="搜索" class="c_btn">
+</form></div></div>
+  </div>
+</div>
+<!--head End -->
+<div class="main mb10 clearfix">
+<div class="clearfix"><span id="tonglan1" class="jbTestPos"></span></div>
+</div>
+
+<!--content Star -->
+<div id="contents">
+ <div class="main clearfix">
+      <div class="w690 fl">
+      <div class="article-content border">
+      <div class="title">
+            <h1 class="YaHei">详细讲述MySQL中的子查询操作</h1>
+            <p>作者：杨国栋  字体：[<a href="javascript:turnbig()">增加</a> <a href="javascript:turnsmall()">减小</a>] 类型：转载 时间：2015-04-14<a href="http://www.jb51.net/article/64016.htm#comments"> 我要评论</a></p>
+        </div>
+        <div class="art_desc mt10"><div id="art_demo">这篇文章主要介绍了详细讲述MySQL中的子查询操作,文中也给出了具体的代码实例讲解,需要的朋友可以参考下</div></div>
+        <div class="lbd clearfix"><span id="art_up" class="jbTestPos"></span></div>
+        <div id="content">
+<p>继续做以下的前期准备工作：</p>
+<p>&nbsp;&nbsp;&nbsp; 新建一个测试数据库TestDB；</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<div class="jb51code">
+<pre class="brush:sql;">  create database TestDB;
+</pre>
+</div>
+<p>&nbsp;&nbsp;&nbsp; 创建测试表table1和table2；</p>
+<div class="jb51code">
+<pre class="brush:sql;">   CREATE TABLE table1
+   (
+     customer_id VARCHAR(10) NOT NULL,
+     city VARCHAR(10) NOT NULL,
+     PRIMARY KEY(customer_id)
+   )ENGINE=INNODB DEFAULT CHARSET=UTF8;
+
+   CREATE TABLE table2
+   (
+     order_id INT NOT NULL auto_increment,
+     customer_id VARCHAR(10),
+     PRIMARY KEY(order_id)
+   )ENGINE=INNODB DEFAULT CHARSET=UTF8;
+
+</pre>
+</div>
+<p>&nbsp;&nbsp;&nbsp; 插入测试数据；</p>
+<div class="jb51code">
+<pre class="brush:sql;">   INSERT INTO table1(customer_id,city) VALUES('163','hangzhou');
+   INSERT INTO table1(customer_id,city) VALUES('9you','shanghai');
+   INSERT INTO table1(customer_id,city) VALUES('tx','hangzhou');
+   INSERT INTO table1(customer_id,city) VALUES('baidu','hangzhou');
+
+   INSERT INTO table2(customer_id) VALUES('163');
+   INSERT INTO table2(customer_id) VALUES('163');
+   INSERT INTO table2(customer_id) VALUES('9you');
+   INSERT INTO table2(customer_id) VALUES('9you');
+   INSERT INTO table2(customer_id) VALUES('9you');
+   INSERT INTO table2(customer_id) VALUES('tx');
+
+</pre>
+</div>
+<p>&nbsp;&nbsp;&nbsp; 准备工作做完以后，table1和table2看起来应该像下面这样：</p>
+<div class="jb51code">
+<pre class="brush:sql;">   mysql&gt; select * from table1;
+   +-------------+----------+
+   | customer_id | city   |
+   +-------------+----------+
+   | 163     | hangzhou |
+   | 9you    | shanghai |
+   | baidu    | hangzhou |
+   | tx     | hangzhou |
+   +-------------+----------+
+   4 rows in set (0.00 sec)
+
+   mysql&gt; select * from table2;
+   +----------+-------------+
+   | order_id | customer_id |
+   +----------+-------------+
+   |    1 | 163     |
+   |    2 | 163     |
+   |    3 | 9you    |
+   |    4 | 9you    |
+   |    5 | 9you    |
+   |    6 | tx     |
+   +----------+-------------+
+   7 rows in set (0.00 sec)
+
+</pre>
+</div>
+<p>准备工作做的差不多了，开始今天的总结吧。<br>
+一个问题</p>
+<p>现在需要查询所有杭州用户的所有订单号，这个SQL语句怎么写？首先，你可以这么写：</p>
+<div class="jb51code">
+<pre class="brush:sql;">select table2.customer_id, table2.order_id from table2 join table1 on table1.customer_id=table2.customer_id where table1.city='hangzhou';
+
+</pre>
+</div>
+<p>能实现我们需要的结果。但是，我们也可以这么写：</p>
+<div class="jb51code">
+<pre class="brush:sql;">select customer_id, order_id from table2 where customer_id in (select customer_id from table1 where city='hangzhou');
+
+</pre>
+</div>
+<p>呃？在()括号中的的select语句是什么？问题来了，这到底是什么语法，怎么也可以完成任务，那么这篇博文就围绕着这个问题开始展开。<br>
+<strong>啥是子查询</strong></p>
+<p>简单的说，子查询就是：<br>
+</p>
+<p><img alt="201541491747213.png (875×250)" src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/201541491747213.png"></p>
+<p>如上图所示，子查询，有叫内部查询，相对于内部查询，包含内部查询的就称为外部查询。子查询可以包含普通select可以包括的任何子句，比如：distinct、group by、order by、limit、join和union等；但是对应的外部查询必须是以下语句之一：select、insert、update、delete、set或者do。<br>
+</p>
+<p><img alt="201541491840216.png (485×217)" src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/201541491840216.png"></p>
+<p>我们可以在where和having子句中使用子查询，将子查询得到的结果作为判断的条件。<br>
+<strong>使用比较进行子查询</strong></p>
+<p>一个子查询会返回一个标量（就一个值）、一个行、一个列或一个表，这些子查询称之为标量、行、列和表子查询。</p>
+<p>当一个子查询返回一个标量时，我们就可以在where或者having子句中使用比较符与子查询得到的结果进行直接判断。比如，我现在要得到比用户tx订单数多的customer_id、city和订单数，这个sql语句怎么写。</p>
+<p>先来说说，我写sql的一般步骤：</p>
+<ul>
+  <li>&nbsp;&nbsp;&nbsp; 读懂需求；</li>
+  <li>&nbsp;&nbsp;&nbsp; 得到比用户tx订单数多的customer_id、city和对应的订单数。</li>
+  <li>&nbsp;&nbsp;&nbsp; 看看最终需要得到哪些字段信息；</li>
+  <li>&nbsp;&nbsp;&nbsp; 最终需要得到customer_id、city和订单数信息。</li>
+  <li>&nbsp;&nbsp;&nbsp; 分析这些字段信息涉及到哪几个表；</li>
+  <li>&nbsp;&nbsp;&nbsp; 涉及到表table1和表table2。</li>
+  <li>&nbsp;&nbsp;&nbsp; 这几个表是如何关联的；</li>
+  <li>&nbsp;&nbsp;&nbsp; 表table1和表table2的关联就在于customer_id字段。</li>
+  <li>&nbsp;&nbsp;&nbsp; 分解需求，得到一个个小的需求；</li>
+  <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 需要得到tx用户的订单数；</li>
+  <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 需要得到其它用户的订单数；</li>
+  <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 比较订单数。</li>
+</ul>
+<ul>
+  <li>&nbsp;&nbsp;&nbsp; 确认每一个小需求的过滤条件；</li>
+  <li>&nbsp;&nbsp;&nbsp; 得到每个小需求的结果，进行组装，得到最终结果。</li>
+</ul>
+<p>最终，我会写出一下的sql语句：</p>
+<div class="jb51code">
+<pre class="brush:sql;">select table1.customer_id,city,count(order_id) 
+from table1 join table2 
+on table1.customer_id=table2.customer_id 
+where table1.customer_id &lt;&gt; 'tx'
+group by customer_id 
+having count(order_id) &gt; 
+            (select count(order_id) 
+             from table2 
+             where customer_id='tx' 
+             group by customer_id);
+
+</pre>
+</div>
+<p>上面的查询中使用了子查询，外部查询与子查询得到的结果进行了比较判断。如果子查询返回一个标量值（就一个值），那么外部查询就可以使用：=、&gt;、&lt;、&gt;=、&lt;=和&lt;&gt;符号进行比较判断；如果子查询返回的不是一个标量值，而外部查询使用了比较符和子查询的结果进行了比较，那么就会抛出异常。<br>
+<strong>使用ANY进行子查询</strong></p>
+<p>上面使用比较符进行子查询，规定了子查询只能返回一个标量值；但是，如果子查询返回的是一个集合，怎么办？</p>
+<p>没问题，我们可以使用：any、in、some或者all来和子查询的返回结果进行条件判断。这里先总结使用any进行子查询。</p>
+<p>any关键词必须与上面总结的比较操作符一起使用；any关键词的意思是“对于子查询返回的列中的任何一个数值，如果比较结果为TRUE，就返回TRUE”。</p>
+<p>好比“10 &gt;any(11, 20, 2, 30)”，由于10&gt;2，所以，该该判断会返回TRUE；只要10与集合中的任意一个进行比较，得到TRUE时，就会返回TRUE。</p>
+<p>比如，我现在要查询比customer_id为tx或者9you的订单数量多的用户的id、城市和订单数量。</p>
+<p>我可以得到以下的sql语句来完成需求。</p>
+<div class="jb51code">
+<pre class="brush:sql;">select table1.customer_id,city,count(order_id)
+from table1 join table2
+on table1.customer_id=table2.customer_id
+where table1.customer_id&lt;&gt;'tx' and table1.customer_id&lt;&gt;'9you'
+group by customer_id
+having count(order_id) &gt;
+any (
+select count(order_id)
+from table2
+where customer_id='tx' or customer_id='9you'
+group by customer_id);
+
+</pre>
+</div>
+<p>any的意思比较好明白，直译就是任意一个，只要条件满足任意的一个，就返回TRUE。<br>
+<strong>使用IN进行子查询</strong></p>
+<p>使用in进行子查询，这个我们在日常写sql的时候是经常遇到的。in的意思就是指定的一个值是否在这个集合中，如何在就返回TRUE；否则就返回FALSE了。</p>
+<p>in是“=any”的别名，在使用“=any”的地方，我们都可以使用“in”来进行替换。这里就不举例了，尽情的发挥想象，自行发挥吧。</p>
+<p>有了in，肯定就有了not in；not in并不是和&lt;&gt;any是同样的意思，not in和&lt;&gt;all是一个意思，关于all，下面马上就要总结了。<br>
+<strong>使用SOME进行子查询</strong></p>
+<p>some是any的别名，用的比较少。只需要理解any的意思就好了，这里就不做过多的总结。具体请参考上面的any部分的总结。<br>
+<strong>使用ALL进行子查询</strong></p>
+<p>all必须与比较操作符一起使用。all的意思是“对于子查询返回的列中的所有值，如果比较结果为TRUE，则返回TRUE”。</p>
+<p>好比“10 &gt;all(2, 4, 5, 1)”，由于10大于集合中的所有值，所以这条判断就返回TRUE；而如果为“10 &gt;all(20, 3, 2, 1, 4)”，这样的话，由于10小于20，所以该判断就会返回FALSE。</p>
+<p>&lt;&gt;all的同义词是not in，表示不等于集合中的所有值，这个很容易和&lt;&gt;any搞混，平时多留点心就好了。<br>
+<strong>标量子查询</strong></p>
+<p>根据子查询返回值的数量，将子查询可以分为标量子查询和多值子查询。在使用比较符进行子查询时，就要求必须是标量子查询；如果是多值子查询时，使用比较符，就会抛出异常。<br>
+<strong>多值子查询</strong></p>
+<p>与标量子查询对应的就是多值子查询了，多值子查询会返回一列、一行或者一个表，它们组成一个集合。我们一般使用的any、in、all和some等词，将外部查询与子查询的结果进行判断。如果将any、in、all和some等词与标量子查询，就会得到空的结果。<br>
+<strong>独立子查询</strong></p>
+<p>独立子查询是不依赖外部查询而运行的子查询。什么叫依赖外部查询？先看下面两个sql语句。</p>
+<p>sql语句1：获得所有hangzhou顾客的订单号。</p>
+<div class="jb51code">
+<pre class="brush:sql;">select order_id 
+from table2 
+where customer_id in 
+          (select customer_id 
+          from table1 
+          where city='hangzhou');
+
+</pre>
+</div>
+<p>sql语句2：获得城市为hangzhou，并且存在订单的用户。</p>
+<div class="jb51code">
+<pre class="brush:sql;">select * 
+from table1 
+where city='hangzhou' and exists
+                (select * 
+                from table2 
+                where table1.customer_id=table2.customer_id);
+
+</pre>
+</div>
+<p>上面的两条sql语句，虽然例子举的有点不是很恰当，但是足以说明这里的问题了。</p>
+<p>对于sql语句1，我们将子查询单独复制出来，也是可以单独执行的，就是子查询与外部查询没有任何关系。</p>
+<p>对于sql语句2，我们将子查询单独复制出来，就无法单独执行了，由于sql语句2的子查询依赖外部查询的某些字段，这就导致子查询就依赖外部查询，就产生了相关性。</p>
+<p>对于子查询，很多时候都会考虑到效率的问题。当我们执行一个select语句时，可以加上explain关键字，用来查看查询类型，查询时使用的索引以及其它等等信息。比如这么用：</p>
+<div class="jb51code">
+<pre class="brush:sql;">explain select order_id 
+  from table2 
+  where customer_id in 
+            (select customer_id 
+            from table1 
+            where city='hangzhou');
+
+</pre>
+</div>
+<p>使用独立子查询，如果子查询部分对集合的最大遍历次数为n，外部查询的最大遍历次数为m时，我们可以记为：O(m+n)。而如果使用相关子查询，它的遍历次数可能会达到O(m+m*n)。可以看到，效率就会成倍的下降；所以，大伙在使用子查询时，一定要考虑到子查询的相关性。</p>
+<p>关于explain的更多解释，请参考这里。<br>
+<strong>相关子查询</strong></p>
+<p>相关子查询是指引用了外部查询列的子查询，即子查询会对外部查询的每行进行一次计算。但是在MySQL的内部，会进行动态优化，会随着情况的不同会有所不同。使用相关子查询是最容易出现性能的地方。而关于sql语句的优化，这又是一个非常大的话题了，只能通过实际的经验积累，才能更好的去理解如何进行优化。</p>
+<p>关于sql的性能，我这里不能说什么，如果只是阅读其它人的文章来考虑性能问题，其实是没有任何感觉的，我们需要实际的项目中才能更好的理解。<br>
+<strong>EXISTS谓词</strong></p>
+<p>EXISTS是一个非常牛叉的谓词，它允许数据库高效地检查指定查询是否产生某些行。根据子查询是否返回行，该谓词返回TRUE或FALSE。与其它谓词和逻辑表达式不同的是，无论输入子查询是否返回行，EXISTS都不会返回UNKNOWN，对于EXISTS来说，UNKNOWN就是FALSE。还是上面的语句，获得城市为hangzhou，并且存在订单的用户。</p>
+<div class="jb51code">
+<pre class="brush:sql;">select * 
+from table1 
+where city='hangzhou' and exists
+                (select * 
+                from table2 
+                where table1.customer_id=table2.customer_id);
+
+</pre>
+</div>
+<p>使用explain查看一下，就会得到以下内容：<br>
+</p>
+<p><img alt="201541491929351.png (1082×140)" src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/201541491929351.png"></p>
+<p>我们可以很明显的看到，存在一个相关的子查询（DEPENDENT SUBQUERY）。可以看到EXISTS和IN是非常相似的，那么它们之间的区别是什么呢？</p>
+<p>关于IN和EXISTS的主要区别在于三值逻辑的判断上。EXISTS总是返回TRUE或FALSE，而对于IN，除了TRUE、FALSE值外，还有可能对NULL值返回UNKNOWN。但是在过滤器中，UNKNOWN的处理方式与FALSE相同，因此使用IN与使用EXISTS一样，SQL优化器会选择相同的执行计划。</p>
+<p>说到了IN和EXISTS几乎是一样的，但是，就不得不说到NOT IN和NOT EXISTS，对于输入列表中包含NULL值时，NOT EXISTS和NOT IN之间的差异就表现的非常大了。输入列表包含NULL值时，IN总是返回TRUE和UNKNOWN，因此NOT IN就会得到NOT TRUE和NOT UNKNOWN，即FALSE和UNKNOWN。</p>
+<div class="jb51code">
+<pre class="brush:sql;">mysql&gt; select 'c' NOT IN ('a', 'b', NULL)\G;
+
+</pre>
+</div>
+<p>执行一下上述代码，看看结果。你就会感到惊讶。<br>
+<strong>派生表</strong></p>
+<p>上面也说到了，在子查询返回的值中，也可能返回一个表，如果将子查询返回的虚拟表再次作为FROM子句的输入时，这就子查询的虚拟表就成为了一个派生表。语法结构如下：</p>
+<div class="jb51code">
+<pre class="brush:sql;">FROM (subquery expression) AS derived_table_alias
+
+</pre>
+</div>
+<p>由于派生表是完全的虚拟表，并没有也不可能被物理地具体化。<br>
+<strong>总结</strong></p>
+<p>总算总结的差不多了，当然了子查询的东西还是有很多的，不可能一篇文章就能总结的完的，这里只是把一些基本的概念，常用的知识点进行了总结，关于将子查询使用到update、delete和insert语句中的用法，我这里并没有涉及，大体上都是大同小异的。知识这个东西，展开了，就没有头了，还是需要适可而止，适当的进行深度的挖掘，但是深度最好不要超过2，关于这个2如何定义，自行把握。好了，这篇文章就到此为止了，我们下一篇见。</p>
+
+
+</div><!--endmain-->
+<div class="art_xg">
+<h4>您可能感兴趣的文章:</h4><ul><li><a href="http://www.jb51.net/article/82651.htm" title="mysql关联子查询的一种优化方法分析" target="_blank">mysql关联子查询的一种优化方法分析</a></li><li><a href="http://www.jb51.net/article/76599.htm" title="MySQL中表子查询与关联子查询的基础学习教程" target="_blank">MySQL中表子查询与关联子查询的基础学习教程</a></li><li><a href="http://www.jb51.net/article/69802.htm" title="详解MySql基本查询、连接查询、子查询、正则表达查询" target="_blank">详解MySql基本查询、连接查询、子查询、正则表达查询</a></li><li><a href="http://www.jb51.net/article/65678.htm" title="对MySQL子查询的简单改写优化" target="_blank">对MySQL子查询的简单改写优化</a></li><li><a href="http://www.jb51.net/article/65667.htm" title="浅谈MySQL中的子查询优化技巧" target="_blank">浅谈MySQL中的子查询优化技巧</a></li><li><a href="http://www.jb51.net/article/48994.htm" title="MySQL子查询的几种常见形式介绍" target="_blank">MySQL子查询的几种常见形式介绍</a></li><li><a href="http://www.jb51.net/article/46209.htm" title="Mysql子查询IN中使用LIMIT应用示例" target="_blank">Mysql子查询IN中使用LIMIT应用示例</a></li><li><a href="http://www.jb51.net/article/36359.htm" title="MySQL笔记之子查询使用介绍" target="_blank">MySQL笔记之子查询使用介绍</a></li><li><a href="http://www.jb51.net/article/35772.htm" title="MySQL查询优化:用子查询代替非主键连接查询实例介绍" target="_blank">MySQL查询优化:用子查询代替非主键连接查询实例介绍</a></li><li><a href="http://www.jb51.net/article/14062.htm" title="MySQL里面的子查询实例" target="_blank">MySQL里面的子查询实例</a></li><li><a href="http://www.jb51.net/article/82656.htm" title="MySQL子查询用法实例分析" target="_blank">MySQL子查询用法实例分析</a></li></ul>
+</div>
+<div class="lbd clearfix">
+<span id="art_down" class="jbTestPos"></span>
+</div>
+<div id="shoucang"></div>
+<div class="tags mt10">
+<strong>Tags：</strong><a href="http://img.jb51.net/tag/MySQL/1.htm" target="_blank" title="搜索关于MySQL的文章">MySQL</a> 
+</div>
+<div class="relatedarticle clearfix mt5">
+<h2>相关文章</h2>
+<ul><li><span>2016-02-02</span><a href="http://www.jb51.net/article/80172.htm" title="Keepalived+HAProxy实现MySQL高可用负载均衡的配置" target="_blank">Keepalived+HAProxy实现MySQL高可用负载均衡的配置</a></li><li><span>2013-06-06</span><a href="http://www.jb51.net/article/39186.htm" title="mysql5.0版本下载地址集合" target="_blank">mysql5.0版本下载地址集合</a></li><li><span>2009-10-10</span><a href="http://www.jb51.net/article/20511.htm" title="3步搞定纯真IP数据导入到MySQL的方法详解" target="_blank">3步搞定纯真IP数据导入到MySQL的方法详解</a></li><li><span>2015-05-05</span><a href="http://www.jb51.net/article/66966.htm" title="MySQL Semisynchronous Replication介绍" target="_blank">MySQL Semisynchronous Replication介绍</a></li><li><span>2015-06-06</span><a href="http://www.jb51.net/article/68370.htm" title="使用FriendFeed来提升MySQL性能的方法" target="_blank">使用FriendFeed来提升MySQL性能的方法</a></li><li><span>2014-12-12</span><a href="http://www.jb51.net/article/58039.htm" title="Mysql数据库锁定机制详细介绍" target="_blank">Mysql数据库锁定机制详细介绍</a></li><li><span>2011-02-02</span><a href="http://www.jb51.net/article/26357.htm" title="SQL SERVER 2005 最小安装经验" target="_blank">SQL SERVER 2005 最小安装经验</a></li><li><span>2015-11-11</span><a href="http://www.jb51.net/article/75416.htm" title="MySQL中利用索引对数据进行排序的基础教程" target="_blank">MySQL中利用索引对数据进行排序的基础教程</a></li><li><span>2012-07-07</span><a href="http://www.jb51.net/article/30923.htm" title="MySQL Order By Rand()效率分析" target="_blank">MySQL Order By Rand()效率分析</a></li><li><span>2014-12-12</span><a href="http://www.jb51.net/article/58073.htm" title="MySQL创建和删除表操作命令实例讲解" target="_blank">MySQL创建和删除表操作命令实例讲解</a></li></ul>
+</div>
+<div class="lbd clearfix mt5">
+<span id="art_down2" class="jbTestPos"></span>
+</div>
+<a href="http://www.jb51.net/article/64016.htm#comments"></a>
+<div id="comments">
+<h2>最新评论</h2>
+<div class="pd5"><div id="SOHUCS" sid="art_64016" style="width: 100%; height: auto;"><div id="SOHU_MAIN"><div id="SOHU-comment-main" class="sohu-comment-wrapper"><div id="article_info_sohu">        <div class="reset-g clear-g section-title-w  section-title-logoutStyle">
+            <div class="title-join-w">
+                <div class="join-wrap-w join-wrap-b"><strong class="wrap-name-w wrap-name-b">评论</strong><span class="wrap-join-w wrap-join-b">(<em class="join-strong-gw join-strong-bg">0</em><span node-type="involved">人参与</span><i class="gap-b">，</i><em class="join-strong-gw join-strong-bg">0</em><span node-type="comments">条评论</span>)</span></div>
+            </div>
+            <div class="title-user-w">
+                <div node-type="sohu-pact" class="title-link-w" style="display: none;"><a href="http://zt.pinglun.sohu.com/s2014/sljyhgy/index.shtml" target="_blank">搜狐“我来说两句”用户公约</a></div>
+            </div>
+        </div>
+        </div><div id="login_sohu"></div><div id="comment_sohu"><div node-type="cbox-wrapper" class="reset-g section-cbox-w"><div style="width:1px;height:1px;overflow:hidden;"><img src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/vcode.jpg" style="visibility:hidden;width:1px;height:1px;"></div><div class="clear-g cbox-block-w">
+            <div class="block-head-w">
+                <div class="head-img-w">
+                                        <a node-type="user-avatar" href="javascript:void(0)" target="_self"><img src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/pic42_null.gif" onerror="SOHUCS.isImgErr(this)" width="42" height="42" alt=""></a>
+                    </div>
+                <!--
+                -->
+            </div>
+        <div class="block-post-w block-post-default-e"><div class="post-wrap-w post-wrap-b"><div class="wrap-area-w"><div class="area-textarea-w" style="position:relative;zoom:1;z-index:9;"><textarea name="" class="textarea-fw textarea-bf">来说两句吧...</textarea></div></div><div class="clear-g wrap-action-w wrap-action-b"><div class="action-function-w action-function-b relative-z-w"><ul class="clear-g"><li class="function-face-w"><a href="javascript:void(0)" class="effect-w" title="表情"><i class="face-b"></i></a></li><li class="function-uploadimg-w"><a href="javascript:void(0)" class="effect-w" title="上传图片"><i class="uploadimg-b"></i></a><div class="uploadimg-file-w"><input class="file-fw" id="img_upload" name="file" type="file" accept="image/*"></div><div class="img-btn-cover" style="width:40px;height:40px;margin-top:-40px;z-index:-1;position: relative;"></div></li><!--<li class="function-at-w"><a href="javascript:void(0)" class="effect-w"><i class="at-b"></i></a></li>--></ul></div><div class="clear-g action-issue-w"><div class="issue-btn-w"><a href="javascript:void(0)"><button class="btn-fw btn-bf btn-fw-main">发布</button></a></div></div></div></div>
+                                    <div node-type="login-list" class="post-login-w">
+                <ul class="clear-g">
+                                                            <li style="display:block">
+                        <div class="login-wrap-w login-wrap-b">
+                            <a data-key="sina" target="_self" href="javascript:;" title="新浪微博" alt="新浪微博">
+                                <span class="wrap-icon-w icon30-sina-b"></span><span class="wrap-name-w wrap-name-b">微博登录</span>
+                            </a>
+                        </div>
+                    </li>
+                                        <li style="display:block">
+                        <div class="login-wrap-w login-wrap-b">
+                            <a data-key="qq" target="_self" href="javascript:;" title="QQ" alt="QQ">
+                                <span class="wrap-icon-w icon30-qq-b"></span><span class="wrap-name-w wrap-name-b">QQ登录</span>
+                            </a>
+                        </div>
+                    </li>
+                                        <li>
+                        <div class="login-wrap-w login-wrap-b login-wrap-phone-b">
+                            <a data-key="phone" target="_self" href="javascript:void(0)">
+                                <span class="wrap-icon-w icon30-phone-b"></span><span class="wrap-name-w wrap-name-b">手机登录</span>
+                            </a>
+                        </div>
+                    </li>
+                    </ul>
+            </div>
+            </div></div><div node-type="prompt-no-privilege" class="cbox-prompt-w" style="display: none;">
+            <span class="prompt-empty-w prompt-empty-b">等级不够，发表评论升至指定级别才能获得该特权。详情请参见<a node-type="privilege-intro" href="javascript:;">等级说明</a>。</span>
+        </div></div></div><div id="list_sort_sohu"></div><div id="list_sohu" topicid="560636086">
+        <div class="reset-g section-list-w">
+            <div class="list-comment-empty-w">
+                <div class="empty-prompt-w"><span class="prompt-null-w prompt-null-b">还没有评论，快来抢沙发吧！</span></div>
+            </div>
+        </div></div><div id="list_hot"></div><div id="page_sohu"></div><div id="more_list_sohu"></div><div id="powerby_sohu">        <div class="reset-g section-service-w">
+            <div class="service-wrap-w service-wrap-b"><a node-type="powered-by" href="http://changyan.sohu.com/?from=changyan" target="_blank">Powered by 畅言</a></div>
+        </div></div></div></div></div></div>
+</div>
+      </div><!--endborder-->
+      </div><!--end fl-->
+      
+<div class="w300 fr">
+<div class="r300 clearfix"><span id="side_up" class="jbTestPos"></span></div>
+<div class="tabTitleBar mt10 bgf borderTblue">
+<div class="borderTnone pb10 YaHei">
+<h4 class="blue">大家感兴趣的内容</h4>
+<ul class="newsList newList-in">
+<li><em class="no1">1</em><a href="http://www.jb51.net/article/23876.htm" title="mysql安装图解 mysql图文安装教程(详细说明)" target="_blank">mysql安装图解 mysql图文安装教程</a></li><li><em class="no2">2</em><a href="http://www.jb51.net/article/26505.htm" title="Can&#39;&#39;t connect to MySQL server on localhost (10061)解决方法" target="_blank">Can''t connect to MySQL server</a></li><li><em class="no3">3</em><a href="http://www.jb51.net/article/15386.htm" title="超详细mysql left join,right join,inner join用法分析" target="_blank">超详细mysql left join,right jo</a></li><li><em class="no4">4</em><a href="http://www.jb51.net/article/27458.htm" title="Mysql字符串截取函数SUBSTRING的用法说明" target="_blank">Mysql字符串截取函数SUBSTRING的</a></li><li><em class="no5">5</em><a href="http://www.jb51.net/article/23966.htm" title="MySQL日期数据类型、时间类型使用总结" target="_blank">MySQL日期数据类型、时间类型使用</a></li><li><em class="no6">6</em><a href="http://www.jb51.net/article/22734.htm" title="Mysql命令行导入sql数据" target="_blank">Mysql命令行导入sql数据</a></li><li><em class="no7">7</em><a href="http://www.jb51.net/article/39188.htm" title="windows下MySQL5.6版本安装及配置过程附有截图和详细说明" target="_blank">windows下MySQL5.6版本安装及配置</a></li><li><em class="no8">8</em><a href="http://www.jb51.net/article/25686.htm" title="MySQL数据库备份与恢复方法" target="_blank">MySQL数据库备份与恢复方法</a></li><li><em class="no9">9</em><a href="http://www.jb51.net/article/23781.htm" title="MySQL server has gone away 问题的解决方法" target="_blank">MySQL server has gone away 问题</a></li><li><em class="no10">10</em><a href="http://www.jb51.net/article/31374.htm" title="mySQL中replace的用法" target="_blank">mySQL中replace的用法</a></li>
+</ul>
+</div>
+</div>
+<div class="r300 clearfix mt10"><span id="idctu" class="jbTestPos"></span></div>
+<div class="tabTitleBar mt10 bgf borderTblue">
+<div class="borderTnone pb10 YaHei">
+<h4 class="blue">最近更新的内容</h4>
+<ul class="newsListA">
+<ul><li><a href="http://www.jb51.net/article/68377.htm" title="使用cgroups来限制MySQL企业备份服务对资源的占用" target="_blank">使用cgroups来限制MySQL企业备份服务对资</a></li><li><a href="http://www.jb51.net/article/39169.htm" title="以数据库字段分组显示数据的sql语句(详细介绍)" target="_blank">以数据库字段分组显示数据的sql语句(详细</a></li><li><a href="http://www.jb51.net/article/74974.htm" title="Yii 连接、修改 MySQL 数据库及phpunit 测试连接" target="_blank">Yii 连接、修改 MySQL 数据库及phpunit 测</a></li><li><a href="http://www.jb51.net/article/28217.htm" title="MySQL简化输入小技巧" target="_blank">MySQL简化输入小技巧</a></li><li><a href="http://www.jb51.net/article/25670.htm" title="使MySQL查询区分大小写的实现方法" target="_blank">使MySQL查询区分大小写的实现方法</a></li><li><a href="http://www.jb51.net/article/74684.htm" title="详解MySQL插入和查询数据的相关命令及语句使用" target="_blank">详解MySQL插入和查询数据的相关命令及语句</a></li><li><a href="http://www.jb51.net/article/74599.htm" title="解决Mysql服务器启动时报错问题的方法" target="_blank">解决Mysql服务器启动时报错问题的方法</a></li><li><a href="http://www.jb51.net/article/29447.htm" title="linux修改mysql数据库文件的路径" target="_blank">linux修改mysql数据库文件的路径</a></li><li><a href="http://www.jb51.net/article/27553.htm" title="mysql下为数据库设置交叉权限的方法" target="_blank">mysql下为数据库设置交叉权限的方法</a></li><li><a href="http://www.jb51.net/article/25190.htm" title="CentOS mysql安装系统方法" target="_blank">CentOS mysql安装系统方法</a></li></ul>
+</ul>
+</div>
+</div>   
+<div class="r300 clearfix mt10"><span id="idctu1" class="jbTestPos"></span></div>
+<div class="tabTitleBar mt10 bgf borderTblue">
+<div class="borderTnone pb10 YaHei">
+<h4 class="blue">常用在线小工具</h4>
+<ul class="newsListA"><span id="bctools" class="jbTestPos"></span></ul>
+</div>
+</div>
+<div class="r300 clearfix mt10" id="idctu2"><span id="idctu2" class="jbTestPos"></span></div>
+<div class="mt10 rFixedBox">
+<span id="r_2" class="jbTestPos"></span>
+</div>
+      
+      
+      </div><!--end fr-->
+      </div>
+</div><!--end content-->
+<div id="footer">
+<div class="main clearfix">
+<p>
+<a href="http://www.jb51.net/about.htm" target="_blank">关于我们</a> - 
+<a href="http://www.jb51.net/support.htm" target="_blank">广告合作</a> - 
+<a href="http://www.jb51.net/linkus.htm" target="_blank">联系我们</a> -  
+<a href="http://www.jb51.net/sm.htm" target="_blank">免责声明</a> -  
+<a href="http://www.jb51.net/sitemap.htm" target="_blank">网站地图</a> - 
+<a href="tencent://message/?uin=461478385&Site=http://www.jb51.net" target="_blank">投诉建议</a> - 
+<a href="http://www.jb51.net/up.htm" target="_blank">在线投稿</a>
+</p>
+<p>&#169;CopyRight 2006-2016 JB51.Net Inc All Rights Reserved. 脚本之家 版权所有</p>
+</div>
+</div><!--end footer-->
+<link type="text/css" rel="stylesheet" href="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/shCore.css">
+<link type="text/css" rel="Stylesheet" href="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/shThemeDefault.css">
+<script type="text/javascript" src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/shCore.js"></script>
+<script type="text/javascript" src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/shAutoloader.js"></script>
+<script type="text/javascript"> 
+if (top.location != self.location)top.location=self.location;
+$('#content').find('img').each(function(){
+        var img = this;
+        if (img.width >= 650){
+            img.style.width = "650px";
+            img.style.height = "auto";
+            //$(img).removeAttr('height');
+            var aTag = document.createElement('a');
+            aTag.href = img.src;
+			aTag.target="_blank";
+            $(aTag).addClass('bPic')
+            .insertAfter(img).append(img)
+          }
+    });
+ $(window).scroll(function()
+    {	
+    	//rFixedBox跟随滚动
+    	var h = $(window).height();
+        var top = $(window).scrollTop();
+    	var rFixedBox = $('.rFixedBox').prev().offset();
+        var fixedTop = rFixedBox.top;
+		
+        if(top>=fixedTop+344)
+        {
+			var h1 = parseInt($('#content').children('.main').height());
+			if(parseInt(top) + 340 < h1){
+				$('.rFixedBox').css({'position':'fixed','top': 0});
+			}else{
+				$('.rFixedBox').css({'position':'absolute','top': h1-510});
+			}
+        }
+        else
+        {
+            $('.rFixedBox').css({'position':'static', 'top':0});   
+        }	
+       /* return true;*/
+    });
+SyntaxHighlighter.autoloader(
+	'applescript			/jslib/syntaxhighlighter/scripts/shBrushAppleScript.js',
+	'actionscript3 as3		/jslib/syntaxhighlighter/scripts/shBrushAS3.js',
+	'bash shell				/jslib/syntaxhighlighter/scripts/shBrushBash.js',
+	'coldfusion cf			/jslib/syntaxhighlighter/scripts/shBrushColdFusion.js',
+	'cpp c					/jslib/syntaxhighlighter/scripts/shBrushCpp.js',
+	'obj-c objc				/jslib/syntaxhighlighter/scripts/shBrushObjC.js',
+	'c# c-sharp csharp		/jslib/syntaxhighlighter/scripts/shBrushCSharp.js',
+	'css					/jslib/syntaxhighlighter/scripts/shBrushCss.js',
+	'delphi pascal			/jslib/syntaxhighlighter/scripts/shBrushDelphi.js',
+	'diff patch pas			/jslib/syntaxhighlighter/scripts/shBrushDiff.js',
+	'erl erlang				/jslib/syntaxhighlighter/scripts/shBrushErlang.js',
+	'groovy					/jslib/syntaxhighlighter/scripts/shBrushGroovy.js',
+	'haxe hx				/jslib/syntaxhighlighter/scripts/shBrushHaxe.js',
+	'java					/jslib/syntaxhighlighter/scripts/shBrushJava.js',
+	'jfx javafx				/jslib/syntaxhighlighter/scripts/shBrushJavaFX.js',
+	'js jscript javascript	/jslib/syntaxhighlighter/scripts/shBrushJScript.js',
+	'perl pl				/jslib/syntaxhighlighter/scripts/shBrushPerl.js',
+	'php					/jslib/syntaxhighlighter/scripts/shBrushPhp.js',
+	'text plain				/jslib/syntaxhighlighter/scripts/shBrushPlain.js',
+	'py python				/jslib/syntaxhighlighter/scripts/shBrushPython.js',
+	'ruby rails ror rb		/jslib/syntaxhighlighter/scripts/shBrushRuby.js',
+	'scala					/jslib/syntaxhighlighter/scripts/shBrushScala.js',
+	'sql					/jslib/syntaxhighlighter/scripts/shBrushSql.js',
+	'vb vbnet				/jslib/syntaxhighlighter/scripts/shBrushVb.js',
+	'ps powershell			/jslib/syntaxhighlighter/scripts/shBrushPowerShell.js',
+	'xml xhtml xslt html	/jslib/syntaxhighlighter/scripts/shBrushXml.js'
+);
+SyntaxHighlighter.all();
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script type="text/javascript" src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/jbLoader.js"></script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<div id="tongji">
+<script type="text/javascript" src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/tongji.js"></script>
+<script>
+(function(){
+var appid = 'cyrHH3dwi',
+conf = 'prod_1dc5dc80970106099d43fe242b7465fc';
+var doc = document,
+s = doc.createElement('script'),
+h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+s.type = 'text/javascript';
+s.charset = 'utf-8';
+s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+h.insertBefore(s,h.firstChild);
+window.SCS_NO_IFRAME = true;
+})();
+</script>
+</div>
+<script type="text/javascript" src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/pl.asp"></script>
+<script type="text/javascript" charset="utf-8" src="./详细讲述MySQL中的子查询操作_Mysql_脚本之家_files/saved_resource"></script>
+
+
+<!-- published at 2016-5-8 23:18:44By dxycms qq:461478385  -->
+</div></body></html>

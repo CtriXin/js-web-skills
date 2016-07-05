@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		function BaseClass(){
+			var value='value';
+			this.nick='bajian';
+		}
+		BaseClass.log=function(){
+		console.log('static->'+BaseClass.nick)//undefined
+		// console.log('static->'+value)//value is not defined
+	}
+
+	BaseClass.log();
+
+	var U=(function(){
+		var canFly=true;
+		var len=0;
+		var User=function(){
+			this.nick='bajian';
+			this.age=23;
+
+		}
+		User.prototype.log = function(first_argument) {
+		console.log(this.nick)//bajian
+	};
+	User.prototype.IsCanFly=function(){
+		console.log('IsCanFly->'+canFly)
+		return canFly;
+	}
+	User.prototype.setCanFly=function(boolean){
+		canFly=boolean;
+	}
+
+	User.prototype.add=function(){
+		len++;
+		console.log('len->'+len)
+	}
+
+	return new User();
+})();
+U.log();
+U.IsCanFly();
+U.setCanFly(false);
+
+U.IsCanFly();
+U.add();
+U.add();
+U.add();
+console.log('age '+U.age)
+
+//这种方式无法私有变量
+var T={
+	name:'bajian',
+	log:function(){
+		console.log(this.name);
+	}
+}
+T.log();
+</script>
+</body>
+</html>
