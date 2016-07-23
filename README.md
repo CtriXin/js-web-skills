@@ -1,6 +1,7 @@
 ### js-web-skills
 js web 相关总结
 [1秒破解 js packer 加密](http://www.cnblogs.com/52cik/p/js-unpacker.html)
+
 [了解一下幂等](http://macrochen.iteye.com/blog/678683)
 
 ***
@@ -22,6 +23,391 @@ $obj=(object)[];
 
 
 ```
+
+***
+####当运用了闭包后，全局作用域内的方法没法调用闭包内的函数时候，可以用观察者模式，在闭包内监听
+```
+闭包内：
+$(document).on('refreshAttendance',function(e,search){
+if (search) {
+getAttendanceByDate(B_util.refreshDate(),function(){
+$('#btn_name_first_search').trigger('click')
+});
+}else{
+getAttendanceByDate(B_util.refreshDate());
+}
+全局：
+        B_util.resign=function(studentId,search){
+            if (!studentId) return;
+            var ct=studentId=='all'?'请老师核实，所有学生是否已到校？':'请老师核实，该学生是否已到校？';
+            A.confirm(ct,function(){
+                A.showMask();
+                myajax.post(B_url.resign_attendance,{studentID:studentId},function(data){
+                    A.hideMask();
+                    if (data.code==0) {
+                        A.showToast('处理成功');
+                        delete B_user.cacheAttendance[B_util.refreshDate()];
+                        B_user.cacheSearch={};
+                        $(document).trigger('refreshAttendance',search);//关键
+                    }
+                },'',function(){
+                    A.hideMask();
+                });
+            });
+        }
+
+});
+
+```
+
+***
+####js陷阱题
+```
+<script type="text/javascript"> 
+var aColors = ["red", "green", "blue"]; 
+alert(typeof aColors[0]); //output "string" 
+alert(aColors[0] instanceof String); //output "false"; 
+</script> 
+
+你要区分string 与 String的区别 
+aColors[0] 是 string值类型， 当然不是String的实例啦。参考下面代码 
+var aColors = ["red", "green", "blue"]; 
+aColors[0]= new String("1") 
+alert(typeof aColors[0]); //output "Object" 
+alert(aColors[0] instanceof String); //output "true";
+
+
+var val = 'smtg';
+console.log('Value is ' + (val === 'smtg') ? 'Something' : 'Nothing');
+//Something
+
+
+var name = 'World!';
+(function () {
+    if (typeof name === 'undefined') {
+        var name = 'Jack';
+        console.log('Goodbye ' + name);
+    } else {
+        console.log('Hello ' + name);
+    }
+})();
+//Goodbye Jack（原因请看本read me中的另一个地方。。。有讲这个作用域问题）
+
+
+function showCase(value) {
+    switch(value) {
+    case 'A':
+        console.log('Case A');
+        break;
+    case 'B':
+        console.log('Case B');
+        break;
+    case undefined:
+        console.log('undefined');
+        break;
+    default:
+        console.log('Do not know!');
+    }
+}
+showCase(new String('A'));
+//Do not know! 原因同第一题
+
+
+function showCase2(value) {
+    switch(value) {
+    case 'A':
+        console.log('Case A');
+        break;
+    case 'B':
+        console.log('Case B');
+        break;
+    case undefined:
+        console.log('undefined');
+        break;
+    default:
+        console.log('Do not know!');
+    }
+}
+showCase2(String('A'));
+//Case A（String(x) does not create an object but does return a string, i.e. typeof String(1) === "string" ）
+
+
+function isOdd(num) {
+    return num % 2 == 1;
+}
+function isEven(num) {
+    return num % 2 == 0;
+}
+function isSane(num) {
+    return isEven(num) || isOdd(num);
+}
+var values = [7, 4, '13', -9, Infinity];
+values.map(isSane);
+//[true, true, true, false, false] （Infinity % 2 gives NaN, -9 % 2 gives -1 (modulo operator keeps sign so it's result is only reliable compared to 0)）
+
+
+parseInt(3, 8)//3
+parseInt(3, 2)//NaN
+parseInt(3, 0)//3
+
+Array.isArray( Array.prototype )//true
+
+[]==[]//false （两个object类型的，除非指针相同）
+
+
+'5' + 3//'53'
+'5' - 3//2
+
+1 + - + + + - + 1//2
+-+1和+-1等于-1，所以
+1 + - + ( - + 1)等于2
+1 + - + - - + 1等于 1-1等于0
+1 + - + + + - + 1等于 1-（-1）等于2
+
+
+var ary = Array(3);
+ary[0]=2
+ary.map(function(elem) { return '1'; });
+//["1", undefined × 2]（The result is ["1", undefined × 2], as map is only invoked for elements of the Array which have been initialized. ）
+
+
+var a = 111111111111111110000,
+    b = 1111;
+a + b;
+//111111111111111110000（Lack of precision for numbers in JavaScript affects both small and big numbers. ）
+
+
+Number.MIN_VALUE > 0//true（Number.MIN_VALUE is the smallest value bigger than zero, -Number.MAX_VALUE gets you a reference to something like the most negative number. ）
+
+
+[1 < 2 < 3, 3 < 2 < 1]//[true, true] （This is parsed as (1 < 2) < 3 and (3 < 2) < 1. Than it's implicit conversions at work: true gets intified and is 1, while false gets intified and becomes 0. ）
+
+
+2 == [[[2]]]//true（both objects get converted to strings and in both cases the resulting string is "2" ）
+
+
+3.toString()
+3..toString()
+3...toString()
+//error, "3", error（3.x is a valid syntax to define "3" with a mantissa（尾数） of x, toString is not a valid number, but the empty string is. ）
+//收获: 3.5.toString() -> '3.5' 
+
+
+(function(){
+  var x = y = 1;
+})();
+console.log(y);//1（y没用var定义，被提升为全局变量，卧槽，定义的时候要注意了，不要贪图方便）
+console.log(x);//Uncaught ReferenceError: x is not defined
+
+
+var a = /123/,
+    b = /123/;
+a == b//false
+a === b//false（regular expression objects）
+
+
+var a = [1, 2, 3],
+    b = [1, 2, 3],
+    c = [1, 2, 4]
+a ==  b
+a === b
+a >   c
+a <   c//false, false, false, true（Arrays are compared lexicographically with > and <, but not with == and === ）
+
+
+function foo() { }
+var oldName = foo.name;
+foo.name = "bar";
+[oldName, foo.name]//["foo", "foo"]（收获; 函数的name是只读属性,赋值无效,但不抛出异常. ）
+
+
+function f() {}
+var parent = Object.getPrototypeOf(f);
+f.name // ?
+parent.name // ?
+typeof eval(f.name) // ?
+typeof eval(parent.name) //  ?
+//"f", "Empty", "function", error（The function prototype object is defined somewhere, has a name, can be invoked, but it's not in the current scope. ）
+
+
+var lowerCaseOnly =  /^[a-z]+$/;
+[lowerCaseOnly.test(null), lowerCaseOnly.test()]
+//[true, true] （要通过开发的角度去看问题。。。获取不到参数的参数就是undefined）
+the argument is converted to a string with the abstract ToString operation, so it is "null" and "undefined". 
+
+
+[,,,].join(", ")//", , " （JavaScript allows a trailing comma when defining arrays, so that turns out to be an array of three undefined. ）
+[,,,].length//3
+[0,0,0,].length//3
+[0,0,0,''].length//4
+[0,0,0,undefined].length//4
+
+
+var a = {class: "Animal", name: 'Fido'};
+a.class//error class是保留字
+
+
+var a = new Date("epoch")//"Invalid Date", 
+
+
+var min = Math.min(), max = Math.max()
+min < max//false，反过来了
+
+
+function captureOne(re, str) {
+  var match = re.exec(str);
+  return match && match[1];
+}
+var numRe  = /num=(\d+)/ig,
+    wordRe = /word=(\w+)/i,
+    a1 = captureOne(numRe,  "num=1"),
+    a2 = captureOne(wordRe, "word=1"),
+    a3 = captureOne(numRe,  "NUM=2"),
+    a4 = captureOne(wordRe,  "WORD=2");
+[a1 === a2, a3 === a4]//[true, false]
+因为第一个正则有一个 g 选项 它会‘记忆’他所匹配的内容, 等匹配后他会从上次匹配的索引继续, 而第二个正则不会
+
+
+if ('http://giftwrapped.com/picture.jpg'.match('.gif')) {
+  'a gif file'
+} else {
+  'not a gif file'
+}
+//a gif file（String.prototype.match silently converts the string into a regular expression, without escaping it, thus the '.' becomes a metacharacter matching '/'. ）
+
+
+
+function foo(a) {
+    var a;//因为只有声明没有赋值，所以js不会重新初始化，就比如 var a=666;var a; console.log(a)//666
+    return a;
+}
+function bar(a) {
+    var a = 'bye';
+    return a;
+}
+[foo('hello'), bar('hello')]//["hello", "bye"] 变量提升。。原因请看本read me中的另一个地方。。。http://www.cnblogs.com/damonlan/archive/2012/07/01/2553425.html
+(function(){
+    var a='One';
+    var b='Two';
+    var c='Three';
+})()
+实际上它是这样子的：
+(function(){
+    var a,b,c;
+    a='One';
+    b='Two';
+    c='Three';
+})()
+
+摘自http://javascript-puzzlers.herokuapp.com/号称js8级。。。我第一次只对了19题QAQ
+```
+
+***
+####php设置error_reporting(E_ALL) 还是无效的原因
+```
+ini文件配置问题。
+
+ini_set('display_errors','On');
+error_reporting(E_ALL);
+```
+
+
+***
+####给项目添加POST参数的日志
+```
+
+if ($_SERVER['REQUEST_METHOD']=='POST')
+    Log::debug($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],$_POST);
+
+GET可以直接交给nginx设置，但是post参数就不能了（按百度设置了啥query_...参数的也无效，奇怪，有成功的麻烦告诉我）
+    server {
+listen 80;
+server_name test.wechat.hzsb365.com;
+access_log /data/wwwlogs/test.wechat.hzsb365.com_nginx.log combined;
+index index.html index.htm index.php;
+include /usr/local/nginx/conf/laravel.conf;
+root /home/hgx/hzsbTest/public;
+
+
+location ~ [^/]\.php(/|$) {
+    #fastcgi_pass remote_php_ip:9000;
+    fastcgi_pass unix:/dev/shm/php-cgi.sock;
+    fastcgi_index index.php;
+    include fastcgi.conf;
+    }
+location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|flv|ico)$ {
+    expires 30d;
+    access_log off;
+    }
+location ~ .*\.(js|css)?$ {
+    expires 7d;
+    access_log off;
+    }
+}
+
+```
+
+
+####webAPP中若要让软键盘弹出的时候某些按钮不跟着上浮，就必须保持它与表单的position都为relative，不能是absolute fixed之类的
+
+
+***
+####[算法]求出所有给出的数的排列组合
+```
+//求出所有给出的数的排列组合
+//个人解法，仅供参考，无标准答案
+$arr=[1,2,3,4,5,6,7,8,9,10];
+$subArr=[];
+
+collect($subArr,join(',',$arr));
+foreach ($arr as $key => $value) {
+    collect($subArr,$value);
+}
+
+$len=count($arr);
+    for($i=0;$i<$len;$i++){
+        for ($j=0; $j <$len ; $j++) { 
+            toSpliceFromOffset($arr,$i,$subArr,$j);
+        }
+    }
+
+print_r($subArr);
+
+function toSpliceFromOffset($arr,$i,&$subArr,$offset){
+        array_splice($arr,$i,1);
+        collect($subArr,join(',',$arr));
+        if (count($arr)>2) {
+            toSpliceFromOffset($arr,$offset,$subArr,$offset-1);
+        }
+}
+
+function collect(&$subArr,$pushArrString){
+    foreach ($subArr as $key => $value) {
+        if ($value===$pushArrString) {
+            return;
+        }
+    }
+    array_push($subArr,$pushArrString);
+}
+
+```
+
+***
+####https和http同步session
+```
+https域登录，获得sessionid，然后重定向到http,get请求里带上sessionid（加密），http域写入sessionid，重定向到http域登录成功页
+http://www.gy0929.com/wz/1312.html
+//可以参考B站的登录，原理大致相同
+```
+
+***
+####visibility hidden
+```
+
+<a style="visibility: hidden;" href="">bajian2</a><!-- 占位hidden， 可应用于清楚浮动 -->
+<!-- display none 是不占位的 -->
+```
+
 ***
 ####setTimeout传参数
 ```
@@ -76,6 +462,8 @@ mysql数据库replace、regexp的用法 http://www.jb51.net/article/27997.htm
 特别注意中文的话：
 SELECT * FROM table1 a WHERE a.`city` REGEXP '(呵){2}'
 
+善用mysql的时间函数
+UPDATE `xsk_command` SET `begin_time`=DATE_ADD(now(),INTERVAL 10 SECOND), send_times = 0 WHERE id=
 ```
 
 ***
