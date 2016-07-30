@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>bajian</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+</head>
+<body>
+	微信分享测试..
+	<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js?X"></script>
+	<script type="text/javascript">
+
+		$.ajax({url:'http://zhjy.wechat.hzsb365.com/cors/wxjs?url='+location.href,dataType:'json',success:function(data){
+			if (!data||!data.appId) return console.error('get error'+JSON.stringify(data));
+			wx.config({
+				debug: true,
+				appId: data.appId,
+				timestamp: data.timestamp,
+				nonceStr: data.nonceStr,
+				signature: data.signature,
+				jsApiList: [
+				'checkJsApi',
+				'onMenuShareTimeline',
+				'onMenuShareAppMessage',
+				'onMenuShareQQ',
+				'onMenuShareWeibo',
+				'onMenuShareQZone'
+				]
+			});
+		}});
+		// 可以把description写在每页的meta里，然后把整个分享封装成模块，便于浏览器缓存
+		wx.ready(function(){
+			wx.onMenuShareAppMessage({
+				title: '互联网之子',
+				desc: '在长大的过程中，我才慢慢发现，我身边的所有事，别人跟我说的所有事，那些所谓本来如此，注定如此的事，它们其实没有非得如此，事情是可以改变的。更重要的是，有些事既然错了，那就该做出改变。',
+				link: 'http://movie.douban.com/subject/25785114/',
+				imgUrl: 'http://demo.open.weixin.qq.com/jssdk/images/p2166127561.jpg'
+			});
+		});
+
+	</script>
+</body>
+</html>

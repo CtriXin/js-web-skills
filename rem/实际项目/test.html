@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<script type="text/javascript">
+
+	(function (doc, win) {
+          var docEl = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function () {
+              var clientWidth = docEl.clientWidth;
+              if (!clientWidth) return;
+              if (clientWidth>640) clientWidth=640;
+              docEl.style.fontSize = 24 * (clientWidth / 640) + 'px';
+              console.log(24 * (clientWidth / 640))//chrome不能小于12！考虑最小320所以基准至少要大于24
+              // console.log(ttt.clientWidth)//chrome不能小于12！考虑最小320所以基准至少要大于24
+            };
+
+          if (!doc.addEventListener) return;
+          win.addEventListener(resizeEvt, recalc, false);
+          doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+</script>
+	<style type="text/css">
+	/*640下的标准：24px=1rem*/
+
+	.container{
+		width: 24.375rem;/* 585px */
+		height: 9.54166667rem;/* 229px */
+		margin: 0px auto;
+		border: 1px solid #478fd9;
+	}
+	.container .head{
+		width: inherit;
+		height: 2.375rem;/* 57px */
+		background-color: #478fd9;
+		color: white;
+		vertical-align: middle;
+		font-weight: 2.375rem;/* 57px */
+	}
+	.container .head>img{
+		width: 1.25rem;/* 30px */
+		height: 1.25rem;/* 30px */
+		margin-left: .41666667rem;/* 10px */margin-top: .56541667rem;/* 13.57px */
+	}
+	.container .head>span{
+		line-height: 1.25rem;/* 30px */margin-left: .41666667rem;/* 10px */
+	}
+	.container .content{
+		margin: .30833333rem .71666667rem;color: #478fd9;
+	}
+
+	</style>
+</head>
+<body>
+<div id="ttt" class="container">
+	<div class="head"><img src="../rem.png"><span>英语科任：bajian</span></div>
+	<div class="content">
+		bajian：1234567890
+	</div>
+</div>
+</body>
+</html>

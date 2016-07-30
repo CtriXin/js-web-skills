@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>bajian</title>
+	<style type="text/css">
+	html {font-size: 62.5%;/*10 ÷ 16 × 100% = 62.5% */}
+body {font-size: 1.4rem;/*1.4 × 10px = 14px */}
+h1 { font-size: 2.4rem;/*2.4 × 10px = 24px*/}
+#b{
+	width: 2rem;height: 2rem;background-color: #444;
+}
+</style>
+</head>
+<body>
+	<div id="b"></div>
+</body>
+<script src="http://static.snewfly.com/zepto.min.js"></script>
+<script type="text/javascript">
+	alert($('#b').width());//24,因为chrome最小单位是12px！！！！！！而不是10px，好在android 和IOS都没问题
+	// https://www.zhihu.com/question/21504656 匿名用户
+</script>
+</html>

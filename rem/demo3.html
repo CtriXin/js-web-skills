@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>bajian</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<style type="text/css">
+	html {/*10 ÷ 16 × 100% = 62.5% */}
+body {font-size: 1.4rem;/*1.4 × 10px = 14px */}
+h1 { font-size: 2.4rem;/*2.4 × 10px = 24px*/}
+#b{
+	width: 5rem;height: 5rem;background-color: #444;
+}
+#c{
+	width: 
+}
+</style>
+</head>
+<body>
+	<div id="b"></div>
+	<div style="width: 50px;height: 50px;background-color: #444;"></div>
+	<div id="c"></div>
+	<div style="width: 100px;height: 100px;background-color: #666;"></div>
+</body>
+<script src="http://static.snewfly.com/zepto.min.js"></script>
+<script type="text/javascript">
+	alert($('#b').width());//24,因为chrome最小单位是12px！！！！！！而不是10px，好在android 和IOS都没问题
+	// https://www.zhihu.com/question/21504656 匿名用户
+</script>
+</html>

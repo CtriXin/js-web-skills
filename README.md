@@ -1,5 +1,8 @@
 ### js-web-skills
 js web 相关总结
+
+***
+
 [1秒破解 js packer 加密](http://www.cnblogs.com/52cik/p/js-unpacker.html)
 
 [了解一下幂等](http://macrochen.iteye.com/blog/678683)

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>bajian</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<style type="text/css">
+	html {font-size: 62.5%;/*10 ÷ 16 × 100% = 62.5% */}
+body {font-size: 1.4rem;/*1.4 × 10px = 14px */}
+h1 { font-size: 2.4rem;/*2.4 × 10px = 24px*/}
+#b{
+	width: 5rem;height: 5rem;background-color: #444;width:3.125rem;/* 50px */
+}
+#c{
+	width: 10rem;height: 10rem;background-color: #666;
+}
+</style>
+</head>
+<body>
+	<div id="b"></div>
+	<div style="width: 50px;height: 50px;background-color: #444;"></div>
+	<div id="c"></div>
+	<div style="width: 100px;height: 100px;background-color: #666;"></div>
+</body>
+<script src="http://static.snewfly.com/zepto.min.js"></script>
+<script type="text/javascript">
+	alert($('#b').width());//24,因为chrome最小单位是12px！！！！！！而不是10px，好在android 和IOS都没问题
+	// https://www.zhihu.com/question/21504656 匿名用户
+	// http://www.w3cplus.com/css3/define-font-size-with-css3-rem
+	// getComputedStyle(window.document.documentElement)['font-size']
+	// html {font-size:20px;的时候1rem=20px;
+		// http://isux.tencent.com/web-app-rem.html
+	
+
+		(function (doc, win) {
+          var docEl = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function () {
+              var clientWidth = docEl.clientWidth;
+              if (!clientWidth) return;
+              docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+            };
+
+          if (!doc.addEventListener) return;
+          win.addEventListener(resizeEvt, recalc, false);
+          doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+</script>
+</html>
