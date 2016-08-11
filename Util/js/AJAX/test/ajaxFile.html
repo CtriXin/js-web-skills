@@ -14,13 +14,15 @@
 	<button id="login" type="button">login</button>
 	<button id="get" type="button">get</button>
 	<button id="fileup" type="button">file</button>
+	<button id="export" type="button">export</button>
 
 
 
 	<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
 	<!-- <script src="http://static.snewfly.com/zepto.min.js"></script> -->
 	<!-- <script type="text/javascript" src="http://static.snewfly.com/myajax1.3.min.js?30"></script> -->
-	<script type="text/javascript" src="../myajax1.5.js?30"></script>
+	<script type="text/javascript" src="http://static.snewfly.com/myajax1.5.min.js"></script>
+	<script type="text/javascript" src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"></script>
 	<script type="text/javascript">
 // http://www.jianshu.com/p/46e6e03a0d53
 
@@ -67,24 +69,35 @@ myajax.defaultMiddleware=function(data){
 };
 myajax.defaultFailCallback=function(data){
 	alert('错误');
+	console.log(data);
 };
 
+// $('#export').click(function(){
+// 	myajax.get('http://school.hzsb365.com/jxhd/school/student/exportToFile',
+// 		{},function(data){
+// 			console.log(data);
+// 			console.log(data.length);
+// 			var blob = new Blob([data], {type:"application/octet-stream"});
+// saveAs(blob, "aaa.xlsx");
+// 		},'text')
+// });
+// Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
 $('#upload').click(function(){
 	// var formdata=new FormData($('#form1')[0]);
-
+// http://school.hzsb365.com/jxhd/school/student/exportToFile?classId[]=10&classId[]=11
 	var formData = new FormData();
 formData.append('file', $('#file')[0].files[0]);
 formData.append('note', $('#ip').val());
 formData.append('classID', 26);
 $.ajax({
-    url: 'http://bxjtest.snewfly.com/jxhd/teacher/grade/publish',
+    url: 'http://school.hzsb365.com/jxhd/school/student/addByFile',
     type: 'POST',
     cache: false,
     data: formData,
     processData: false,
     contentType: false
 }).done(function(res) {
-	alert('done');
+	alert(res);
 }).fail(function(res) {
 	alert('fail');
 });

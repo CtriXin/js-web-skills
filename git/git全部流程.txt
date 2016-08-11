@@ -1,0 +1,35 @@
+cd /home/hgx/gitserver
+
+mkdir rep.git
+
+cd ../..
+
+git clone gitserver/rep.git/
+
+创建post-receive文件hook自动部署脚本放置于/home/hgx/gitserver/rep.git/hooks
+
+#!/bin/sh
+unset GIT_DIR
+GIT_WORK_TREE=/home/hgx/rep
+
+cd ${GIT_WORK_TREE}
+git add . -A && git stash
+git pull origin master
+
+echo "done!"
+
+最后，为 post-receive 添加可执行权限
+
+
+
+
+远程
+git clone root@120.24.49.37:/home/hgx/gitserver/rep.git/
+SnewFly2016!@2016
+或者
+git clone root:SnewFly2016!@2016@120.24.49.37:/home/hgx/gitserver/rep.git/
+然后用gui或者命令行push就行了，全自动部署到项目上
+
+
+
+http://www.tuicool.com/articles/3QRB7jU

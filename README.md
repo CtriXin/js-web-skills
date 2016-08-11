@@ -1,11 +1,13 @@
 ### js-web-skills
-js web 相关总结
+js web 相关总结,难度不分先后，随意插入的
 
 ***
 
 [1秒破解 js packer 加密](http://www.cnblogs.com/52cik/p/js-unpacker.html)
 
 [了解一下幂等](http://macrochen.iteye.com/blog/678683)
+
+[用JS在浏览器中创建下载文件](http://www.jb51.net/article/47723.htm)
 
 ***
 ####细说PHP中strlen和mb_strlen的区别
@@ -25,6 +27,255 @@ $obj=(object)null;
 $obj=(object)[];
 
 
+```
+***
+####随机数 （值得学习的思维）
+```js
+var generateRandomAlphaNum=function (len) {
+        var rdmString = '';
+        for (; rdmString.length < len; rdmString += Math.random().toString(36).substr(2));
+        return rdmString.substr(0, len);
+    };
+```
+
+***
+####将增删改查cookie操作都用一个函数搞定
+```js
+var myCookie=function (cookieName, cookieValue, day) {
+        var readCookie = function (name) {
+            var arr,
+                reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)'),
+                matched = document.cookie.match(reg);
+            if(arr = matched) {
+                return unescape(arr[2]);
+            } else {
+                return null;
+            }
+        };
+        var setCookie = function (name, value, time) {
+            var Days = time || 30;
+            var exp = new Date();
+            exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+            document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+        };
+        if (cookieName && cookieValue) {
+            //set cookie
+            setCookie(cookieName, cookieValue, day);
+        } else if (cookieName && $.isNull(cookieValue)) {
+            //delete cookie
+            setCookie(cookieName, '', -1);
+        } else if (cookieName) {
+            //read cookie
+            return readCookie(cookieName);
+        }
+    };
+```
+
+***
+####js timeUtil 时间格式化函数
+```js
+    var timeUtil={
+      parseTime:function (format,timeStamp) {//format可空，默认YYYY-MM-DD hh:mm:ss，timeStamp可空，默认当前时间
+      //timeUtil.parseTime('YYYY-MM-DD hh:mm:ss',new Date().getTime()) ->"2016-08-03 16:14:12"
+        var date = new Date(timeStamp||Date.now()),
+        o = { 
+            'M+' : date.getMonth() + 1, //month 
+            'D+' : date.getDate(), //day 
+            'h+' : date.getHours(), //hour 
+            'm+' : date.getMinutes(), //minute 
+            's+' : date.getSeconds(), //second 
+            'S' : date.getMilliseconds() //millisecond 
+        },
+        format=format||'YYYY-MM-DD hh:mm:ss';
+
+        if(/(Y+)/.test(format)) {
+            format = format.replace(RegExp.$1, 
+                (date.getFullYear() + '').substr(4 - RegExp.$1.length)); 
+        } 
+
+        for(var k in o) { 
+            if (new RegExp('('+ k +')').test(format)) { 
+                format = format.replace(RegExp.$1, 
+                    RegExp.$1.length == 1 ? o[k] : ('00'+ o[k]).substr((''+ o[k]).length)); 
+            } 
+        }
+        return format; 
+    },
+    getTimeShow:function(time_str){
+            var now = new Date();
+            var date = new Date(time_str);
+            //计算时间间隔，单位为分钟
+            var inter = parseInt((now.getTime() - date.getTime())/1000/60);
+            if(inter == 0){
+                return "刚刚";
+            }
+            //多少分钟前
+            else if(inter < 60){
+                return inter.toString() + "分钟前";
+            }
+            //多少小时前
+            else if(inter < 60*24){
+                return parseInt(inter/60).toString() + "小时前";
+            }
+            //本年度内，日期不同，取日期+时间  格式如  06-13 22:11
+            else if(now.getFullYear() == date.getFullYear()){
+                return this.parseTime('MM-DD hh:mm:ss',time_str);
+            }
+            else{
+                return this.parseTime('YY-MM-DD hh:mm:ss',time_str);
+            }
+        }
+    };
+
+    console.log(timeUtil.parseTime('YYYY-MM-DD hh:mm:ss',new Date().getTime()));
+    console.log(timeUtil.parseTime());
+    console.log(timeUtil.parseTime('YY-MM-DD hh:mm:ss',Date.now()));
+    console.log(timeUtil.getTimeShow(new Date().getTime()));//刚刚
+    console.log(timeUtil.getTimeShow(new Date().getTime()-60*1000));//1分钟前
+    console.log(timeUtil.getTimeShow(new Date().getTime()-10*60*1000));//10分钟前
+    console.log(timeUtil.getTimeShow(new Date().getTime()-100*60*1000));//1小时前
+    console.log(timeUtil.getTimeShow(new Date().getTime()-1000*60*1000));//16小时前
+    console.log(timeUtil.getTimeShow(new Date().getTime()-10000*60*1000));//08-02 11:54:29
+    console.log(timeUtil.getTimeShow(new Date().getTime()-1000000*60*1000));//14-09-14 23:56:48
+```
+
+***
+####gzip指令
+```
+http://www.kuqin.com/shuoit/20160805/352716.html
+
+1、gzip压缩
+gzip a.txt
+
+2、解压
+gunzip a.txt.gz
+gzip -d a.txt.gz
+
+3、bzip2压缩
+bzip2 a
+
+4、解压
+bunzip2 a.bz2
+bzip2 -d a.bz2
+
+5、打包：将指定文件或文件夹
+tar -cvf bak.tar  ./aaa
+将/etc/password追加文件到bak.tar中(r)
+tar -rvf bak.tar /etc/password
+
+6、解压
+tar -xvf bak.tar
+
+7、打包并压缩
+tar -zcvf a.tar.gz  aaa/
+
+8、解包并解压缩(重要的事情说三遍!!!)
+tar  -zxvf  a.tar.gz
+解压到/usr/下
+tar  -zxvf  a.tar.gz  -C  /usr
+
+9、查看压缩包内容
+tar -ztvf a.tar.gz
+zip/unzip
+
+10、打包并压缩成bz2
+tar -jcvf a.tar.bz2
+
+11、解压bz2
+tar -jxvf a.tar.bz2
+
+```
+
+***
+####js 模块开发规范
+```
+原文链接：http://caibaojian.com/toutiao/6194
+模块
+模块应该以 ! 开始。这样确保了当一个不好的模块忘记包含最后的分号时，在合并代码到生产环境后不会产生错误。详细说明
+文件应该以驼峰式命名，并放在同名的文件夹里，且与导出的名字一致。
+增加一个名为 noConflict() 的方法来设置导出的模块为前一个版本并返回它。
+永远在模块顶部声明 'use strict';。
+//code from http://caibaojian.com/toutiao/6194
+// fancyInput/fancyInput.js
+
+!function (global) {
+  'use strict';
+
+  var previousFancyInput = global.FancyInput;
+
+  function FancyInput(options) {
+    this.options = options || {};
+  }
+
+  FancyInput.noConflict = function noConflict() {
+    global.FancyInput = previousFancyInput;
+    return FancyInput;
+  };
+
+  global.FancyInput = FancyInput;
+}(this);
+
+```
+***
+####解决 PHPExcel 长数字串显示为科学计数  
+```
+    for ($i=0; $i < $count; $i++) {
+      $index=strval($i+2);
+      $objPHPExcel->setActiveSheetIndex(0)
+      ->setCellValueExplicit('A'.$index, $arr[$i]->student_id,'s')
+      ->setCellValue('B'.$index, $arr[$i]->name)
+      ->setCellValue('C'.$index, $arr[$i]->gender)
+      ->setCellValue('D'.$index, $arr[$i]->className)
+      ->setCellValueExplicit('E'.$index, $arr[$i]->device_id,'s');
+    }
+ref:http://blog.163.com/tfz_0611_go/blog/static/20849708420146172398214/
+```
+***
+####PHPExcel 设置宽度  
+```
+    $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth('12');
+    $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth('12');
+    $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth('15');
+
+ref:http://blog.sina.com.cn/s/blog_92ca585801011lqs.html
+```
+
+***
+####sublime 自定义代码片段
+```
+http://www.bluesdream.com/blog/sublime-text-snippets-function.html
+例如：
+<!-- 
+<snippet>
+     <content>
+     <![CDATA[
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta content="yes" name="apple-mobile-web-app-capable">
+  <meta content="black" name="apple-mobile-web-app-status-bar-style">
+  <meta content="telephone=no" name="format-detection">
+  <meta content="email=no" name="format-detection">
+  <title>$1</title>
+  <link rel="stylesheet" href="index.css">
+  <style type="text/css">
+  body{-webkit-text-size-adjust: 100%!important;}
+  </style>
+</head>
+
+<body>
+
+</body>
+
+</html>
+     ]]>
+     </content>
+     <tabTrigger>html</tabTrigger>
+     <description>templ</description>
+     <scope>text.html</scope>
+</snippet> -->
 ```
 
 ***
@@ -1310,6 +1561,15 @@ http://www.cnblogs.com/liping13599168/archive/2011/04/15/2017369.html
 http://yourname:password@git.oschina.net/name/project.git
 
 ```
+***
+####setTimeout延时0毫秒的作用
+```
+http://www.cnblogs.com/winner/archive/2008/11/15/1334077.html
+http://www.cnblogs.com/silin6/p/4333999.html
+1、实现javascript的异步；
+
+
+```
 
 ***
 ####git操作总结
@@ -1342,6 +1602,11 @@ git checkout master
 
 查看当前状态
 git status 
+
+err:
+git: Your branch and 'origin/master' have diverged
+git fetch origin
+git reset --hard origin/master
 ```
 
 ***
@@ -1543,6 +1808,20 @@ http://www.ituring.com.cn/article/48461
 
 Javascript 装载和执行
 http://coolshell.cn/articles/9749.html#jtss-tsina
+
+function loadjs(jsurl){
+      var s = document.createElement("script");
+      s.type = "text/javascript";
+      s.src = jsurl;
+      document.getElementsByTagName('head')[0].appendChild(s);
+    }
+    function loadimg(url){
+      var s = document.createElement("img");
+      s.height= 0;
+      s.width= 0;
+      s.src = url;
+      document.getElementsByTagName('body')[0].appendChild(s);
+    }
 
 function loadjs(script_filename,scriptId) {
     var script = document.createElement('script');

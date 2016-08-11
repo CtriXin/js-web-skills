@@ -1,2 +1,4 @@
-logName="laravel-` date +%Y-%m-%d`.log"
+logName="laravel.log"
+#logName="laravel-` date +%Y-%m-%d`.log"
 zip "laravel.zip" $logName
+#ps -ef |grep 'php'
