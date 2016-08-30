@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title></title>
+	<style type="text/css">
+	body{-webkit-text-size-adjust: 100%!important;}
+	</style>
+</head>
+
+<body>
+<button onclick="bellBtnClick(2)">2</button>
+<button onclick="bellBtnClick(3000)">23000</button>
+<script type="text/javascript">
+	 function bellBtnClick(s) {
+        if (navigator.vibrate) {
+            navigator.vibrate(s);//震动秒数
+        }else if (navigator.webkitVibrate) {
+            navigator.webkitVibrate(s);
+        }
+    }
+</script>
+</body>
+
+</html>
+     

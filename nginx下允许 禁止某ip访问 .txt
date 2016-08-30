@@ -1,0 +1,49 @@
+http://www.ttlsa.com/linux/nginx-modules-ngx_http_access_module/
+
+server {
+listen 80;
+server_name hgx.hzsb365.com;
+access_log /data/wwwlogs/hgx.hzsb365.com_nginx.log combined;
+
+root /home/hgx/node/liblog/www;
+    proxy_set_header  Host $host;
+    proxy_set_header  X-Real-IP $remote_addr;
+    proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+
+
+location ~ [^/]\.php(/|$) {
+    #fastcgi_pass remote_php_ip:9000;
+    fastcgi_pass unix:/dev/shm/php-cgi.sock;
+    fastcgi_index index.php;
+    include fastcgi.conf;
+    }
+
+    location ~ \.*.(gif|jpg|jpeg|png|bmp|swf|ioc|rar|zip|txt|flv|mid|doc|ppt|pdf|xls|mp3|amr|wma|svg|ttf|woff)$ {
+            expires 15d;
+    }
+       #将js文件由nginx处理 
+    location ~ \.*.(js|css)$ {
+    expires 7d;
+    access_log off;
+    }
+
+    location ~ /static/ {
+    expires 15d;
+    }
+
+    location = /production.js {
+        deny all;
+    }
+
+    location = /testing.js {
+        deny all;
+    }
+
+    location / {
+	allow 10.169.220.205;
+	allow 120.24.188.230;
+	deny  all;
+        proxy_pass http://localhost:9091;
+    }
+}
+

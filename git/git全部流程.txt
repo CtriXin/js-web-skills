@@ -1,7 +1,8 @@
 cd /home/hgx/gitserver
 
 mkdir rep.git
-
+cd rep.git/
+git --bare init
 cd ../..
 
 git clone gitserver/rep.git/

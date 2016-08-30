@@ -90,7 +90,7 @@ formData.append('file', $('#file')[0].files[0]);
 formData.append('note', $('#ip').val());
 formData.append('classID', 26);
 $.ajax({
-    url: 'http://school.hzsb365.com/jxhd/school/student/addByFile',
+    url: '/jxhd/school/master/addByFile',
     type: 'POST',
     cache: false,
     data: formData,

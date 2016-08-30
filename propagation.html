@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title></title>
+	<style type="text/css">
+	body{-webkit-text-size-adjust: 100%!important;}
+	</style>
+</head>
+
+<body>
+
+<div id="a">
+	<div style="background-color: red;width: 200px" id="c">
+		<a id="b" href="">bajian</a>
+	</div>
+</div>
+
+<script type="text/javascript">
+	document.getElementById('a').addEventListener('click',function(){
+		alert('a');
+	});
+
+	document.getElementById('b').addEventListener('click',function(e){
+		alert('b');
+		// event.stopPropagation();//阻止冒泡
+	});
+
+	document.getElementById('c').addEventListener('click',function(){
+		alert('c');
+	});
+	// click b://bca
+	// click c://ca,并不会传递给b，因为：
+// 	我们都知道，标准浏览器事件模型存在三个阶段：
+
+// 捕获阶段
+// 目标阶段
+// 冒泡阶段
+// 到达点击目标后就不会继续往下，而是执行冒泡阶段
+
+</script>
+</body>
+
+</html>
+     

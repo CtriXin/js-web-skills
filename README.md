@@ -19,6 +19,136 @@ echo mb_strlen($str,'utf8').'<br>';//6
 echo mb_strlen($str,'gbk').'<br>';//8  
 echo mb_strlen($str,'gb2312').'<br>';//10  
 ```
+***
+####mysql添加查询日志
+```
+general_log=ON
+general_log_file=/tmp/mysql.log
+```
+***
+####细说PHP中strlen和mb_strlen的区别
+```
+查看mysql全局变量，可以直接用SQLyog查看：工具---信息
+mysqladmin variables -uxsk -p
+查看MySQL配置文件路径及相关配置
+mysqld --verbose --help |grep -A 1 'Default options'
+```
+
+***
+####Illegal mix of collations (latin1_swedish_ci,IMPLICIT) and (utf8_general_ci,
+```
+  SET collation_connection = 'utf8_general_ci'
+
+then for your databases
+
+  ALTER DATABASE db CHARACTER SET utf8 COLLATE utf8_general_ci
+
+  ALTER TABLE table CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci
+
+MySQL sneaks swedish in there sometimes for no sensible reason.
+```
+
+***
+####严格模式主要有以下限制。
+```
+变量必须声明后再使用
+函数的参数不能有同名属性，否则报错
+不能使用with语句
+不能对只读属性赋值，否则报错
+不能使用前缀0表示八进制数，否则报错
+不能删除不可删除的属性，否则报错
+不能删除变量delete prop，会报错，只能删除属性delete global[prop]
+eval不会在它的外层作用域引入变量
+eval和arguments不能被重新赋值
+arguments不会自动反映函数参数的变化
+不能使用arguments.callee
+不能使用arguments.caller
+禁止this指向全局对象
+不能使用fn.caller和fn.arguments获取函数调用的堆栈
+增加了保留字（比如protected、static和interface）
+```
+
+***
+####jquery ajaxForm表单提交
+```
+
+<form id="formToUpdate" method="post" enctype="multipart/form-data">
+                        <span class="fileName">点击添加模板</span>
+                        <input name="file"  type="file" class="fileSumit" id="fileload"/>
+                      </form>
+
+$("#formToUpdate").ajaxSubmit({
+                url:"/jxhd/school/student/addByFile/",
+                type:"POST", 
+                dataType:"json",
+                data:{                  
+       
+                },
+                success:function(data){
+                    console.log(data)                    
+                },
+                error:function(){
+                    alert("发生异常错误");
+                }
+                });
+```
+***
+####js技巧
+```
+3.玩转数字 除了上一节介绍的之外，这里有更多的处理数字的技巧 
+0xFF; // Hex declaration, returns 255 
+020; // Octal declaration, returns 16 
+1e3; // Exponential, same as 1 * Math.pow(10,3), returns 1000 
+(1000).toExponential(); // Opposite with previous, returns 1e3 
+(3.1415).toFixed(3); // Rounding the number, returns "3.142"
+
+
+//说明嵌套循环中break跳出所有循环
+/*  for (var i = 0; i < 5; i++) {
+    for (var j = 0; j < 5; j++) {
+      console.log('j',j,'i',i);
+      if (j==2) break;
+    }
+  }*/
+// 有的时候，循环中又嵌套了循环，你可能想在循环中退出，则可以用标签： 
+
+// outerloop:  
+// for (var iI=0;iI<5;iI++) {  
+//  console.log('iI',iI);
+//     if (iI==3) {  
+//         // Breaks the outer loop iteration  
+//         break outerloop;  
+//     }  
+      
+//     innerloop:  
+//     for (var iA=0;iA<5;iA++) {  
+//      console.log('iA',iA,'iI',iI);
+//         if (iA==2) {  
+//             // Breaks the inner loop iteration  
+//             break innerloop;  
+//         }  
+  
+//     }  
+// }
+```
+
+***
+####99%的人都理解错了HTTP中GET与POST的区别
+```
+GET和POST还有一个重大区别，简单的说：
+GET产生一个TCP数据包；POST产生两个TCP数据包。
+
+长的说：
+对于GET方式的请求，浏览器会把http header和data一并发送出去，服务器响应200（返回数据）；
+而对于POST，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）。
+
+也就是说，GET只需要汽车跑一趟就把货送到了，而POST得跑两趟，第一趟，先去和服务器打个招呼“嗨，我等下要送一批货来，你们打开门迎接我”，然后再回头把货送过去。
+
+因为POST需要两步，时间上消耗的要多一点，看起来GET比POST更有效。因此Yahoo团队有推荐用GET替换POST来优化网站性能。但这是一个坑！跳入需谨慎。为什么？
+1. GET与POST都有自己的语义，不能随便混用。
+2. 据研究，在网络环境好的情况下，发一次包的时间和发两次包的时间差别基本可以无视。而在网络环境差的情况下，两次包的TCP在验证数据包完整性上，有非常大的优点。
+3. 并不是所有浏览器都会在POST中发送两次包，Firefox就只发送一次。
+```
 
 ***
 ####php 空对象
@@ -26,6 +156,13 @@ echo mb_strlen($str,'gb2312').'<br>';//10
 $obj=(object)null;
 $obj=(object)[];
 
+
+```
+***
+####SQLyog 设置CURRENT_TIMESTAMP
+```
+在默认里填
+CURRENT_TIMESTAMP
 
 ```
 ***
@@ -275,6 +412,21 @@ http://www.bluesdream.com/blog/sublime-text-snippets-function.html
      <tabTrigger>html</tabTrigger>
      <description>templ</description>
      <scope>text.html</scope>
+</snippet> -->
+<!-- 
+<snippet>
+     <content>
+     <![CDATA[
+     try{
+     ${1}
+     }catch(e){
+     
+     }
+     ]]>
+     </content>
+     <tabTrigger>try</tabTrigger>
+     <description>try/catch</description>
+     <scope>source.js</scope>
 </snippet> -->
 ```
 
@@ -1725,6 +1877,18 @@ location.reload()
     t=t.replace(/\>/g,'&gt;');
     return t.replace(/\'/g,'&#39;');
   }
+//高级写法
+<!--     escapeHtml(str){
+    let htmlMaps = {
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }
+    return (str + '').replace(/[<>'"]/g, function(a){
+      return htmlMaps[a];
+    });
+  } -->
 用途：
 <!-- <div id="rrr"></div> -->
 

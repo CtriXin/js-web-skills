@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title></title>
+	<style type="text/css">
+.container {
+  height: 230px;
+}
+.wrapper {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  clip: rect(0px, 100px, 100px, 50px);
+}
+
+.circle {
+  width: 80px;
+  height: 80px;
+  border: 10px solid green;
+  border-radius: 50px;
+  position: absolute;
+  clip: rect(0px, 50px, 100px, 0px);
+}
+
+div[data-anim~=base] {
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-timing-function:linear;
+}
+
+.wrapper[data-anim~=wrapper] {
+  -webkit-animation-duration: 0.01s;
+  -webkit-animation-delay: 3s;
+  -webkit-animation-name: close-wrapper;
+}
+
+.circle[data-anim~=left] {
+  -webkit-animation-duration: 6s;
+  -webkit-animation-name: left-spin;
+}
+
+.circle[data-anim~=right] {
+  -webkit-animation-duration: 3s;
+  -webkit-animation-name: right-spin;
+}
+
+
+@-webkit-keyframes right-spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(180deg);
+  }
+}
+
+@-webkit-keyframes left-spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes close-wrapper {
+  to {
+    clip: rect(auto, auto, auto, auto);
+  }
+}
+	</style>
+</head>
+
+<body>
+	http://caibaojian.com/css3-radial-progress-bar.html
+
+  <div class="wrapper" data-anim="base wrapper">
+    <div class="circle" data-anim="base left"></div>
+    <div class="circle" data-anim="base right"></div>
+  </div>
+</body>
+
+</html>

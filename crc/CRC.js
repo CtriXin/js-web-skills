@@ -70,6 +70,7 @@ function crcCCITT (input, seed) {
   var temp;
 
   for (var i = 0, len = input.length; i < len; ++i) {
+    console.log(input[i],i);
     temp = (input[i] ^ (result >> 8)) & 0xFF;
     result = crc_table[temp] ^  (result << 8);
   }

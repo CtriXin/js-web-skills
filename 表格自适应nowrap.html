@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title></title>
+	<style type="text/css">
+		body{-webkit-text-size-adjust: 100%!important;}
+
+		body{
+			font: 14px sans-serif;
+		}
+		table{
+			width:300px;
+			font: 16px sans-serif;
+			border-collapse: collapse;
+		}
+		td{
+			border: 1px solid #ccc;
+			padding: 5px 10px;
+		}
+		table.autowidth td{
+			white-space:nowrap;
+		}
+	</style>
+</head>
+
+<body>
+	<h2>Non Autowidth Table</h2>
+
+	<table>
+		<tr>
+			<td>1</td>
+			<td width="100%">Mr. John Doe </td>
+			<td>United States of America</td>
+			<td>2014</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td width="100%">Mr. Paul Jones</td>
+			<td>New Zealand</td>
+			<td>2013</td>
+		</tr>
+	</table>
+
+	<h2>Autowidth Table</h2>
+
+	<table class="autowidth">
+		<tr>
+			<td>1</td>
+			<td width="100%">Mr. John Doe </td>
+			<td>United States of America</td>
+			<td>2014</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td width="100%">Mr. Paul Jones</td>
+			<td>New Zealand</td>
+			<td>2013</td>
+		</tr>
+	</table>
+normal：
+默认处理方式。
+pre：
+用等宽字体显示预先格式化的文本，不合并文字间的空白距离，当文字超出边界时不换行。可查阅pre对象
+nowrap：
+强制在同一行内显示所有文本，直到文本结束或者遭遇br对象。
+pre-wrap：
+用等宽字体显示预先格式化的文本，不合并文字间的空白距离，当文字碰到边界时发生换行。
+pre-line：
+保持文本的换行，不保留文字间的空白距离，当文字碰到边界时发生换行。
+</body>
+
+</html>
