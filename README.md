@@ -19,12 +19,31 @@ echo mb_strlen($str,'utf8').'<br>';//6
 echo mb_strlen($str,'gbk').'<br>';//8  
 echo mb_strlen($str,'gb2312').'<br>';//10  
 ```
+
+
 ***
 ####mysql添加查询日志
 ```
 general_log=ON
 general_log_file=/tmp/mysql.log
 ```
+
+***
+####jquery serialize 通过序列化表单值，创建 URL 编码文本字符串
+```
+var query  = $('.search-form').find('input').serialize();
+
+$("div").text($("form").serialize());
+```
+
+
+***
+####快速加减的做法
+```
+        let order = await this.model("order").where({user_id: this.user.uid, pay_status: 1}).getField('order_amount');
+        let orderTotal = eval(order.join("+"));
+```
+
 ***
 ####细说PHP中strlen和mb_strlen的区别
 ```
@@ -377,6 +396,21 @@ ref:http://blog.163.com/tfz_0611_go/blog/static/20849708420146172398214/
 ref:http://blog.sina.com.cn/s/blog_92ca585801011lqs.html
 ```
 
+####sublime插件推荐
+```
+Sublime Text3 插件：DocBlockr与javascript注释规范
+http://www.ithao123.cn/content-719950.html
+
+php snippets
+Nodejs
+PHP Code Sniffer
+PHP Code Beautidfier
+rem-unit
+SublimeCodeIntel
+
+```
+
+
 ***
 ####sublime 自定义代码片段
 ```
@@ -428,6 +462,24 @@ http://www.bluesdream.com/blog/sublime-text-snippets-function.html
      <description>try/catch</description>
      <scope>source.js</scope>
 </snippet> -->
+
+方法注释（//+shift）
+<!-- 
+<snippet>
+     <content>
+     <![CDATA[
+     /**
+     * ${1}
+     * @author bajian
+     * @param  
+     * @return 
+     */]]>
+     </content>
+     <tabTrigger>//</tabTrigger>
+     <description>/*@*/</description>
+     <scope>source.js</scope>
+</snippet>
+ -->
 ```
 
 ***
@@ -898,6 +950,9 @@ $re=$this->queryTeacherSql($_SESSION['admin_school_id'],$start,$limit);
         }
         array_push($list, $t);
       }
+按关键字查，还得拉取出其他班级的
+SELECT a.*,b.`name`,b.`password`,b.`nickname`,b.`note` AS SUBJECT,c.`name` AS class FROM manager_class_teacher a INNER JOIN manager_admin b ON a.`admin_id`=b.`id` LEFT JOIN manager_class c ON a.class_id=c.`id` WHERE a.`admin_id` IN (SELECT * FROM (SELECT DISTINCT manager_class_teacher.`admin_id` FROM manager_class_teacher  INNER JOIN manager_admin  ON manager_class_teacher.`admin_id`=manager_admin.`id` LEFT JOIN manager_class  ON manager_class_teacher.class_id=manager_class.`id` WHERE manager_class_teacher.school_id=30 AND (manager_admin.`name` LIKE '%徐小航%' OR manager_class.`name` LIKE '%测试二班%' OR manager_admin.`note` LIKE '%徐小航%' OR manager_admin.`nickname` LIKE '%测试二班%') )AS tt)
+
 
 ```
 

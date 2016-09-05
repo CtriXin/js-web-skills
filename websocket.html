@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title></title>
+	<style type="text/css">
+	body{-webkit-text-size-adjust: 100%!important;}
+	</style>
+</head>
+
+<body>
+<script type="text/javascript">
+
+    var wsServer = 'ws://120.25.59.65:6801';
+    //实验证明，直接建立tcp服务器并不能连上ws，必须建立websocket服务器，因为ws需要http upgrade
+
+          var _ws = new WebSocket(wsServer); 
+          _ws.onopen = function(m){
+          	console.log('onopen');
+          }; 
+          _ws.onmessage = function(m){
+          	console.log('onmessage');
+          }; 
+          _ws.onclose =  function(m){
+          	console.log('onclose');
+          };  
+          _ws.onerror =  function(m){
+          	console.log('onerror');
+          }; 
+          // _ws.send(123);
+</script>
+</body>
+
+</html>
+     

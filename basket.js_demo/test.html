@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title></title>
+	<style type="text/css">
+	body{-webkit-text-size-adjust: 100%!important;}
+	</style>
+</head>
+
+<body>
+<!-- //dn-staticfile.qbox.me/basket.js/0.5.2/basket.full.min.js
+//cdn.css.net/libs/basket.js/0.5.2/basket.full.min.js
+//cdn.bootcss.com/basket.js/0.5.2/basket.full.min.js -->
+<div id="bajian"></div>
+<div id="section_container"></div>
+<script type="text/javascript" src="//cdn.bootcss.com/basket.js/0.5.2/basket.full.min.js"></script>
+<script type="text/javascript">
+	basket
+    .require({ url: 'http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js' })
+    .then(function () {
+        basket.require({ url: 'http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js' },{ url: 'loadview.min_989a0.js', execute: false}).then(function(){
+        	$('#bajian').html('i am hgx');
+        });
+    });
+</script>
+</body>
+
+</html>
+     
