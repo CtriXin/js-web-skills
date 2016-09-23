@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title></title>
+	<style type="text/css">
+	body{-webkit-text-size-adjust: 100%!important;}
+	</style>
+</head>
+
+<body>
+
+<script type="text/javascript">
+	var B_util={};
+	var a='bajian';
+	B_util.is_weixin=(navigator.userAgent.toLowerCase()).match(/MicroMessenger/i) == "micromessenger";
+	B_util.is_weixin2=(a).match(/ba/i) == "ba";//将a改成别的也是true。说明变量的运算只执行一次
+	B_util.is_weixin3=function() {//用方法每次都执行，明显可以比较出优劣势
+		alert('run in is_weixin3 function');
+        var ua = navigator.userAgent.toLowerCase();
+        if (ua.match(/MicroMessenger/i) == "micromessenger") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+	if (B_util.is_weixin) alert('in wx');
+</script>
+</body>
+
+</html>
+     

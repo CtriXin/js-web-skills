@@ -28,12 +28,73 @@ general_log=ON
 general_log_file=/tmp/mysql.log
 ```
 
+
+***
+####在 _onTouchMove中this变为此this
+```
+this._onTouchMove = this._onTouchMove.bind(this);
+```
+
+***
+####SecureCRT中文乱码解决方法
+```
+http://jingyan.baidu.com/article/948f59245be128d80ff5f9aa.html
+
+在显示的“窗口和文本外观”中找到“字符编码”。
+把“字符编码”设置为“UTF-8”.
+```
+
+
+***
+####ios系统中元素被触摸时产生的半透明灰色遮罩怎么去掉
+```
+a,button,input,textarea{-webkit-tap-highlight-color: rgba(0,0,0,0;)} 
+```
+***
+
+***
+####消除transition闪屏
+```
+.css{ /*设置内嵌的元素在 3D 空间如何呈现：保留 3D*/ -webkit-transform-style: preserve-3d; /*（设置进行转换的元素的背面在面对用户时是否可见：隐藏）*/ -webkit-backface-visibility: hidden; }
+```
+***
+
+####屏幕旋转的事件和样式
+```
+window.onorientationchange = function(){ 
+switch(window.orientation){ 
+case -90: 
+case 90: alert("横屏:" + window.orientation); 
+break; 
+case 0: 
+case 180: 
+alert("竖屏:" + window.orientation); 
+break; 
+} } 
+
+```
+
+***
+####2>&1 linux命令详解
+```
+     command >out.file 2>&1 &
+    是将标准出错重定向到标准输出，这里的标准输出已经重定向到了out.file文件，即将标准出错也输出到out.file文件中。最后一个& 是让该命令在后台执行。
+
+```
+
 ***
 ####jquery serialize 通过序列化表单值，创建 URL 编码文本字符串
 ```
 var query  = $('.search-form').find('input').serialize();
 
 $("div").text($("form").serialize());
+```
+
+***
+####ssh登录远程服务器
+```
+ssh root@123.57.82.164
+ q09307206
 ```
 
 
@@ -45,7 +106,7 @@ $("div").text($("form").serialize());
 ```
 
 ***
-####细说PHP中strlen和mb_strlen的区别
+####mysql配置相关查看
 ```
 查看mysql全局变量，可以直接用SQLyog查看：工具---信息
 mysqladmin variables -uxsk -p
@@ -175,6 +236,12 @@ GET产生一个TCP数据包；POST产生两个TCP数据包。
 $obj=(object)null;
 $obj=(object)[];
 
+
+```
+***
+####service init.d 重启后不再/再启动
+```
+chkconfig httpd off              #开机重启后，apache服务不再启动
 
 ```
 ***
@@ -430,7 +497,7 @@ http://www.bluesdream.com/blog/sublime-text-snippets-function.html
   <meta content="telephone=no" name="format-detection">
   <meta content="email=no" name="format-detection">
   <title>$1</title>
-  <link rel="stylesheet" href="index.css">
+     <link rel="stylesheet" href="index.css"> 
   <style type="text/css">
   body{-webkit-text-size-adjust: 100%!important;}
   </style>
@@ -438,6 +505,9 @@ http://www.bluesdream.com/blog/sublime-text-snippets-function.html
 
 <body>
 
+<script type="text/javascript">
+                
+</script>
 </body>
 
 </html>
@@ -446,7 +516,7 @@ http://www.bluesdream.com/blog/sublime-text-snippets-function.html
      <tabTrigger>html</tabTrigger>
      <description>templ</description>
      <scope>text.html</scope>
-</snippet> -->
+</snippet>  -->
 <!-- 
 <snippet>
      <content>
@@ -477,6 +547,27 @@ http://www.bluesdream.com/blog/sublime-text-snippets-function.html
      </content>
      <tabTrigger>//</tabTrigger>
      <description>/*@*/</description>
+     <scope>source.js</scope>
+</snippet>
+ -->
+
+switch
+<!-- 
+<snippet>
+     <content>
+     <![CDATA[
+  switch (variable) {
+    case 'value':
+        
+        break;
+    
+    default:
+        
+        break;
+}]]>
+     </content>
+     <tabTrigger>swi</tabTrigger>
+     <description>switch</description>
      <scope>source.js</scope>
 </snippet>
  -->
@@ -1113,13 +1204,18 @@ typeof 'A'
 nth-of-type(n)可以筛选元素类型
 nth-child快速实现table相间色
 
-
-
 ```
+
 ***
 ####去掉点击后控件的outline
 ```
 outline-style: none;
+```
+
+***
+####预加载资源
+```
+  <link rel="prefetch" href="/src/modules/composer/resize.js?v=6e953938-9cd1-4442-8be8-9e95d39203dd" />
 ```
 
 ***
@@ -1732,6 +1828,9 @@ http://caibaojian.com/weixin-tip.html
 
 Demo
 http://7xkaou.com2.z0.glb.qiniucdn.com/MMBAppDL3.html
+
+判断是否微信浏览器高效方法
+B_util.is_weixin=(navigator.userAgent.toLowerCase()).match(/MicroMessenger/i) == "micromessenger";
 ```
 
 ***

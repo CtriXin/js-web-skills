@@ -16,6 +16,8 @@
 	<button id="fileup" type="button">file</button>
 	<button id="export" type="button">export</button>
 
+	<button id="upic" type="button">upic</button>
+
 
 
 	<script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
@@ -127,6 +129,15 @@ formData.append('file', $('#file')[0].files[0]);
 formData.append('note', $('#ip').val());
 formData.append('classID', 26);
 	myajax.file('http://bxjtest.snewfly.com/jxhd/teacher/grade/publish',
+		formData,function(data){
+			alert(data.code);
+		})
+});
+
+$('#upic').click(function(){
+	var formData = new FormData();
+formData.append('file', $('#file')[0].files[0]);
+	myajax.file('http://hgx.hzsb365.com/file/upic',
 		formData,function(data){
 			alert(data.code);
 		})

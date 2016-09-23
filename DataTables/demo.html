@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title></title>
+	<style type="text/css">
+       body{-webkit-text-size-adjust: 100%!important;}
+   </style>
+   <!--第一步：引入Javascript / CSS （CDN）-->
+   <!-- DataTables CSS -->
+   <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+
+</head>
+
+<body>
+
+    <!--第二步：添加如下 HTML 代码-->
+    <div  style="max-width: 900px">
+       <table id="kq_device" class="display table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>name</th>
+                <th>status</th>
+                <th>connect</th>
+                <th>dtu</th>
+                <th>data</th>
+                <th>enable</th>
+                <th>listen</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+
+
+<!-- jQuery -->
+<script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+<!-- DataTables -->
+<script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+
+<script type="text/javascript">
+	// <!--第三步：初始化Datatables-->
+
+// "url": "data/arrays_custom_prop.txt",
+//                 //默认为data，这里定义为demo
+//                 "dataSrc": "demo"
+    $(document).ready( function () {
+         kq_device=$('#kq_device').DataTable( {
+/*
+    "paging":   false,
+    "ordering": false,
+    "info":     false,*/
+            "serverSide": false,
+            "ajax": function (data, callback, settings) {
+                $.ajax({
+                    type: 'GET',
+                    dataType:'json',  
+                    cache:false,
+                    url: "http://kq1.hzsb365.com:8881/api/showDtu",
+                    data:  data,
+                    success: function(data){
+                        var client=new Array();
+                        for (var i in data.data.client) {
+                            // if (checkAccess(data.data.client[i].name))
+                                client.push(data.data.client[i]);
+                        }
+                        callback({
+                            data:client
+                        });
+                    },
+                    error : function() {
+                        alert('获取数据失败！请检查网络链接。');
+                    }
+                });
+            },
+            "lengthMenu": [[ 2, 5, 10], [ 20, 50,100]], //key-value
+
+            "aaSorting": [[2,'desc']],
+            "columns": [
+            { "data": "name" },
+            { "data": "status" },
+            { "data": 'connectTime'},
+            { "data": "dtuAliveTime" },
+            { "data": "readerAliveTime" },
+            { "data": "enable" },
+            { "data": "listen" },
+            {
+                "orderable":false,
+                "data": null,
+                "width":'100px',
+                "defaultContent": ''
+            }
+            ],
+
+            "language": {
+                "lengthMenu": "每页 _MENU_ 条",
+                "zeroRecords": "没有可显示的数据",
+                "info": "第 _PAGE_ 页 / 共 _PAGES_ 页",
+                "infoEmpty": "没有可显示的数据哦~",
+                "infoFiltered": "(共 _MAX_ 条记录)"
+            },
+            "rowCallback": function ( row, data, index ) {
+                // console.log(JSON.stringify([arguments]));
+                var listen_text='转发';
+                var listen_type='listen_begin';
+                var listen_class='btn-success';
+                if (data['listen']==1){
+                    listen_text='停止';
+                    listen_type='listen_stop';
+                    listen_class='btn-danger';
+                }
+                var status;
+                var start_manual=0;
+                var stop_manual=0;
+                var recover_manual=0;
+                switch(data['status']){
+                    case 0:
+                    status='空闲';
+                    start_manual=1;
+                    break;
+                    case 1:
+                    status='读卡中';
+                    stop_manual=1;
+                    break;
+                    case 20:
+                    status='停止(手动)';
+                    start_manual=1;
+                    recover_manual=1;
+                    break;
+                    case 21:
+                    status='开始(手动)';
+                    recover_manual=1;
+                    stop_manual=1;
+                    break;
+                    case 22:
+                    status='等待';
+                    recover_manual=1;
+                    break;
+                }
+                $('td:eq(7)', row).html('\
+                    <button class="btn btn-xs '+listen_class+'" attr-type="'+listen_type+'">\
+                        '+listen_text+'\
+                    </button> <button class="btn btn-xs btn-danger"  attr-type="dtuOperate_reboot">\
+                    重启\
+                </button>\
+                <div class="btn-group">\
+                    <button data-toggle="dropdown" class="btn btn-xs btn-danger dropdown-toggle" aria-expanded="false">\
+                        操作\
+                        <i class="ace-icon fa fa-angle-down icon-on-right"></i>\
+                    </button>\
+                    </div>');
+                $('td:eq(1)', row).html(status);
+        // $('td:eq(3)', row).html(get_time_by_string(data['connect_time']));
+        $('td:eq(2)', row).html(data['connectTime']);
+        $('td:eq(3)', row).html(data['dtuAliveTime']);
+        $('td:eq(4)', row).html(data['readerAliveTime']);
+        $('td:eq(5)', row).html(data['enable']==0?'禁用':'启用');
+        $('td:eq(6)', row).html(data['listen']==0?'正常':'转发');
+        // socket.emit('my other event','1234');
+    }
+});
+} );
+
+$('table').on('click','[attr-type="listen_begin"]',function(){
+        var tr = $(this).closest('tr');
+    var row = kq_device.row( tr );
+    // console.log(row.data())
+    console.log(row.data().name)
+});
+//刷新的做法
+        // function re(){
+        //     $('#reader').DataTable().ajax.reload(null, false);
+        // }
+// {"errcode":0,"errmsg":"success","data":{"client":[{"name":"SZ001A","status":1,"connectTime":1472456739222,"dtuAliveTime":1472634923558,"readerAliveTime":1472634822154,"enable":1,"c_addr":"117.136.31.238:4577","listen":0},{"name":"SZ001B","status":1,"connectTime":1472456741599,"dtuAliveTime":1472634923096,"readerAliveTime":1472634822098,"enable":1,"c_addr":"117.136.79.148:65029","listen":0},{"name":"SZ003A","status":1,"connectTime":1472456742922,"dtuAliveTime":1472634923434,"readerAliveTime":1472634822272,"enable":1,"c_addr":"117.136.40.243:27861","listen":0},{"name":"FZ001B","status":1,"connectTime":1472456745050,"dtuAliveTime":1472634925270,"readerAliveTime":1472634822430,"enable":1,"c_addr":"223.104.171.174:39215","listen":0},{"name":"SZ003B","status":1,"connectTime":1472456749584,"dtuAliveTime":1472634923594,"readerAliveTime":1472634822292,"enable":1,"c_addr":"117.136.79.128:4702","listen":0},{"name":"SZ002B","status":1,"connectTime":1472464621238,"dtuAliveTime":1472634905392,"readerAliveTime":1472634702371,"enable":1,"c_addr":"117.136.40.208:40215","listen":0},{"name":"SZ002A","status":1,"connectTime":1472517063298,"dtuAliveTime":1472634905271,"readerAliveTime":1472634702331,"enable":1,"c_addr":"223.104.63.43:23213","listen":0},{"name":"FZ001A","status":1,"connectTime":1472613246852,"dtuAliveTime":1472634925730,"readerAliveTime":1472634823390,"enable":1,"c_addr":"223.104.171.210:45542","listen":0}],"count":{"card":210,"getIn":175,"getOut":198,"clean":336,"outsideFirst":481,"insideFirst":228,"cleanOutside":306,"cleanInside":30,"maybeGetIn":0,"maybeGetOut":0,"maybeClean":0}}}
+</script>
+</body>
+
+</html>
