@@ -1,0 +1,24 @@
+第一种情况是my.cnf 的bind-address没关闭
+http://jingyan.baidu.com/article/4b07be3c45e25a48b380f3f8.html
+
+第二种是mysql没授权
+
+1、登陆mysql
+
+mysql -u root -p 
+
+2、修改mysql库的user表，将host项，从localhost改为%。%这里表示的是允许任意host访问，如果只允许某一个ip访问，则可改为相应的ip，比如可以将localhost改为192.168.1.123，这表示只允许局域网的192.168.1.123这个ip远程访问mysql。
+
+mysql> use mysql; 
+mysql> update user set host = '%' where user = 'root'; 
+mysql> select host, user from user; 
+mysql> flush privileges; 
+
+
+第三种是防火墙端口没开通
+/sbin/iptables -I INPUT 1 -p tcp --dport 3306 -j ACCEPT 
+
+http://www.2cto.com/database/201211/168538.html
+
+netfilter/iptables全攻略
+http://www.linuxso.com/linuxpeixun/10332.html

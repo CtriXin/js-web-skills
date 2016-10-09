@@ -1,0 +1,25 @@
+preg_split — 通过一个正则表达式分隔字符串
+
+
+$str = "adasd     dsfd1ff               fdgfgdfgdf";
+$new_arr=preg_split("/[\s]+/",$str);
+	print_r($new_arr);
+
+
+
+//封装的单个匹配		
+function getPatternResult($pattern,$str) {
+	$re='';
+	if(preg_match($pattern,$str,$re)){
+		//使用的时候这里注释掉就行了
+		echo $re[1];
+		return $re[1];
+	}
+	else{
+		//使用的时候这里注释掉就行了
+		echo "error";
+		return "error";
+	}
+}
+$pattern = '#Sentence:</h4><ul><li>(.*)</li></ul><br/><h4>#';
+	$sentence=getPatternResult($pattern,$str);

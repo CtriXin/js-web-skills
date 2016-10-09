@@ -1,0 +1,4 @@
+crontab -e
+
+
+0 0 * * * /home/hgx/hzsbTest/storage/logs/hzsbWechatDailylog.sh

@@ -1,0 +1,4 @@
+
+
+change master to master_host='120.24.88.119', master_user='bajian', master_password='334945804';
+slave start;

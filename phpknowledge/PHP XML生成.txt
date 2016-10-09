@@ -1,0 +1,19 @@
+
+echo createXML('1.0','UpdateUserTerminal','xxxxxxxxxx','xxxx',['terminalId'=>'1321','userName'=>'123']);
+    /**
+    * xml协议生成
+    * @return $version 版本
+    * @return $action 对应的请求action
+    * @return $checkSum 校验 checkSum = MD5Util.MD5(version + action+ loginName + loginPwd);
+    * @return $loginName 卡机用户登录名
+    * @return $paramArr Param item数组 key=>value.如<Param name="userName">123</Param>就是'userName'=>'123'
+    */
+function createXML($version,$action,$checkSum,$loginName,$paramArr){
+    $header='<IBABY version="'.$version.'" action="'.$action.'" checkSum="'.$checkSum.'" loginName="'.$loginName.'"><Request>';
+    $footer='</Request></IBABY>';
+    $body='';
+    foreach ($paramArr as $key => $value) {
+       $body.='<Param name="'.$key.'">'.$value.'</Param>';
+    }
+    return $header.$body.$footer;
+}

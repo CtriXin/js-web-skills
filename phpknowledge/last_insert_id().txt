@@ -1,0 +1,65 @@
+mysql_insert_id() 函数返回上一步 INSERT 操作产生的 ID
+
+Mysql函数：Last_insert_id()语法讲解
+[大] [中] [小] 发布人：圣才学习网  发布日期：2012-06-19 11:02  共20395人浏览
+Mysql函数可以实现许多我们需要的功能，下面介绍的Mysql函数Last_insert_id()就是其中之一，希望对您学习Mysql函数能有所帮助。
+自动返回最后一个INSERT或 UPDATE 查询中 AUTO_INCREMENT列设置的第一个表发生的值。
+1. mysql> SELECT LAST_INSERT_ID();
+2. -> 195
+产生的ID 每次连接后保存在服务器中。这意味着函数向一个给定客户端返回的值是该客户端产生对影响AUTO_INCREMENT列的最新语句第一个AUTO_INCREMENT值的。这个值不能被其它客户端影响，即它们产生它们自己的AUTO_INCREMENT值。这个行为保证了你能够找回自己的 ID 而不用担心受其它客户端的影响力，而且不需要加锁处理。
+假如你使用一个非“magic”值来更新某一行的AUTO_INCREMENT 列，则LAST_INSERT_ID() 的值不会变化(换言之, 一个不是 NULL也不是 0的值)。
+重点: 假如你使用一条INSERT语句插入多个行， LAST_INSERT_ID() 只返回插入的第一行数据时产生的值。其原因是这使依靠其它服务器复制同样的 INSERT语句变得简单。
+例如：
+1. mysql> USE test;
+2. Database changed
+3. mysql> CREATE TABLE t (
+4. -> id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+5. -> name VARCHAR(10) NOT NULL
+6. -> );
+7. Query OK, 0 rows affected (0.09 sec)
+8.
+9. mysql> INSERT INTO t VALUES (NULL, 'Bob');
+10. Query OK, 1 row affected (0.01 sec)
+11.
+12. mysql> SELECT * FROM t;
+13. +----+------+
+14. | id | name |
+15. +----+------+
+16. | 1 | Bob |
+17. +----+------+
+18. 1 row in set (0.01 sec)
+19.
+20. mysql> SELECT LAST_INSERT_ID();
+21. +------------------+
+22. | LAST_INSERT_ID() |
+23. +------------------+
+24. | 1 |
+25. +------------------+
+26. 1 row in set (0.00 sec)
+27.
+28. mysql> INSERT INTO t VALUES
+29. -> (NULL, 'Mary'), (NULL, 'Jane'), (NULL, 'Lisa');
+30. Query OK, 3 rows affected (0.00 sec)
+31. Records: 3 Duplicates: 0 Warnings: 0
+32.
+33. mysql> SELECT * FROM t;
+34. +----+------+
+35. | id | name |
+36. +----+------+
+37. | 1 | Bob |
+38. | 2 | Mary |
+39. | 3 | Jane |
+40. | 4 | Lisa |
+41. +----+------+
+42. 4 rows in set (0.01 sec)
+43.
+44. mysql> SELECT LAST_INSERT_ID();//注意
+45. +------------------+
+46. | LAST_INSERT_ID() |
+47. +------------------+
+48. | 2 |
+49. +------------------+
+50. 1 row in set (0.00 sec)
+51.
+虽然第二个问询将3 个新行插入 t, 对这些行的第一行产生的 ID 为 2, 这也是 LAST_INSERT_ID() 返回的值
+假如使用 INSERT IGNORE而记录被忽略，则AUTO_INCREMENT 计数器不会增量，而 LAST_INSERT_ID() 返回0, 这反映出没有插入任何记录。

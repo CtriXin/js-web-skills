@@ -1,0 +1,50 @@
+ Memcache查看运行状况 2011-08-24 15:31:49
+分类： 系统运维
+Memcache
+Memcache是danga.com的一个开源项目，它是一个高性能的分布式的内存对象缓存系统，通过在内存里维护一个统一的巨大的Hash表，能够用来存储各种格式的数据。
+查看当前的memcache连接数：
+
+[root@mem1 ~]# netstat -n | grep :11211 | wc -l
+15752
+
+查看默认允许的连接数：
+[root@mem1 ~]# cat /etc/rc.local 
+#!/bin/sh
+#
+# This script will be executed *after* all the other init scripts.
+# You can put your own initialization stuff in here if you don't
+# want to do the full Sys V style init stuff.
+
+touch /var/lock/subsys/local
+/usr/local/bin/memcached -d -m 15360 -u root -l 172.20.1.54 -p 11211 -c 40960  
+/usr/local/bin/memcached -d -m 512 -u root -l 172.20.1.54 -p 11212 -c 10000 
+
+这里设置的11211端口默认连接数是40960
+
+在网络上查到资料， Memcache也有自己的查看工具：
+如何查看memcache服务器端版本:  ./memcached  -h
+memcache的运行状态可以方便的用 stats 命令显示。
+首先用telnet 127.0.0.1 11211这样的命令连接上memcache，然后直接输入stats就可以得到当前memcache的状态。
+这些状态的说明如下：
+pid	memcache服务器的进程ID
+uptime	服务器已经运行的秒数
+time	服务器当前的unix时间戳
+version	memcache版本
+pointer_size	当前操作系统的指针大小（32位系统一般是32bit）
+rusage_user	进程的累计用户时间
+rusage_system	进程的累计系统时间
+curr_items	服务器当前存储的items数量
+total_items	从服务器启动以后存储的items总数量
+bytes	当前服务器存储items占用的字节数
+curr_connections	当前打开着的连接数
+total_connections	从服务器启动以后曾经打开过的连接数
+connection_structures	服务器分配的连接构造数
+cmd_get	get命令（获取）总请求次数
+cmd_set	set命令（保存）总请求次数
+get_hits	总命中次数
+get_misses	总未命中次数
+evictions	为获取空闲内存而删除的items数（分配给memcache的空间用满后需要删除旧的items来得到空间分配给新的items）
+bytes_read	总读取字节数（请求字节数）
+bytes_written	总发送字节数（结果字节数）
+limit_maxbytes	分配给memcache的内存大小（字节）
+threads	当前线程数

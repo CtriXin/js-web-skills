@@ -1,0 +1,10 @@
+http://www.cnblogs.com/likwo/archive/2011/08/24/2151793.html
+
+
+$str='<?xml version="1.0" encoding="utf-8"?> <IBABY><Response><Status><Code>200</Code>
+</Status><SessionId>e4f5be17ed9ab0906d533fbc5e0c33c0</SessionId><UserId>121541</UserId></Response></IBABY>';
+$xmlObj = simplexml_load_string($str, 'SimpleXMLElement', LIBXML_NOCDATA);
+// echo $xmlObj;
+// print_r($xmlObj);
+echo $xmlObj->Response->Status->Code;
+

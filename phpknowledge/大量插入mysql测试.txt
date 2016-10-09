@@ -1,0 +1,6 @@
+INSERT INTO messages( users_id, audio, pic ) (
+
+SELECT  `users_id` ,  `audio` ,  `pic` 
+FROM messages
+WHERE 1 =1
+)

@@ -1,0 +1,95 @@
+$data=file_get_contents('php://input');
+
+http://my.oschina.net/u/205403/blog/325595
+
+一、PHP获取POST数据的几种方法
+
+方法1、最常见的方法是：$_POST['fieldname'];
+说明：只能接收Content-Type: application/x-www-form-urlencoded提交的数据
+解释：也就是表单POST过来的数据
+
+方法2、file_get_contents("php://input");
+说明：
+允许读取 POST 的原始数据。
+和 $HTTP_RAW_POST_DATA 比起来，它给内存带来的压力较小，并且不需要任何特殊的 php.ini 设置。
+php://input 不能用于 enctype="multipart/form-data"。
+解释：
+对于未指定 Content-Type 的POST数据，则可以使用file_get_contents(“php://input”);来获取原始数据。
+事实上，用PHP接收POST的任何数据都可以使用本方法。而不用考虑Content-Type,包括二进制文件流也可以。
+所以用方法二是最保险的方法
+
+方法3、$GLOBALS['HTTP_RAW_POST_DATA'];
+说明：
+总是产生 $HTTP_RAW_POST_DATA  变量包含有原始的 POST 数据。
+此变量仅在碰到未识别 MIME 类型的数据时产生。
+$HTTP_RAW_POST_DATA  对于 enctype="multipart/form-data"  表单数据不可用
+如果post过来的数据不是PHP能够识别的，可以用 $GLOBALS['HTTP_RAW_POST_DATA']来接收，
+比如 text/xml 或者 soap 等等
+解释：
+$GLOBALS['HTTP_RAW_POST_DATA']存放的是POST过来的原始数据。
+$_POST或$_REQUEST存放的是 PHP以key=>value的形式格式化以后的数据。 
+但$GLOBALS['HTTP_RAW_POST_DATA']中是否保存POST过来的数据取决于centent-Type的设置，即POST数据时 必须显式示指明Content-Type: application/x-www-form-urlencoded，POST的数据才会存放到 $GLOBALS['HTTP_RAW_POST_DATA']中
+
+二、演示
+
+1、PHP 如何获取POST过来的XML数据和解析XML数据
+比如我们在开发微信企业号时，如何处理用户回复过来的数据呢？
+文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E6%8E%A5%E6%94%B6%E6%99%AE%E9%80%9A%E6%B6%88%E6%81%AF
+首先查阅文档，可知道：启用开发模式后，当用户给应用回复信息时，微信服务端会POST一串XML数据到已验证的回调URL
+
+假设该URL为 http://www.xinhuiyi.com 
+Http请求方式: POST
+http://www.xinhuiyi.com/?msg_signature=ASDFQWEXZCVAQFASDFASDFSS&timestamp=13500001234&nonce=123412323
+
+POST的XML内容为：
+
+?
+1
+2
+3
+4
+5
+6
+7
+8
+9
+<xml>
+   <ToUserName><![CDATA[toUser]]></ToUserName>
+   <FromUserName><![CDATA[fromUser]]></FromUserName> 
+   <CreateTime>1348831860</CreateTime>
+   <MsgType><![CDATA[text]]></MsgType>
+   <Content><![CDATA[this is a test]]></Content>
+   <MsgId>1234567890123456</MsgId>
+   <AgentID>1</AgentID>
+</xml>
+那么怎么接收这段内容呃？
+这时就可以用到：方法2（file_get_contents("php://input")）、方法3（$GLOBALS['HTTP_RAW_POST_DATA']）
+
+方法2（file_get_contents("php://input")）：
+
+?
+1
+2
+3
+$input = file_get_contents("php://input"); //接收POST数据
+$xml = simplexml_load_string($input); //提取POST数据为simplexml对象
+var_dump($xml);
+方法3（$GLOBALS['HTTP_RAW_POST_DATA']）
+
+?
+1
+2
+3
+4
+$input = $GLOBALS['HTTP_RAW_POST_DATA'];
+libxml_disable_entity_loader(true);
+$xml = simplexml_load_string($input, 'SimpleXMLElement', LIBXML_NOCDATA);
+var_dump($xml);
+
+文档相关：
+1、php获取post参数的几种方式：
+http://lhdst-163-com.iteye.com/blog/1680297
+2、PHP 获取POST的最原始数据方法
+http://my.oschina.net/junn/blog/148277
+3、四种常见的POST提交数据方式
+http://my.oschina.net/junn/blog/277254

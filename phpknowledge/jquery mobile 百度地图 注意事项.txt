@@ -1,0 +1,32 @@
+jquery mobile 百度地图 注意事项
+jquery mobile 百度地图
+
+
+
+1.先去通过百度拾取坐标系统获得点位的坐标
+
+http://api.map.baidu.com/lbsapi/getpoint/index.html
+
+
+
+2.在网页的<head>中插入百度API引用脚本。
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?
+
+
+
+key=&v=1.1&services=true"></script>
+
+
+
+3.在网页的</body>之后</html>之前插入地图显示代码
+
+
+
+4.设置显示地图的div的id为“dituContent”，即添加 id="dituContent" 
+
+由于jqm的div的高度都是根据内容自由放大的，所以为了地图能正常显示，还需要
+
+
+
+增加一个高度值，一般情况600px就可以

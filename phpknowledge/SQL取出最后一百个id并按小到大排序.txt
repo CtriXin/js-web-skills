@@ -1,0 +1,1 @@
+(SELECT * FROM `bxj`.`voice_log` ORDER BY 1 DESC LIMIT 0,2 ) ORDER BY 1 ASC

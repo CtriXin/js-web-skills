@@ -1,0 +1,20 @@
+Ò»¡¢
+tojson£º
+
+1£©
+msg = new Object();
+        msg.cmd = 'login';
+        msg.name = GET['name'];
+        msg.avatar = GET['avatar'];var json= $.toJSON(msg) ;alert(json);
+
+{"cmd":"login","name":"bajian2","avatar":"123"}
+2£©
+ws.send($.toJSON({cmd : 'getOnline'}));
+
+¶þ¡¢
+parsejson
+var message = $.evalJSON(e.data);
+        var cmd = message.cmd;
+
+http://www.oschina.net/p/jquery-json
+http://webim.swoole.com/static/js/jquery.json.js

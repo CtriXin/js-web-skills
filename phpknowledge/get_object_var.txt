@@ -1,0 +1,5 @@
+$question_numArr=DB::select("select count(*) from messages where pic !='' and users_id=$users_id");
+			$today_questionArr=DB::select("select count(*) from messages where pic !='' and users_id=$users_id and update_time>'$today_time'");
+			$question_num=get_object_vars($question_numArr[0])['count(*)'];
+			$today_question=get_object_vars($today_questionArr[0])['count(*)'];
+			

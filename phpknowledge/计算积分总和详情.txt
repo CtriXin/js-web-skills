@@ -1,0 +1,13 @@
+SELECT sum(extcredits) FROM `app_credit_log` WHERE users_id=1
+
+SELECT sum(extcredits) total FROM `app_credit_log` WHERE users_id=1
+将users表中已经存在的用户id插入 app_credit表中
+INSERT INTO app_credit( users_id ) 
+SELECT id
+FROM users
+WHERE users.group_id =5 || users.group_id =6 || users.group_id =9
+
+连表查询积分详情
+SELECT * FROM `app_credit_log`  left join app_credit_op on app_credit_op.id=app_credit_log.operation WHERE users_id=1
+
+select a.id,b.id,b.title from a left join b on  a.artid=b.id

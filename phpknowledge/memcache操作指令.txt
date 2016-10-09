@@ -1,0 +1,12 @@
+连接
+
+cmd下执行：
+
+格式：telnet ip port，如下：
+
+telnet 127.0.0.1 11211
+
+
+退出
+
+quit

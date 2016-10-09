@@ -1,0 +1,1 @@
+ufw allow proto tcp from 120.24.88.119 to any port 3306

@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head runat="server"> 
+<title>jquery xml解析</title> 
+<script src="http://code.jquery.com/jquery-1.8.3.min.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+$(document).ready(function(){ 
+	$.ajax({
+        url: '/jq_xmlparse/xsk.xml',
+        dataType: 'xml',
+        success: function(data){
+        	// alert(data);
+        	document.writeln($(data).find('Code').text());
+        	document.writeln($(data).find('SessionId').text());
+        	document.writeln($(data).find('Status').text());
+        	document.writeln($(data).find('UserId').text());
+            // alert($(data).find('Status').text());
+
+        }
+    });
+
+}); 
+</script> 
+</head> 
+<body> 
+<form id="form1"> 
+<div> 
+<select id="DropProvince" style="width:60px;"> 
+<option>请选择</option> 
+</select> 
+<select id="sCity" style="width:60px;"> 
+</select> 
+</div> 
+</form> 
+</body> 
+</html> 

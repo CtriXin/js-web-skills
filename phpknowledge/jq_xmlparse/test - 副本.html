@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head runat="server"> 
+<title>jquery xml解析</title> 
+<script src="http://code.jquery.com/jquery-1.8.3.min.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+$(document).ready(function(){ 
+$.ajax({url:"/jq_xmlparse/city.xml", 
+success:function(xml){ 
+$(xml).find("province").each(function(){ 
+var t = $(this).attr("name");//this-> 
+$("#DropProvince").append("<option>"+t+"</option>"); 
+}); 
+} 
+}); 
+$("#DropProvince").change(function(){ 
+$("#sCity>option").remove(); 
+var pname = $("#DropProvince").val(); 
+$.ajax({url:"City.xml", 
+success:function(xml){ 
+$(xml).find("province[name='"+pname+"']>city").each(function(){ 
+$("#sCity").append("<option>"+$(this).text()+"</option>"); 
+}); 
+} 
+}); 
+}); 
+}); 
+</script> 
+</head> 
+<body> 
+<form id="form1"> 
+<div> 
+<select id="DropProvince" style="width:60px;"> 
+<option>请选择</option> 
+</select> 
+<select id="sCity" style="width:60px;"> 
+</select> 
+</div> 
+</form> 
+</body> 
+</html> 

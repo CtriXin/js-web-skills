@@ -1,0 +1,4 @@
+SELECT * FROM t_userinfo WHERE userphone IN ('13714876874','18609944488') ORDER BY FIELD(userphone ,'13714876874','18609944488')
+出来的顺序就是指定的顺序了
+
+http://www.jb51.net/article/25639.htm

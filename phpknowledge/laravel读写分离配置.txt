@@ -1,0 +1,10 @@
+'read' => array(
+				'host' => '120.24.76.242',
+				'username'  => 'bajianx',
+				'password'  => '334945804',
+				),
+			'write' => array(
+				'host' => 'localhost',
+				'username'  => 'root',
+				'password'  => '(2014FlyHelper)',
+				),

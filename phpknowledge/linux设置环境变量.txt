@@ -1,0 +1,17 @@
+修改文件：
+/etc/profile
+export PATH=/usr/local/mongodb3.2.7/bin:/usr/local/php/bin:/usr/local/nginx/sbin:/usr/local/mysql/bin:$PATH
+别漏了“:”！！！
+
+
+然后更新文件
+
+source /etc/profile
+
+即可直接使用 mongo命令 service mongo start。。。
+
+
+http://www.2cto.com/database/201408/322384.html
+http://www.cnblogs.com/xiehy/archive/2010/11/24/1886461.html
+http://soft.chinabyte.com/os/169/11412169.shtml
+

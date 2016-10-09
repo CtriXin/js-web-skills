@@ -1,0 +1,13 @@
+Linux系统为Ubuntu
+一、Start Apache 2 Server /启动apache服务
+# /etc/init.d/apache2 start
+or
+$ sudo /etc/init.d/apache2 start
+二、 Restart Apache 2 Server /重启apache服务
+# /etc/init.d/apache2 restart
+or
+$ sudo /etc/init.d/apache2 restart
+三、Stop Apache 2 Server /停止apache服务
+# /etc/init.d/apache2 stop
+or
+$ sudo /etc/init.d/apache2 stop

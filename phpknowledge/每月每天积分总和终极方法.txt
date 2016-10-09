@@ -1,0 +1,10 @@
+
+SELECT SUM(allocate_times) ,update_time,TO_DAYS(update_time) FROM messages WHERE (TO_DAYS(NOW()) - TO_DAYS(update_time) )<= 30  GROUP BY TO_DAYS(update_time)
+
+
+SELECT COUNT(*) ,update_time FROM messages WHERE (TO_DAYS(NOW()) - TO_DAYS(update_time) )<29  GROUP BY TO_DAYS(update_time)
+
+SELECT COUNT(*) ,DAYOFMONTH(update_time) FROM messages WHERE (TO_DAYS(NOW()) - TO_DAYS(update_time) )<29  GROUP BY TO_DAYS(update_time)
+
+用户七天内连续登录拍照上传
+SELECT COUNT(pic) ,DAYOFMONTH(update_time) FROM messages WHERE users_id=12552 AND (TO_DAYS(NOW()) - TO_DAYS(update_time) )<7  GROUP BY TO_DAYS(update_time)

@@ -1,0 +1,50 @@
+判断变量和数组是否为空使用empty()，empty()会先检查是否已经初始化，因而无须同时使用isset()和empty()。不要使用count()来判断数组是否为空。
+
+/* Error way */
+ 
+if (isset($_POST['forum']) && !empty($_POST['forum'])) 
+ 
+{
+ 
+    ...
+ 
+}
+ 
+ 
+ 
+/* Right way */
+ 
+if (!empty($_POST['forum'])) 
+ 
+{
+ 
+    ...
+ 
+}
+
+
+http://www.cnblogs.com/ylxeluxi/archive/2011/09/07/2170294.html
+
+PHP判断数组为空首选方法：count($arr),size($arr);
+
+$arr= array("");
+echo count($arr);
+echo size($arr);
+
+//输出1
+$arr= array();
+echo count($arr);
+echo size($arr);
+
+//输出0
+PHP判断数组为空方法2：empty($arr);
+
+$arr= array("");
+$result = empty($arr);
+
+//$result = false
+$arr = array();
+$result = empty($arr);
+
+//$result = true
+这两种方法足以应对简单数组和多维数组是否为空的判断问题,个人一般用empty()来做数组非空判断，这样感觉代码看起来更容易理解。

@@ -1,0 +1,8 @@
+root@iZ9412sf3j9Z:~# php -r 'echo str_repeat("ABC\n",5);echo "\n";'
+ABC
+ABC
+ABC
+ABC
+ABC
+
+root@iZ9412sf3j9Z:~# 

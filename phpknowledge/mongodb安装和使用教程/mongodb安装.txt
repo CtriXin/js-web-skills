@@ -1,0 +1,124 @@
+
+https://www.mongodb.com/download-center#community
+
+
+wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1404-3.2.7.tgz
+
+tar -zxvf mongodb-linux-x86_64-ubuntu1404-3.2.7.tgz 
+
+mv mongodb-linux-x86_64-ubuntu1404-3.2.7.tgz mongodb3.2.7
+mv mongodb3.2.7/ /usr/local/mongodb3.2.7
+
+创建mongodb存放的数据文件、日子文件(mongodb_db、mongodb_logs)
+
+ cd /
+mkdir mongodbdata
+cd mongodbdata
+mkdir mongodb_db
+mkdir mongodb_logs
+
+进入刚才解压的mongodb2.0.4/bin 目录，启动mongodb，指定输出路径
+#cd /opt/mongodb2.0.4/bin
+# ./mongod --dbpath=/mongodbdata/mongodb_db --logpath=/mongodbdata/mongodb_logs/mongodb.log --logappend&
+
+3. 设置开机自启动或者见附件脚本 再创建软链ln -s /etc/init.d/mongodb /etc/rc2.d/S20mongodb（推荐，可以使用service命令）
+将mongodb启动项目追加入rc.local保证mongodb在服务器开机时启动 
+echo "/usr/local/mongodb3.2.7/bin/mongod  --dbpath=/mongodbdata/mongodb_db  --logpath=/mongodbdata/mongodb_logs/mongodb.log --logappend  --auth --port=27017" >> /etc/rc.local
+
+修改文件：
+/etc/profile
+export PATH=/usr/local/mongodb3.2.7/bin:/usr/local/php/bin:/usr/local/nginx/sbin:/usr/local/mysql/bin:$PATH
+别漏了“:”！！！
+
+
+然后更新文件
+
+source /etc/profile
+
+即可直接使用 mongo命令 service mongo start。。。
+
+
+检查端口是否启动，端口为：27017
+# netstat -lanp  | grep 27017
+
+
+第5：可以用mongodb客户端，连接数据库了。进入到bin目录，执行mongo
+# ./mongo
+MongoDB shell version: 2.0.4connecting to: test
+>use mongo_test 创建库
+>db.createCollection("test") 创建表
+
+必须在没有--auth下才能进入
+/usr/local/mongodb3.2.7/bin/mongo
+创建用户密码
+
+> use admin    
+ 
+switched to db admin    
+ 
+> db.createUser( { "user" : "hgx",
+                 "pwd": "334945804",
+                 "customData" : { mail:"313066164@qq.com" },
+                 "roles" : [ { role: "clusterAdmin", db: "admin" },
+                             { role: "root", db: "admin" },
+                             "readWrite"
+                             ] },
+               { w: "majority" , wtimeout: 5000 } )
+
+然后在mongodb.conf中设置logappend=true（允许远程ip但需要密码登录 也可以bind 127.0.0.1...）
+验证
+/usr/local/mongodb3.2.7/bin/mongo -u hgx -p 334945804 --authenticationDatabase admin
+GUI软件推荐使用mongobooster http://pan.baidu.com/s/1dECOJ4H 已保存到自己网盘
+
+
+http://database.51cto.com/art/201107/278042.htm
+http://bbs.51cto.com/thread-1146654-1.html
+
+ show dbs 查看数据库
+
+db.createCollection("test") 创建表
+use DATABASE_NAME 如果数据库不存在，则创建数据库，否则切换到指定数据库。
+db.dropDatabase() 删除数据库
+db.collection.drop() 删除集合
+db.COLLECTION_NAME.insert(document) 插入文档 MongoDB 使用 insert() 或 save() 方法向集合中插入文档，
+db.COLLECTION_NAME.find() 查看已插入文档：
+
+
+更新文档
+MongoDB 使用 update() 和 save() 方法来更新集合中的文档。接下来让我们详细来看下两个函数的应用及其区别。
+update() 方法
+update() 方法用于更新已存在的文档。语法格式如下：
+db.collection.update(
+   <query>,
+   <update>,
+   {
+     upsert: <boolean>,
+     multi: <boolean>,
+     writeConcern: <document>
+   }
+)
+参数说明：
+query : update的查询条件，类似sql update查询内where后面的。
+update : update的对象和一些更新的操作符（如$,$inc...）等，也可以理解为sql update查询内set后面的
+upsert : 可选，这个参数的意思是，如果不存在update的记录，是否插入objNew,true为插入，默认是false，不插入。
+multi : 可选，mongodb 默认是false,只更新找到的第一条记录，如果这个参数为true,就把按条件查出来多条记录全部更新。
+writeConcern :可选，抛出异常的级别。
+实例：db.testConllection.update({"bajian":123},{$set:{"bajian":"hgx","sex":"boy"}})//update的属性可以是不存在的
+更多实例
+只更新第一条记录：
+db.col.update( { "count" : { $gt : 1 } } , { $set : { "test2" : "OK"} } );
+全部更新：
+db.col.update( { "count" : { $gt : 3 } } , { $set : { "test2" : "OK"} },false,true );
+只添加第一条：
+db.col.update( { "count" : { $gt : 4 } } , { $set : { "test5" : "OK"} },true,false );
+全部添加加进去:
+db.col.update( { "count" : { $gt : 5 } } , { $set : { "test5" : "OK"} },true,true );
+全部更新：
+db.col.update( { "count" : { $gt : 15 } } , { $inc : { "count" : 1} },false,true );
+只更新第一条记录：
+db.col.update( { "count" : { $gt : 10 } } , { $inc : { "count" : 1} },false,false );
+
+mongodb://hgx:334945804@localhost/node_club_dev
+
+ln -s /etc/init.d/mongodb /etc/rc2.d/S20mongodb
+

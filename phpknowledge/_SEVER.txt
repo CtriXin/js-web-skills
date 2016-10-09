@@ -1,0 +1,7 @@
+// foreach($_SERVER as $key => $val){
+		// Log::info(" $key : $val");
+		// }
+		// Log::info(strlen($postStr));
+		// Log::info($postStr);
+		// Log::info(" _SERVER----".var_dump(apache_response_headers()));
+

@@ -1,0 +1,307 @@
+$("#artibody table").wrap("<div style='overflow:scroll;background:white;'></div>");
+
+/<div[^>]*?id=[\"|\']artibody[\"|\']\s?>[\d\D]*?(?=<div.*?class=\"dateOrigin\".*?>)/i
+
+匹配开头 /<div[^>]*?id=[\"|\']artibody[\"|\']\s?>
+匹配中间任意内容 [\d\D]*?
+匹配结尾 (?=<div.*?class=\"dateOrigin\".*?>)
+
+</h1>
+                <!-- 正文内容 begin -->
+                <div id="artibody">
+                    <P align=center><FONT style="LINE-HEIGHT: 150%" size=4><STRONG>深圳市残疾人辅助器具资源中心2010年残疾人服务项目介绍</STRONG></FONT></P>
+<P><FONT style="LINE-HEIGHT: 150%" size=4>
+<TABLE style="WIDTH: 649px; HEIGHT: 816px" border=1 cellSpacing=1 cellPadding=1 bgColor=#ffffff>
+<TBODY>
+<TR>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>序号</FONT></TD>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>项目名称</FONT></TD>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>服务对象</FONT></TD>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>项目服务人数及补助标准</FONT></TD></TR>
+<TR>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>1</FONT></TD>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>信息广覆盖成人助听器验配服务</FONT></TD>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>深圳市户籍，16岁以上听力残疾人</FONT></TD>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>300人，1800元/人（助听器产品形式资助）</FONT></TD></TR>
+<TR>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>2 </FONT></TD>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>手机信息卡</FONT></TD>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>深圳市户籍，10-65岁听力言语残疾人</FONT></TD>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>900人，600元/人（信息服务费）</FONT></TD></TR>
+<TR>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>3 </FONT></TD>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>亲情通残疾人应急呼叫服务</FONT></TD>
+<TD>&nbsp; 
+<P><FONT style="LINE-HEIGHT: 150%" size=4>具有深圳户籍，同时满足一下条件之一者：</FONT></P>
+<P><FONT style="LINE-HEIGHT: 150%" size=4>1、肢体残疾人，生活不能完全自理，认知能力好，手部可按压按键；</FONT></P>
+<P><FONT style="LINE-HEIGHT: 150%" size=4>2、视障残疾人，生活不能完全自理，认知能力好；</FONT></P>
+<P><FONT style="LINE-HEIGHT: 150%" size=4>3、除上以外，行动不便独居的残疾人。</FONT></P></TD>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>500人，120元/人（信息服务费）</FONT></TD></TR>
+<TR>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>4</FONT></TD>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>重度居家无障碍改造补贴</FONT></TD>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>深圳市户籍，重度肢体残疾人</FONT></TD>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>100户，1800元/户（居家无障碍改造形式资助）</FONT></TD></TR>
+<TR>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>5</FONT></TD>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>辅具维修（机动车管理）</FONT></TD>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>深圳市户籍，有辅具维修需求残疾人</FONT></TD>
+<TD>&nbsp;<FONT style="LINE-HEIGHT: 150%" size=4>1000次，100元/次（以辅具维修形式）</FONT></TD></TR>
+<TR>
+<TD>&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD>&nbsp;</TD></TR></TBODY></TABLE></FONT><FONT style="LINE-HEIGHT: 150%" size=4>说明:以上所有服务项目按照总名额，先到先得实施资助的原则。</FONT></P>
+                </div>
+                <!-- 正文内容 end -->
+                <div class="dateOrigin">
+
+
+path=(.*?)\'\'>[\d\D]*?<span class="listurl" style="vertical-align:middle">(.*?)</span>
+
+
+[2015-09-04 14:19:03] production.INFO: /var/www/html/szrcatc/public/attach_html/6993961.html [] []
+[2015-09-04 14:19:03] production.INFO: 
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>
+	列表
+</title></head>
+
+<script type="text/javascript" src="../../../../System/Web/WorkFlow/js/list.js">
+</script>
+<script type="text/javascript" src="../../../../System/Web/WorkFlow/js/calendar.js">
+</script>
+
+<script type="text/javascript">
+addUrl="AddFile.aspx?infoInstId=6993961";
+editUrl="../../../../System/Web/WorkFlow/words/openEditWord.aspx";
+printUrl="wordPrint.aspx";
+windowHeight=400;
+windowWidth=600;
+isFull=false;
+
+function reFlash(){
+window.location.href="List4Document.aspx?infoInstId=6993961";
+}
+ 
+function addbigfile()
+        {
+           
+	      var  windowTop = (screen.availHeight-windowHeight)/2;
+	      var  windowLeft = (screen.availWidth-windowWidth)/2;
+          window.open("UploadFile.aspx?infoInstId=6993961",'',"toolbar=0,location=0,directories=0,status=1,menubar=0,scrollbars=1,resizable=1,left="+windowLeft+",top="+windowTop+",width="+windowWidth+",height="+windowHeight);
+          //var result = window.showModalDialog("UploadFile.aspx?infoInstId=6993961" ,"","help=no;status=no;scroll=no;center=1;dialogWidth:"+windowWidth+"px;dialogHeight:"+windowHeight+"px");
+           
+        }
+ 
+ 
+function editFull()
+        {
+            var nRID=getOneSelected();
+            if(nRID==-1){
+            alert("请选择要修改的记录");
+            return;
+            }        
+           editByIDFull(nRID);
+        }
+        
+ function editByIDFull(id){
+          var strUrl;
+            if(editUrl.indexOf("?")>-1)
+              strUrl= editUrl+"&nRID="+id;
+            else
+              strUrl= editUrl+"?nRID="+id;
+         
+           var w = screen.availWidth-10;
+	       var h = screen.availHeight-50;
+           window.open(strUrl,'',"toolbar=0,location=0,directories=0,status=1,menubar=0,scrollbars=1,resizable=1,left=0,top=0,width="+w+",height="+h);
+        }  
+        
+   function setByID(id){
+            var result = window.showModalDialog("SetFile.aspx?nRID="+id ,"","help=no;status=no;scroll=no;center=1;dialogWidth:"+windowWidth+"px;dialogHeight:"+windowHeight+"px");
+            if("change"==result){
+            window.location.reload();
+            }
+            }
+        
+        
+  function setProperty()
+        {
+            var nRID=getOneSelected();
+            if(nRID==-1){
+            alert("请选择要设置的记录");
+            return;
+            }
+            setByID(nRID);
+        }
+        
+ function downLoad()
+        {
+            var nRID=getOneSelected();
+            if(nRID==-1){
+            alert("请选择要下载的记录");
+            return;
+            }
+            var path=getOneSelectedValueByName("path"); 
+            var saveName=getOneSelectedValueByName("saveName"); 
+            downLoadByID(path,saveName);
+        }
+        
+ function downLoadByID(path,saveName){
+           var strUrl="../../../../System/Web/WorkFlow/compent/Down.aspx?path="+path+"&SaveName="+saveName;
+           var w = screen.availWidth-10;
+	       var h = screen.availHeight-50;
+           window.open(strUrl,'',"toolbar=0,location=0,directories=0,status=1,menubar=0,scrollbars=1,resizable=1,left=0,top=0,width="+w+",height="+h);
+        }               
+              
+              
+function delDir(){
+ if(!confirm("你确定要删除目录吗?"))return;
+ //删除
+ MyAjax.del资料库目录(6993961);
+ parent.frames("frmTree").location.reload();
+
+}
+
+function modifyDir(){
+ var strUrl = "AddDir.aspx?nRID=6993961";
+ var result = window.showModalDialog(strUrl ,"","center=1;dialogWidth:400px;dialogHeight:300px");
+  if("change"==result){
+     parent.frames("frmTree").location.reload();
+   }
+}
+
+function addDir(){
+ var strUrl = "AddDir.aspx?Pare_nRID="+6993961;
+ var result = window.showModalDialog(strUrl ,"","center=1;dialogWidth:400px;dialogHeight:300px");
+ if("change"==result){
+     parent.frames("frmTree").location.reload();
+   }
+}
+</script>
+
+<body style="margin: 0">
+    <form name="form1" method="post" action="List4Document.aspx?showSearch=false&amp;infoInstId=6993961&amp;Author=6985789&amp;isEdit=True" id="form1">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script type="text/javascript" src="/fjoa/ajax/common.ashx"></script><script type="text/javascript" src="/fjoa/ajax/MyAjax,App_Code.frrvupic.ashx"></script>
+<div>
+
+	<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="e1MT5lV2B28/slWS6HenYEr5pTQGfKdPP5XyFJNOiCMKxfRZQJv94Eu96LiVBj6mjMBESUhEbk+SFSGW5vnYEdSGkvhThWNH/lQSChBfjite3e4ICNNHHIj2FXwH0LMPU44z4XTqmRZAxF5cxIrsQHyx8PA=" />
+</div>
+        <div>
+            <table border="0" cellspacing="0" cellpadding="0" width="100%" class="tiao">
+                <tr>
+                    <td>
+                        <table>
+                            <tr> 
+                            <td>
+                            
+                            </td>
+                                <td>
+                                    <!--<input type="button" name="ok" value="新 增" onclick='add()'/>-->
+                                    <span class="button"><a ><span onclick='add()'>新 增</span></a></span></td>
+                                <td style="width: 2px">
+                                </td>
+                                <td>
+                                    <!--<input type="button" name="ok" value="新 增" onclick='add()'/>-->
+                                    <span class="button"><a ><span onclick='addbigfile()'>大文件上传</span></a></span></td>
+                                <td style="width: 2px">
+                                </td>
+                                <td>
+                                    <span class="button"><a ><span onclick='editFull()'>编 辑</span></a></span></td>
+                                <td style="width: 2px">
+                                </td>
+                                
+                                
+                                <td>
+                                    <span class="button"><a ><span onclick='setProperty()'>属性设置</span></a></span></td>
+                                
+                                <td style="width: 2px">
+                                </td>
+                                <td>
+                                    <span class="button"><a ><span>
+                                        <input type="submit" name="delButton" value="删 除" onclick="return del();" id="delButton" class="button" style="background-color:Transparent;border-style:None;height:20px;cursor: hand" /></span></a></span></td>
+                                <td style="width: 2px">
+                                </td>
+                              
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table> <div>
+	<table cellspacing="0" rules="all" border="1" id="GridView1" style="border-collapse:collapse;">
+		<tr>
+			<th align="center" scope="col" style="width:20px;">
+                            <span disabled="disabled" title="全部选择"><input id="GridView1_ctl01_chkAll" type="checkbox" name="GridView1$ctl01$chkAll" disabled="disabled" onclick="CheckAll(this);" /></span>
+                        </th><th scope="col">图标</th><th scope="col"><a href="javascript:__doPostBack('GridView1','Sort$文件名')">文件名</a></th><th scope="col" style="width:100px;"><a href="javascript:__doPostBack('GridView1','Sort$创建人')">上传人</a></th><th scope="col" style="width:150px;"><a href="javascript:__doPostBack('GridView1','Sort$时间')">上传时间</a></th><th scope="col" style="width:80px;"><a href="javascript:__doPostBack('GridView1','Sort$文件类型')">类型</a></th>
+		</tr><tr>
+			<td align="center" style="width:20px;">
+                            <span disabled="disabled" name="chk" sjm="6993965" path="D:/serverFile/Words/2015/7/b0df6d2c-66d2-4cd9-9256-13fe5ec92c95.doc" saveName="关于开展“互联网+政府改革”工作书面调研的函（报告单）.doc"><input id="GridView1_ctl02_chk" type="checkbox" name="GridView1$ctl02$chk" disabled="disabled" /></span>
+                        </td><td style="width:20px;">
+                          <a  target='_self'  href='../compent/Down.aspx?path=D:/serverFile/Words/2015/7/b0df6d2c-66d2-4cd9-9256-13fe5ec92c95.doc&SaveName=关于开展“互联网+政府改革”工作书面调研的函（报告单）.doc''>
+                              <img width='40px' src='/hxoa/System/Web/WorkFlow/images/2010word.jpg'>
+                          </a>
+                          </td><td>
+                            <a  target='_self'  href='../compent/Down.aspx?path=D:/serverFile/Words/2015/7/b0df6d2c-66d2-4cd9-9256-13fe5ec92c95.doc&SaveName=关于开展“互联网+政府改革”工作书面调研的函（报告单）.doc''>
+                                <span class="listurl" style="vertical-align:middle">关于开展“互联网+政府改革”工作书面调研的函（报告单）.doc</span>
+                            </a>
+                        </td><td style="width:100px;">黎凯鸿</td><td style="width:150px;">2015/7/29 16:53:34</td><td style="width:80px;">doc</td>
+		</tr><tr>
+			<td align="center" style="width:20px;">
+                            <span disabled="disabled" name="chk" sjm="6993964" path="D:/serverFile/Words/2015/7/e0a6b7ab-8cb2-47d2-a640-aa50222d0a22.ceb" saveName="关于开展“互联网+政府改革”工作书面调研的函.ceb"><input id="GridView1_ctl03_chk" type="checkbox" name="GridView1$ctl03$chk" disabled="disabled" /></span>
+                        </td><td style="width:20px;">
+                          <a  target='_self'  href='../compent/Down.aspx?path=D:/serverFile/Words/2015/7/e0a6b7ab-8cb2-47d2-a640-aa50222d0a22.ceb&SaveName=关于开展“互联网+政府改革”工作书面调研的函.ceb''>
+                              <img width='40px' src='/hxoa/System/Web/WorkFlow/images/text.jpg'>
+                          </a>
+                          </td><td>
+                            <a  target='_self'  href='../compent/Down.aspx?path=D:/serverFile/Words/2015/7/e0a6b7ab-8cb2-47d2-a640-aa50222d0a22.ceb&SaveName=关于开展“互联网+政府改革”工作书面调研的函.ceb''>
+                                <span class="listurl" style="vertical-align:middle">关于开展“互联网+政府改革”工作书面调研的函.ceb</span>
+                            </a>
+                        </td><td style="width:100px;">黎凯鸿</td><td style="width:150px;">2015/7/29 16:53:29</td><td style="width:80px;">ceb</td>
+		</tr><tr>
+			<td align="center" style="width:20px;">
+                            <span disabled="disabled" name="chk" sjm="6993963" path="D:/serverFile/Words/2015/7/663e85e2-18e4-4b1f-8df5-b29fd3fab643.doc" saveName="关于开展“互联网+政府改革”工作书面调研的函.doc"><input id="GridView1_ctl04_chk" type="checkbox" name="GridView1$ctl04$chk" disabled="disabled" /></span>
+                        </td><td style="width:20px;">
+                          <a  target='_self'  href='../compent/Down.aspx?path=D:/serverFile/Words/2015/7/663e85e2-18e4-4b1f-8df5-b29fd3fab643.doc&SaveName=关于开展“互联网+政府改革”工作书面调研的函.doc''>
+                              <img width='40px' src='/hxoa/System/Web/WorkFlow/images/2010word.jpg'>
+                          </a>
+                          </td><td>
+                            <a  target='_self'  href='../compent/Down.aspx?path=D:/serverFile/Words/2015/7/663e85e2-18e4-4b1f-8df5-b29fd3fab643.doc&SaveName=关于开展“互联网+政府改革”工作书面调研的函.doc''>
+                                <span class="listurl" style="vertical-align:middle">关于开展“互联网+政府改革”工作书面调研的函.doc</span>
+                            </a>
+                        </td><td style="width:100px;">黎凯鸿</td><td style="width:150px;">2015/7/29 16:53:23</td><td style="width:80px;">doc</td>
+		</tr>
+	</table>
+</div>
+            
+        </div>
+    </form>
+</body>
+</html>
+ [] []
+[2015-09-04 14:19:03] production.INFO: no match  [] []
+

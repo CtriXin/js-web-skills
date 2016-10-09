@@ -1,0 +1,4 @@
+strtr($string, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') 
+
+echo strtr('HuAng', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') ;
+huang[Finished in 0.1s]

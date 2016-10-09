@@ -1,0 +1,3 @@
+alter table `info` add foreign key(device_id) references `device`(id)
+alter table `app_friends` add foreign key(`users_id`) references `users`(id)
+(device_id) 外键类型需要和原来的那个(id)一样。如 unsign

@@ -1,0 +1,1 @@
+SELECT DAYOFMONTH(last_login) FROM `users` WHERE id=10347

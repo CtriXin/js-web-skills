@@ -1,0 +1,2 @@
+ SELECT sum( 求值的字段 ) FROM `表名`
+SELECT sum(score) FROM `info` WHERE 1

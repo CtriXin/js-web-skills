@@ -1,0 +1,2 @@
+http://jingyan.baidu.com/article/d7130635235d4f13fcf47545.html
+由于php语言动态解析的特性，使用opcache和apc等opcode缓存是很有必要的。

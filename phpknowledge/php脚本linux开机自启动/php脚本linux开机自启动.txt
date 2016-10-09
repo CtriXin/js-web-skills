@@ -1,0 +1,42 @@
+1、编写启动脚本
+
+testphp文件：
+
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          hgx
+### END INIT INFO
+
+PHP_DIR="/root/write.php"
+COMMOND="/usr/local/php/bin/php "
+###COMMOND PHP_DIR
+/usr/local/php/bin/php /root/write.php
+
+exit 0
+
+1.5、./testphp测试脚本能不能执行
+2、将脚本移/etc/init.d/
+
+3、生成软链接
+ln -s /etc/init.d/testphp /etc/rc3.d/S20testphp
+ln -s /etc/init.d/testphp /etc/rc2.d/S20testphp//实测手动reboot有效
+
+此处sshd是具体服务的脚本文件，S100ssh是其软链接，S开头代表加载时自启动
+
+如果需要在多个运行级别下设置自启动，则需建立多个软链接
+4、reboot重启测试
+
+其他脚本也是这样搞的。不一定要php
+
+附录：
+
+init.d  rc0.d  rc1.d  rc2.d  rc3.d  rc4.d  rc5.d  rc6.d
+0 - 停机 
+1 - 单用户模式 
+2 - 多用户，但是没有NFS ，不能使用网络 
+3 - 完全多用户模式，我最喜欢的模式 
+4 - “打酱油” 模式，没有用到 
+5 - X11   桌面模式
+6 - 重新启动 （如果将默认启动模式设置为6，Linux将会不断重启）
+
+

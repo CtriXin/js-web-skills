@@ -1,0 +1,38 @@
+http://blog.chinaunix.net/uid-9950859-id-98277.html
+http://blog.chinaunix.net/uid-9950859-id-98278.html
+http://blog.chinaunix.net/uid-9950859-id-98279.html
+http://blog.chinaunix.net/uid-9950859-id-98280.html
+http://blog.chinaunix.net/uid-9950859-id-98281.html
+
+
+iptables -A INPUT -p tcp -i eth0 -d 192.126.126.72 --dport 80 -j DROP
+
+iptables -A INPUT -p tcp -s 26.18.184.123 -j DROP
+
+iptables -A INPUT -p tcp -s 30.41.184.123 --dport 50301 -j DROP
+
+
+
+
+
+
+
+
+
+iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport 8080 -j ACCEPT
+
+
+iptables -A INPUT -p tcp -s 182.92.73.34 --dport 8080 -j ACCEPT
+dport：目的端口 
+sport：来源端口 
+
+iptables -I INPUT -p tcp --dport 8080 -j ACCEPT
+
+iptables -I INPUT -p tcp --dport 9090 -j ACCEPT
+
+
+iptables -I INPUT 8 -p tcp --dport 9091 -j ACCEPT
+
+必须添加在
+REJECT     all  --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-host-prohibited
+前面，否则外网无法访问

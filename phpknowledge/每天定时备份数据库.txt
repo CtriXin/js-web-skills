@@ -1,0 +1,39 @@
+242从数据库，每天4:10和16:10备份一次snew..._2数据库
+
+备份地址
+mkdir /home/ubuntu/data_backup
+
+定时脚本地址
+nano /usr/sbin/bakmysql
+
+脚本内容
+rq=`date +%Y%m%d%H:%M:%S`
+
+mysqldump snewflyhelper_2 -u root -pslfy2014 >/home/ubuntu/data_backup/mysql$rq.sql
+
+mysqldump snewflyhelper_2 -u bajianx -p334945804 >/home/ubuntu/data_backup/mysql$rq.sql
+然后必须执行chmod 777 /usr/sbin/bakmysql修改权限，否则会报permission deny
+
+测试脚本运行
+/usr/sbin/bakmysql
+
+修改定时任务的地址
+nano -w /etc/crontab
+
+
+
+
+etc/crontab是所有定时配置
+10 4	* * *	root	/usr/sbin/bakmysql
+37 14	* * *	root	/usr/sbin/bakmysql
+
+
+
+crontab -e 添加当前用户的定时任务，无需再填root之类的用户了！！！！！否则不执行。
+配置文件在/var/spool/cron里
+crontab -l 查看当前用户的任务行程表
+
+10 4	* * *	/usr/sbin/bakmysql
+40 13	* * *	/usr/sbin/bakmysql
+
+

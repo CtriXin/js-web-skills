@@ -1,0 +1,13 @@
+if(preg_match('/^\d+$/i', $this->keyword)){
+				$this->mem->set($this->openid."_mobile", $this->keyword, 0, 0);
+				DB::update("update users set telephone='$this->keyword',phone_verify=0 where name ='$this->openid'");
+				$msg="手机号记录完毕";
+				$this->mem->set($this->openid."_state", 'x', 0, STATE_TIME);
+			}else{
+				$msg="格式错误。手机号只能是数字，请您检查下。";
+			}
+
+
+if(preg_match('/^[A-Za-z0-9]+$/', substr($this->keyword,0,16))){
+字母和数字
+

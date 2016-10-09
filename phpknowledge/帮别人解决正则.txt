@@ -1,0 +1,9 @@
+https://coding.net/u/LDCN/p/LD/git/tree/master/1C4088BA/trunk/DesomodGaren
+可能长这样
+https://coding.net/u/LDCN/p/LD/git/tree/master/DesomodGaren
+可能长这样
+
+LDCN，LD，DesomodGare是我要的
+LDCN，LD，DesomodGare，1C4088BA这几个位置的内容不是固定的
+解决：
+https://coding.net/u/(.*?)/p/(.*?)/git/tree/master/(.*/trunk/)?(.*)

@@ -1,0 +1,13 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          hgx
+### END INIT INFO
+
+PHP_DIR="/root/write.php"
+COMMOND="/usr/local/php/bin/php "
+###COMMOND PHP_DIR
+###$COMMOND $PHP_DIR
+/root/write.php /usr/local/php/bin/php
+exit 0
+
+ln -s /etc/init.d/testphp /etc/rc3.d/S20testphp

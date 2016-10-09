@@ -1,0 +1,8 @@
+mysql中查询字段为null或者不为null
+ 
+在mysql中，查询某字段为空时，切记不可用 = null，
+而是 is null，不为空则是 is not null
+  www.2cto.com  
+select * from table where column is null;
+ 
+select * from table where column is not null;

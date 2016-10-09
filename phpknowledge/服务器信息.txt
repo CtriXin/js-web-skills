@@ -1,0 +1,50 @@
+万网账户
+name: 365110421@qq.com
+pawwd: 74582935un
+
+阿里云账号
+name: 365110421@qq.com
+pawwd: jycx2014#
+
+FTP账号密码
+hxw0080619
+密码：aer130460
+
+万网X3数据库账号密码
+
+aerx3aer
+
+网站管理用户名 admin
+密码 aerjohnny
+
+
+
+独立服务器:120.24.76.242
+内网：10.169.117.7
+用户名：root
+密码：u6e7AYZ6
+数据库用户:root
+数据库密码:slfy2014
+Memcache服务其端口:11111
+
+生产服务器:
+独立服务器：120.24.88.119
+内网：10.169.122.154 
+用户名：root
+密码：silufeiyaNG2011
+
+数据库用户名：root
+数据库密码：(2014FlyHelper)
+
+域名管理平台
+http://www.mcp.cn    
+域名地址 www.snewfly.com 
+密码 silufeiyaNG
+
+
+旧网站服务器空间
+地址：http://www.snewfly.com:2082/
+用户名：snewfly
+密码：sndr58wer81
+
+SSL密码：slfy

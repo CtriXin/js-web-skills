@@ -1,0 +1,16 @@
+	public function getAccessToken($appid ,$appsecret){
+		//设置缓存，100分钟更新一次access_token
+		$mem = new Memcache;
+		$mem->connect('localhost', 11211) or die ("Could not connect");
+		$access_token = $mem->get('access_token');
+		Log::info(" access_token----".$access_token);
+		if (empty($access_token)){
+			$url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$appid."&secret=".$appsecret;
+			$res = $this->http_request($url);
+			$result = json_decode($res, true);
+			$access_token = $result["access_token"];
+			$mem->set('access_token', $access_token, 0, 7200);
+			Log::info(" set access_token----".$access_token);
+		}
+		return $access_token;
+	}

@@ -1,0 +1,10 @@
+[program:bxj-worker]
+process_name=%(program_name)s_%(process_num)02d
+command=/usr/local/php/bin/php /var/www/html/InLamp/artisan queue:listen --tries=3
+autostart=true
+autorestart=true
+user=root
+numprocs=1
+redirect_stderr=true
+stdout_logfile          = /var/www/html/InLamp/storage/logs/bxjqueue.log
+stdout_logfile_maxbytes = 10MB

@@ -1,0 +1,6 @@
+先去域名管理里创建一个域名
+/etc/apache2/sites-available# cp test.conf wechat.conf
+修改完再
+/etc/apache2/sites-available# sudo a2ensite wechat
+再
+service apache2 reload

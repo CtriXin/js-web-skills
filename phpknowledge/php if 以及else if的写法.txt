@@ -1,0 +1,18 @@
+9.7. if 以及else if的写法
+当条件语句中的条件存在多个，并且有变量值的判断的时候，需要把变量的判断语句放在其他的条件语句之前。
+示例：如下例子不符合规范
+复制代码 代码如下:
+
+if (function_exists(‘ob_gzhandler') && $val == 1){
+}
+应如下书写：if ($val == 1 && function_exists(‘ob_gzhandler')){
+}
+虽然在 PHP 中else if 和 elseif 的作用基本上是一样的。但是为了代码的统一性（也有传言 else if 会出现不稳定的情况），我们要求将 elseif 之间不保留空格：if ($bool == 2){
+}elseif ($n = 1){
+}
+ 
+
+9.10. 文件命名
+文件名应当全部小写，并且词语之间以单个下划线分隔。
+例如： current_user.php 是正确的， 但是 currentuser.php 和 currentUser.php 就不正确。
+名称应当是描述性的，并且简明。我们自然不希望使用冗长的句子作为文件名，但是多输入几个字符总好于疑惑于某个文件到底是干什么用的。

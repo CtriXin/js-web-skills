@@ -1,0 +1,9 @@
+SELECT reply.messages_reply,reply.messages_id FROM `reply` inner join users where reply.users_id=262 limit 0,1000
+
+
+SELECT reply.messages_reply,reply.messages_id FROM `reply` inner join users where reply.users_id=262 and reply.messages_reply!='' limit 0,1000
+
+SELECT distinct reply.messages_reply,reply.messages_id FROM `reply` inner join users where reply.state=512 and reply.users_id=262 and reply.messages_reply!='' limit 0,100
+SELECT distinct reply.messages_id FROM `reply` inner join users where reply.state=512 and reply.users_id=262 and reply.messages_reply!='' limit 0,100
+select users.name from users inner join reply where users.id=(SELECT distinct reply.messages_id FROM `reply` inner join users where reply.state=512 and reply.users_id=262 and reply.messages_reply!='' limit 0,100)
+SELECT distinct reply.messages_id FROM `reply` inner join users where reply.state=512 and reply.users_id=262 and reply.messages_reply!='' limit 0,100

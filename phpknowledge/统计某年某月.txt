@@ -1,0 +1,5 @@
+SELECT * 
+FROM info
+WHERE MONTH( update_time ) = MONTH(  '2015-01-20 14:52:55' ) 
+AND YEAR( update_time ) = YEAR(  '2015-01-20 14:52:55' ) 
+LIMIT 0 , 30

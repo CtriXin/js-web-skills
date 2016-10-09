@@ -1,0 +1,3 @@
+try_files $uri $uri/ /index.php?$query_string;
+
+也就是说比如你访问 localhost/login nginx 就自动转到 localhost/index.php?login去了。

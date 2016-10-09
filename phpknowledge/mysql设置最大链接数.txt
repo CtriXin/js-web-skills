@@ -1,0 +1,13 @@
+1.设置MySQL的最大连接数。
+ 网友有如下经验，使用下面这个命令
+ set GLOBAL max_connections=1500;
+ 
+ 让人迷惑的是，提示“查询OK，0行受到影响”
+ mysql>  set GLOBAL max_connections=1000;
+ Query OK, 0 rows affected (0.00 sec)
+ 
+ 我误认为没有设置成功，并且通过“show status”这个命令也没有找到“max_connections”这个参数和值。
+ 
+1、 实际查询确认方法
+ mysql> show variables like '%max_connections%';
+2、linux 下直接 /usr/bin/mysqladmin -uroot -p variables |grep max_connections

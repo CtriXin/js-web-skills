@@ -1,0 +1,7 @@
+检查fast-cgi是否在运行中
+ps -ef|grep cgi
+
+开启方式
+ spawn-fcgi -a 127.0.0.1 -p 9000 -F 10 -f /usr/bin/php-cgi -P /var/run/spawn-cgi.pid
+
+whereis php-cgi

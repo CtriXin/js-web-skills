@@ -1,0 +1,47 @@
+//涉及到文件下载的，解决目录遍历bug
+		Log::info($path);
+		if (strpos($path,'../')!==false) {
+			return;
+		}
+
+
+
+	/**
+	* http://rcatc.snewfly.com/attach?showSearch=false&infoInstId=6994783&Author=6985789&isEdit=Truex
+	* 模拟残联下载附件 0777
+	* @return text
+	*/
+	public function Down(){
+		header("content-Type: text/html; charset=GBK");
+		$prefix='/var/www/html/szrcatc/public/attach/';
+		$path=Input::get('path');
+		$SaveName=Input::get('SaveName');
+		$dir=substr($path,abs(strlen($path)-30));
+
+		$localName=str_replace('/','',$dir);
+		//解决目录遍历bug
+		Log::info($path);
+		if (strpos($path,'../')!==false) {
+			return;
+		}
+
+  	if (file_exists($prefix.$localName)) {//返回静态文件
+  		ob_clean();
+  		return $this->downFile($prefix.$localName,$SaveName);
+  	}
+  	$openid=Input::get('openid');
+  	$ckPath=$openid.'.txt';
+  	$downloadDir=$path.'&saveName=aaa.doc';
+  	
+  	ob_clean();
+
+  	$package=Auth::get(URL_PREFIX_DOWNLOAD.$downloadDir,array(),'',$ckPath,$ckPath);
+  	$handle=fopen($prefix.$localName, 'w');
+  	fwrite($handle, $package);
+  	fclose($handle);
+  	$package='';
+  	$this->downFile($prefix.$localName,$SaveName);
+
+  	return Tool::h5('cookie失效，请重新从微信公众号进入”');
+
+  }

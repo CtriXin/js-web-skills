@@ -1,0 +1,10 @@
+nslookup snewfly.com
+
+查询ttl
+nslookup -dig snewfly.com
+nslookup -dig mmm-office.cc
+刷新浏览器和本地DNS缓存
+ipconfig /flushdns
+
+查看当前解析得到的ip地址
+ping snewfly.com

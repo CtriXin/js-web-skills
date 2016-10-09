@@ -1,0 +1,10 @@
+AppID(应用ID) wxbc4f41fe5abf92d1
+secret key 5fb7ac7074323bfe018b60379a215d23
+获取code
+http://open.weixin.qq.com/connect/oauth2/authorize?appid=wxbc4f41fe5abf92d1&redirect_uri=http://new.snewfly.com/auth2.0&response_type=code&scope=snsapi_base&state=SUISHI#wechat_redirect
+获取token和openid
+https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxbc4f41fe5abf92d1&secret=5fb7ac7074323bfe018b60379a215d23&code=031bd9d7b17e9ca1f77af80f0e00534X&grant_type=authorization_code
+
+{"access_token":"OezXcEiiBSKSxW0eoylIePsHdiTIfFxMZUO3uoViOz0aRS0dmTxM8cniPPUBQ9QkEcOxBah8PeudRMJ_XXhnPMTuxm6pD_3g5SKkmAa2Q-SpM_ZO9ILiT9cuAlPQu0K8YjsvthEaPpBQZUxtpnbhSw","expires_in":7200,"refresh_token":"OezXcEiiBSKSxW0eoylIePsHdiTIfFxMZUO3uoViOz0aRS0dmTxM8cniPPUBQ9QkJ8Zbvc87Mic6e5zfzh0oBlAe8DvliDYyMCZfMUX9qDRdtDbcKjrhlrAikQ1c5BHMaZDgCv1s4jbxIcYYT5ZOtQ","openid":"oDAkQs1YDXgccUXcdFKgFKaB_J0c","scope":"snsapi_base"}
+
+http://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3eda0fe458a64d34&redirect_uri=http%3A%2F%2Fcall.socialjia.com%2FWxapp%2Fweixin_common%2Foauth2.0%2Fcallback.php%3Fentid%3D66%26url%3Dhttp%253A%252F%252Fyz.app.socialjia.com%252Fhaiershangcheng%252Fwb_zhiObj%252Findex.php%26response_type%3Dopenid&response_type=code&scope=snsapi_base&state=SUISHI#wechat_redirect

@@ -1,0 +1,11 @@
+http://www.jb51.net/LINUXjishu/105916.html
+
+zip 格式
+unzip XXX.zip解压即可
+
+
+压缩
+把/home目录下面的mydata目录压缩为mydata.zip
+zip -r mydata.zip mydata #压缩mydata目录
+
+zip -r InLamp.zip InLamp

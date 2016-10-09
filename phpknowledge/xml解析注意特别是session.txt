@@ -1,0 +1,20 @@
+$str='<?xml version="1.0" encoding="utf-8"?> <IBABY><Response><Status><Code>200</Code>
+</Status><UserTerminalList><UserTerminal><TerminalId>398339</TerminalId><NickName>398339</NickName><Gender>1</Gender><PhoneId>00030012161926005</PhoneId><Icon>icon1.jpg</Icon><Mobile></Mobile><IsOwner>1</IsOwner><SoftVersion>C88N-G-I-01</SoftVersion><PublicName><![CDATA[]]>
+</PublicName></UserTerminal></UserTerminalList></Response></IBABY>';
+$xmlObj = simplexml_load_string($str);
+// echo $xmlObj;
+print_r($xmlObj->Response->UserTerminalList->UserTerminal->TerminalId);
+
+SimpleXMLElement Object
+(
+    [0] => 398339
+)
+[Finished in 0.2s]、
+
+分析得治，$xmlObj->Response->UserTerminalList->UserTerminal->TerminalId虽然可以得到398339，
+但是他是一个对象，如果赋值给其他东西的时候特别要注意，最好就是$xmlObj->Response->UserTerminalList->UserTerminal->TerminalId+''，
+把他转成string。
+已知会出问题的有：
+直接赋值给$_SESSION['XXX']，请求结束后再请求会变成空的，切记！！！！！！！！！！必须转string
+
+//****所有xml解析出来的都是SimpleXMLElement Object，必须转成string才能赋值给session，不然再次请求会出问题

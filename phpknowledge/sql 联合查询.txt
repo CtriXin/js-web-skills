@@ -1,0 +1,23 @@
+$sql = 'select messages.id,messages.pic,messages.state from messages inner join device on messages.device_id = device.id where device.ver = 3 and messages.update_time < \''.$date.'\' and messages.state = 382';
+
+inner join = join 内连接。表中至少有1个匹配时，才返回行。
+举个例子吧。
+表A
+id   name  
+1    张
+2    李
+3    王
+
+表B
+id   address   A_id
+1    北京      1
+2    上海      3
+
+SQL语句如下：
+select A.name,B.address from
+A inner join B
+on A.id = B.A_id
+
+查询结果为：
+张  北京
+王  上海

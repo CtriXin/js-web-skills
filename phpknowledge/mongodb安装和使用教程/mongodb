@@ -1,0 +1,34 @@
+#!/bin/bash
+#
+# mongod        Start up the MongoDB server daemon
+# author hgx
+ 
+# source function library
+. /etc/rc.d/init.d/functions
+#定义命令
+CMD=/usr/local/mongodb3.2.7/bin/mongod
+#定义配置文件路径
+INITFILE=/usr/local/mongodb3.2.7/mongodb.conf
+start()
+{
+    #&表示后台启动，也可以使用fork参数
+    $CMD -f $INITFILE &
+    echo "MongoDB is running daemon..."
+}
+ 
+stop()
+{
+    pkill mongod
+    echo "MongoDB is stopped."
+}
+ 
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop}"
+esac

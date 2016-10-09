@@ -1,0 +1,4 @@
+SELECT * FROM `users` ,`info` WHERE info.score=106 and info.users_id =users.id不需要inner join
+
+SELECT id,score FROM `users` ,`info` WHERE info.score=106 and info.users_id =users.id
+还可以这样查
