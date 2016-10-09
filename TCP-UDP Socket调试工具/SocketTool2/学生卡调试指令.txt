@@ -1,0 +1,39 @@
+调度，暂无用
+U43#89860043191556005768#9460020308626491#b2af4b6101d678f979d77c8d7db4e70f#
+设备
+1606150012
+160615000000012
+
+1、链接
+120.24.212.59
+7800
+
+2、声明用途u38
+别漏了换行符不是显示的\r\n
+SFU1606150012|MX002T|2.01|160615000000012{<U38#0#>}
+
+
+3keep alive
+SFU1606150012|MX002T|2.01|160615000000012{<C46#1#>}
+
+心率
+SFU1606150012|MX002T|2.01|160615000000012{<U21#62,201411041637>}
+
+蓝牙防丢报警
+SFU1606150012|MX002T|2.01|160615000000012{<U25# >}
+
+
+计步
+SFU1606150012|MX002T|2.01|160615000000012{<U23#10320,201411041637>}
+
+
+微信端设置 心率开关
+http://test.xskadmin.hzsb365.com/api/card/info_set?device_id=1606150012&fields={%22heartbeat_rate_switch%22}&access_token=access_token&userid=fZkAIzgxk1hbJvqDWX3sYv
+批量设置
+http://test.xskadmin.hzsb365.com/api/card/info_set?device_id=1606150012&fields={%22heartbeat_rate_switch%22:1,"listen_num":"13512345678,13520345468,13942345678"}&access_token=access_token&userid=fZkAIzgxk1hbJvqDWX3sYv
+
+SFU1606150012|MX002T|2.01|160615000000012{<C20#1>}
+
+SFU1606150012|MX002T|2.01|160615000000012{<C11#1>}
+
+

@@ -136,10 +136,10 @@ formData.append('classID', 26);
 
 $('#upic').click(function(){
 	var formData = new FormData();
-formData.append('file', $('#file')[0].files[0]);
-	myajax.file('http://hgx.hzsb365.com/file/upic',
+formData.append('photo', $('#file')[0].files[0]);
+	myajax.file('http://hgx.hzsb365.com/file/upic/666.png',
 		formData,function(data){
-			alert(data.code);
+			alert(JSON.stringify(data));
 		})
 });
 

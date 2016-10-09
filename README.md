@@ -30,9 +30,138 @@ general_log_file=/tmp/mysql.log
 
 
 ***
+####备忘，省得每次都查
+```
+iptables -I INPUT -p tcp -m tcp --dport 3306 -j ACCEPT
+```
+
+***
+####将制定元素置于可视区内。在listview，scrollview非常有价值
+```
+setTimeout(()=>{
+          let e=document.getElementsByClassName('season_selected')[0]
+          e&&e.scrollIntoViewIfNeeded()
+        },10)
+```
+
+
+***
+####flex布局总结
+
+>http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html?utm_source=tuicool
+###container 属性
+>flex-direction属性决定主轴的方向（即项目的排列方向）。
+row（默认值）：主轴为水平方向，起点在左端。
+row-reverse：主轴为水平方向，起点在右端。
+column：主轴为垂直方向，起点在上沿。
+column-reverse：主轴为垂直方向，起点在下沿。
+
+>flex-wrap属性定义，如果一条轴线排不下，如何换行。
+flex-wrap: nowrap | wrap | wrap-reverse;
+
+>justify-content属性定义了项目在主轴上的对齐方式。
+flex-start（默认值）：左对齐
+flex-end：右对齐
+center： 居中
+space-between：两端对齐，项目之间的间隔都相等。
+space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。
+
+
+>align-items属性定义项目在交叉轴上如何对齐。
+flex-start：交叉轴的起点对齐。
+flex-end：交叉轴的终点对齐。
+center：交叉轴的中点对齐。
+baseline: 项目的第一行文字的基线对齐。
+stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。
+
+###item 属性
+>order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。
+.item {
+  order: <integer>;
+}
+
+>align-self: center; 垂直居中！！非常有用
+>align-self: flex-end; 底部对齐
+
+>flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。
+.item {
+  flex-grow: <number>; /* default 0 */
+}
+
+> flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。
+.item {
+  flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]
+}
+!!!!该属性有两个快捷值：auto (1 1 auto) 和 none (0 0 auto)。
+>可以用来控制剩余空间，如下：怎么让这个input占满除了左边，剩余的宽度呢。。
+```js
+  #loginForm .name{
+    position: relative;
+    height: 2.7rem;/* 108px */
+    border-bottom: 2px solid #999;
+    display: flex;
+  }
+  #loginForm .name>img{
+    width: 1.45rem;/* 58px */
+    height: 1.825rem;/* 73px */
+    margin-left: .5rem;/* 20px */
+    flex: none;
+  }
+    #loginForm input{
+    margin-left: 1.575rem;/* 63px */
+    height: 1.375rem;/* 55px */
+    flex: auto;
+    margin-top: 4px;
+  }
+
+```
+###建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值。
+####一个简单的例子
+```js
+.tab-title-container{
+    position: relative;
+    display: table;
+    margin: 0 auto;
+    list-style: none;
+    border-bottom: 1px solid #dddddd;
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+}
+.tab-title{
+    height: 35px;
+    line-height: 35px;
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+    outline-style: none;
+    flex: 1;
+}
+
+更多可参考AL框架seedsui layout页面
+```
+
+
+
+***
 ####在 _onTouchMove中this变为此this
 ```
 this._onTouchMove = this._onTouchMove.bind(this);
+```
+
+***
+####nginx 控制上传文件大小
+```
+http{} 加上
+client_max_body_size 5m;
+
+要是以php运行的话，这个大小client_max_body_size
+要和php.ini中的如下值的最大值差不多或者稍大，
+这样就不会因为提交数据大小不一致出现错误。
+post_max_size = 5M
+upload_max_filesize = 5M
 ```
 
 ***
@@ -1202,7 +1331,8 @@ typeof 'A'
 ```
 :nth-child(n) 选择器匹配属于其父元素的第 N 个子元素，不论元素的类型。
 nth-of-type(n)可以筛选元素类型
-nth-child快速实现table相间色
+nth-child快速实现table相间色 :nth-child(odd) 与 :nth-child(even) 
+
 
 ```
 
