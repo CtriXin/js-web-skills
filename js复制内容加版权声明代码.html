@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title></title>
+	<style type="text/css">
+	body{-webkit-text-size-adjust: 100%!important;}
+	</style>
+</head>
+<body>
+bajianbajianbajianbajianbajianbajianbajianbajianbajianbajianbajianbajianbajianbajianbajianbajianbajianbajianbajianbajianbajianbajianbajian
+  <script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+	$("body").on('copy', function (e) {
+	if (typeof window.getSelection == "undefined") return; //IE8 or earlier...
+	
+	var body_element = document.getElementsByTagName('body')[0];
+	var selection = window.getSelection();
+	
+	//if the selection is short let's not annoy our users
+	if (("" + selection).length < 30) return;
+
+	//create a div outside of the visible area
+	//and fill it with the selected text
+	var newdiv = document.createElement('div');
+	newdiv.style.position = 'absolute';
+	newdiv.style.left = '-99999px';
+	body_element.appendChild(newdiv);
+	newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+	
+	//we need a <pre> tag workaround
+	//otherwise the text inside "pre" loses all the line breaks!
+	if (selection.getRangeAt(0).commonAncestorContainer.nodeName == "PRE") {
+		newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+	}
+	
+	newdiv.innerHTML += "<br /><br />原文: <a href='"
+	+ document.location.href + "'>"
+	+ document.location.href + "</a> &copy; caibaojian.com";
+			
+	selection.selectAllChildren(newdiv);
+	window.setTimeout(function () { body_element.removeChild(newdiv); }, 200);
+});
+</script>
+</body>
+
+</html>
+     

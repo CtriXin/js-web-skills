@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<div id="a">
+	<div class="b">b</div>
+</div>
+<div class="b">b2</div>
+<script src="http://static.snewfly.com/zepto.min.js"></script>
+<script type="text/javascript">
+	var a=$('#a');
+	console.log($('.b'));
+
+	console.log($('.b',a));//通过第二个参数可以指定搜索的范围
+</script>
+</body>
+</html>

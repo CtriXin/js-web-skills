@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		html,body{
+			height: 99%;
+			margin:0;
+			padding:0;
+		}
+		.test{
+			height:400px;
+			margin:40px;
+			background:#0f0;
+		}
+	</style>
+</head>
+<body id="b">
+<div style="background-color: red">123<div class="test"></div></div>
+<div>看看上面元素的marginbottom</div>
+	<br>
+	In this specification, the expression collapsing margins means that adjoining margins (no non-empty content, padding or border areas or clearance separate them) of two or more boxes (which may be next to one another or nested) combine to form a single margin. 所有毗邻的两个或更多盒元素的margin将会合并为一个margin共享之。毗邻的定义为：同级或者嵌套的盒元素，并且它们之间没有非空内容、Padding或Border分隔。
+所以div的margin-top与body共享了，这样就让body把html撑大了
+
+
+<a href="https://cnodejs.org/topic/577f67d469d72f545483ca2e">从这个问题引发的测试：</a>
+</body>
+
+</html>

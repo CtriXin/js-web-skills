@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title></title>
+	<!-- <link rel="stylesheet" href="index.css"> -->
+	<style type="text/css">
+	body{-webkit-text-size-adjust: 100%!important;}
+	</style>
+</head>
+
+<body>
+<div style="width: 100px;height: 100px;background: blue">
+	<div style="background: red;width: 50px;height: 50px;margin-top: 50px"></div>
+</div>
+<div style="width: 100px;height: 100px;border: 1px solid green;">
+	<div style="background: red;width: 50px;height: 50px;margin-top: 50px"></div>
+</div>
+
+1.7.3嵌套的盒子第一个子元素与父级的垂直外边距合并
+当盒子嵌套时，父盒子里面的第一个子元素的margin-top会与父级的margin-top进行合并，给子元素设置margin-top时会变成父级的margin-top，导致最后父子盒子向下移动，子盒子没动。
+
+1.7.4嵌套的盒子垂直外边距合并解决方案
+   1.给父级盒子加至少一像素上内边距
+2.给父级盒子至少加一像素上边框
+
+<script type="text/javascript">
+                
+</script>
+</body>
+
+</html>
+     

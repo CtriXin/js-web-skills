@@ -114,7 +114,28 @@ stretch（默认值）：如果项目未设置高度或设为auto，将占满整
     margin-top: 4px;
   }
 
+.item{
+    order: <integer>;
+    /*排序：数值越小，越排前，默认为0*/
+ 
+    flex-grow: <number>; /* default 0 */
+    /*放大：默认0（即如果有剩余空间也不放大，值为1则放大，2是1的双倍大小，以此类推）*/
+ 
+    flex-shrink: <number>; /* default 1 */
+    /*缩小：默认1（如果空间不足则会缩小，值为0不缩小）*/
+ 
+    flex-basis: <length> | auto; /* default auto */
+    /*固定大小：默认为0，可以设置px值，也可以设置百分比大小*/
+ 
+    flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]
+    /*flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto，*/
+ 
+    align-self: auto | flex-start | flex-end | center | baseline | stretch;
+    /*单独对齐方式：自动（默认） | 顶部对齐 | 底部对齐 | 居中对齐 | 上下对齐并铺满 | 文本基线对齐*/
+}
 ```
+
+
 ###建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值。
 ####一个简单的例子
 ```js
@@ -139,6 +160,34 @@ stretch（默认值）：如果项目未设置高度或设为auto，将占满整
     outline-style: none;
     flex: 1;
 }
+
+
+X5兼容写法
+
+  .item-container{
+    overflow: scroll;
+    white-space:nowrap;
+    position: relative;
+    display: inline-flex;/* UC写法 */
+    display: -webkit-box;
+    display: -moz-box;
+    display: -o-box;
+    display: -ms-flexbox;
+    display: flex;
+
+    margin: .5rem 0px 0rem .5rem;/* 40px */
+  }
+  .item{
+    display: block;
+    padding: .75rem;/* 30px */
+    background: #fff;
+    margin-right: .35rem;/* 14px */
+    font-weight: bold;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
 
 更多可参考AL框架seedsui layout页面
 ```
@@ -378,6 +427,8 @@ chkconfig httpd off              #开机重启后，apache服务不再启动
 ```
 在默认里填
 CURRENT_TIMESTAMP
+
+ALTER TABLE  `li_wx_user` ADD  `update_time` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ;
 
 ```
 ***

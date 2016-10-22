@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+#d div{
+	height: 50px;
+	transition: all 1s linear;
+	-webkit-transition: all 1s linear;
+	background-color: #00ff00;
+	word-wrap: break-word;
+	position: relative;
+}
+
+#sp{
+	background-color: #ff0000;
+	word-wrap: break-word;
+	position: relative;
+}
+
+img{
+	width: 20px;
+	height: 20px;
+	transition: all 1s linear;
+	-webkit-transition: all 1s linear;
+}
+
+
+	</style>
+</head>
+
+<body>
+	
+<!-- 实践证明，不给初始化值是不可能transition的 height: 20px;-->
+<div id="d">
+	<div id="dd" style=""><img id="sp" width="20" src=""></div>
+	<div id="sp1">aaa</div>
+	<div id="sp2">aaa</div>
+</div>
+</body>
+</html>
