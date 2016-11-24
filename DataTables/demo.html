@@ -46,7 +46,7 @@
 <script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 
 <!-- DataTables -->
-<script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="http://admin.hzsb365.com/assets/manager_layout/js/dataTables/jquery.dataTables.js"></script>
 
 <script type="text/javascript">
 	// <!--第三步：初始化Datatables-->
@@ -56,10 +56,6 @@
 //                 "dataSrc": "demo"
     $(document).ready( function () {
          kq_device=$('#kq_device').DataTable( {
-/*
-    "paging":   false,
-    "ordering": false,
-    "info":     false,*/
             "serverSide": false,
             "ajax": function (data, callback, settings) {
                 $.ajax({
@@ -107,7 +103,7 @@
                 "zeroRecords": "没有可显示的数据",
                 "info": "第 _PAGE_ 页 / 共 _PAGES_ 页",
                 "infoEmpty": "没有可显示的数据哦~",
-                "infoFiltered": "(共 _MAX_ 条记录)"
+                "infoFiltered": "(共 _MAX_ 条记录)",
             },
             "rowCallback": function ( row, data, index ) {
                 // console.log(JSON.stringify([arguments]));

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title></title>
+	<link rel="stylesheet" href="http://cssicon.space/css/icons.css">
+	<style type="text/css">
+	body{-webkit-text-size-adjust: 100%!important;}
+/* get the styles for both icon*/
+@import "http://cssicon.space/css/icons.css";
+
+.icon, .icon:before, .icon:after, .icon i, .icon i:before, .icon i:after { 
+  transition: all 0.4s ease;
+}
+/* this is merely a rough demo to showcase the potential of CSS ICON on animation, more crafted animation can go from here */
+
+	</style>
+</head>
+
+<body>
+<div class="check icon"></div>
+<!-- http://cssicon.space/#/animate/check/to/close -->
+
+  <script src="http://7xkaou.com2.z0.glb.qiniucdn.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+$('.icon').click(function(){
+  $(this)
+    .toggleClass('check')
+    .toggleClass('close');
+})
+</script>
+</body>
+
+</html>
+     

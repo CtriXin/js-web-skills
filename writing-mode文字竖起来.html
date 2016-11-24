@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title></title>
+	<style type="text/css">
+	body{-webkit-text-size-adjust: 100%!important;}
+	.verticle-mode {
+    writing-mode: tb-rl;
+    -webkit-writing-mode: vertical-rl;      
+    writing-mode: vertical-rl;
+    line-height: 20px;
+}
+/* IE7比较弱，需要做点额外的动作 */
+.verticle-mode {
+    *width: 120px;
+}
+.verticle-mode h4,
+.verticle-mode p {
+    *display: inline;
+    *writing-mode: tb-rl;
+}
+.verticle-mode h4 {
+    *float:right;
+}
+
+
+.box {
+    width: 400px; height: 300px;
+    background-color: #f0f3f9;
+    overflow: hidden;
+
+}
+.auto {
+    display: block;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+
+	</style>
+</head>
+
+<body>
+http://www.zhangxinxu.com/wordpress/2016/04/css-writing-mode/
+<h4>咏柳</h4>
+<p>碧玉妆成一树高，<br>万条垂下绿丝绦。<br>不知细叶谁裁出，<br>二月春风似剪刀。</p>
+
+<div class="verticle-mode">
+    <h4>咏柳</h4>
+    <p>碧玉妆成一树高，<br>万条垂下绿丝绦。<br>不知细叶谁裁出，<br>二月春风似剪刀。</p>
+</div>
+
+
+<p><strong>默认流-margin-top:auto;margin-bottom:auto不居中</strong></p>
+<div class="box">
+    <img src="http://image.zhangxinxu.com/image/study/s/s256/mm1.jpg" class="auto">
+</div>
+
+<p><strong>垂直流-margin-top:auto;margin-bottom:auto垂直居中</strong></p>
+<div class="box verticle-mode">
+    <img src="http://image.zhangxinxu.com/image/study/s/s256/mm1.jpg" class="auto">
+</div>
+</body>
+
+</html>
+     

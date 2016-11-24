@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>b页面</title>
+</head>
+<body>
+b,返回试试
+
+</body>
+<script src="http://static.snewfly.com/zepto.min.js"></script>
+<script type="text/javascript">
+// window.onpopstate=function(e){
+// 	console.log('pop');
+// 	alert(1)
+// 	location.href="https://www.baidu.com/"
+// };
+history.pushState({}, "", "");
+$(window).on('popstate', function(){
+		console.log('pop');
+	location.href="https://www.baidu.com/"
+			return;
+    	});
+</script>
+</html>

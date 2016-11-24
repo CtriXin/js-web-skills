@@ -30,9 +30,78 @@ general_log_file=/tmp/mysql.log
 
 
 ***
+####table 自动换行
+```
+word-break: break-all;text-align: left;padding-left: 5px;word-wrap:break-word;
+```
+
+
+***
+####通用hover 样式
+```
+.card-view:hover{
+  -webkit-animation: mlsh 0.5s ease 0s forwards;
+    animation: mlsh 0.5s ease 0s forwards;
+    -ms-animation: mlsh 0.5s ease 0s forwards;
+    -moz-animation: mlsh 0.5s ease 0s forwards;
+    -o-animation: mlsh 0.5s ease 0s forwards;
+}
+
+@-webkit-keyframes mlsh {
+0% {
+  opacity:1; transform-origin:50% 50%; transform: scale(1,1);
+  }
+100% {
+  transform-origin:50% 50%; transform: scale(1,1); opacity:1; box-shadow:0px 0px 20px #999; z-index:2;
+  }
+}
+```
+
+***
+####通用card view 样式
+```
+.card-view{
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+```
+
+
+***
+####发送短信验证码记得加个type，
+```
+注册要判断用户是否已经注册，找回判断用户未注册
+不正确就不要发短信，省钱
+```
+
+
+***
+####uuid 
+```
+     /**
+     * 最长32位的 uuid
+     * @author bajian
+     * @param len
+     * @return uuid
+     */
+function uuid($len=32){
+    $charid = md5(uniqid(rand(), true));
+    if ($len<32) {
+       return substr($charid, 0, $len);
+    }
+    return $charid;
+}
+// echo uuid(22);
+```
+
+
+***
 ####备忘，省得每次都查
 ```
 iptables -I INPUT -p tcp -m tcp --dport 3306 -j ACCEPT
+
+iptables -L -n
+
 ```
 
 ***
@@ -414,7 +483,9 @@ GET产生一个TCP数据包；POST产生两个TCP数据包。
 $obj=(object)null;
 $obj=(object)[];
 
-
+$data = new stdClass();
+$data->statusCode = '172004';
+var_dump($data);
 ```
 ***
 ####service init.d 重启后不再/再启动
@@ -477,9 +548,15 @@ var myCookie=function (cookieName, cookieValue, day) {
 ***
 ####js timeUtil 时间格式化函数
 ```js
+压缩版
+var timeUtil={parseTime:function(format,timeStamp){var date=new Date(timeStamp||Date.now()),o={"M+":date.getMonth()+1,"D+":date.getDate(),"h+":date.getHours(),"m+":date.getMinutes(),"s+":date.getSeconds(),"S":date.getMilliseconds()},format=format||"YYYY-MM-DD hh:mm:ss";if(/(Y+)/.test(format)){format=format.replace(RegExp.$1,(date.getFullYear()+"").substr(4-RegExp.$1.length))}for(var k in o){if(new RegExp("("+k+")").test(format)){format=format.replace(RegExp.$1,RegExp.$1.length==1?o[k]:("00"+o[k]).substr((""+o[k]).length))}}return format},getTimeShow:function(time_str){var now=new Date();var date=new Date(time_str);var inter=parseInt((now.getTime()-date.getTime())/1000/60);if(inter==0){return"刚刚"}else{if(inter<60){return inter.toString()+"分钟前"}else{if(inter<60*24){return parseInt(inter/60).toString()+"小时前"}else{if(now.getFullYear()==date.getFullYear()){return this.parseTime("MM-DD hh:mm:ss",time_str)}else{return this.parseTime("YY-MM-DD hh:mm:ss",time_str)}}}}}};
+
     var timeUtil={
       parseTime:function (format,timeStamp) {//format可空，默认YYYY-MM-DD hh:mm:ss，timeStamp可空，默认当前时间
       //timeUtil.parseTime('YYYY-MM-DD hh:mm:ss',new Date().getTime()) ->"2016-08-03 16:14:12"
+      if ((timeStamp+'').length==10) {
+        timeStamp=timeStamp*1000
+    }
         var date = new Date(timeStamp||Date.now()),
         o = { 
             'M+' : date.getMonth() + 1, //month 
