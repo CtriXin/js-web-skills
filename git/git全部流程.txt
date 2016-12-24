@@ -34,3 +34,46 @@ git clone root:SnewFly2016!@2016@120.24.49.37:/home/hgx/gitserver/rep.git/
 
 
 http://www.tuicool.com/articles/3QRB7jU
+
+
+git clone root@120.24.49.37:/home/hgx/gitserver/testmerge.git/
+git clone root@120.24.212.59:/home/hgx/gitserver/vkbikelock.git/
+
+
+git clone root@120.24.49.37:/home/hgx/gitserver/vkbikelock.git/
+
+冲突解决：（总结 要先把服务器的拉下来，再和本地的合并，，再提交）
+1、push 发现错误：
+Pushing to root@120.24.49.37:/home/hgx/gitserver/testmerge.git/
+To root@120.24.49.37:/home/hgx/gitserver/testmerge.git/
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'root@120.24.49.37:/home/hgx/gitserver/testmerge.git/'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+2、菜单remote--fetch from 拉取服务器最新的、点菜单 merge---local merge
+3、选择需要merge的最新branch（可以通过visualize查看）
+4、解决merge后的冲突（如果需要）后，再菜单 commit---Stage to commit ,然后就是正常流程提交了
+Auto-merging test.php
+CONFLICT (content): Merge conflict in test.php
+Automatic merge failed; fix conflicts and then commit the result.
+warning: old-style 'git merge <msg> HEAD <commit>' is deprecated.
+
+Pushing to root@120.24.49.37:/home/hgx/gitserver/testmerge.git/
+remote: No local changes to save        
+remote: From /home/hgx/gitserver/testmerge        
+remote:  * branch            master     -> FETCH_HEAD        
+remote:    ad2543f..901d96b  master     -> origin/master        
+remote: Updating ad2543f..901d96b        
+remote: Fast-forward        
+remote:  test.php | 3 ++-        
+remote:  1 file changed, 2 insertions(+), 1 deletion(-)        
+remote: done!        
+To root@120.24.49.37:/home/hgx/gitserver/testmerge.git/
+   ad2543f..901d96b  master -> master
+updating local tracking ref 'refs/remotes/origin/master'
+
+

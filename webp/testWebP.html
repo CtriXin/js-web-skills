@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<img id="bajian" src="">
+<img data-src="1.png" data-webp="1.png.webp" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+<img src="42.webp.jpg">
+<script type="text/javascript">
+	
+	var testWebp = function(callback){
+   var image = new Image();
+   image.onerror = function(){
+    callback && callback(false);
+   }
+   image.onload = function(){
+    callback && callback(image.width == 1);
+   }
+   image.src = "data:image/webp;base64,UklGRiwAAABXRUJQVlA4ICAAAAAUAgCdASoBAAEAL/3+/3+CAB/AAAFzrNsAAP5QAAAAAA==";
+  bajian.src = "data:image/webp;base64,UklGRiwAAABXRUJQVlA4ICAAAAAUAgCdASoBAAEAL/3+/3+CAB/AAAFzrNsAAP5QAAAAAA==";
+  
+  };
+ 
+  testWebp(function(flag){
+   if(flag){
+    alert('恭喜，浏览器支持webp');
+
+   }else{
+    alert('抱歉，浏览器不支持webp');
+   }
+  });
+</script>
+</body>
+</html>

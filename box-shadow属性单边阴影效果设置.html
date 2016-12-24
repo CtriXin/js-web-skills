@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title></title>
+	<!-- <link rel="stylesheet" href="index.css"> -->
+	<style type="text/css">
+	body{-webkit-text-size-adjust: 100%!important;}
+
+	div{
+		width: 100px;height: 100px;border: 1px solid gray;
+		margin: 5px 20px;
+	}
+
+	.top {  
+      box-shadow: 0 -4px 5px -4px gray;  
+    }  
+
+	.bottom {  
+      box-shadow: 0 2px 0px red;  
+    }  
+	.left {  
+      box-shadow: -2px 0px 0px red;  
+    }  
+	.right {  
+      box-shadow: 2px 0px 0px red;  
+    }  
+
+.t{
+	box-shadow: 0 10px 10px -10px #ccc;
+}
+
+	</style>
+</head>
+
+<body>
+参考 http://www.cnblogs.com/feichengwulai/articles/4788571.html
+
+spread	可选。阴影的尺寸。关键！！！
+<div class="top"></div>
+<div class="bottom"></div>
+<div class="left"></div>
+<div class="shadow"></div>
+<div class="right"></div>
+<div class="t"></div>
+
+box-shadow: h-shadow v-shadow blur spread color inset;
+注释：box-shadow 向框添加一个或多个阴影。该属性是由逗号分隔的阴影列表，每个阴影由 2-4 个长度值、可选的颜色值以及可选的 inset 关键词来规定。省略长度的值是 0。
+值	描述	测试
+h-shadow	必需。水平阴影的位置。允许负值。	测试
+v-shadow	必需。垂直阴影的位置。允许负值。	测试
+blur	可选。模糊距离。	测试
+spread	可选。阴影的尺寸。	测试
+color	可选。阴影的颜色。请参阅 CSS 颜色值。	测试
+inset	可选。将外部阴影 (outset) 改为内部阴影。	测试
+<script type="text/javascript">
+                
+</script>
+</body>
+
+</html>
+     

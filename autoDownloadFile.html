@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title></title>
+	<style type="text/css">
+	body{-webkit-text-size-adjust: 100%!important;}
+	</style>
+</head>
+
+<body>
+
+<script type="text/javascript">
+	// downloadFile('bajian.txt','12242');
+	function downloadFile(fileName, content){
+    var aLink = document.createElement('a');
+    var blob = new Blob([content]);
+    var evt = document.createEvent("HTMLEvents");
+    evt.initEvent("click", false, false);//initEvent 不加后两个参数在FF下会报错, 感谢 Barret Lee 的反馈
+    aLink.download = fileName;
+    aLink.href = URL.createObjectURL(blob);
+    aLink.dispatchEvent(evt);
+}
+
+/* ajax下载文件 
+@url: 文件url路径
+*/
+// 或者直接href=url
+// download_file('http://school.hzsb365.com/jxhd/school/student/exportToFile');
+function download_file(url)
+{
+
+if(typeof(download_file.iframe)== "undefined")
+{
+var iframe = document.createElement("iframe");
+download_file.iframe = iframe;
+document.body.appendChild(download_file.iframe); 
+}
+// alert(download_file.iframe);
+download_file.iframe.src = url;
+
+download_file.iframe.style.display = "none";
+
+
+
+}
+
+
+</script>
+</body>
+
+</html>
+     

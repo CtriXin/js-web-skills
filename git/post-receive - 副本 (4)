@@ -1,6 +1,6 @@
 #!/bin/sh
 unset GIT_DIR
-GIT_WORK_TREE=/home/hgx/vkbikelock
+GIT_WORK_TREE=/home/hgx/credit
 
 cd ${GIT_WORK_TREE}
 git add . -A && git stash

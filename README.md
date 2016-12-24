@@ -30,9 +30,268 @@ general_log_file=/tmp/mysql.log
 
 
 ***
+####mysql设置外键 on update on delete CASCADE
+```
+CASCADE
+删除：删除主表时自动删除从表。删除从表，主表不变
+更新：更新主表时自动更新从表。更新从表，主表不变
+参考
+https://my.oschina.net/cart/blog/277624
+```
+
+
+***
+#### 查询数据库中的表名
+```
+SELECT * FROM information_schema.tables WHERE TABLE_NAME LIKE 'data_%'
+
+SELECT * FROM information_schema.tables WHERE TABLE_SCHEMA='db_kirito' AND  TABLE_NAME LIKE 'bi_%'
+
+```
+
+***
+####compact 创建一个包含变量名和它们的值的数组：
+```
+<?php
+$firstname = "Bill";
+$lastname = "Gates";
+$age = "60";
+
+$result = compact("firstname", "lastname", "age");
+
+print_r($result);//Array ( [firstname] => Bill [lastname] => Gates [age] => 60 )
+?>
+
+```
+
+
+***
+####微信端地址刷新（跳转）不能是和当前页面同一个连接，否则不刷新
+```
+window.location.reload()
+window.location.href="/reload.html"
+都不行，除非加随机数
+
+```
+
+
+
+***
+####String.replace() 语法 替换文本中的$字符有特殊含义：（用于模式匹配的String方法）
+```
+$1、$2、...、$99 与 regexp 中的第 1 到第 99 个子表达式相匹配的文本。
+$&  与 regexp 相匹配的子串。
+$`  位于匹配子串左侧的文本。
+$'  位于匹配子串右侧的文本。
+$$  普通字符$。
+
+如：
+'abc'.replace(/b/g, "{$$$`$&$'}")
+// 结果为 "a{$abc}c"，即把b换成了{$abc}
+'abccba'.replace(/b/g, "{$`}")
+// 结果为 "a{a}cc{abcc}a"
+
+
+定位点（锚字符、边界）
+^ 匹配开始的位置。将 ^ 用作括号[]表达式中的第一个字符，则会对字符集求反。
+$ 匹配结尾的位置。
+\b 与一个字边界匹配，如er\b 与“never”中的“er”匹配，但与“verb”中的“er”不匹配。
+\B 非边界字匹配。
+
+? 当该字符紧跟在任何一个其他限制符（*,+,?，{n}，{n,}，{n,m}）后面时，匹配模式是非贪婪的。非贪婪模式尽可能少的匹配所搜索的字符串，而默认的贪婪模式则尽可能多的匹配所搜索的字符串。例如，对于字符串“oooo”，“o+?”将匹配每个“o”即4次匹配，而“o+”将只匹配1次即匹配“oooo”。
+"AB01CD23CD45CEff".match('AB.*CD')
+["AB01CD23CD"]
+
+"AB01CD23CD45CEff".match('AB.*?CD')
+["AB01CD"]
+http://web.jobbole.com/89221/
+
+```
+
+***
+####gitignore 语法
+```
+语法规范
+
+空行或是以 # 开头的行即注释行将被忽略。
+可以在前面添加正斜杠 / 来避免递归,下面的例子中可以很明白的看出来与下一条的区别。
+可以在后面添加正斜杠 / 来忽略文件夹，例如 build/ 即忽略build文件夹。
+可以使用 ! 来否定忽略，即比如在前面用了 *.apk ，然后使用 !a.apk ，则这个a.apk不会被忽略。
+* 用来匹配零个或多个字符，如 *.[oa] 忽略所有以".o"或".a"结尾， *~ 忽略所有以 ~ 结尾的文件（这种文件通常被许多编辑器标记为临时文件）； [] 用来匹配括号内的任一字符，如 [abc] ，也可以在括号内加连接符，如 [0-9] 匹配0至9的数； ? 用来匹配单个字符。 
+看了这么多，还是应该来个栗子：
+
+# 忽略 .a 文件
+*.a
+# 但否定忽略 lib.a, 尽管已经在前面忽略了 .a 文件
+!lib.a
+# 仅在当前目录下忽略 TODO 文件， 但不包括子目录下的 subdir/TODO
+/TODO
+# 忽略 build/ 文件夹下的所有文件
+build/
+# 忽略 doc/notes.txt, 不包括 doc/server/arch.txt
+doc/*.txt
+# 忽略所有的 .pdf 文件 在 doc/ directory 下的
+doc/**/*.pdf
+```
+
+
+***
 ####table 自动换行
 ```
 word-break: break-all;text-align: left;padding-left: 5px;word-wrap:break-word;
+```
+
+
+***
+####ajax 跨域原理
+```
+1、简单请求(simple request)
+简单请求的判断包括两个条件：
+
+请求方法必须是一下几种:
+HEAD
+GET
+POST
+HTTP 头只能包括以下信息：
+Accept
+Accept-Language
+Content-Language
+Last-Event-ID
+Content-Type: 只限于[application/x-www-form-urlencoded, multipart/form-data, text/plain]
+不能同时满足以上两个条件的，就都视作非简单请求
+
+在 CROS 请求中，默认是不会携带 cookie之类的用户信息的，但是不携带用户信息的话，是没办法判断用户身份的，所以，可以在请求时将withCredentials设置为 true, 例如：
+
+设置了这个值之后，在服务端会将 response 中的 Access-Control-Allow-Credentials 也设置为 true，这样浏览器才会相应 cookie
+如果这个值被设为了`true`，那么`Access-Control-Allow-Origin`就不能被设置为    `*`，必须要显示指定为`origin`的值；并且返回的`cookie`因为是在被跨域访问的域名下，因为遵守同    源策略，所以在`origin`网页中是不能被读取到的。
+
+
+2、非简单请求(not-so-simple request)
+与简单请求最大的不同在于，非简单请求实际上是发送了两个请求。
+
+在正式请求之前，会先发送一个预请求(preflight-request)（options类型），这个请求的作用是尽可能少的携带信息，供服务端判断是否响应该请求。
+
+还会带上这几个字段：
+Origin: 同简单请求的origin
+Access-Control-Request-Method: 请求将要使用的方法
+Access-Control-Request-Headers: 浏览器会额外发送哪些头信息
+
+服务端
+如果判断响应这个请求，返回的response中将会携带：
+
+Access-Control-Allow-Origin: origin
+Access-Control-Allow-Methods: like request
+Access-Control-Allow-Headers: like request
+如果否定这个请求，直接返回不带这三个字段的response就可以，浏览器将会把这种返回判断为失败的返回，触发onerror方法
+
+php 设置方式
+private function SetCors(){
+    $origin = isset($_SERVER['HTTP_ORIGIN'])? $_SERVER['HTTP_ORIGIN'] : '*';
+    header('content-type:application:json;charset=utf8');  
+    header('Access-Control-Allow-Origin:'.$origin);  
+    header('Access-Control-Allow-Methods:*');  
+    header('Access-Control-Allow-Credentials:true');  
+    header('Access-Control-Allow-Headers:x-requested-with,content-type');
+    }
+
+options类型 
+if ($_SERVER['REQUEST_METHOD']=='OPTIONS') {
+    $origin = isset($_SERVER['HTTP_ORIGIN'])? $_SERVER['HTTP_ORIGIN'] : '*';
+    header('content-type:application:json;charset=utf8');  
+    header('Access-Control-Allow-Origin:'.$origin);  
+    header('Access-Control-Allow-Methods:*');  
+    header('Access-Control-Allow-Credentials:true');  
+    header('Access-Control-Allow-Headers:x-requested-with,content-type');
+    return ;
+}
+
+```
+
+***
+####laravel 获得查询原始sql
+```
+DB::connection()->enableQueryLog();
+ 
+        $bikelocks=Bikelock::where('lat','>=',$arr['left-top']["lat"])
+            ->where('lat','<=',$arr['right-bottom']["lat"])
+            ->where('lng','>=',$arr['left-top']["lng"])
+            ->where('lng','<=',$arr['right-bottom']["lng"])->take($limit)->get();
+            print_r(
+    DB::getQueryLog()
+```
+
+***
+####laravel 测试过的一些方法
+```
+        // $user=new User();
+        // $user->name="1234567333";
+        // $user->password="1234";
+        // $user->balance=11.22;
+        // $user->save();//->delete();
+
+        // dd($user);
+        // dd(User::all());
+        // var_dump(User::where('balance','>', 60)
+        //        ->orderBy('balance', 'desc')
+        //        ->take(2)
+        //        ->get());
+        // var_dump(User::where('balance','>', 60)
+        //     ->take(1)->update(['balance' => 99]));//传递给 update 方法的参数必须是一个数组
+        // var_dump(User::where('balance','>', 60)
+        //        ->count());
+
+        // $flight = User::create(['name' => 'Flight1w1','balance'=>'34.21','password'=>"aa"]);
+        // 
+        // var_dump(User::where('name','Flight1w1')->delete());//hard delete
+        // var_dump(BookHistory::where('user_id',1)->delete());//当有deleted_at 和use SoftDeletes;是soft delete、参见->forceDelete();
+        // var_dump(User::where('name','Flight1w1')->delete());//hard delete
+        // echo $user[0]->id;
+        // var_dump(User::find(1)->bookhistory->device_id);//不包含delete_at不为null的
+        // 
+        // var_dump(Auth::user());
+        // echo session('user_id');
+            // var_dump(Auth::guard('web')->check());
+        // 
+        // 
+        // $value = Cache::remember('key', 1, function() {//更便捷
+        //     return 88;
+        //     // return DB::table('users')->get();
+        // });
+
+        // Cache::increment('key',1);
+        // return Cache::get('key',999);
+
+    // var_dump(Auth::guard('admin')->loginUsingId(1)) ;
+    // var_dump(Auth::guard('admin')->check()) ;
+    // var_dump(Auth::guard('web')->check()) ;
+
+```
+
+***
+####laravel Eloquent 获取数据库个别字段
+```
+1 $users = User::all(['name']);
+2 $admin_users = User::where('role', 'admin')->get(['id','device_id as aaa']);
+3 $user = User::find($user_id, ['name']);
+```
+
+
+***
+####laravel Eloquent 联合查询
+```
+在Model中创建：
+    public function bookhistory()
+    {
+        return $this->hasOne('App\BookHistory');
+        // return $this->hasOne('App\BookHistory','user_id','id');
+    }
+然后with('bookhistory'):
+// var_dump(Bike::find(1)->bikelock);
+        $bike=Bike::where('bike_id',$bike_id)->take(1)->with('bikelock')->get();//记得这里返回的是数组
+        if ($bike && $bike[0]->bikelock) {
+            return $this->toJson(0,'',$bike[0]->bikelock);
+        }
+
 ```
 
 
@@ -92,6 +351,22 @@ function uuid($len=32){
     return $charid;
 }
 // echo uuid(22);
+```
+
+
+***
+####防止mysql 重复插入 
+```
+INSERT INTO marks (NAME,subject1,mark) (SELECT * FROM (SELECT 'kirito','maths',100) AS t WHERE NOT EXISTS (SELECT NAME FROM marks WHERE NAME='kirito' AND subject1='maths' LIMIT 1))
+
+
+```
+
+***
+####nginx access_log 设置buffer
+```
+access_log /data/wwwlogs/bxjtest.snewfly.com_nginx.log combined buffer=2k;
+
 ```
 
 
@@ -1525,7 +1800,7 @@ show global variables like "%datadir%";
 ```
  
 /*
- * 计算2个标准格式时间字符串的差(t1-t2)，如calStanderTimeDiff('2016-05-04 12:54:54','2016-05-04 12:54:14');
+ * 计算时间差 2个标准格式时间字符串的差(t1-t2)，如calStanderTimeDiff('2016-05-04 12:54:54','2016-05-04 12:54:14');
  * @return int 相差的秒数
  */
 function calStanderTimeDiff(t1,t2){

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title></title>
+	<style type="text/css">
+
+/***************首页楼层***************/
+
+ .floor-left .floor-banner ul li{
+	float: left;
+	width: 270px;
+	height: 475px;
+	overflow: hidden;
+	position: relative;
+	background: #000;
+}
+ .floor-left .floor-banner ul li a:before {
+	content: "";
+	position: absolute;
+	width: 80px;
+	height: 350px;
+	top: 0;
+	left: -150px;
+	overflow: hidden;
+	background: -moz-linear-gradient(left, rgba(255,255,255,0)0, rgba(255,255,255,.2)50%, rgba(255,255,255,0)100%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255,255,255,0)), color-stop(50%, rgba(255,255,255,.2)), color-stop(100%, rgba(255,255,255,0)));
+	background: -webkit-linear-gradient(left, rgba(255,255,255,0)0, rgba(255,255,255,.2)50%, rgba(255,255,255,0)100%);
+	background: -o-linear-gradient(left, rgba(255,255,255,0)0, rgba(255,255,255,.2)50%, rgba(255,255,255,0)100%);
+	-webkit-transform: skewX(-25deg);
+	-moz-transform: skewX(-25deg)
+}
+ .floor-left .floor-banner ul li a:hover::before {
+	-webkit-transition: left 0.5s;
+	-moz-transition: left 0.5s;
+	transition: left 0.5s;
+	left: 310px
+}
+
+
+.find_item_img {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    width: 80px;
+    height: 80px;
+    -webkit-transition: -webkit-transform .4s ease-out;
+    -moz-transition: -moz-transform .4s ease-out;
+    transition: -webkit-transform .4s ease-out;
+    -moz-transition: transform .4s ease-out,-moz-transform .4s ease-out;
+    transition: transform .4s ease-out;
+    transition: transform .4s ease-out,-webkit-transform .4s ease-out,-moz-transform .4s ease-out;
+}
+.find_item_img:hover{
+	    -webkit-transform: translateX(-5px);
+    -moz-transform: translateX(-5px);
+    -ms-transform: translateX(-5px);
+    transform: translateX(-5px);
+}
+</style>
+</head>
+
+<body>
+<!-- http://www.cnblogs.com/lhb25/archive/2013/01/30/css3-linear-gradient.html -->
+	<div class="floor-left" style="border-top: 1px #e31939 solid;">
+		<div id="focus_5" class="floor-banner">
+			<ul style="left: 0px; width: 540px;">
+				<li>
+					<a href="affiche.php?ad_id=68&amp;uri=#" target="_blank"><img src="http://info.hzsb365.com:8001/data/afficheimg/1453699763740711815.jpg" width="270" height="475"></a>
+				</li>
+				<li>
+					<a href="affiche.php?ad_id=69&amp;uri=#" target="_blank"><img src="http://info.hzsb365.com:8001/data/afficheimg/1453699795448891382.jpg" width="270" height="475"></a>
+				</li>
+			</ul>
+			<div class="btn"><span style="opacity: 0.7;"></span><span style="opacity: 0.3;"></span></div></div>
+		</div>
+<span style="clear: both;"></span>
+
+<div style="width: 200px;height: 100px;background: #eee;position: relative;float: right;">
+	<img style="position: absolute;right: 5px;" src="https://img10.360buyimg.com/mobilecms/s80x80_jfs/t3484/341/1629929412/29106/99527205/582c701cNc2d16ea5.jpg!q90.webp" data-lazy-img="done" alt="华为畅想6智能手机，轻薄机身更轻便，4100mAh高能量密度电池，纵然尽情玩乐也依然能够保持电力充沛。7.9mm超薄机身，5英寸AMOLED屏幕，更广的色域，带来更亮丽的显示效果。" title="华为畅想6智能手机，轻薄机身更轻便，4100mAh高能量密度电池，纵然尽情玩乐也依然能够保持电力充沛。7.9mm超薄机身，5英寸AMOLED屏幕，更广的色域，带来更亮丽的显示效果。" class="find_item_img">
+</div>
+
+		</body>
+
+		</html>
