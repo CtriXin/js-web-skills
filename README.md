@@ -30,6 +30,18 @@ general_log_file=/tmp/mysql.log
 
 
 ***
+####mysql left join、right join、inner join的区别
+```
+A LEFT JOIN B:
+left join是以A表的记录为基础的,A可以看成左表,B可以看成右表,left join是以左表为准的.
+换句话说,左表(A)的记录将会全部表示出来,而右表(B)只会显示符合搜索条件的记录(例子中为: A.aID = B.bID).
+B表记录不足的地方均为NULL.
+right join 反之
+inner join 取两者都有的，其他不显示
+```
+
+
+***
 ####mysql设置外键 on update on delete CASCADE
 ```
 CASCADE
@@ -41,12 +53,77 @@ https://my.oschina.net/cart/blog/277624
 
 
 ***
+####LBS应用中"附近的人"在服务器端如何更高效快速地计算距离？
+
+```
+用经纬度做索引，
+先粗算，比如把经纬度差一以上的全去掉，where latitude>y-1 and latitude<y+1 and longitude>x-1 and longitude <x+1 and ... ; x,y为当前用户的经纬度。
+再小范围概算，使用类似这样的公式 order by abs(longitude -x)+abs(latitude -y) limit 100;
+最后显示时再精确计算 使用类似这样的公式:(2 * 6378.137* ASIN(SQRT(POW(SIN(PI()*(y-lat)/360),2)+COS(PI()*x/180)* COS(lat * PI()/180)*POW(SIN(PI()*(x-lng)/360),2))))。
+前两项在数据库端计算，后一项在应用服务器端计算即可。
+
+链接：https://www.zhihu.com/question/19937663/answer/21170137
+
+php 代码：（laravel）
+
+    public function near($version,Request $request)
+    {
+        $lng=$request->input('lng');
+        $lat=$request->input('lat');
+        $range=$request->input('range',5);
+        $limit=$request->input('limit',20);
+
+        if ($lng=='' || $lat=='') 
+            return $this->toJson(-1,'经纬度不能为空');
+        $arr=$this->returnSquarePoint($lng, $lat,$range * 1000);
+        //TODO 东西半球，南北半球的换算绝对值？
+        $bikelocks=Bikelock::where('lat','<=',$arr['left-top']["lat"])
+        ->where('lat','>=',$arr['right-bottom']["lat"])
+        ->where('lng','>=',$arr['left-top']["lng"])
+        ->where('lng','<=',$arr['right-bottom']["lng"])
+        ->where('status_lock','0')->orderByRaw('( ABS(lat -'.$lat.')+ABS(lng -'.$lng.') )')->take($limit)->get(['device_id','status_book','status_lock','lat','lng','electricity']);
+
+        return $this->toJson(0,'',$bikelocks);
+    }
+
+
+    /**
+     * 
+     * @author bajian
+     * @param distance 单位米
+     * @return array
+     */
+    private function returnSquarePoint($lng, $lat,$distance = 5000){
+       $earthRadius = 6378138;
+       $dlng =  2 * asin(sin($distance / (2 * $earthRadius)) / cos(deg2rad($lat)));
+       $dlng = rad2deg($dlng);
+       $dlat = $distance/$earthRadius;
+       $dlat = rad2deg($dlat);
+       return array(
+         'left-top'=>array('lat'=>round($lat + $dlat,6),'lng'=>round($lng-$dlng,6)),
+         'right-top'=>array('lat'=>round($lat + $dlat,6), 'lng'=>round($lng + $dlng,6)),
+         'left-bottom'=>array('lat'=>round($lat - $dlat,6), 'lng'=>round($lng - $dlng,6)),
+         'right-bottom'=>array('lat'=>round($lat - $dlat,6), 'lng'=>round($lng + $dlng,6))
+         );
+   }
+```
+
+
+***
 #### 查询数据库中的表名
 ```
 SELECT * FROM information_schema.tables WHERE TABLE_NAME LIKE 'data_%'
 
 SELECT * FROM information_schema.tables WHERE TABLE_SCHEMA='db_kirito' AND  TABLE_NAME LIKE 'bi_%'
 
+```
+
+***
+#### 百度地图经纬度偏移量
+```
+
+  var lng = parseFloat(obj.lng) + 0.011307845100006375;
+  var lat = parseFloat(obj.lat) + 0.0035078896000015902;
 ```
 
 ***
@@ -205,6 +282,26 @@ if ($_SERVER['REQUEST_METHOD']=='OPTIONS') {
     return ;
 }
 
+js
+
+        var unlock=function(){
+            $.ajax({
+            url:'http://vkapi.goupianyi888.com/api/v1/device/unlock',
+            method:'post',
+            data:{
+                device_id:'1234567890123',
+            },
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            success:function(data){
+                console.log(data);
+            }
+        })
+
+        }
+
 ```
 
 ***
@@ -218,6 +315,84 @@ DB::connection()->enableQueryLog();
             ->where('lng','<=',$arr['right-bottom']["lng"])->take($limit)->get();
             print_r(
     DB::getQueryLog()
+```
+
+
+***
+####确定任意图片的主导颜色
+```
+function dominant_color($image)
+{
+$i = imagecreatefromjpeg($image);
+for ($x=0;$x<imagesx($i);$x++) {
+    for ($y=0;$y<imagesy($i);$y++) {
+        $rgb = imagecolorat($i,$x,$y);
+        $r   = ($rgb >> 16) & 0xFF;
+        $g   = ($rgb >>  & 0xFF;
+        $b   = $rgb & 0xFF;
+        $rTotal += $r;
+        $gTotal += $g;
+        $bTotal += $b;
+        $total++;
+    }
+}
+$rAverage = round($rTotal/$total);
+$gAverage = round($gTotal/$total);
+$bAverage = round($bTotal/$total);
+}
+
+/**
+     * RGB转 十六进制
+     * @param $rgb RGB颜色的字符串 如：rgb(255,255,255);
+     * @return string 十六进制颜色值 如：#FFFFFF
+     */
+    function RGBToHex($rgb){
+        $regexp = "/^rgb\(([0-9]{0,3})\,\s*([0-9]{0,3})\,\s*([0-9]{0,3})\)/";
+        $re = preg_match($regexp, $rgb, $match);
+        $re = array_shift($match);
+        $hexColor = "#";
+        $hex = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F');
+        for ($i = 0; $i < 3; $i++) {
+            $r = null;
+            $c = $match[$i];
+            $hexAr = array();
+            while ($c > 16) {
+                $r = $c % 16;
+                $c = ($c / 16) >> 0;
+                array_push($hexAr, $hex[$r]);
+            }
+            array_push($hexAr, $hex[$c]);
+            $ret = array_reverse($hexAr);
+            $item = implode('', $ret);
+            $item = str_pad($item, 2, '0', STR_PAD_LEFT);
+            $hexColor .= $item;
+        }
+        return $hexColor;
+    }
+    /**
+     * 十六进制 转 RGB
+     */
+    function hex2rgb($hexColor) {
+        $color = str_replace('#', '', $hexColor);
+        if (strlen($color) > 3) {
+            $rgb = array(
+                'r' => hexdec(substr($color, 0, 2)),
+                'g' => hexdec(substr($color, 2, 2)),
+                'b' => hexdec(substr($color, 4, 2))
+            );
+        } else {
+            $color = $hexColor;
+            $r = substr($color, 0, 1) . substr($color, 0, 1);
+            $g = substr($color, 1, 1) . substr($color, 1, 1);
+            $b = substr($color, 2, 1) . substr($color, 2, 1);
+            $rgb = array(
+                'r' => hexdec($r),
+                'g' => hexdec($g),
+                'b' => hexdec($b)
+            );
+        }
+        return $rgb;
+    }
 ```
 
 ***
@@ -3784,6 +3959,9 @@ $('#male').attr("checked",true);
 ***
 ####自定义一个select添加器
 ```
+ace chosen update:
+$('#select_province').trigger("chosen:updated")
+
 var select=$('#mySelect') ;//选择框对象jq
 var select=document.getElementById('select_1');/;//选择框对象js
 
