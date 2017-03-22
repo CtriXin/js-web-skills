@@ -1,3 +1,10 @@
+非标准ssh端口处理
+git clone ssh://git@10.137.20.113:2222/root/test.git
+git clone ssh://hgx@zhjy.wechat.hzsb365.com:20157/home/hgx/gitserver/swingcar.git
+
+root@infohzsb365.com:/home/hgx/gitserver/swingcar.git
+root@admin.hzsb365.com:/home/hgx/gitserver/swingcar.git
+
 cd /home/hgx/gitserver
 
 mkdir rep.git

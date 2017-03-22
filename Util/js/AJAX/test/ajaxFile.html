@@ -137,11 +137,22 @@ formData.append('classID', 26);
 $('#upic').click(function(){
 	var formData = new FormData();
 formData.append('photo', $('#file')[0].files[0]);
-	myajax.file('http://hgx.hzsb365.com/file/upic/666.png',
+	// myajax.file('http://www.bajian2.com/234324+ok+234t.jpg',
+	myajax.file('http://vkapi.goupianyi888.com/234324+ok+234t.jpg',
 		formData,function(data){
 			alert(JSON.stringify(data));
 		})
 });
+
+
+// $('#upic').click(function(){
+// 	var formData = new FormData();
+// formData.append('photo', $('#file')[0].files[0]);
+// 	myajax.file('http://hgx.hzsb365.com/file/upic/666.png',
+// 		formData,function(data){
+// 			alert(JSON.stringify(data));
+// 		})
+// });
 
 
 </script>

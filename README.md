@@ -1,5 +1,5 @@
 ### js-web-skills
-js web 相关总结,难度不分先后，随意插入的
+js web 相关总结，乱七八糟,难度不分先后，随意插入的
 
 ***
 
@@ -20,12 +20,523 @@ echo mb_strlen($str,'gbk').'<br>';//8
 echo mb_strlen($str,'gb2312').'<br>';//10  
 ```
 
+***
+####为querySelectorAll添加forEach方法
+```
+let selector = 'th.vuetable-th-checkbox-' + idColumn + ' input[type=checkbox]'
+      let els = document.querySelectorAll(selector)
+
+      //fixed:document.querySelectorAll return the typeof nodeList not array
+      if(els.forEach===undefined)
+      els.forEach=function(cb){
+        [].forEach.call(els, cb);
+      }
+
+      // count how many checkbox row in the current page has been checked
+      let selected = this.tableData.filter(function(item) {
+        return self.selectedTo.indexOf(item[idColumn]) >= 0
+      })
+
+      // count == 0, clear the checkbox
+      if (selected.length <= 0) {
+        els.forEach(function(el) {
+          el.indeterminate = false
+        })
+        return false
+      }
+```
+
+***
+####WinSCP下su切换到root的技巧
+```
+https://my.oschina.net/u/1038053/blog/611562?p={{totalPage}}
+
+```
+
+***
+####图片转base64 字符串转base64
+```
+将图片数据进行Base64编码
+function getCanvas(w, h) {
+  var c = document.createElement('canvas');
+  c.width = w;
+  c.height = h;
+  return c;
+}
+  
+function getPixels(img) {
+  var c = getCanvas(img.width, img.height);
+  var ctx = c.getContext('2d');
+  ctx.drawImage(img, 0, 0);
+  return ctx.getImageData(0, 0, c.width, c.height);
+}
+
+字符串转base64
+/**
+ * 
+ * btoa()：字符串或二进制值转为Base64编码
+ * atob()：Base64编码转为原来的编码
+  */
+  var string = 'Hello World!';
+  console.log(btoa(string)) // "SGVsbG8gV29ybGQh" 将ascii字符串或二进制数据转换成一个base64编码过的字符串,该方法不能直接作用于Unicode字符串.
+
+  console.log(atob('SGVsbG8gV29ybGQh')) // "Hello World!"
+
+  function b64Encode(str) {
+      return btoa(encodeURIComponent(str));
+  }
+
+  function b64Decode(str) {
+      return decodeURIComponent(atob(str));
+  }
+  console.log(b64Encode('Hello World! 你好！'))
+  console.log(b64Decode('SGVsbG8lMjBXb3JsZCElMjAlRTQlQkQlQTAlRTUlQTUlQkQlRUYlQkMlODE='))
+
+
+```
+
+
+***
+####VUE 通过 Object.defineProperty实现MVVM原理
+```
+参考
+https://segmentfault.com/a/1190000004346467
+
+'use strict';
+var a= {}
+Object.defineProperty(a,"b",{
+  set:function(newValue){
+    console.log("你要赋值给我,我的新值是"+newValue)
+    },
+  get:function(){
+    console.log("你取我的值")
+    return 2 //注意这里，我硬编码返回2
+   }
+})
+a.b =1 //打印 你要赋值给我,我的新值是1
+console.log(a.b)    //打印 你取我的值
+                    //打印 2    注意这里，和我的硬编码相同的
+```
+
+***
+####HTML语言中表格的书写中TD TR TH的英文全称是什么？
+```
+是定义表格中的一行
+table row
+是定义一个表格
+table data cell
+是定义单元格中的一个单元格
+table head
+和差不多，只不过单元格中的字体是居中加粗的
+```
+
+***
+####js计算耗时
+```
+console.time('myTime'); //Starts the timer with label - myTime
+ 
+for(var i=0; i < 100000; i++){
+  2+4+5;
+}
+ 
+console.timeEnd('myTime'); 
+
+console.table(variableName) 把变量和它的所有属性展现城表格结构
+var myArray=[{a:1,b:2,c:3},{a:1,b:2,c:3,d:4},{k:11,f:22},{a:1,b:2,c:3}]
+console.table(myArray)
+```
+
+
+***
+####group by 按最新一条排序（考勤数据）
+```
+分析：由于group by 会取出排在最上面的一条做显示的一条，所以对考勤数据进行排序（时间降序）再group by 就行了：
+SELECT * FROM (SELECT a.`student_id` AS studentID,a.`name` AS studentName,b.`type`,b.`time` AS DATETIME FROM manager_student a LEFT JOIN xsk_attendance b ON a.`device_id`=b.`device_id` AND DATE_FORMAT(b.time,'%Y-%m-%d') ='2017-02-14' WHERE a.`class_id`=208 AND a.`school_id`=61 ORDER BY (DATETIME) DESC)t GROUP BY studentName ORDER BY studentID ASC
+
+原本的语句只会按最早一条数据排序：
+SELECT a.`student_id` AS studentID,a.`name` AS studentName,b.`type`,b.`time` AS datetime FROM manager_student a LEFT JOIN xsk_attendance b ON a.`device_id`=b.`device_id` AND DATE_FORMAT(b.time,\'%Y-%m-%d\') =? WHERE a.`class_id`=? AND a.`school_id`=? GROUP BY a.`name` ORDER BY (studentID+0) ASC
+参考
+http://www.tuicool.com/articles/FnQFre
+```
+
+***
+####mysql 对null进行排序，降序时候让null在前面
+```
+ ISNULL(DATETIME) DESC ,DATETIME DESC，升序反之，怎么搞都行
+
+SELECT * FROM (SELECT a.`student_id` AS studentID,a.`name` AS studentName,b.`type`,b.`time` AS DATETIME FROM manager_student a LEFT JOIN xsk_attendance b ON a.`device_id`=b.`device_id` AND DATE_FORMAT(b.time,'%Y-%m-%d') ='2017-02-14' WHERE a.`class_id`=208 AND a.`school_id`=61 ORDER BY (DATETIME) DESC)t GROUP BY studentName ORDER BY ISNULL(DATETIME) DESC ,DATETIME DESC
+参考
+http://www.cnblogs.com/jeffen/p/6044764.html
+```
+
+***
+####子域名间共享cookie（seesion id）
+```
+设置顶级域名就行了
+
+未指定domain时，默认的domain为用哪个域名访问就是哪个，如果为顶级域名访问，那么可以被其他2级域名共享。
+
+
+读取cookie
+　　二级域名能读取设置了domain为顶级域名或者自身的cookie，不能读取其他二级域名domain的cookie。所以要想cookie在多个二级域名中共享，需要设置domain为顶级域名，这样就可以在所有二级域名里面或者到这个cookie的值了。
+
+顶级域名只能获取到domain设置为顶级域名的cookie，其他domain设置为二级域名的无法获取。
+
+删除cookie
+　　1）顶级域名的cookie在顶级域名或者2级域名都可以删除，但是用非顶级域名访问的网站要删除顶级域名的cookie，需要设置获取到的cookie的domain为顶级域名,这样才能删除顶级域名的cookie，否则无法删除，默认的会删除访问的域名下对应的cookie，而不是顶级域名的。
+
+```
+
+***
+####mysql中模糊查询的四种用法： 
+```
+http://www.jb51.net/article/48315.htm
+1，%：表示任意0个或多个字符。可匹配任意类型和长度的字符，有些情况下若是中文，请使用两个百分号（%%）表示。 
+比如 SELECT * FROM [user] WHERE u_name LIKE '%三%' 
+将会把u_name为“张三”，“张猫三”、“三脚猫”，“唐三藏”等等有“三”的记录全找出来。 
+另外，如果需要找出u_name中既有“三”又有“猫”的记录，请使用and条件 
+SELECT * FROM [user] WHERE u_name LIKE '%三%' AND u_name LIKE '%猫%' 
+若使用 SELECT * FROM [user] WHERE u_name LIKE '%三%猫%' 
+
+虽然能搜索出“三脚猫”，但不能搜索出符合条件的“张猫三”。 
+
+2，_： 表示任意单个字符。匹配单个任意字符，它常用来限制表达式的字符长度语句： 
+比如 SELECT * FROM [user] WHERE u_name LIKE '_三_' 
+只找出“唐三藏”这样u_name为三个字且中间一个字是“三”的； 
+
+
+3，[ ]：表示括号内所列字符中的一个（类似正则表达式）。指定一个字符、字符串或范围，要求所匹配对象为它们中的任一个。 
+比如 SELECT * FROM [user] WHERE u_name LIKE '[张李王]三' 将找出“张三”、“李三”、“王三”（而不是“张李王三”）； 
+如 [ ] 内有一系列字符（01234、abcde之类的）则可略写为“0-4”、“a-e” 
+SELECT * FROM [user] WHERE u_name LIKE '老[1-9]' 将找出“老1”、“老2”、……、“老9”； 
+测试不通过。。
+
+4，[^ ] ：表示不在括号所列之内的单个字符。其取值和 [] 相同，但它要求所匹配对象为指定字符以外的任一个字符。 
+比如 SELECT * FROM [user] WHERE u_name LIKE '[^张李王]三' 将找出不姓“张”、“李”、“王”的“赵三”、“孙三”等； 
+SELECT * FROM [user] WHERE u_name LIKE '老[^1-4]'; 将排除“老1”到“老4”，寻找“老5”、“老6”、…… 
+测试不通过。。
+
+正则
+SELECT * FROM bikelock WHERE device_id REGEXP  '^1[1-9]*'
+
+```
+
+***
+####relative absolute 居中方法
+```
+relative:
+margin：0 auto;
+
+absolute：
+left:50%;
+margin-left:-1.42857143rem;/* 40px */
+
+也可以配合flex设置
+```
+
+***
+####判断object中是否存在xx键值
+```
+a={ a:123,tt:999}
+Object {a: 123, tt: 999}
+if('tt' in a) alert(1)//比 a['tt']更直观
+```
+
+***
+####nginx 配置域名重定向
+```
+server {
+        server_name luokr.com;
+        return 301 $scheme://www.luokr.com$request_uri;
+}
+```
+
+***
+####取消冒泡事件兼容性写法
+```
+       //取消冒泡事件
+function stopBubble(e){
+               e=e||window.event;  //firefox,chrome,etc.||IE,opera
+if(e.stopPropagation){
+                   e.stopPropagation();
+                 }
+                 else{
+                  e.cancelBubble=true;
+                 }
+             }
+```
+
+***
+####transform-origin 旋转中心点
+```
+http://www.zhangxinxu.com/wordpress/2012/06/css3-transform-matrix-%E7%9F%A9%E9%98%B5/
+
+CSS代码：
+.anim_image {
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+    cursor:pointer;
+}
+.anim_image_top {
+    position: absolute;
+    -webkit-transform: scale(0, 0);
+    opacity: 0;
+    filter: Alpha(opacity=0);
+}
+.anim_box:hover .anim_image_top , .anim_box_hover .anim_image_top {
+    opacity: 1;
+    filter: Alpha(opacity=100);
+    -webkit-transform: scale(1, 1);
+    -webkit-transform-origin: top right;        
+}
+.anim_box:hover .anim_image_bottom, .anim_box_hover .anim_image_bottom {
+    -webkit-transform: scale(0, 0);
+    -webkit-transform-origin: bottom left;
+}
+HTML代码：
+<div id="testBox" class="demo anim_box">
+    <img class="anim_image anim_image_top" src="http://image.zhangxinxu.com/image/study/p/s200/ps6.jpg" />
+    <img class="anim_image anim_image_bottom" src="http://image.zhangxinxu.com/image/study/p/s200/ps4.jpg" />
+</div>
+
+```
+
+***
+####取消手机端点击时候的样式
+```
+-webkit-tap-highlight-color:rgba(0,0,0,0);
+还有个outline
+```
+
+***
+####linux 查看本机链接tcp/http情况
+```
+ netstat -nat|grep -i "6677"
+http://blog.csdn.net/he_jian1/article/details/40787269
+TIME_WAIT 8947 等待足够的时间以确保远程TCP接收到连接中断请求的确认
+FIN_WAIT1 15 等待远程TCP连接中断请求，或先前的连接中断请求的确认
+FIN_WAIT2 1 从远程TCP等待连接中断请求
+ESTABLISHED 55 代表一个打开的连接
+SYN_RECV 21 再收到和发送一个连接请求后等待对方对连接请求的确认
+CLOSING 2 没有任何连接状态
+LAST_ACK 4 等待原来的发向远程TCP的连接中断请求的确认
+ 
+TCP连接状态详解
+LISTEN： 侦听来自远方的TCP端口的连接请求
+SYN-SENT： 再发送连接请求后等待匹配的连接请求
+SYN-RECEIVED：再收到和发送一个连接请求后等待对方对连接请求的确认
+ESTABLISHED： 代表一个打开的连接
+FIN-WAIT-1： 等待远程TCP连接中断请求，或先前的连接中断请求的确认
+FIN-WAIT-2： 从远程TCP等待连接中断请求
+CLOSE-WAIT： 等待从本地用户发来的连接中断请求
+CLOSING： 等待远程TCP对连接中断的确认
+LAST-ACK： 等待原来的发向远程TCP的连接中断请求的确认
+TIME-WAIT： 等待足够的时间以确保远程TCP接收到连接中断请求的确认
+CLOSED： 没有任何连接状态
+```
+
 
 ***
 ####mysql添加查询日志
 ```
 general_log=ON
 general_log_file=/tmp/mysql.log
+```
+
+
+***
+####mysql区分大小写
+```
+
+在 字段前加 binary
+如
+SELECT * FROM daxiaoxie WHERE BINARY NAME='haha'
+```
+
+
+***
+####PHP 面试题
+```
+
+$test = 'aaaaaa';
+    $abc = & $test;
+    unset($test);
+    echo $abc;//'aaaaaaa'
+
+
+    $a1 = null;
+    $a2 = false;
+    $a3 = 0;
+    $a4 = '';
+    $a5 = '0';
+    $a6 = 'null';
+    $a7 = array();
+    $a8 = array(array());
+    echo empty($a1) ? 'true' : 'false';
+    echo empty($a2) ? 'true' : 'false';
+    echo empty($a3) ? 'true' : 'false';
+    echo empty($a4) ? 'true' : 'false';
+    echo empty($a5) ? 'true' : 'false';
+    echo empty($a6) ? 'true' : 'false';
+    echo empty($a7) ? 'true' : 'false';
+    echo empty($a8) ? 'true' : 'false';
+
+//true true true true true false true false
+
+
+    $count = 5;
+    function get_count(){
+        static $count = 0;
+        return $count++;
+    }
+    echo $count;//5
+    ++$count;
+    echo get_count();//0
+    echo get_count();//1
+    echo get_count();
+function foo(){ 
+static $int = 0;// correct 
+static $int = 1+2; // wrong (as it is an expression) 
+static $int = sqrt(121); // wrong (as it is an expression too) 
+$int++; 
+echo $int; 
+} 
+
+
+strrev()//字符串翻转
+strrchr() //函数查找字符串在另一个字符串中最后一次出现的位置，并返回从该位置到字符串结尾的所有字符。
+strchr() //函数查找字符串在另一个字符串中第一次出现的位置，并返回从该位置到字符串结尾的所有字符。
+strrpos()//字符串最后一次出现的位置
+
+
+必看面试题
+https://cnodejs.org/topic/5867d50d5eac96bb04d3e302
+```
+
+冒泡排序（数组排序）
+$a=array('3','8','1','8','4','11','7');
+// print_r($a);
+$len = count($a);
+
+function quikSort($arr){
+    for ($i=0; $i <$len ; $i++) { 
+    for ($j=0; $j <$len-$i-1 ; $j++) { 
+        if ($a[$j]>$a[$j+1]) {
+            $temp=$a[$j+1];
+            $a[$j+1]=$a[$j];
+            $a[$j]=$temp;
+        }
+    }
+}
+}
+
+
+/**
+* 快速排序
+* $a=array('3','8','1','4','11','7');
+* 递归实现
+* 获取数组第一个数,循环使后面的数与其比较,
+* 比其小的放在一个数组中,比其大的放在一个数组中
+* 将2个数组递归调用,直到最终数组元素小于等于1时,没有可以比较的元素
+* 通过array_merge函数,将比较的数组按大小顺序合并然后一层一层的return出去,最终实现从小到大排序
+* @param array $array 要操作的数组
+* @return array $array 返回的数组
+*/
+
+function quickSort($array)
+{
+        if(count($array) <= 1 ) return $array;
+        $key = $array[0];
+        $left_arr = array();
+        $right_arr = array();
+        for ($i=1;$i<count($array);$i++){
+                if($array[$i] <= $key){
+                        $left_arr[] = $array[$i];
+                }else{
+                        $right_arr[] = $array[$i];
+                }
+        }
+
+        $left_arr = quickSort($left_arr);
+        $right_arr = quickSort($right_arr);
+        return array_merge($left_arr,array($key),$right_arr);
+
+}
+
+js版
+
+arr=[5,6,1,4,88];
+console.log(quikSort(arr));
+function quikSort(arr){
+    console.log('in quikSort');
+    if (arr.length<=1) return arr;
+    var key=arr[0],
+    l=[],
+    r=[];
+    for (var i = 1; i <arr.length; i++) {
+        if (key>=arr[i]) {
+            l.push(arr[i])
+        }else{
+            r.push(arr[i])
+        }
+    }
+    l=quikSort(l)
+    r=quikSort(r)
+    return l.concat([key]).concat(r)
+}
+
+/**
+* 选择排序
+* 2层循环
+* 第一层逐个获取数组的值 $array[$i]
+* 第二次遍历整个数组与$array[$i]比较($j=$i+1已经比较的,不再比较,减少比较次数)
+* 如果比$array[$i]小,就交换位置
+* 这样一轮下来就可以得到数组中最小值
+* 以此内推整个外层循环下来就数组从小到大排序了
+* @param array $array 要比较的数组
+* @return array $array 从小到大排序后的数组
+*/
+
+function selectSort($array){
+        $cnt = count($array);
+        for($i=0;$i<$cnt;$i++){
+                for($j=($i+1);$j<$cnt;$j++){
+                        if($array[$i]>$array[$j]){
+                                $tmp = $array[$i];
+                                $array[$i] = $array[$j];
+                                $array[$j] = $tmp;
+                        }
+                }
+        }
+        return $array;
+}
+
+
+***
+####四种this的类型
+```
+介绍一下四种this的类型：
+
+默认绑定
+隐式绑定
+显式绑定
+new绑定
+其中，默认绑定就是什么都匹配不到的情况下，非严格模式this绑定到全局对象window或者global,严格模式绑定到undefined;隐式绑定就是函数作为对象的属性，通过对象属性的方式调用，这个时候this绑定到对象;显示绑定就是通过apply和call调用的方式;new绑定就是通过new操作符时将this绑定到当前新创建的对象中，它们的匹配有限是是从小到大的。
+```
+
+***
+####绝对定位 max-width也可以居中
+```
+max-width: 600px;
+position: absolute;
+    top: 0;
+    left: 0;
+    right:0;
+    width: 100%;
+    height: 100%;
+    margin:0 auto;
 ```
 
 
@@ -220,6 +731,30 @@ word-break: break-all;text-align: left;padding-left: 5px;word-wrap:break-word;
 
 
 ***
+####cookie ls 跨域的办法
+```
+Cookie跨域单点登录  
+
+为了快速、简单的实现这一功能，首先想到就是通过JS操作Cookie并让两个不同域的cookie能够相互访问，这样就可达到了上述的效果，具体实现过程大致可分以下两个步骤：  
+
+１、在Ａ系统下成功登录后，利用JS动态创建一个隐藏的iframe，通过iframe的src属性将Ａ域下的cookie值作为 get参数重定向到Ｂ系统下b.aspx页面上；  
+
+var _frm = document.createElement("iframe"); 
+_frm.style.display="none";  
+_frm.src="http://b.com/b.jsp?test_cookie=xxxxx";  
+document.body.appendChild(_frm);  
+
+2、在Ｂ系统的b.aspx页面中来获取Ａ系统中所传过来的cookie值，并将所获取到值写入cookie中，这样就简单的实现了cookie跨域的访问；　不过这其中有个问题需要注意，就是在IE浏览器下这样操作不能成功，需要在b.aspx页面中设置P3P HTTP Header就可以解决了（具体詳細信息可以参考:http://www.w3.org/P3P/)，P3P设置代码为： 
+
+也可以在html加入标记 
+<meta http-equiv="P3P" content='CP="IDC DSP COR CURa ADMa  OUR IND PHY ONL COM STA"'>
+
+
+Response.AppendHeader("P3P", "CP='IDC DSP COR CURa ADMa  OUR IND PHY ONL COM STA'"); 
+```
+
+
+***
 ####ajax 跨域原理
 ```
 1、简单请求(simple request)
@@ -315,6 +850,120 @@ DB::connection()->enableQueryLog();
             ->where('lng','<=',$arr['right-bottom']["lng"])->take($limit)->get();
             print_r(
     DB::getQueryLog()
+```
+
+***
+####laravel 分页
+```
+http://laravelacademy.org/post/6960.html
+
+        $users=User::paginate(15,  ['*'], 'page',1);//per_page,column,page,current_page
+        $users->setPath('custom/url');
+        return $this->toJson($users);
+        return $this->toJson();
+
+$pagination = $query->with('address')->paginate($perPage);
+    $pagination->appends([
+        'sort' => request()->sort,
+        'filter' => request()->filter,
+        'per_page' => request()->per_page
+    ]);
+```
+
+
+***
+####laravel 获取session id
+```
+nRRw2MfQNqe5gbohFqhgt5mJ5zqBhPeJSK87CvcB
+var_dump(Session::getId());
+
+```
+
+***
+####前端移动适配
+```
+<link rel="alternate" media="only screen and (max-width: 640px)" href="http://m.dilidili.com/">
+
+```
+
+***
+####获取远程文件的大小
+```
+function remote_filesize($url, $user = "", $pw = "")
+{
+    ob_start();
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_HEADER, 1);
+    curl_setopt($ch, CURLOPT_NOBODY, 1);
+    if(!empty($user) && !empty($pw))
+    {
+        $headers = array('Authorization: Basic ' .  base64_encode("$user:$pw"));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    }
+    $ok = curl_exec($ch);
+    curl_close($ch);
+    $head = ob_get_contents();
+    ob_end_clean();
+    $regex = '/Content-Length:\s([0-9].+?)\s/';
+    $count = preg_match($regex, $head, $matches);
+    return isset($matches[1]) ? $matches[1] : "unknown";
+}
+```
+
+
+***
+####文件下载 和文件限速下载
+```
+// local file that should be send to the client
+$local_file = 'test-file.zip';
+// filename that the user gets as default
+$download_file = 'your-download-name.zip';
+ 
+// set the download rate limit (=> 20,5 kb/s)
+$download_rate = 20.5; 
+if(file_exists($local_file) && is_file($local_file)) {
+    // send headers
+    header('Cache-control: private');
+    header('Content-Type: application/octet-stream'); 
+    header('Content-Length: '.filesize($local_file));
+    header('Content-Disposition: filename='.$download_file);
+ 
+    // flush content
+    flush();    
+    // open file stream
+    $file = fopen($local_file, "r");    
+    while(!feof($file)) {
+ 
+        // send the current file part to the browser
+        echo fread($file, round($download_rate * 1024));    
+ 
+        // flush the content to the browser
+        flush();
+ 
+        // sleep one second
+        sleep(1);    
+    }    
+ 
+    // close file stream
+    fclose($file);}
+else {
+    die('Error: The file '.$local_file.' does not exist!');
+}
+
+ 根据 URL 下载图片
+function imagefromURL($image,$rename)
+{
+$ch = curl_init($image);
+curl_setopt($ch, CURLOPT_HEADER, 0);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
+$rawdata=curl_exec ($ch);
+curl_close ($ch);
+$fp = fopen($rename,'w');
+fwrite($fp, $rawdata); 
+fclose($fp);
+}
+
 ```
 
 
@@ -440,6 +1089,16 @@ $bAverage = round($bTotal/$total);
     // var_dump(Auth::guard('admin')->check()) ;
     // var_dump(Auth::guard('web')->check()) ;
 
+    $model=Bikelock::where('lat','<=',$arr['left-top']["lat"])
+            ->where('lat','>=',$arr['right-bottom']["lat"])
+            ->where('lng','>=',$arr['left-top']["lng"])
+            ->where('lng','<=',$arr['right-bottom']["lng"])
+            ->where('status_lock','0');
+        if ($client_no)
+            $model=$model->where('device_id','like',$client_no.'%');
+        $bikelocks=$model->orderByRaw('( ABS(lat -'.$lat.')+ABS(lng -'.$lng.') )')->take($limit)->get(['device_id','status_book','status_lock','lat','lng','electricity']);
+
+
 ```
 
 ***
@@ -452,7 +1111,7 @@ $bAverage = round($bTotal/$total);
 
 
 ***
-####laravel Eloquent 联合查询
+####laravel Eloquent 联合查询,with 解决N+1问题
 ```
 在Model中创建：
     public function bookhistory()
@@ -467,6 +1126,98 @@ $bAverage = round($bTotal/$total);
             return $this->toJson(0,'',$bike[0]->bikelock);
         }
 
+
+        $user=Auth::user()->with('merchant')->get();
+    $user=Auth::user()->merchant;
+
+many2many
+
+class Article extends BaseModel
+{
+
+    protected $hidden = [
+        'password',
+    ];
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag');
+    }
+
+}
+
+class Tag extends BaseModel
+{
+
+    protected $hidden = [
+        'password',
+    ];
+
+    public function articles()
+    {
+        return $this->belongsToMany('App\Article');
+    }
+
+}
+
+$article = Article::find(1);
+//return $this->toJson(0,'',$article);
+return $this->toJson(0,'',$article->tags);
+
+$tag = Tag::where('name','tag2')->first();
+return $this->toJson(0,'',$tag->articles);
+
+
+
+Eager Loading Multiple Relationships
+Sometimes you may need to eager load several different relationships in a single operation. To do so, just pass additional arguments to the with method:
+
+$books = App\Book::with('author', 'publisher')->get();
+
+Nested Eager Loading
+To eager load nested relationships, you may use "dot" syntax. For example, let's eager load all of the book's authors and all of the author's personal contacts in one Eloquent statement:
+
+$books = App\Book::with('author.contacts')->get();
+
+
+Constraining Eager Loads
+
+Sometimes you may wish to eager load a relationship, but also specify additional query constraints for the eager loading query. Here's an example:
+
+$users = App\User::with(['posts' => function ($query) {
+    $query->where('title', 'like', '%first%');
+}])->get();
+In this example, Eloquent will only eager load posts where the post's title column contains the word first. Of course, you may call other query builder methods to further customize the eager loading operation:
+
+$users = App\User::with(['posts' => function ($query) {
+    $query->orderBy('created_at', 'desc');
+}])->get();
+以此引出一下写法
+class BaseModel extends Model
+{
+    public function scopeWithCertain($query, $relation, Array $columns)
+    {
+        return $query->with([$relation => function ($query) use ($columns){
+            $query->select(array_merge(['id'], $columns));
+        }]);
+    }
+}
+$car_list=Car::where('merchant_id',$user->merchant_id)->withCertain('admin',['name','admin_role_type'])->get();
+        return $this->toJson(0,'',$car_list);
+
+用户--》关联商户--》关联地区
+$query = app(User::class)->newQuery();
+        $query->whereNotNull('merchant_id')->with(['merchant'=>function ($queryx){
+            $queryx->with('province')->with('city')->with('county');
+        }]);
+
+用户--》关联商户--》关联地区
+                --》关联设备数withCount，（Merchant模型需要public function car(){
+        return $this->belongsTo('App\Car','id','merchant_id');
+    }）
+$query = app(User::class)->newQuery();
+        $query->whereNotNull('merchant_id')->with(['merchant'=>function ($queryx){
+            $queryx->with('province')->with('city')->with('county')->withCount('car');
+        }]);
 ```
 
 
@@ -538,6 +1289,52 @@ INSERT INTO marks (NAME,subject1,mark) (SELECT * FROM (SELECT 'kirito','maths',1
 ```
 
 ***
+####移动端经验
+```
+禁止保存或拷贝图像
+
+通常当你在手机或者pad上长按图像 img ，会弹出选项 存储图像 或者 拷贝图像，如果你不想让用户这么操作，那么你可以通过以下方法来禁止：
+
+img {
+    -webkit-touch-callout: none;
+}
+需要注意的是，该方法只在 iOS 上有效。
+
+取消touch高亮
+
+在移动设备上，所有设置了伪类 :active 的元素，默认都会在激活状态时，显示高亮框，如果不想要这个高亮，那么你可以通过以下方法来禁止：
+
+.xxx {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+禁止选中内容
+
+如果你不想用户可以选中页面中的内容，那么你可以禁掉：
+
+html {
+    -webkit-user-select: none;
+}
+
+
+如果想同时关闭电话和邮箱识别，可以把它们写到一条 meta 内，代码如下：
+<meta name="format-detection" content="telephone=no,email=no" />
+
+关闭iOS键盘首字母自动大写
+
+在iOS中，默认情况下键盘是开启首字母大写的功能的，如果业务不想出现首字母大写，可以这样：
+
+<input type="text" autocapitalize="off" />
+
+关闭iOS输入自动修正
+
+在iOS中，默认输入法会开启自动修正输入内容的功能，如果不需要的话，可以这样：
+
+<input type="text" autocorrect="off" />
+
+```
+
+***
 ####nginx access_log 设置buffer
 ```
 access_log /data/wwwlogs/bxjtest.snewfly.com_nginx.log combined buffer=2k;
@@ -551,6 +1348,16 @@ access_log /data/wwwlogs/bxjtest.snewfly.com_nginx.log combined buffer=2k;
 iptables -I INPUT -p tcp -m tcp --dport 3306 -j ACCEPT
 
 iptables -L -n
+
+```
+
+***
+####mysql 修改host
+```
+mysql -u root –p
+mysql>use mysql;
+mysql>update user set host = '%' where user = 'root';
+mysql>select host, user from user;
 
 ```
 
@@ -730,6 +1537,7 @@ client_max_body_size 5m;
 这样就不会因为提交数据大小不一致出现错误。
 post_max_size = 5M
 upload_max_filesize = 5M
+APACHE 好像是LimitRequestBody 
 ```
 
 ***
@@ -775,8 +1583,21 @@ break;
 ####2>&1 linux命令详解
 ```
      command >out.file 2>&1 &
-    是将标准出错重定向到标准输出，这里的标准输出已经重定向到了out.file文件，即将标准出错也输出到out.file文件中。最后一个& 是让该命令在后台执行。
+    是将标准出错重定向 2到标准输出 1，这里的标准输出已经重定向到了out.file文件，即将标准出错也输出到out.file文件中。最后一个& 是让该命令在后台执行。
 
+command > filename 把把标准输出重定向到一个新文件中
+command >> filename 把把标准输出重定向到一个文件中(追加)
+command 1 > fielname 把把标准输出重定向到一个文件中
+command > filename 2>&1 把把标准输出和标准错误一起重定向到一个文件中
+command 2 > filename 把把标准错误重定向到一个文件中
+command 2 >> filename 把把标准输出重定向到一个文件中(追加)
+command >> filename 2>&1 把把标准输出和标准错误一起重定向到一个文件中(追加)
+command < filename > filename2把command命令以filename文件作为标准输入，以filename2文件作为标准输出
+command < filename 把command命令以filename文件作为标准输入
+command << delimiter 把从标准输入中读入，直至遇到delimiter分界符
+command <&m 把把文件描述符m作为标准输入
+command >&m 把把标准输出重定向到文件描述符m中
+command <&- 把关闭标准输入
 ```
 
 ***
@@ -877,7 +1698,7 @@ $("#formToUpdate").ajaxSubmit({
 020; // Octal declaration, returns 16 
 1e3; // Exponential, same as 1 * Math.pow(10,3), returns 1000 
 (1000).toExponential(); // Opposite with previous, returns 1e3 
-(3.1415).toFixed(3); // Rounding the number, returns "3.142"
+(3.1415).toFixed(3); // Rounding the number to string, returns "3.142"
 
 
 //说明嵌套循环中break跳出所有循环
@@ -1008,7 +1829,7 @@ var timeUtil={parseTime:function(format,timeStamp){var date=new Date(timeStamp||
         timeStamp=timeStamp*1000
     }
         var date = new Date(timeStamp||Date.now()),
-        o = { 
+        o = {
             'M+' : date.getMonth() + 1, //month 
             'D+' : date.getDate(), //day 
             'h+' : date.getHours(), //hour 
@@ -1023,11 +1844,11 @@ var timeUtil={parseTime:function(format,timeStamp){var date=new Date(timeStamp||
                 (date.getFullYear() + '').substr(4 - RegExp.$1.length)); 
         } 
 
-        for(var k in o) { 
-            if (new RegExp('('+ k +')').test(format)) { 
+        for(var k in o) {
+            if (new RegExp('('+ k +')').test(format)) {
                 format = format.replace(RegExp.$1, 
                     RegExp.$1.length == 1 ? o[k] : ('00'+ o[k]).substr((''+ o[k]).length)); 
-            } 
+            }
         }
         return format; 
     },
@@ -1197,12 +2018,24 @@ http://www.bluesdream.com/blog/sublime-text-snippets-function.html
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-  <meta content="yes" name="apple-mobile-web-app-capable">
-  <meta content="black" name="apple-mobile-web-app-status-bar-style">
-  <meta content="telephone=no" name="format-detection">
-  <meta content="email=no" name="format-detection">
+  <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!--ie渲染引擎-->
+    <!--忽略电话号码和email识别-->
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <!--当网站添加到主屏幕快速启动方式，将网站添加到主屏幕快速启动方式-->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!--隐藏ios上的浏览器地址栏-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- UC默认竖屏 ，UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <meta name="browsermode" content="application">
+    <!-- QQ强制竖屏 QQ强制全屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui">
+
   <title>$1</title>
      <link rel="stylesheet" href="index.css"> 
   <style type="text/css">
@@ -1292,6 +2125,7 @@ $('#btn_name_first_search').trigger('click')
 }else{
 getAttendanceByDate(B_util.refreshDate());
 }
+})
 全局：
         B_util.resign=function(studentId,search){
             if (!studentId) return;
@@ -1385,7 +2219,7 @@ function showCase2(value) {
     }
 }
 showCase2(String('A'));
-//Case A（String(x) does not create an object but does return a string, i.e. typeof String(1) === "string" ）
+//Case A（String(x) does not create an object but does return a string, i.e. typeof String(1) === "string" ）//true   typeof new String(1) //"object"
 
 
 function isOdd(num) {
