@@ -19,6 +19,110 @@ echo mb_strlen($str,'utf8').'<br>';//6
 echo mb_strlen($str,'gbk').'<br>';//8  
 echo mb_strlen($str,'gb2312').'<br>';//10  
 ```
+***
+####PHP7专题
+```
+
+// 返回值类型
+declare(strict_types = 1);
+   function returnIntValue(int $value): int {
+      return $value;
+   }
+   print(returnIntValue(5));
+
+//参数类型
+declare(strict_types=1);
+   function sum(int ...$ints) {
+      return array_sum($ints);
+   }
+   print(sum(2, '3', 4.1));
+
+//在PHP7，一个新的功能，空合并运算符(??)已被引入。它被用来代替三元运算并与 isset()函数功能结合一起使用。如果它存在并且它不是空的，空合并运算符返回它的第一个操作数;否则返回第二个操作数。
+//用来判断$_POST,$_GET最合适了
+$A=0;
+$username = $A ?? 'not passed';
+echo $username;//0
+$A='';
+$username = $A ?? 'not passed';
+echo $username;//''
+
+$A=null;
+$username = $A ?? 'not passed';
+echo $username;//'not passed'
+
+$A;
+$username = $A ?? 'not passed';
+echo $username;//'not passed'
+
+在PHP7，一个新的功能，飞船操作符已经被引入。它是用于比较两个表达式。当第一个表达式比第二个表达式分别小于，等于或大于它返回-1，0或1。
+//integer comparison
+   print( 1 <=> 1);print("<br/>");//0
+   print( 1 <=> 2);print("<br/>");//-1
+   print( 2 <=> 1);print("<br/>");//1
+
+   //string comparison
+   print( "a" <=> "a");print("<br/>");//0
+   print( "a" <=> "b");print("<br/>");//-1
+   print( "b" <=> "a");print("<br/>");//1
+
+echo "A" <=> "B";//-1
+echo "ab" <=> "b";//-1
+
+//数组常量现在可以使用 define() 函数定义。 在PHP5.6，它们只能使用 const 关键字定义。
+//define a array using define function
+   define('animals', [
+      'dog',
+      'cat',
+      'bird'
+   ]);
+   print(animals[1]);//cat
+
+//在php7中，匿名类现在可以使用 new class 来定义。匿名类可以使用来代替完整的类定义。
+   interface Logger {
+      public function log(string $msg);
+   }
+
+   class Application {
+      private $logger;
+
+      public function getLogger(): Logger {
+         return $this->logger;
+      }
+
+      public function setLogger(Logger $logger) {
+         $this->logger = $logger;
+      }  
+   }
+
+   $app = new Application;
+   $app->setLogger(new class implements Logger {
+      public function log(string $msg) {
+         print($msg);
+      }
+   });
+
+   $app->getLogger()->log("My first Log Message");//My first Log Message
+
+Closure::call() 方法被添加作为临时绑定的对象范围，以封闭并简便调用它的方法。它的性能相比PHP5.6 bindTo要快得多。
+   class A {
+      private $x = 1;
+   }
+
+   // PHP 7+ code, Define
+   $value = function() {
+      return $this->x;
+   };
+
+   print($value->call(new A));//1
+//类似JS里的call,apply
+
+PHP7引入了intdiv()的新函数，它执行操作数的整数除法并返回结果为 int 类型。
+echo intdiv(7,12);//0
+echo intdiv(7,2);//3
+
+7.1新特性http://www.phpchina.com/portal.php?mod=view&aid=40237
+
+```
 
 ***
 ####为querySelectorAll添加forEach方法
@@ -95,28 +199,6 @@ function getPixels(img) {
 
 ```
 
-
-***
-####VUE 通过 Object.defineProperty实现MVVM原理
-```
-参考
-https://segmentfault.com/a/1190000004346467
-
-'use strict';
-var a= {}
-Object.defineProperty(a,"b",{
-  set:function(newValue){
-    console.log("你要赋值给我,我的新值是"+newValue)
-    },
-  get:function(){
-    console.log("你取我的值")
-    return 2 //注意这里，我硬编码返回2
-   }
-})
-a.b =1 //打印 你要赋值给我,我的新值是1
-console.log(a.b)    //打印 你取我的值
-                    //打印 2    注意这里，和我的硬编码相同的
-```
 
 ***
 ####HTML语言中表格的书写中TD TR TH的英文全称是什么？
@@ -870,6 +952,42 @@ $pagination = $query->with('address')->paginate($perPage);
     ]);
 ```
 
+***
+####laravel passport jwt
+```
+根據http://laravelacademy.org/post/5993.html配置后，
+不用oauth的話，只要php artisan passport:client --password生成一個自用的client就行了
+然後得到 oauth_clients表多了一條client數據
+
+客戶端登錄的時候帶上，請求URL:'/oauth/token'
+
+$url='http://api.com/oauth/token';
+$data=[
+        'grant_type' => 'password',
+        'client_id' => '16',
+        'client_secret' => 'cASw4y3CxxxIu6rbo43b0gUhHhWl6zN0KDJvqsRo',
+        'username' => '276665346@qq.com',
+        'password' => '123456',
+        'scope' => '*'
+    ];
+echo http_request($url, $data);
+得到access_token,以後每次請求再header里帶上Authorization: Bearer +access_token
+
+GET http://api.com/api/user HTTP/1.1
+Host: api.com
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36
+Referer: http://api.com/login
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjVkNTYzZDM5NzM4MTRjNGRlYzJjYmE1YzI4YWRlM2M0NjI0NTZkY2ZlNGRhMDRkNzQ3NDA4YmU2YmNhOTg1NTE5MjlhNjI2N2ZiNjc1Yjk3In0.eyJhdWQiOiIxNiIsImp0aSI6IjVkNTYzZDM5NzM4MTRjNGRlYzJjYmE1YzI4YWRlM2M0NjI0NTZkY2ZlNGRhMDRkNzQ3NDA4YmU2YmNhOTg1NTE5MjlhNjI2N2ZiNjc1Yjk3IiwiaWF0IjoxNDkwODY3MTQwLCJuYmYiOjE0OTA4NjcxNDAsImV4cCI6MTUyMjQwMzE0MCwic3ViIjoiMyIsInNjb3BlcyI6WyIqIl19.GogqyJJGG43QCTWsFGDHRqJVDxpn73A9Ty2uExC8NmCphqhHwned4JPxbH-QdBAwAHZ35c-om2uVR-kU6IcSPGRkAzuv2wzHHb50C1852XSDu3vUQ1ZQdUu-bS1rJPDcN_lx_pe_gJF0qHGnt7z-CrJp6X8OsrbK3rEjwoe4gSFPTqgLqwzcFFusBVz9YF3bbuCjdXvlpd3Gq7W6h48sE25z--Yx97TV-j305PicKp8YynnXV5fmiTC73talKcbIZhRtbinQDCD7s20zFVXyBYAO9D5wkY-KyBIB9EeJNWp8lYwdnzV4bqKT6sb7k0uKzHsoV2wbC4_FFolLkdTmQtpSBN6Tc_KZk3MnE-Yy9HcMaMVaPa00LZ4vyMrLTLqWLqcJsFYCcMpSdpaLP95P0v0TjOlALjKLLY0AVAhN_o-MBzb75RIqEoCKqelO2kgjhjj0Ew3EkxKb8Tw4eD5IXFTcazZQG14xC1CnUv5U6sOLfj4hpQ1HHmtuwI39-HJjJ5r3QA49QCUFs_EmZI0eVFIZMHSG8HeEMQyRoTxJEMzeKGijNvWth1SvYGwP9Rd0dlEG18_Rvjgr5KM6rhiHE4ftF_MAUVfnj4UEN-Q7FZIV6_cud3-GM5hKuRXgbyCc4ccJSi_iMYelvvWi4PZlN5P1bnI5RCPO5DmMEIsrJmU
+
+
+```
+
 
 ***
 ####laravel 获取session id
@@ -1108,6 +1226,89 @@ $bAverage = round($bTotal/$total);
 2 $admin_users = User::where('role', 'admin')->get(['id','device_id as aaa']);
 3 $user = User::find($user_id, ['name']);
 ```
+***
+####laravel Eloquent date filtering
+```
+1 $users = User::all(['name']);
+2 $admin_users = User::where('role', 'admin')->get(['id','device_id as aaa']);
+3 $user = User::find($user_id, ['name']);
+```
+
+***
+####laravel Eloquent Retrieve random rows
+```
+$questions = Question::orderByRaw('RAND()')->take(10)->get();
+
+```
+
+***
+####laravel router dispatch
+```
+$request = Request::create('/api/cars/' . $id . '?fields=id,color', 'GET');
+$response = json_decode(Route::dispatch($request)->getContent());
+```
+
+***
+####laravel 依赖注入的时候传递参数
+```
+熟悉Laravel人都知道Laravel的Service Provider，但是如果要注入的类需要初始化参数呢？这个时候可以通过ServiceProvider中的register来绑定实现。
+
+public function register()
+{
+    $this->app->bind('Bloom\Security\ChannelAuthInterface', function()
+    {
+        $request = $this->app->make(Request::class);
+        $guard   = $this->app->make(Guard::class);
+
+        return new ChannelAuth($request->input('channel_name'), $guard->user());
+    });
+}
+```
+
+***
+####laravel share cookie between domains
+```
+// app/Http/Middleware/EncryptCookies.php
+protected $except = [
+    'shared_cookie'
+
+];
+
+Cookie::queue('shared_cookie', 'my_shared_value', 10080, null, '.example.com');
+```
+
+***
+####laravel Eloquent 专题，，一个个贴太累了
+```
+Simple incrementing & Decrementing
+
+$customer = Customer::find($customer_id);
+$loyalty_points = $customer->loyalty_points + 50;
+$customer->update(['loyalty_points' => $loyalty_points]);
+
+// adds one loyalty point
+
+Customer::find($customer_id)->increment('loyalty_points', 50);
+// subtracts one loyalty point
+
+Customer::find($customer_id)->decrement('loyalty_points', 50);
+
+
+
+```
+
+***
+####laravel Eloquent having raw
+```
+SELECT *, COUNT(*) FROM products GROUP BY category_id HAVING count(*) > 1;
+
+DB::table('products')
+    ->select('*', DB::raw('COUNT(*) as products_count'))
+    ->groupBy('category_id')
+    ->having('products_count', '>', 1)
+    ->get();
+Product::groupBy('category_id')->havingRaw('COUNT(*) > 1')->get();
+```
 
 
 ***
@@ -1338,6 +1539,43 @@ html {
 ####nginx access_log 设置buffer
 ```
 access_log /data/wwwlogs/bxjtest.snewfly.com_nginx.log combined buffer=2k;
+
+```
+
+***
+####PHP trait 
+```
+就是代码块的继承
+当前类成员覆盖trait的成员,trait覆盖基类的成员
+
+通过逗号分隔，在 use 声明列出多个 trait，可以都插入到一个类中。
+trait Hello {
+    public function sayHello() {
+        echo 'Hello ';
+    }
+}
+
+trait World {
+    public function sayWorld() {
+        echo 'World';
+    }
+}
+
+class MyHelloWorld {
+    use Hello, World;
+    public function sayExclamationMark() {
+        echo '!';
+    }
+}
+
+$o = new MyHelloWorld();
+$o->sayHello();
+$o->sayWorld();
+$o->sayExclamationMark();//Hello World!
+
+如果两个 trait 都插入了一个同名的方法，如果没有明确解决冲突将会产生一个致命错误。
+
+
 
 ```
 
