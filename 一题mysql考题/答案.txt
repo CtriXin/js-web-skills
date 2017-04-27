@@ -1,0 +1,38 @@
+EXPLAIN SELECT q.`stu_id`,q.garde AS '计算机成绩' ,p.`garde` AS '英语成绩' FROM student q LEFT JOIN student p ON q.`stu_id` =p.`stu_id` WHERE q.stu_id IN (SELECT a.stu_id FROM student a WHERE a.c_name = ('计算机' OR '英语') AND EXISTS (SELECT * FROM student WHERE c_name = '英语' AND stu_id = a.`stu_id`) AND EXISTS (SELECT * FROM student WHERE c_name = '计算机' AND stu_id = a.`stu_id` AND garde IS NOT NULL) GROUP BY stu_id HAVING COUNT(c_name) > 1) AND q.c_name = '计算机' AND q.garde >0 AND p.`c_name`='英语' AND p.`garde`>0 LIMIT 0, 1000;
+
+
+SELECT 
+    q.`stu_id`,q.garde AS '计算机成绩' ,p.`garde` AS '英语成绩'
+  FROM
+    student q 
+    LEFT JOIN student p 
+    ON q.`stu_id` =p.`stu_id`
+  WHERE q.stu_id IN 
+      (SELECT 
+        a.stu_id 
+      FROM
+        student a 
+      WHERE a.c_name = ('计算机' 
+          OR '英语') 
+        AND EXISTS 
+        (SELECT 
+          * 
+        FROM
+          student 
+        WHERE c_name = '英语' 
+          AND stu_id = a.`stu_id`) 
+        AND EXISTS 
+        (SELECT 
+          * 
+        FROM
+          student 
+        WHERE c_name = '计算机' 
+          AND stu_id = a.`stu_id`
+          AND garde IS NOT NULL) 
+      GROUP BY stu_id 
+      HAVING COUNT(c_name) > 1)
+    AND q.c_name = '计算机' AND q.garde >0
+    AND p.`c_name`='英语' AND p.`garde`>0
+
+更简单的方法：
+可以2次innerjoin 的结果再innerjoin一次

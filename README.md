@@ -20,6 +20,35 @@ echo mb_strlen($str,'gbk').'<br>';//8
 echo mb_strlen($str,'gb2312').'<br>';//10  
 ```
 ***
+####getBoundingClientRect
+```
+![demo](http://images.cnitblog.com/blog2015/678562/201504/262132219001037.jpg)
+ClientRect {top: 788.578125, right: 1525.484375, bottom: 820.578125, left: 600.828125, width: 924.65625…}
+
+```
+
+***
+####git sourcetree 想回滚未提交的文件，可以选中文件，右键--移除--再右键--丢弃
+
+***
+####git sourcetree 想回滚到某个版本，可以双击版本--点击确定
+
+***
+####array_map() 函数将用户自定义函数作用到数组中的每个值上，并返回用户自定义函数作用后的带有新值的数组。
+```
+
+if (get_magic_quotes_gpc()) {
+  function stripslashes_deep($value){ 
+    $value = is_array($value) ? array_map('stripslashes_deep', $value) : stripslashes($value);
+  return $value;
+}
+  $_POST = array_map('stripslashes_deep', $_POST);
+  $_GET = array_map('stripslashes_deep', $_GET);
+  $_COOKIE = array_map('stripslashes_deep', $_COOKIE);
+}
+```
+
+***
 ####PHP7专题
 ```
 
@@ -933,6 +962,46 @@ DB::connection()->enableQueryLog();
             print_r(
     DB::getQueryLog()
 ```
+***
+####laravel 数据库锁
+```
+首先，laravel事务有两种写法
+1、
+$model=null;
+DB::connection()->enableQueryLog();
+DB::transaction(function() use(&$model){
+            $model = Merchant::lockForUpdate()->find(5);
+            //$model = Merchant::sharedLock()->find(5);
+            $model->balance=$model->balance+1;
+            $model->save();
+            var_dump(DB::getQueryLog());
+        });
+2、
+DB::beginTransaction();
+$model = Merchant::lockForUpdate()->find(5);
+$model->balance=$model->balance+1;
+$model->save();
+var_dump(DB::getQueryLog());
+DB::commit();
+
+其次
+lockForUpdate()
+sharedLock()执行行锁（需要引擎innodb（且使用主键）,因为myisan会变成表锁，两种类型最主要的差别就是Innodb 支持事务处理与外键和行级锁）
+http://blog.csdn.net/xifeijian/article/details/20316775
+
+lock for update的加锁方式无非是比lock in share mode的方式多阻塞了select...lock in share mode的查询方式，并不会阻塞快照读。
+http://blog.csdn.net/cug_jiang126com/article/details/50544728
+在我看来，SELECT ... LOCK IN SHARE MODE的应用场景适合于两张表存在关系时的写操作，拿mysql官方文档的例子来说，一个表是child表，一个是parent表，假设child表的某一列child_id映射到parent表的c_child_id列，那么从业务角度讲，此时我直接insert一条child_id=100记录到child表是存在风险的，因为刚insert的时候可能在parent表里删除了这条c_child_id=100的记录，那么业务数据就存在不一致的风险。正确的方法是再插入时执行select * from parent where c_child_id=100 lock in share mode,锁定了parent表的这条记录，然后执行insert into child(child_id) values (100)就ok了。
+总结：lock in share mode适用于两张表存在业务关系时的一致性要求，for  update适用于操作同一张表时的一致性要求。
+
+
+
+锁多个表
+$queue = Users::with(array('email'=>function($query){
+            $query->lockForUpdate();
+    })->lockForUpdate()
+    ->get()
+```
 
 ***
 ####laravel 分页
@@ -950,6 +1019,27 @@ $pagination = $query->with('address')->paginate($perPage);
         'filter' => request()->filter,
         'per_page' => request()->per_page
     ]);
+```
+***
+####laravel 配置相关、缓存配置
+```
+php artisan config:cache
+php artisan config:clear
+
+获取配置
+可以使用 config 辅助函数获取你的设置值，设置值可以通过「点」语法来获取，其中包含了文件与选项的名称。你也可以指定一个默认值，当该设置选项不存在时就会返回默认值：
+
+$value = config('app.timezone');
+若要在运行期间修改设置值，请传递一个数组至 config 辅助函数：
+
+config(['app.timezone' => 'America/Chicago']);
+
+
+获取ENV文件的值
+env('APP_DEBUG', false)
+
+http://d.laravel-china.org/docs/5.4/configuration#configuration-caching
+
 ```
 
 ***
@@ -1226,6 +1316,42 @@ $bAverage = round($bTotal/$total);
 2 $admin_users = User::where('role', 'admin')->get(['id','device_id as aaa']);
 3 $user = User::find($user_id, ['name']);
 ```
+***
+####laravel 缓存查询
+```
+$users = DB::table('users')->remember(10)->get();
+在本例中,查询的结果将为十分钟被缓存。查询结果缓存时,不会对数据库运行,结果将从默认的缓存加载驱动程序指定您的应用程序。
+如果您使用的是支持缓存的司机,还可以添加标签来缓存:
+$users = DB::table('users')->cacheTags(array('people', 'authors'))->remember(10)->get();
+
+```
+
+***
+####laravel 加锁
+```
+    public function t()
+    {
+            $model = Merchant::where('id', 5)->lockForUpdate()->first();
+            sleep(15);
+//        $model->increment('balance');//实测不commit也一样要等函数执行完毕才执行t2
+        return $this->toJson(0,'',$model->balance);
+    }
+public function t2()
+    {
+        $model = Merchant::where('id', 5)->lockForUpdate()->first();
+        $model->increment('balance');
+        return $this->toJson(0,'',$model->balance);//确实在t执行完才执行t2接口的返回
+    }
+
+
+```
+
+***
+####laravel Eloquent 只获取第一个对象的方法
+```
+$merchant=Merchant::where('openid',$re_openid)->first();
+```
+
 ***
 ####laravel Eloquent date filtering
 ```
@@ -4616,6 +4742,11 @@ $str='在1：03发送：哈哈';
 $re='';
 preg_match('#(每天)?在([^时]*)(时)?发送(消息)?：(.*)#',$str,$re);
 print_r($re);
+
+
+3、a.lua,AAAa.lua,B.lua,a.lua,c.lua,a.lua 我想匹配a.lua但不包含AAAa.lua之类的
+(?:,|^)(a\.lua)
+
 
 ```
 
