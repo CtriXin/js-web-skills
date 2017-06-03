@@ -9,8 +9,9 @@ js web 相关总结，乱七八糟,难度不分先后，随意插入的
 
 [用JS在浏览器中创建下载文件](http://www.jb51.net/article/47723.htm)
 
+
 ***
-####细说PHP中strlen和mb_strlen的区别
+#### 细说PHP中strlen和mb_strlen的区别
 ```
 //测试时文件的编码方式要是UTF8  
 $str='中文a字1符';  
@@ -19,6 +20,244 @@ echo mb_strlen($str,'utf8').'<br>';//6
 echo mb_strlen($str,'gbk').'<br>';//8  
 echo mb_strlen($str,'gb2312').'<br>';//10  
 ```
+
+***
+#### Linux下 crontab实现秒级定时任务的两种方案
+```
+1、执行的脚本内实现，如循环之类的
+2、crontab -e 
+* * * * * /bin/date
+* * * * * sleep 20; /bin/date 
+* * * * * sleep 40; /bin/date
+
+说明：需要将/bin/date更换成你的命令即可
+
+这种做法去处理隔几十秒的定时任务还好，要是每1秒运行一次就得添加60条记录。。。如果每秒运行还是用方案一吧。
+
+```
+
+***
+#### TIMESTAMP vs DATETIME 到底我该如何选择
+```
+日期范围
+TIMESTAMP 支持从’1970-01-01 00:00:01′ 到 ’2038-01-19 03:14:07′ UTC. 这个时间可能对目前正在工作的人来说没什么问题，可以坚持到我们退休，但对一些年轻的读者，就会有 Bug2K+38 的问题。
+DATETIME 从 ’1000-01-01 00:00:00′ 直到’9999-12-31 23:59:59′.
+
+存储方面的比较
+TIMESTAMP 需要 4 字节的存储空间，而 DATETIME 则需要 8 字节
+
+```
+
+***
+#### 运维相关姿势
+```
+echo ok > test.txt ；把 ok 字符覆盖 test.txt 内容，>表示追加并
+覆盖的意思。
+>>两个大于符号，表示追加，echo ok >> test.txt,表示向 test.txt 文
+件追加 OK 字符，不覆盖原文件里的内容。
+
+more 查看文件内容，分页查看，cat 是全部查看，如果篇幅很多，只能看到最后的篇幅
+tail -100 1.txt 查看最后一百条
+
+
+```
+***
+#### linux shell 相关姿势
+```
+-f 判断文件是否存在 eg: if [ -f filename ] 中括号之间必须要空格
+-d 判断目录是否存在 eg: if [ -d dir ]
+-eq  等于 应用于：整型比较
+-ne  不等于 应用于：整型比较
+-lt 小于 应用于：整型比较
+-gt  大于 应用于：整型比较
+-le  小于或等于 应用于：整型比较
+-ge  大于或等于 应用于：整型比较
+-a 双方都成立（and） 逻辑表达式 –a 逻辑表达式
+-o 单方成立（or） 逻辑表达式 –o 逻辑表达式
+-z 空字符串
+
+find /var/log -name "*.log"` 将制定目录.log文件压缩到一个文件
+#!/bin/sh
+for i in `find -name "*.log"`
+do
+tar -uf 2017log.tgz $i
+done
+# tar -cf all.tar *.jpg
+这条命令是将所有.jpg的文件打成一个名为all.tar的包。-c是表示产生新的包，-f指定包的文件名。
+
+# tar -rf all.tar *.gif
+这条命令是将所有.gif的文件增加到all.tar的包里面去。-r是表示增加文件的意思。
+
+# tar -uf all.tar logo.gif
+这条命令是更新原来tar包all.tar中logo.gif文件，-u是表示更新文件的意思。+0
+0
+
+创建账号
+useradd bajian
+passwd bajian
+
+
+..
+
+```
+
+
+***
+#### nginx的access日志按日按时切割的实现方法
+```
+# /bin/bash
+now_logs_path="/opt/modules/nginx/logs/"
+new_logs_path="/opt/modules/nginx/logs/livelogs/"
+log_name="access.log"
+log_pre="access"
+directory=${new_logs_path}$(date +%Y%m)
+if [ ! -d ${directory} ]; then
+  mkdir -p ${directory}
+fi
+mv ${now_logs_path}${log_name} ${directory}/${log_pre}$(date +%d%H).log
+kill -USR1 `cat /opt/modules/nginx/logs/nginx.pid`
+echo ${directory}/${log_pre}$(date +%d%H).log     
+上面会将access日志按时转移到livelogs文件里中，并且会按月归类存放。注意：代码中的kill -USR1并不是杀死nginx进程，是发送信号给nginx主进程，nginx可以重新生成access.log。然后再在定时脚本里加上个定时任务：
+0 * * * * /opt/modules/nginx/nginxlogshell >> /opt/modules/nginx/nginxlogshell.log
+
+```
+
+***
+#### nginx 修改完配置记得先测试再重启[nginx -t]
+```
+nginx -t
+nginx: the configuration file /usr/local/nginx/conf/nginx.conf syntax is ok
+nginx: configuration file /usr/local/nginx/conf/nginx.conf test is successful
+ service nginx restart
+```
+***
+#### linux之sed用法
+```
+sed是一个很好的文件处理工具，本身是一个管道命令，主要是以行为单位进行处理，可以将数据行进行替换、删除、新增、选取等特定工作，下面先了解一下sed的用法
+
+删除某行
+     [root@localhost ruby] # sed '1d' ab              #删除第一行 
+     [root@localhost ruby] # sed '$d' ab              #删除最后一行
+     [root@localhost ruby] # sed '1,2d' ab           #删除第一行到第二行
+     [root@localhost ruby] # sed '2,$d' ab           #删除第二行到最后一行
+
+　　显示某行
+.    [root@localhost ruby] # sed -n '1p' ab           #显示第一行 
+     [root@localhost ruby] # sed -n '$p' ab           #显示最后一行
+     [root@localhost ruby] # sed -n '1,2p' ab        #显示第一行到第二行
+     [root@localhost ruby] # sed -n '2,$p' ab        #显示第二行到最后一行
+     http://www.cnblogs.com/dong008259/archive/2011/12/07/2279897.html
+```
+
+***
+#### laravel的事件总结
+```
+    //总结： laravel的事件中EventServiceProvider可以分成$listen 和 $subscribe方式
+    //$listen : 对应于事件-》监听者（handle(SomeEvent $event)中处理），一个事件可以对应多个监听者，监听者通过handle 返回false可以阻止事件向下传递
+    //$subscribe : 对应于 观察者-》监听的事件（subscribe($events) 中映射事件和处理方法），一个观察者可以订阅多个事件
+
+
+```
+
+***
+#### redis RDB和AOF持久化对比
+```
+http://www.cnblogs.com/rollenholt/p/3874443.html
+```
+
+***
+#### grep 命令
+```
+-a ：将 binary 文件以 text 文件的方式搜寻数据
+-c ：计算找到 '搜寻字符串' 的次数
+-i ：忽略大小写的不同，所以大小写视为相同
+-n ：顺便输出行号
+-v ：反向选择，亦即显示出没有 '搜寻字符串' 内容的那一行！
+-v或许比较好用，如redis-cli -h host -p port client list | grep -v "omem=0"，来查询输出缓冲区不为0的客户端连接
+
+```
+***
+#### nohup 命令
+```
+Unix/Linux下一般想让某个程序在后台运行，很多都是使用 & 在程序结尾来让程序自动运行。比如我们要运行mysql在后台： 
+ /usr/local/mysql/bin/mysqld_safe --user=mysql &
+但是我们很多程序并不象mysqld一样可以做成守护进程，可能我们的程序只是普通程序而已，一般这种程序即使使用 & 结尾，如果终端关闭，那么程序也会被关闭。
+
+nohup php /home/hgx/goupianyi/update_goods.php
+nohup: ignoring input and appending output to ‘nohup.out’
+
+
+```
+
+***
+#### awk 命令
+```
+http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858470.html
+
+总结：awk工作流程是这样的：读入有'\n'换行符分割的一条记录，然后将记录按指定的域分隔符划分域，填充域，$0则表示所有域,$1表示第一个域,$n表示第n个域。默认域分隔符是"空白键" 或 "[tab]键",所以$1表示登录用户，$3表示登录用户ip,以此类推。
+
+1、last -n 5 | awk  '{print $1}' 只显示最近登录的5个帐号
+2、cat /etc/passwd |awk  -F ':'  '{print $1}'   只显示/etc/passwd的账户 【-F指定域分隔符为':'】
+3、cat /etc/passwd |awk  -F ':'  '{print $1"\t"$7}'  只显示/etc/passwd的账户和账户对应的shell,而账户与shell之间以tab键分割
+4、cat /etc/passwd |awk  -F ':'  'BEGIN {print "name,shell"}  {print $1","$7} END {print "blue,/bin/nosh"}'
+只显示/etc/passwd的账户和账户对应的shell,而账户与shell之间以逗号分割,而且在所有行添加列名name,shell,在最后一行添加"blue,/bin/nosh"。
+awk工作流程是这样的：先执行BEGING，然后读取文件，读入有/n换行符分割的一条记录，然后将记录按指定的域分隔符划分域，填充域，$0则表示所有域,$1表示第一个域,$n表示第n个域,随后开始执行模式所对应的动作action。接着开始读入第二条记录······直到所有的记录都读完，最后执行END操作。
+
+5、awk -F: '/root/' /etc/passwd 搜索/etc/passwd有root关键字的所有行，这种是pattern的使用示例，匹配了pattern(这里是root)的行才会执行action(没有指定action，默认输出每行的内容)。
+搜索支持正则，例如找root开头的: awk -F: '/^root/' /etc/passwd
+
+6、awk -F: '/root/{print $7}' /etc/passwd     搜索/etc/passwd有root关键字的所有行，并显示对应的shell
+7、awk  -F ':'  '{print "filename:" FILENAME ",linenumber:" NR ",columns:" NF ",linecontent:"$0}' /etc/passwd awk有许多内置变量用来设置环境信息，这些变量可以被改变
+filename:/etc/passwd,linenumber:1,columns:7,linecontent:root:x:0:0:root:/root:/bin/bash
+8、awk '{count++;print $0;} END{print "user count is ", count}' /etc/passwd   统计/etc/passwd的账户人数、除了awk的内置变量，awk还可以自定义变量。
+count是自定义变量。之前的action{}里都是只有一个print,其实print只是一个语句，而action{}可以有多个语句，以;号隔开。
+初始化变量 awk 'BEGIN {count=0;print "[start]user count is ", count} {count=count+1;print $0;} END{print "[end]user count is ", count}' /etc/passwd
+
+8、ls -l |awk 'BEGIN {size=0;} {size=size+$5;} END{print "[end]size is ", size}' 统计某个文件夹下的文件占用的字节数：[end]size is  8657198
+9、ls -l |awk 'BEGIN {size=0;} {size=size+$5;} END{print "[end]size is ", size/1024/1024,"M"}' 如果以M为单位显示:[end]size is  8.25889 M
+
+实战匹配nginx 日志获取【linux下对nginx访问日志进行搜索筛选过滤去重统计分析】
+awk '/- - [20/Sep/2016:/{print $0}' joke.log >b.log  匹配出当天日志 $0表示整行
+awk '/\/api\/v1\/user\/login/ {print $1"\t"$7}' sslapi.goupianyi888.com_nginx.log >a.log
+awk '!a[$0]++' a.log > d.log //a[$0]以每行内容为index的一个hash表，初值为空；由于执行了++，它的初值变成了0，而！0=1,1为真；如果行内容重复，它的值增加后进行！否运算变成假。
+扩展到 !a[$1]++ 或者 !a[$2]++等等可以指定第几列去重复
+
+```
+
+***
+#### nginx try_files
+```
+语法：try_files file ... uri 或 try_files file ... = code
+默认值：无
+作用域：server location
+
+其作用是按顺序检查文件是否存在，返回`第一个找到`的文件或文件夹（结尾加斜线表示为文件夹），如果所有的文件或文件夹都找不到，会进行一个内部重定向到最后一个参数。
+
+需要注意的是，只有最后一个参数可以引起一个内部重定向，之前的参数只设置内部URI的指向。最后一个参数是回退URI且必须存在，否则会出现内部500错误。命名的location也可以使用在最后一个参数中。与rewrite指令不同，如果回退URI不是命名的location那么$args不会自动保留，如果你想保留$args，则必须明确声明。
+
+例如laravel配置
+location / {
+    try_files $uri $uri/ /index.php?$query_string;
+}
+如/test?a=111&b=22
+意思是如果在root目录（public）下，找不到具体的文件(/test)，就寻找（/test/）文件夹，前两个指向都找不到的话，就重定向到/index.php?a=111&b=22
+
+
+```
+***
+#### nginx location的匹配命令
+```
+~     #波浪线表示执行一个正则匹配，区分大小写
+~*    #表示执行一个正则匹配，不区分大小写
+^~    #^~表示普通字符匹配，如果该选项匹配，只匹配该选项，不匹配别的选项，一般用来匹配目录
+=     #进行普通字符精确匹配
+@     #"@" 定义一个命名的 location，使用在内部定向时，例如 error_page, try_files
+!~    #大小写敏感不匹配 
+!~*   #大小写不敏感不匹配
+
+```
+
+
 ***
 ####getBoundingClientRect
 ```
@@ -986,7 +1225,7 @@ DB::commit();
 
 其次
 lockForUpdate()
-sharedLock()执行行锁（需要引擎innodb（且使用主键）,因为myisan会变成表锁，两种类型最主要的差别就是Innodb 支持事务处理与外键和行级锁）
+sharedLock()//执行行锁（需要引擎innodb（且使用主键）,因为myisan会变成表锁，两种类型最主要的差别就是Innodb 支持事务处理与外键和行级锁）
 http://blog.csdn.net/xifeijian/article/details/20316775
 
 lock for update的加锁方式无非是比lock in share mode的方式多阻塞了select...lock in share mode的查询方式，并不会阻塞快照读。
@@ -994,7 +1233,8 @@ http://blog.csdn.net/cug_jiang126com/article/details/50544728
 在我看来，SELECT ... LOCK IN SHARE MODE的应用场景适合于两张表存在关系时的写操作，拿mysql官方文档的例子来说，一个表是child表，一个是parent表，假设child表的某一列child_id映射到parent表的c_child_id列，那么从业务角度讲，此时我直接insert一条child_id=100记录到child表是存在风险的，因为刚insert的时候可能在parent表里删除了这条c_child_id=100的记录，那么业务数据就存在不一致的风险。正确的方法是再插入时执行select * from parent where c_child_id=100 lock in share mode,锁定了parent表的这条记录，然后执行insert into child(child_id) values (100)就ok了。
 总结：lock in share mode适用于两张表存在业务关系时的一致性要求，for  update适用于操作同一张表时的一致性要求。
 
-
+面向程序员的“锁”：乐观锁，悲观锁
+面向mysql的锁：共享锁lock in share mode(S锁)，排它锁 for update(X锁)
 
 锁多个表
 $queue = Users::with(array('email'=>function($query){
@@ -1315,6 +1555,9 @@ $bAverage = round($bTotal/$total);
 1 $users = User::all(['name']);
 2 $admin_users = User::where('role', 'admin')->get(['id','device_id as aaa']);
 3 $user = User::find($user_id, ['name']);
+
+$fileUploadVoteRecords=FileUploadVoteRecord::where(['openid'=>$openid])->get()->toarray();
+        $fileUploadVoteRecords=array_pluck($fileUploadVoteRecords,'file_upload_id');
 ```
 ***
 ####laravel 缓存查询
@@ -1713,6 +1956,35 @@ iptables -I INPUT -p tcp -m tcp --dport 3306 -j ACCEPT
 
 iptables -L -n
 
+```
+
+***
+####redis 允许外网链接
+```
+1、禁止所有的redis请求
+iptables -I INPUT -p TCP --dport 6379 -j DROP
+2、开放给某IP访问请求,如192.168.5.100：
+iptables -I INPUT -s 192.168.5.100 -p TCP --dport 6379 -j ACCEPT
+然后将/etc/redis/redis.conf中的bind注释掉
+重启redis，ok！
+
+测试链接：
+redis-cli -h zhjy.wechat.hzsb365.com 
+报错分析
+Could not connect to Redis at xxx: No route to host(防火墙没设置白名单)
+Could not connect to Redis at xxx: Connection refus(redis bind没注释掉)
+参考了：
+http://www.04007.cn/article/151.html
+http://blog.csdn.net/hel12he/article/details/46911159
+http://www.2cto.com/database/201502/376288.html
+
+有时候为了安全起见，redis一般都是监听127.0.0.1 但是有时候又有同网段能连接的需求，当然可以绑定0.0.0.0 用iptables来控制访问权限，或者设置redis访问密码来保证数据安全
+
+设置密码：
+/etc/redis.conf中，打开配置文件找到并打开注释，再重启生效，或者配置热修改`config set requirepass my_redis  `
+#requirepass foobared  
+密码登录：
+redis-cli -h 127.0.0.1 -p 6379 -a foobared  
 ```
 
 ***
